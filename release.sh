@@ -18,7 +18,7 @@ synchronizeVersions() {
     echo "synchronizing all versions to [$VERSION]"
     echo ""
 
-
+    DIRECTORIES=`find . -type d -maxdepth 1 -mindepth 1`
     for DIRECTORY in $DIRECTORIES
     do
         if [ $DIRECTORY == ./metridoc-grails* ]; then
@@ -33,6 +33,7 @@ synchronizeVersions() {
     done
 
 }
+
 DIRECTORIES=`find . -type d -maxdepth 1 -mindepth 1`
 
 echo ""
@@ -49,14 +50,29 @@ do
     fi
 done
 
-synchronizeVersions
-
+git checkout master
 VERSION=`cat VERSION`
 
 if grep -q "\-SNAPSHOT" "VERSION"; then
     echo "VERSION file has SNAPSHOT in it, skipping release"
     exit 0
 fi
+
+synchronizeVersions
+
+echo ""
+echo "Testing all grails projects for release"
+echo ""
+
+for DIRECTORY in $DIRECTORIES
+do
+    if [ $DIRECTORY == ./metridoc-grails* ]; then
+        echo $DIRECTORY
+        cd $DIRECTORY
+        systemCall "./grailsw --refresh-dependencies --non-interactive tA"
+        cd -
+    fi
+done
 
 echo ""
 echo "Releasing ${VERSION} to GitHub"
