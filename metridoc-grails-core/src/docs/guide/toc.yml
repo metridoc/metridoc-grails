@@ -1,0 +1,23 @@
+introduction:
+  title: Introduction
+gettingStarted:
+  title: Getting Started
+  requiredSoftware: Required Software
+  requiredExperience: Required Experience
+  firstMetridocProject: First MetriDoc Project
+  developingMetridoc: Developing MetriDoc
+  upgradingMetridoc: Upgrading MetriDoc
+configuration:
+  title: Configuration
+metridocJobApi:
+  title: Job Api
+metridocPlugins:
+  title: Metridoc Plugins
+  availablePlugins: Available Plugins
+  overridingPluginArtifacts: Overriding Plugin Artifacts
+  writingYourOwnPlugin: Writing Your Own Plugin
+  creatingJobs: Creating and running jobs
+metridocSecurity:
+  title: Metridoc Security
+  securityBasics: Security Basics
+  securityConfiguration: Security Configuration

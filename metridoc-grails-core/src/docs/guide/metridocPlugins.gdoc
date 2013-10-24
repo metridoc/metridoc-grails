@@ -1,0 +1,15 @@
+MetriDoc is a collection of grails plugins that you can install depending on your needs.  To see what plugins
+are available, simply run
+
+{code}
+grails list-plugins -repository=metridocRepo
+{code}
+
+{note}
+This assumes that you are using the starter project, otherwise you need to reference the code repository in your
+BuildConfig.groovy file with the line
+{code}
+grailsRepo "https://metridoc.googlecode.com/svn/plugins/", "metridocRepo"
+{code}
+Please see [BuildConfig|http://metridoc.googlecode.com/svn/trunk/startup/metridoc/grails-app/conf/BuildConfig.groovy] for an example
+{note}

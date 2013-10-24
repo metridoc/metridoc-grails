@@ -1,0 +1,10 @@
+h1. run-job
+
+h2. Usage
+{code}
+grails updates-metridoc-version <job-name> [-includeSnapshots]
+{code}
+
+After creating a metridoc project, you might have noticed that within the @BuildConfig.groovy@ file, that the metridoc
+version is surrounded by templating comments.  This script leverages this to update the version of the metridoc-core
+plugin to the most recent one.  If you would like to use the most recent snapshot use the -includeSnapshots flag

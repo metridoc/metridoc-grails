@@ -1,0 +1,14 @@
+MetriDoc uses the web framework [Grails|http://www.grails.org].  Grails is similar to the web framework ruby on rails framework,
+but sits on top of the Groovy language.  Anyone with Java web experience, or experience in rapid development
+environments such as Rails or Django should pick up Grails quickly.
+
+Here are some Grails resources:
+
+* [Grails Website|http://www.grails.org]
+* [Free OFPS Oreily online book|http://ofps.oreilly.com/titles/9781449323936/index.html]
+* [Grails User Manual|http://grails.org/doc/latest/]
+* [Tutorials|http://grails.org/Tutorials]
+* [Grails in Action|http://www.manning.com/gsmith/]
+
+
+

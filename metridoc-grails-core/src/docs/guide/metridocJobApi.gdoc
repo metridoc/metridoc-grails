@@ -1,0 +1,218 @@
+The metridoc job api is essentially a collection of technologies that are ideal for job / task oriented workflows.
+It tries to merge the simplicity of scripting and the maintainability of java by using straight groovy, Apache Camel and
+its own pipeline workflow based on grails' build system.
+
+A job can either be embedded and scheduled in a grails application, or it can be run via the command line and scheduled
+through some other mechanism such as cron.  To create a job, first run @grails create-plugin <plugin name>@.
+To add the metridoc libraries we need to add a couple lines to the BuildConfig.groovy file.  In the repositories section
+put:
+
+{code}
+repositories {
+    ...
+    grailsRepo "https://metridoc.googlecode.com/svn/plugins/"
+    ...
+}
+{code}
+
+In the plugins section put:
+
+{code}
+plugins {
+    ...
+    compile(\":metridoc-core:0.52-SNAPSHOT\")
+    ...
+}
+{code}
+
+{note}
+Do not add the dependency to the @dependency {...}@ block.  You will get an error if you do this
+{note}
+
+After adding the necessary information to the BuildConfig.groovy file, run @grails compile@ to download all the metridoc
+libraries.
+
+Grails creates a lot of files and folders.  If you just need to create a job
+without a web application, you can run @grails configure-for-job-only@.  The script will remove all unnecessary files
+and folders in addition to prompting for a job name.  After running the script, you will have an infrastructure to
+create metridoc jobs without the clutter.  If you named the job @foo@, your file structure should look something like:
+
+{code}
+|── FooGrailsPlugin.groovy
+├── application.properties
+├── grails-app
+│   ├── conf
+│   │   ├── BuildConfig.groovy
+│   │   ├── Config.groovy
+│   │   ├── DataSource.groovy
+│   │   └── UrlMappings.groovy
+│   ├── i18n
+│   │   └── shiro.properties
+│   ├── jobs
+│   │   └── foo
+│   │       └── FooJob.groovy
+│   └── migrations
+├── target
+├── test
+│   ├── integration
+│   └── unit
+└── web-app
+    ├── META-INF
+    └── WEB-INF
+        ├── applicationContext.xml
+        ├── sitemesh.xml
+        └── tld
+            ├── c.tld
+            ├── fmt.tld
+            ├── grails.tld
+            └── spring.tld
+{code}
+
+all information under @web-app@ is grails specific.  Most everything you will work with is under the @jobs@ and @config@
+folders.  From this point forward, running @grails create-metridoc-job@ will create new metridoc jobs that
+extend the helper class MetridocJob, while running @create-job@ will create a basic groovy job without the extra
+metridoc functionality.
+
+To schedule the job, create a static triggers field and add appropriate values as described [here|http://grails-plugins.github.com/grails-quartz/guide/scheduling.html],
+and implement doExecute(), or execute() depending on whether you are creating a MetridocJob or just a normal Grails Job
+
+{note}
+The documentation is for the grails job plugin which depends on quartz 1.  MetriDoc actually uses the quartz2 grails plugin
+which is more or less compatible with the quartz 1 version.  Just referencing the older one since the documentation
+is a little better
+{note}
+
+While implementing doExecute you can enjoy the power of groovy, which has tools for sql, and structured text
+parsing among other things.  In addition MetridJob provides a couple of helpful methods and workflows
+
+h3. Targets
+
+A target is a unit of work that should only occur once.  It can depend on other targets as well to construct a pipeline
+of work.  Generally a MetridocJob will be executed once to gather all targets, and then again to actually execute the
+work.  Each job has a default target which will be called once the first pass through has happened.  Here is a simple
+hello world job:
+
+{code}
+class HelloWorldJob extends MetridocJob {
+
+    def doExecute() {
+        target(default: "say hello") {
+            log.info "hello world!"
+        }
+    }
+}
+{code}
+
+When executed, the job will run doExecute to collect all targets, then run the @default@ target to print @hello world!@.
+To build a pipeline, simply add multiple targets and use the @depends@ method.  So consider this:
+
+{code}
+class HelloWorldJob extends MetridocJob {
+
+    def doExecute() {
+
+        target(default: "say hello") {
+            depends("runMeFirst")
+            log.info "hello world!"
+        }
+
+        target(runMeFirst: "I run first!") {
+            log.info "running before saying hello"
+        }
+    }
+}
+{code}
+
+In this case runMeFirst logs before default does because of the depends method.  Now what happens if we do:
+
+{code}
+class HelloWorldJob extends MetridocJob {
+
+    def doExecute() {
+
+        target(default: "say hello") {
+            depends("runB", "runA")
+
+        }
+
+        target(runA: "run A") {
+            log.info "running A"
+        }
+
+        target(runB: "run B") {
+            depends("runA")
+            log.info "running B"
+        }
+    }
+}
+{code}
+
+order of logging would be @runA -> runB -> default@.  Despite @default@ depending on @runA@, since @runA@ was already called
+we will not call it again.  @depends@ creates task dependencies while guarantying that none of them run more than once.
+If you need to run a target regardless of whether it was ran before or not, do @targetMap.<target name>.call()@.  To
+reuse targets across jobs you can store the targets in scripts and import them using @includeTargets@.
+
+h3. Routing
+
+MetridocJob also provides a couple of routing features from Apache Camel.  To run a route, use
+the @runRoute@ method and everything contained within the passed closure will be the body of the configure method in
+[RouteBuilder|http://camel.apache.org/maven/current/camel-core/apidocs/org/apache/camel/builder/RouteBuilder.html].
+MetridocJob will create a CamelContext instance, add the route, and wait until all messages are
+processed by the route.  Below are some examples
+
+h4. Migrating a table to another table
+
+
+{code}
+class MigrationJob extends MetridocJob {
+    def doExecute() {
+        runRoute {
+            from("sqlplus:tableA?dataSource=dataSourceA").to("sqlplus:tableB?dataSource=dataSourceB")
+        }
+    }
+}
+{code}
+
+dataSources or services will be available to the apache camel route.  Even any fields you set within MetridocJob.
+For instance, say you want to consume some files from a directory, you can create a file filter as a field and use it
+
+{code}
+class FileJob extends MetridocJob {
+    def fooFilter = [
+        accept: {GenericFile file ->
+            return file.fileName.contains("foo")
+        }
+    ]
+
+    def doExecute() {
+        runRoute {
+            from("file:/user/foo/files?filter=#fooFilter").process{Exchange exchange ->
+                def fileName = excange.in.body.name
+                log.info "processing file $fileName"
+            }
+        }
+    }
+}
+{code}
+
+h4. Metridoc additions to Apache Camel
+
+We added the @sqlplus@ component to easily migrate data between tables.  The from part does a select * on the whatever
+table is provided and transfers a @ResultSet@ within the exchange.  The @to@ component can accept a list of maps,
+a ResultSet or just a map, and inserts the data into the destination table.
+
+If you are using runRoute with a closure, there are a few additions to the Apache Camel DSL worth mentioning
+
+*process* - You can process an Exchange with a Closure instead of implementing a Processor
+
+*filter* - You can process a filter with a Closure instead of implementing a Predicate
+
+*when* - process a condition with a closure
+
+*splitByLine* - splits a text file by line
+
+*aggregateByBody* - aggregates the body of incoming exchanges into one exchange who has a list of all incoming exchanges
+in its body
+
+The javadoc for the extension is [here|http://metridoc.googlecode.com/svn/trunk/metridoc-core/target/docs/gapi/metridoc/camel/CamelExtensions.html]
+

@@ -1,0 +1,16 @@
+h1. configure-for-metridoc-application
+
+h2. Usage
+{code}
+grails configure-for-metridoc-application
+{code}
+
+h2. Description
+
+Configures an application with all the metridoc requirements regarding URL routing and configuration pages.  Its
+purpose is to help people get started quickly writing a MetriDoc application.
+Generally this is run right after running @grails create-app@ or
+@grails create-plugin@ and should not be run again since it may delete files you create.
+
+files overritten: BuildConfig.groovy, Config.groovy, UrlMappings.groovy
+files deleted: all views, all fron files (js, images and css)

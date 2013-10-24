@@ -1,0 +1,21 @@
+* [Java 6 or above|http://www.oracle.com/technetwork/java/javase/downloads/index.html]
+* [Grails 2.1.1|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.0.4.zip] (optional, see below)
+* [Mysql|http://www.mysql.com/]
+* Subversion
+* Text editor or IDE (IntelliJ, Eclipse or NetBeans)
+
+
+Grails is optional.  Every project we build uses the [grails wrapper|http://grails.org/doc/latest/guide/commandLine.html#wrapper].
+So for instance, if you are on a linux based system, simply run @./grailsw@ instead of grails at the top of the project.
+This allows you to use grails with only the jvm installed!
+
+At some point it is likely that MetriDoc will use 100% GORM for object relational mapping.  Unfortunately we still have
+some parts that rely on MySql.  This should change in the future.
+
+Many package managers have grails.  For instance, if you are using a mac, try [MacPorts|http://www.macports.org/]
+and do @sudo port install grails@.  For Ubuntu you can follow the instructions on the bottom of the Grails download
+[page|http://grails.org/Download/]
+
+MetriDoc is developed in IntelliJ, and to a lesser extent Eclipse and vim.  Although IntelliJ is not free, it
+is a very good IDE for Grails.  Education licenses for IntelliJ are very cheap.  You can find details for setting up
+Grails in various IDE / Text editor environments [here|http://grails.org/doc/latest/guide/gettingStarted.html#ide]

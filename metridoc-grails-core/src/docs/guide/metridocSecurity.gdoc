@@ -1,0 +1,3 @@
+Metridoc uses [Apache Shiro|http://shiro.apache.org/] for security.  Currently it is backed by a database, but future
+versions of Metridoc will allow users to hook in their own security.  Out of the box, basic dashboards to manage users
+and roles exist, as well as assigning roles to reports.

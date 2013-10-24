@@ -1,0 +1,606 @@
+/**
+  - Copyright 2013 Trustees of the University of Pennsylvania. Licensed under the
+ * Educational Community License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may
+ * obtain a copy of the License at
+ *
+ * http://www.osedu.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+.inCellActions {
+    float: right;
+}
+
+div.alert pre {
+    overflow: scroll;
+    height: 5em;
+}
+
+.centeredRadioCell, .centeredTableHeader, .centeredContent, .centeredDiv {
+    text-align: center;
+}
+
+.reportBody {
+    padding-top: 30px;
+}
+
+.description {
+    line-height: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.1;
+}
+
+.ui-widget {
+    font-size: 1em;
+}
+
+/* BASE LAYOUT */
+
+html {
+    background-color: #ddd;
+    background-image: -moz-linear-gradient(center top, #777, #ddd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #777), color-stop(1, #ddd));
+    background-image: linear-gradient(top, #777, #ddd);
+
+    background-repeat: no-repeat;
+    height: 100%;
+    /*change the box model to exclude the padding from the calculation of 100% height (IE8+)*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html.no-cssgradients {
+    background-color: #aaa;
+}
+
+.ie6 html {
+    height: 100%;
+}
+
+.shadow {
+    -moz-box-shadow: 0 3px 10px #333333;
+    -webkit-box-shadow: 0 3px 10px #333333;
+    box-shadow: 0 3px 10px #333333;
+}
+
+.container {
+    background: #ffffff;
+    max-width: 1000px;
+    margin: 10px auto 10px;
+    text-align: left;
+}
+
+.ie6 .container,
+.ie7 .container,
+.ie8 .container,
+.ie9 .container,
+.ie10 .container {
+    width: 1000px;
+}
+
+body {
+    /*background: #ffffff;*/
+    color: #333333;
+    margin: 0 auto;
+    /*max-width: 960px;*/
+    /*width: expression(document.body.clientWidth > 960? "960px": "auto" ); *//* ie hack */
+    overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
+    text-align: center;
+    /*need to override bootstrap */
+    background-color: transparent;
+}
+
+/* replace with .no-boxshadow body if you have modernizr available */
+.ie6 body,
+.ie7 body,
+.ie8 body,
+.ie9 body,
+.ie10 body {
+    border-color: #255b17;
+    border-style: solid;
+    border-width: 0 1px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#777777', EndColorStr = '#dddddd');
+}
+
+.md-application-content {
+    padding: 30px;
+    padding-top: 10px;
+}
+
+.md-application-content div.description {
+    padding: 30px;
+    padding-top: 0;
+}
+
+#page-body {
+    margin: 2em 1em 0 7em;
+}
+
+.ie6 body {
+    height: 100%;
+}
+
+a:link, a:visited {
+    color: #48802c;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    outline: none; /*prevents outline in webkit on active links but retains it for tab focus*/
+    text-decoration: none;
+}
+
+a:hover {
+    color: #b81900;
+    text-decoration: none;
+}
+
+h1 {
+    color: #48802c;
+    font-size: 1.25em;
+    margin: 0.8em 0 0.3em 0;
+}
+
+ul {
+    padding: 0;
+}
+
+img {
+    border: 0;
+}
+
+/* GENERAL */
+
+#metridocBanner {
+    position: relative;
+}
+
+#metridocLogo {
+    display: inline-block;
+    margin: 1em;
+}
+
+#metridocLoginLink {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: small;
+}
+
+.content {
+}
+
+.content h1 {
+    border-bottom: 1px solid #CCCCCC;
+    margin: 0.8em 1em 0.3em;
+    padding: 0 0.25em;
+}
+
+.scaffold-list h1 {
+    border: none;
+}
+
+.metridocDefaultButton {
+    background: -webkit-gradient(linear, left top, left bottom, from(#9E9E9E), to(#2E2E2E));
+    background: -moz-linear-gradient(top, #CFCECE, #787777);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#CFCECE', endColorstr = '#787777');
+
+    text-align: center;
+    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    color: #E5E9E2;
+}
+
+.footer {
+    width: 100%;
+    height: 30px;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+}
+
+.footer a {
+    color: #255b17;
+}
+
+.spinner {
+    background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
+    height: 16px;
+    width: 16px;
+    padding: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-indent: -9999px;
+}
+
+#list-shiroUser table {
+    margin-top: 30px;
+}
+
+#list-shiroRole table {
+    margin-top: 30px;
+}
+
+/* CREATE/EDIT FORMS AND SHOW PAGES */
+
+fieldset,
+.property-list {
+    margin: 0.6em 1.25em 0 1.25em;
+    padding: 0.3em 1.8em 1.25em;
+    position: relative;
+    zoom: 1;
+    border: none;
+}
+
+.property-list .fieldcontain {
+    list-style: none;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.fieldcontain {
+    margin-top: 1em;
+}
+
+.fieldcontain label,
+.fieldcontain .property-label {
+    color: #666666;
+    text-align: right;
+    width: 25%;
+}
+
+.fieldcontain .property-label {
+    float: left;
+}
+
+.fieldcontain .property-value {
+    display: block;
+    margin-left: 27%;
+}
+
+label {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 0.25em 0 0;
+}
+
+.required-indicator {
+    color: #48802C;
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 0.3em;
+    position: relative;
+    top: 0.1em;
+}
+
+ul.one-to-many {
+    display: inline-block;
+    list-style-position: inside;
+    vertical-align: top;
+}
+
+.ie6 ul.one-to-many, .ie7 ul.one-to-many {
+    display: inline;
+    zoom: 1;
+}
+
+ul.one-to-many li.add {
+    list-style-type: none;
+}
+
+/* EMBEDDED PROPERTIES */
+
+fieldset.embedded {
+    background-color: transparent;
+    border: 1px solid #CCCCCC;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+fieldset.embedded legend {
+    margin: 0 1em;
+}
+
+/* MESSAGES AND ERRORS */
+
+.errors,
+.message {
+    font-size: 0.8em;
+    line-height: 2;
+    margin: 1em 2em;
+    padding: 0.25em;
+}
+
+.message {
+    background: #f3f3ff;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    -moz-box-shadow: 0 0 0.25em #b2d1ff;
+    -webkit-box-shadow: 0 0 0.25em #b2d1ff;
+    box-shadow: 0 0 0.25em #b2d1ff;
+}
+
+#homeMsg {
+    z-index: 1;
+    margin: 0 6em 0 0;
+}
+
+.errors {
+    background: #fff3f3;
+    border: 1px solid #ffaaaa;
+    color: #cc0000;
+    -moz-box-shadow: 0 0 0.25em #ff8888;
+    -webkit-box-shadow: 0 0 0.25em #ff8888;
+    box-shadow: 0 0 0.25em #ff8888;
+}
+
+.errors ul,
+.message {
+    padding: 0;
+}
+
+.errors li {
+    list-style: none;
+    background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
+    text-indent: 2.2em;
+}
+
+.message {
+    background: transparent url(../images/skin/information.png) 0.5em 50% no-repeat;
+    text-indent: 2.2em;
+}
+
+/* TABLES */
+
+table {
+    border-top: 1px solid #DFDFDF;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+tr {
+    border: 0;
+}
+
+tr>td:first-child, tr>th:first-child {
+    padding-left: 1.25em;
+}
+
+tr>td:last-child, tr>th:last-child {
+    padding-right: 1.25em;
+}
+
+td, th {
+    line-height: 1.5em;
+    padding: 0.5em 0.6em;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background-color: #efefef;
+    background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eaeaea));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#eaeaea');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eaeaea')";
+    color: #666666;
+    font-weight: bold;
+    line-height: 1.7em;
+    padding: 0.2em 0.6em;
+}
+
+thead th {
+    white-space: nowrap;
+}
+
+th a {
+    display: block;
+    text-decoration: none;
+}
+
+th a:link, th a:visited {
+    color: #666666;
+}
+
+th a:hover, th a:focus {
+    color: #333333;
+}
+
+th.sortable a {
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 1.1em;
+}
+
+th.asc a {
+    background-image: url(../images/skin/sorted_asc.gif);
+}
+
+th.desc a {
+    background-image: url(../images/skin/sorted_desc.gif);
+}
+
+.table-striped tr:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+.table-hover tr:hover {
+    background: #f5f5f5;
+}
+
+/* PAGINATION */
+
+.pagination {
+    border-top: 0;
+    margin: 0;
+    padding: 0.3em 0.2em;
+    text-align: center;
+    background-color: #EFEFEF;
+}
+
+.pagination a,
+.pagination .currentStep {
+    color: #666666;
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.25em 0.7em;
+    text-decoration: none;
+    -moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+}
+
+.pagination a:hover, .pagination a:focus,
+.pagination .currentStep {
+    background-color: #999999;
+    color: #ffffff;
+    outline: none;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
+.no-borderradius .pagination .currentStep {
+    background-color: transparent;
+    color: #444444;
+    text-decoration: underline;
+}
+
+a.skip {
+    position: absolute;
+    left: -9999px;
+}
+
+h2 {
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    font-size: 1em;
+}
+
+p {
+    line-height: 1.5;
+    margin: 0.25em 0;
+}
+
+#application-list li {
+    line-height: 1.3;
+    list-style-position: inside;
+    margin: 0.25em 0;
+}
+
+#dialog {
+    display: none;
+    text-align: left;
+
+}
+
+#dialog .textContainer {
+    padding-top: 0.25em;
+
+}
+
+#dialog textarea {
+    font-size: 0.8em;
+    width: 550px;
+}
+
+.ui-dialog-titlebar {
+    font-weight: 700;
+}
+
+#dialog ul li {
+    font-size: small;
+    padding-bottom: 10px;
+}
+
+#dialog fieldset {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+/*Style for all input boxes*/
+.userInput {
+    /*previous setting: padding: 8px;*/
+    padding: .4em;
+    overflow: visible;
+
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF)); /*Chrome and Safari*/
+    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px); /* Firefox Browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#EEEEEE', EndColorStr = '#FFFFFF');
+}
+
+ul.undecorated {
+    list-style: none;
+}
+
+.linkContainer {
+    padding-top: 25px;
+}
+
+.linkContainer ul {
+    margin-left: 1em;
+}
+
+hr {
+    margin: 6px 0;
+    border: 0;
+    border-top: 1px solid rgb(146, 146, 146);
+    border-bottom: 1px solid #ffffff;
+}
+
+ul {
+    margin: 10px;
+}
+
+table form {
+    margin: 0;
+}
+
+.navbar-inner {
+    padding-left: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.dropdown-menu a {
+    color: #333;
+}
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+    background-color: #25652a;
+    background-image: -moz-linear-gradient(top, #25652a, #235728);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#25652a), to(#235728));
+    background-image: -webkit-linear-gradient(top, #25652a, #235728);
+    background-image: -o-linear-gradient(top, #25652a, #235728);
+    background-image: linear-gradient(to bottom, #25652a, #235728);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr = '#ff25652a', endColorstr = '#ff235728', GradientType = 0);
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 10px;
+}
+
+.nav > li > a:hover {
+    background-color: #ffffff;
+}

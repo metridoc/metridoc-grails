@@ -1,0 +1,9 @@
+If you are developing metridoc you will need to checkout MetriDoc trunk using subversion by running the command:
+
+{code}
+svn co https://metridoc.googlecode.com/svn/trunk
+{code}
+
+Many IDEs have version control support.  If you are using IntelliJ you can do @VCS -> Checkout from Version Control -> Subversion@.
+Add the repository https://metridoc.googlecode.com/svn/trunk and follow the instructions.  By doing this, IntelliJ
+will create a project structure for all the metridoc modules

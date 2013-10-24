@@ -1,0 +1,10 @@
+h1. run-job
+
+h2. Usage
+{code}
+grails run-job <job-name>
+{code}
+
+runs a job from the command line.  If you are not in interactive mode, grails will be booted up, if @grails run-app@
+has been run, then the running application will be used.  The job must be the fully qualified job name, which generally
+is the name of the class.

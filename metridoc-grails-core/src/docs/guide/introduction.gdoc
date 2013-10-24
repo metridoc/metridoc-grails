@@ -1,0 +1,6 @@
+MetriDoc is an extendable platform to view and maintain library statistics and reports.
+The platform is based on the web framework [Grails|http://www.grails.org] which provides
+a simple web framework as well as a scripting engine that is well suited for various
+jobs that need to to be run in MetriDoc to transport data from internal systems to
+a central repository.  Problem spaces are split into [Grails|http://www.grails.org] plugins
+to enhance the user experience as well as encourage community plugins.

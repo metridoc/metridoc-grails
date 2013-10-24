@@ -1,0 +1,10 @@
+h1. create-metridoc-job
+
+h2. Usage
+{code}
+grails create-metridoc-job [job name]
+{code}
+
+h2. Description
+
+Creates a MetridocJob instance.  If a job name is not provided the user will be prompted for one

@@ -1,0 +1,41 @@
+h3.  Setting up the DataSource
+
+To setup data sources, edit the DataSources.groovy file located at grails-app/conf/DataSources.groovy.  At bare
+minimum you will need a user name, password, database url and driver class name.  In general it is recommended that
+you use MySql, going forward MetriDoc plugins will abstract database operations as much as possible so any database
+supported by GORM can be used.  To the extent a plugin requires MySql, the documentation will indicate this.  The other
+config files have already been put together for you when you created the project.
+
+External configuration is also possible.  The file @~/.metridoc/MetridocConfig.groovy@ is imported if it exists.  Any
+values in there, including ones specifying the data source are applied to the running application.  You can see where
+this file import at the top of the Config.groovy file:
+
+{code}
+...
+if (new File("\$\{metridoc.home\}/MetridocConfig.groovy").exists()) {
+    log.info "found MetridocConfig.groovy, will add to configuration"
+}
+...
+{code}
+
+Additionally, metridoc searches for any jars under @<user home>/.grails/drivers@ and drops them into the classpath.
+This can be really handy if you need to add database driver that are not accessible via maven.  The code for this
+is at the top of the @Config.groovy@ page and can be changed depending on your environment:
+
+{code}
+...
+if (driverDirectory.exists() && driverDirectory.isDirectory()) {
+    if (rootLoader) {
+        driverDirectory.eachFile {
+            if (it.name.endsWith(".jar")) {
+                def url = it.toURI().toURL()
+                LoggerFactory.getLogger("config.Config").info "adding driver ${url}" as String
+                rootLoader.addURL(url)
+            }
+        }
+    }
+}
+...
+{code}
+
+

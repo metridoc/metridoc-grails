@@ -1,0 +1,14 @@
+.idea
+classes
+grails-metridoc-core*
+plugin.xml
+pom.xml*
+test-classes
+test-reports
+*.iml
+*.ipr
+*.iws
+projectFilesBackup
+out
+cobertura.*
+

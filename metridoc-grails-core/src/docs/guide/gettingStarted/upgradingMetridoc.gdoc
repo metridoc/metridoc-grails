@@ -1,0 +1,25 @@
+There are two ways to upgrade the application.  Metridoc has a simple script to do this automatically
+
+{code}
+grails update-metridoc-version
+{code}
+
+If you want the latest snapshot, you can do @grails update-metridoc-version -includeSnapshots@
+
+If you would rather update the version of metridoc manually, open the @BuildConfig.groovy@ file and change the version
+in the plugins section
+
+When upgrading grails, I would recommend *NOT* using @grails upgrade@.  @grails upgrade@ does a bunch of magic, which
+generally creates a ton of unwanted files and folders.  Instead, go to application.properties in your project and
+change the @app.grails.version@ property.
+
+{note}
+Using a package manager for grails can help manage different versions of
+grails easily instead of manually downloading grails.  [gvm|http://gvmtool.net/] is probably the best tool for this.
+{note}
+
+{note}
+If you are creating a plugin that someone else might use, consider using @grails wrapper@.  This command will create bat
+and bash scripts that can force grails versions for a project build.  View the grails [documentation|http://grails.org/doc/latest/guide/single.html#wrapper]
+for more information
+{note}

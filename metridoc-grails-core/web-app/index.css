@@ -1,0 +1,56 @@
+/**
+  - Copyright 2013 Trustees of the University of Pennsylvania. Licensed under the
+ * Educational Community License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may
+ * obtain a copy of the License at
+ *
+ * http://www.osedu.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+.unnamed1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    font-weight: lighter;
+    color: #FFFFFF;
+}
+
+.bodytext {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    font-weight: lighter;
+    color: #FFFFFF;
+    line-height: 18pt;
+    text-decoration: none;
+}
+
+.style2 {
+    font-size: small;
+    line-height: 16pt;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: justify;
+}
+
+.uploadInput {
+    border: 1px solid #666666;
+}
+
+.ui-widget-header {
+    background: -webkit-gradient(linear, left top, left bottom, from(#7BC360), to(#32651F));
+    background: -moz-linear-gradient(top, #7BC360, #32651F);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#7BC360', endColorstr = '#32651F');
+}
+
+#page-body {
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 50px;
+}
