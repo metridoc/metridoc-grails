@@ -10,6 +10,29 @@ systemCall() {
 	fi
 }
 
+synchronizeVersions() {
+
+    VERSION=`cat VERSION`
+
+    echo ""
+    echo "synchronizing all versions to [$VERSION]"
+    echo ""
+
+
+    for DIRECTORY in $DIRECTORIES
+    do
+        if [ $DIRECTORY == ./metridoc-grails* ]; then
+            echo $DIRECTORY
+            cd $DIRECTORY
+            systemCall "./grailsw set-version $VERSION"
+            systemCall "git add ."
+            git commit -m'synchronizing version for $DIRECTORY'
+            systemCall "git push origin master"
+            cd -
+        fi
+    done
+
+}
 DIRECTORIES=`find . -type d -maxdepth 1 -mindepth 1`
 
 echo ""
@@ -26,25 +49,9 @@ do
     fi
 done
 
+synchronizeVersions
+
 VERSION=`cat VERSION`
-
-echo ""
-echo "synchronizing all versions to [$VERSION]"
-echo ""
-
-
-for DIRECTORY in $DIRECTORIES
-do
-    if [ $DIRECTORY == ./metridoc-grails* ]; then
-        echo $DIRECTORY
-        cd $DIRECTORY
-        systemCall "./grailsw set-version $VERSION"
-        systemCall "git add ."
-        git commit -m'synchronizing version for $DIRECTORY'
-        systemCall "git push origin master"
-        cd -
-    fi
-done
 
 if grep -q "\-SNAPSHOT" "VERSION"; then
     echo "VERSION file has SNAPSHOT in it, skipping release"
@@ -87,5 +94,5 @@ systemCall "git add VERSION"
 systemCall "git commit -m 'committing a new version'"
 systemCall "git push origin master"
 
-
+synchronizeVersions
 
