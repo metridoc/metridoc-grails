@@ -50,6 +50,8 @@ do
     fi
 done
 
+synchronizeVersions
+
 git checkout master
 VERSION=`cat VERSION`
 
