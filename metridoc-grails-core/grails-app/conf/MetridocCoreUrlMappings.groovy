@@ -16,9 +16,16 @@
 class MetridocCoreUrlMappings {
 
     static mappings = {
-        boolean disable = getGrailsApplication().config.metridoc.urlMappings.disable
-
-        if(disable) return
+//        boolean disable = false
+//
+//        try {
+//            disable = getGrailsApplication().config.metridoc.urlMappings.disable
+//        }
+//        catch (Throwable throwable) {
+//            log.warn "Could not check if default url mappings are enabled, using defaults"
+//        }
+//
+//        if(disable) return
 
         "/"(controller: "home", action: "index")
 
