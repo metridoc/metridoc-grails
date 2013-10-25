@@ -1,0 +1,2 @@
+The illiad plugin for MetriDoc migrates data from Illiad to a central MySql repository.  Some simple dashboards are
+available to analyze the most recent fiscal year.

@@ -1,0 +1,41 @@
+h2. Installing the MSSQL driver
+
+Behind the scenes, Illiad data is stored in a MSSQL database.
+Because of license restrictions we could not include the MSSQL JDBC drivers in MetriDoc, users must download and
+install them into their MetriDoc instances.
+Go [here|http://www.microsoft.com/en-us/download/details.aspx?displaylang=en&id=11774] to download the
+JDBC driver.  After unzipping the archive you should see a jar named @sqljdbc4@ in the @enu@ directory.  Copy this to
+the @lib@ directory of your MetriDoc application.
+
+h2. Configuring the Data Sources
+
+Connection parameters are added in @grails-app/conf/DataSources.groovy@.  Two data sources are required for MetriDoc
+Illiad to work;  the data source to Illiad itself and the destination repository.  The configuration for illiad
+would be similar to:
+
+{code}
+dataSource_from_illiad {
+            pooled = true
+            driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            dbCreate = "none"
+            username = "username"
+            password = "password"
+            url = "jdbc:sqlserver://xxx.xxx.xxx.xxx:1433;databaseName=ILLData"
+            properties(productionDataSourceProperties)
+        }
+{code}
+
+Configuring the destination repository data source would be similar to:
+
+{code}
+dataSource_illiad {
+            pooled = true
+            dbCreate = "none"
+            url = "jdbc:mysql://xxx.xxx.xxx.xxx:3306/new_illiad"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            username = "username"
+            password = "password"
+            properties(productionDataSourceProperties)
+        }
+{code}

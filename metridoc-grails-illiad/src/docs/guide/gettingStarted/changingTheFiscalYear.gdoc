@@ -1,0 +1,18 @@
+Out of the box, Illiad assumes the fiscal year starts on July 1st.  To change this, change the file
+@grails-app/conf/BootStrap.groovy@ to something like:
+
+{code}
+class BootStrap {
+
+    def init = { servletContext ->
+        metridoc.utils.DateUtils.FY_START_MONTH = Calendar.JULY
+    }
+    def destroy = {
+    }
+}
+
+{code}
+
+You should also change the start date on the [run-illiad|http://metridoc.googlecode.com/svn/trunk/metridoc-illiad/target/docs/ref/commandline/run-illiad.html]
+script.
+
