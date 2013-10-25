@@ -1,0 +1,72 @@
+<%@ page import="org.apache.shiro.SecurityUtils; metridoc.rid.RidConsTransaction; metridoc.rid.RidInsTransaction" %>
+
+<g:if test="${session.transType == "consultation"}">
+    <g:set var="entityName" value="${message(code: 'ridTransaction.label', default: 'RidConsTransaction')}"/>
+</g:if>
+<g:else>
+    <g:set var="entityName" value="${message(code: 'ridTransaction.label', default: 'RidInsTransaction')}"/>
+</g:else>
+
+<md:report>
+    <div class="md-application-content">
+
+        <tmpl:toggle/>
+        <tmpl:tabs/>
+
+        %{--TEMPORARY REMOVE TEMPLATES--}%
+        %{--<g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
+                  model="[title: entityName + ' Creation']"/>--}%
+        <g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
+                  model="[title: 'Academic Departments', myID: 'myDepartment']"/>
+
+        <div id="create-ridTransaction" class="content scaffold-create" role="main">
+
+    %{--TEMPORARY REMOVE TEMPLATES--}%
+%{--            <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
+                <h1>
+                    <a style="font-size: 14px" data-toggle="modal" href="templateList" data-target="#myModal">
+                        <i class="icon-file-alt">Use Template</i>
+                    </a>
+                </h1>
+            </g:if>--}%
+
+
+            <g:hasErrors bean="${ridTransactionInstance}">
+                <div class="errors">
+                    <g:renderErrors bean="${ridTransactionInstance}" as="list"/>
+                </div>
+            </g:hasErrors>
+
+            <g:form controller="RidTransaction" useToken="true">
+
+                <fieldset class="form">
+                    <tmpl:form/>
+                </fieldset>
+
+
+                <fieldset class="buttons">
+                    <input id="resetButton" class="btn btn-danger" type="reset" value="Reset"/>
+                    <g:actionSubmit action="save" name="create" class="btn btn-success"
+                                    value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+
+                    <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
+                    %{--TEMPORARY REMOVE TEMPLATES--}%
+                        %{--<g:if test="${params.tmp}">
+                            <g:hiddenField name="id" value="${params.tmp}"/>
+                            <g:hiddenField name="isTemplate" value="true"/>
+                            <g:actionSubmit class="btn btn-danger" action="delete" style="float: right"
+                                            value="Delete template" formnovalidate=""
+                                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+                        </g:if>
+                        <g:actionSubmit action="remember" style="float: right; margin-right: 5px"
+                                        name="remember" class="btn btn-warning"
+                                        value="${message(code: 'default.button.remember.label', default: 'Remember as new template')}"
+                                        onmouseover="removeRequired()" onmouseout="setRequired()"/>--}%
+                    </g:if>
+
+                </fieldset>
+            </g:form>
+        </div>
+
+    </div>
+</md:report>

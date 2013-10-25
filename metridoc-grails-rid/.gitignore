@@ -1,0 +1,7 @@
+target
+out
+*.iml
+*.zip
+*.sha1
+plugin.xml 
+.idea

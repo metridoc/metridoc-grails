@@ -1,0 +1,21 @@
+introduction:
+  title: Introduction
+technology:
+  title: Technology
+databaseDesign:
+  title: Database Design (Bank-end)
+webUI:
+  title: Web User Interface (Front-end)
+  Grails: Grails
+  Bootstrap: Bootstrap Front-end Framework
+  CSSMediaQuery: CSS Media Query
+  Ajax: AJAX
+  Excel: Excel Importing/Exporting Function
+  Form: Duplicated Form Submissions Handling
+unitTests:
+  title: Unit Tests
+personal:
+  title: Insight and Conclusion
+  conclusion: Personal experiences
+appendix:
+  title: Appendix -- Relationship among domain classes

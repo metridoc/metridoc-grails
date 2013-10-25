@@ -1,0 +1,22 @@
+.nav-pills > .active a,
+.nav-pills > .active a:hover {
+    background-color: #48802c;
+}
+
+.nav-pills > .blue  a,
+.nav-pills > .blue  a:hover {
+    color: #ffffff;
+    background-color: #0088cc;
+}
+
+.green a,
+.green a:hover {
+    color: green
+}
+
+.nav li.dropdown > .dropdown-toggle .caret {
+    color: green;
+    border-top-color: green;
+    border-bottom-color: green;
+}
+

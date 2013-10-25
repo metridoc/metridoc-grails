@@ -1,0 +1,10 @@
+Ajax is used in this project to create asynchronous web applications.
+
+!../../../src/docs/img/Ajax.png!
+
+When a user selects a ‘Library Unit’ when creating a RidTransacton, choices in
+‘Mode of Consultation’, ‘Service Provided’ and ‘User Goal' based on the features offered by that
+library. With Ajax, web applications
+can send altered data, such as a change of ‘Library Unit’ to the server, and retrieve data  asynchronously (in the background)
+without interfering with the display and behavior of the existing page.
+Here, data is retrieved using JSON, and jQuery is used to change the items in those three drop-down list boxes.

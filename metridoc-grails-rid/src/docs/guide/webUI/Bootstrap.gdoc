@@ -1,0 +1,13 @@
+In this project, the front-end framework uses [Twitter Bootstrap|http://twitter.github.io/bootstrap/]
+for faster and easier web development.
+Bootstrap is a free collection of tools for creating websites and web applications. While it has relatively incomplete
+support for HTML5 and CSS 3,  it is compatible with all major browsers. Basic compatibility information
+for websites or applications is available for all devices and browsers. Bootstrap contains HTML and CSS-based design
+templates for typography, forms, buttons, charts, navigation and other interface components, as well as
+optional JavaScript extensions.
+
+One of the most powerful Bootstrap tools used is Modal, a streamlined, but flexible, feature that enables
+sliding-in and fading-out dialog prompts with the minimum required functionality and smart defaults.
+If a remote URL is provided, content will be loaded via jQuery's load method and injected into the modal body.
+
+!../../../src/docs/img/Modal.png!

@@ -1,0 +1,26 @@
+[Unit tests|http://grails.org/doc/latest/guide/testing.html] in Grails are much like unit tests in Junit.
+Mock Object is used to simulate web features outside of a web environment.
+The SynchronizerToken class is used to simulate duplicated submissions.
+
+{note}
+Note that the unit test example for testing duplicated submissions given in the Official Grail Document does NOT work.
+Here is the way I use instead to test duplicated submissions:
+{code}
+    import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+
+    void testValidSave() {
+        def URL = "foo.com"
+        def token = SynchronizerTokensHolder.store(session)
+        controller.params[SynchronizerTokensHolder.TOKEN_KEY] = token.generateToken(URL)
+        controller.params[SynchronizerTokensHolder.TOKEN_URI] = URL
+
+        ...
+
+        controller.firstFormSubmitted() // pass
+
+        ...
+
+        controller.duplicatedFormSubmitted() // fail
+    }
+{code}
+{note}

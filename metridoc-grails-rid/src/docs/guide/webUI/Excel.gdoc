@@ -1,0 +1,13 @@
+In addition to using the web form, users can create RidTransactions by uploading an Excel file containing the
+required information. When user uploads a spreadsheet (Excel file), the server checks it,
+parses it and then saves it in the database if all the information and format are validated. Otherwise, it
+reports errors to the user explaining what fields need to be modified. Users can download a spreadsheet
+containing the required fields particular to their library unit to use as a template for their submissions.
+
+The tool used for Excel [importing and exporting|http://www.andykhan.com/jexcelapi/tutorial.html] is
+ HSSF/XSSF in [Apache POI|http://poi.apache.org/spreadsheet/index.html], a Java API for Microsoft Documents.
+ HSSF is the POI Project's pure Java implementation of the Excel '97(-2007) file format, and XSSF is the
+ POI Project's pure Java implementation of the Excel 2007 OOXML (.xlsx) file format.
+ HSSF and XSSF provide the means to create, modify, read, and write XLS spreadsheets.
+They supply low level structures for those with particular needs, an event model API for efficient read-only
+access, and a full user model API for creating, reading and modifying XLS files.
