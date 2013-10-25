@@ -14,7 +14,5 @@
 
 function showRoleForm() {
     $('#createRoleForm').toggle();
-    $('#createRole').toggleClass('icon-plus-sign icon-circle-arrow-up')
-
-
+    $('#createRole').toggleClass('icon-plus-sign icon-minus-sign')
 }

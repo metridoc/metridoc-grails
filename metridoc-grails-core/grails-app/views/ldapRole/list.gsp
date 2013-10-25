@@ -24,7 +24,7 @@
     <div style="border-bottom: 1px solid #ddd">
         <a href="#" onclick="changeIcon('groupList')">
             <h1 style="font-size:14px; color:black">LDAP Groups&nbsp
-                <i id="cGroupList" data-toggle="collapse" data-target="#groupList" class="icon-circle-arrow-up"></i>
+                <i id="cGroupList" data-toggle="collapse" data-target="#groupList" class="icon-minus-sign"></i>
             </h1>
         </a>
 
@@ -39,7 +39,7 @@
     <div style="border-bottom: 1px solid #ddd">
         <a href="#" onclick="changeIcon('ldapConfig')">
             <h1 style="font-size:14px; color:black">LDAP Config&nbsp
-                <i id="cLdapConfig" data-toggle="collapse" data-target="#ldapConfig" class="icon-circle-arrow-down"></i>
+                <i id="cLdapConfig" data-toggle="collapse" data-target="#ldapConfig" class="icon-plus-sign"></i>
             </h1>
         </a>
 

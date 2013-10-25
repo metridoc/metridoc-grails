@@ -18,7 +18,7 @@ function deleteUser(userId) {
     }
 }
 
-var userInput = $('.username')
+var userInput = $('.username');
 var userNameInputExists = userInput.length > 0;
 if (userNameInputExists) {
     var userNameInputIsActive = !userInput.is(':disabled');
@@ -51,15 +51,15 @@ var passwordAndConfirmPasswordExist = password.length > 0 && confirmPassword.len
 
 
 if (passwordAndConfirmPasswordExist) {
-    console.log("password and confirm inputs exist, adding custom validity")
+    console.log("password and confirm inputs exist, adding custom validity");
     confirmPassword.change(function () {
         password.each(function (index, value) {
             var passwordValue = value.value;
-            var confirmElement = confirmPassword.get(index)
+            var confirmElement = confirmPassword.get(index);
             var confirmValue = confirmElement.value;
 
             if (passwordValue != confirmValue) {
-                console.log("passwords do not match, form submission will fail")
+                console.log("passwords do not match, form submission will fail");
                 confirmElement.setCustomValidity("Passwords do not match");
             } else {
                 confirmElement.setCustomValidity("");
@@ -69,6 +69,6 @@ if (passwordAndConfirmPasswordExist) {
 }
 function showUserForm() {
     $('#createUserForm').toggle();
-    $('#createUser').toggleClass('icon-plus-sign icon-circle-arrow-up')
+    $('#createUser').toggleClass('icon-plus-sign icon-minus-sign')
 }
 
