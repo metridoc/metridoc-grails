@@ -36,8 +36,8 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        coreVersion = new File(new File(metridoc-grails/VERSION).parent, "VERSION").text("utf-8")
-        compile ':metridoc-core:${coreVersion}'
+        coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
+        compile ":metridoc-core:${coreVersion}"
 
         test(":spock:0.7") {
             exclude "spock-grails-support"
