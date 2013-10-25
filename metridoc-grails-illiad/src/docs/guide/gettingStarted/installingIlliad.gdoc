@@ -1,0 +1,10 @@
+h2. Setup and Installation
+
+If you don't already have a metridoc project setup, follow these
+[instructions|http://metridoc.googlecode.com/svn/trunk/metridoc-core/target/docs/guide/gettingStarted.html#firstMetridocProject].  To install illiad,
+open @grails-app/conf/BuildConfig.groovy@ and add the line @compile (":metridoc-illiad:<illiad release>")@ within the @plugins {...}@
+section.  The current release as of this writing is 0.1, and 0.2-SNAPSHOT for the upcoming release.
+After adding illiad to your dependencies, run @grails --refresh-dependencies compile@
+which should download and install the illiad plugin.
+
+

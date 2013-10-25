@@ -1,0 +1,31 @@
+h1. run-illiad
+
+h2. Usage
+{code}
+grails [-Dgrails.script.profile=true (recommended)] run-illiad [target] [--verbose] [--stacktrace] [--startDate=yyyyMMdd]
+{code}
+
+If no target is specified then the target @runIlliadWorkflow@ is run.  Most of the targets exist to modularize illiad's
+workflow.  Most of the time a user will either not specify a target and run the entire workflow or just update the
+schemas with @updateIlliadSchemas@.  To turn on profiling (the only way to get reasonable feedback) use
+@-Dgrails.script.profile=true@.  @startDate@ defaults to the start of the fiscal year which is assumed to begin on 7-1.
+You can change @startDate@ to use a different fiscal year or to collect more historical data.  Generally the script
+takes anywhere from 15 minutes to an hour to complete depending on where you are in the fiscal year.  All illiad tables
+are truncated and refreshed with each run, so it is important not to run this during business hours.
+
+h2. targets
+
+* updateIlliadSchemas - updates the illiad schemas
+* clearingIlliadTables - truncates all illiad tables
+* migrateData - migrates illiad data from illiad to mysql for the illiad dashboards
+* doUpdateLending - updates lending information
+* doUpdateBorrowing - updates borrowing information
+* doUpdateDemographics - updates demographic information
+* runIlliadWorkflow - runs the following targets in order
+  ** createSqlClasses
+  ** updateIlliadSchemas
+  ** clearingIlliadTables
+  ** migrateData
+  ** doUpdateBorrowing
+  ** doUpdateLending
+  ** doUpdateDemographics
