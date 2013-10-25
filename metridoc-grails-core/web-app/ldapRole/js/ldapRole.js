@@ -20,16 +20,16 @@ function deleteMapping(mappingId) {
 
 function showGroupForm() {
     $('#createGroupForm').toggle();
-    $('#createGroup').toggleClass('icon-plus-sign icon-circle-arrow-up')
+    $('#createGroup').toggleClass('icon-plus-sign icon-minus-sign')
 }
 
 function changeIcon(callingID) {
     if (callingID == 'groupList') {
-        $('#cGroupList').toggleClass('icon-circle-arrow-down icon-circle-arrow-up');
+        $('#cGroupList').toggleClass('icon-plus-sign icon-minus-sign');
     }
 
     else {
-        $('#cLdapConfig').toggleClass('icon-circle-arrow-down icon-circle-arrow-up');
+        $('#cLdapConfig').toggleClass('icon-plus-sign icon-minus-sign');
     }
 }
 
@@ -40,8 +40,8 @@ $(document).ready(function () {
     var iconId = prev.charAt(0).toUpperCase() + prev.slice(1);
     if (prev != 'none') {
         $('#' + prev).collapse('show');
-        $('#' + 'c' + iconId).addClass('icon-circle-arrow-up').removeClass('icon-circle-arrow-down');
+        $('#' + 'c' + iconId).addClass('icon-minus-sign').removeClass('icon-plus-sign');
 
     }
-})
+});
 

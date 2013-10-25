@@ -25,9 +25,9 @@ function collapseOthers(callingID) {
         $('#userList').collapse('toggle');
         $('#roleList').collapse('hide');
         $('#manageReportIndex').collapse('hide');
-        $('#cUserList').toggleClass('icon-circle-arrow-down icon-circle-arrow-up');
-        $('#cRoleList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
-        $('#cManageReportIndex').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
+        $('#cUserList').toggleClass('icon-plus-sign icon-minus-sign');
+        $('#cRoleList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        $('#cManageReportIndex').addClass('icon-plus-sign').removeClass('icon-minus-sign');
         $('#sUserList').toggle();
         $('#sRoleList').show();
         $('#sManageReportIndex').show();
@@ -37,9 +37,9 @@ function collapseOthers(callingID) {
         $('#roleList').collapse('toggle');
         $('#userList').collapse('hide');
         $('#manageReportIndex').collapse('hide');
-        $('#cRoleList').toggleClass('icon-circle-arrow-down icon-circle-arrow-up');
-        $('#cUserList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
-        $('#cManageReportIndex').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
+        $('#cRoleList').toggleClass('icon-plus-sign icon-minus-sign');
+        $('#cUserList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        $('#cManageReportIndex').addClass('icon-plus-sign').removeClass('icon-minus-sign');
         $('#sUserList').show();
         $('#sRoleList').toggle();
         $('#sManageReportIndex').show();
@@ -48,9 +48,9 @@ function collapseOthers(callingID) {
         $('#manageReportIndex').collapse('toggle');
         $('#roleList').collapse('hide');
         $('#userList').collapse('hide');
-        $('#cManageReportIndex').toggleClass('icon-circle-arrow-down icon-circle-arrow-up');
-        $('#cRoleList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
-        $('#cUserList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
+        $('#cManageReportIndex').toggleClass('icon-plus-sign icon-minus-sign');
+        $('#cRoleList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        $('#cUserList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
         $('#sUserList').show();
         $('#sRoleList').show();
         $('#sManageReportIndex').toggle();
@@ -62,9 +62,9 @@ $(document).ready(function () {
     $("#roleList").collapse({toggle: false});
     $("#manageReportIndex").collapse({toggle: false});
 
-    $('#cRoleList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
-    $('#cUserList').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
-    $('#cManageReportIndex').addClass('icon-circle-arrow-down').removeClass('icon-circle-arrow-up');
+    $('#cRoleList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+    $('#cUserList').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+    $('#cManageReportIndex').addClass('icon-plus-sign').removeClass('icon-minus-sign');
 
     $('#sUserList').show();
     $('#sRoleList').show();
@@ -75,8 +75,8 @@ $(document).ready(function () {
     var iconId = prev.charAt(0).toUpperCase() + prev.slice(1);
     if (prev != 'none') {
         $('#' + prev).collapse('show');
-        $('#' + 'c' + iconId).addClass('icon-circle-arrow-up').removeClass('icon-circle-arrow-down');
+        $('#' + 'c' + iconId).addClass('icon-minus-sign').removeClass('icon-plus-sign');
         $('#' + 's' + iconId).hide();
     }
-})
+});
 

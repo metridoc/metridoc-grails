@@ -31,7 +31,7 @@
     <div style="border-bottom: 1px solid #ddd">
         <a href="#" onclick="collapseOthers('userList')">
             <h1 style="font-size:14px; color:black">Manage Users&nbsp<i id="cUserList"
-                                                                        class="icon-circle-arrow-down"></i></h1>
+                                                                        class="icon-plus-sign"></i></h1>
 
         </a>
         <span id="sUserList" style="margin-left: 25px">Create, view, and edit user info</span>
@@ -45,7 +45,7 @@
     <div style="border-bottom: 1px solid #ddd">
         <a href="#" onclick="collapseOthers('roleList')">
             <h1 style="font-size:14px; color:black">Manage Roles&nbsp<i id="cRoleList"
-                                                                        class="icon-circle-arrow-down"></i></h1>
+                                                                        class="icon-plus-sign"></i></h1>
 
         </a>
         <span id="sRoleList" style="margin-left: 25px">Add roles</span>
@@ -59,7 +59,7 @@
     <div style="border-bottom: 1px solid #ddd">
         <a href="#" onclick="collapseOthers('manageReportIndex')">
             <h1 style="font-size:14px; color:black">Manage Controllers&nbsp<i id="cManageReportIndex"
-                                                                              class="icon-circle-arrow-down"></i></h1>
+                                                                              class="icon-plus-sign"></i></h1>
 
         </a>
         <span id="sManageReportIndex" style="margin-left: 25px">View and manage controller permissions</span>
