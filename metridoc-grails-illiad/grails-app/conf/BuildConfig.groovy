@@ -36,7 +36,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ':metridoc-core:0.7.7'
+        compile ':metridoc-core:0.7.11-SNAPSHOT'
 
         test(":spock:0.7") {
             exclude "spock-grails-support"
