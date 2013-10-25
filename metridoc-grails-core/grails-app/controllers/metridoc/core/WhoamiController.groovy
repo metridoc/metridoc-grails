@@ -15,30 +15,14 @@
 package metridoc.core
 
 import grails.converters.JSON
-import org.apache.shiro.SecurityUtils
 
 class WhoamiController {
 
-    static final ANONYMOUS = "anonymous"
     static boolean isProtected = true
 
-    def restService
+    def whoamiService
 
     def index() {
-        def userName
-        if (params.get("restKey")) userName = restService.getFromRestCache(params.get("restKey"))
-        else userName = SecurityUtils.subject.principal ? SecurityUtils.subject.principal : ANONYMOUS
-
-        def result = [:]
-        result.username = userName
-        result.roles = []
-
-        ShiroRole.list().each {ShiroRole role ->
-            if(SecurityUtils.subject.hasRole(role.name)) {
-                result.roles << role.name
-            }
-        }
-
-        render result as JSON
+        render whoamiService.getUserData(params) as JSON
     }
 }
