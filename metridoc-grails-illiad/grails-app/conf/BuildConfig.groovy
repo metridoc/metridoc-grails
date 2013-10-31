@@ -24,7 +24,7 @@ String coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-
 boolean coreVersionIsSnapshot = coreVersion.endsWith("SNAPSHOT")
 
 if(coreVersionIsSnapshot) {
-    grails.project.location."metridoc-core" = "../metridoc-grails-core"
+    grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
 }
 
 grails.project.dependency.resolution = {
