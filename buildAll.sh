@@ -18,9 +18,9 @@ echo ""
 
 echo "first testing core"
 cd metridoc-grails-core
-systemCall "./grailsw --refresh-dependencies --non-interactive tA"
+systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
 echo "installing [metridoc-grails-core]"
-systemCall "./grailsw --refresh-dependencies --non-interactive maven-install"
+systemCall "./grailsw --refresh-dependencies --non-interactive maven-install --stacktrace"
 cd -
 
 for DIRECTORY in $DIRECTORIES
@@ -28,9 +28,9 @@ do
     if [ "$DIRECTORY" != "./metridoc-grails-core" ]; then
         echo "testing [$DIRECTORY]"
         cd $DIRECTORY
-        systemCall "./grailsw --refresh-dependencies --non-interactive tA"
+        systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
         echo "installing [$DIRECTORY]"
-        systemCall "./grailsw --refresh-dependencies --non-interactive maven-install"
+        systemCall "./grailsw --refresh-dependencies --non-interactive maven-install --stacktrace"
         cd -
     fi
 done
