@@ -1,0 +1,98 @@
+.fieldcontain label,
+.fieldcontain .property-label {
+    width: auto;
+}
+
+#dateOfConsultation_day,
+#dateOfConsultation_start_day,
+#dateOfConsultation_end_day {
+    width: 60px;
+}
+
+#dateOfConsultation_month,
+#dateOfConsultation_start_month,
+#dateOfConsultation_end_month {
+    width: 100px;
+}
+
+#dateOfConsultation_year,
+#dateOfConsultation_start_year,
+#dateOfConsultation_end_year {
+    width: 80px;
+}
+
+label {
+    font-size: 12px;
+}
+
+.row-fluid {
+    width: 1000px;
+}
+
+.nav-pills > .active a,
+.nav-pills > .active a:hover {
+    background-color: #48802c;
+}
+
+.nav-pills > .blue  a,
+.nav-pills > .blue  a:hover {
+    color: #ffffff;
+    background-color: #0088cc;
+}
+
+.select2-container,
+.select2-drop,
+.select2-search {
+    -webkit-align-items: center;
+    -webkit-appearance: menulist-button;
+    border-bottom-color: #ffffff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0px;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: #ffffff;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: #ffffff;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: #ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+
+}
+
+.select2-results {
+    height: 178px;
+    background: #fff;
+    background-color: #ffffff;
+}
+
+.nav-tabs .active a,
+.nav-tabs .active a:hover {
+    font-size: 15px;
+}
+
+.nav-tabs  a,
+.nav-tabs  a:hover {
+    font-size: 13px;
+}
+
+.green a,
+.green a:hover {
+    color: green
+}
+
+.nav li.dropdown > .dropdown-toggle .caret {
+    color: green;
+    border-top-color: green;
+    border-bottom-color: green;
+}

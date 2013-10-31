@@ -1,0 +1,59 @@
+/* PAGINATION */
+
+.pagination {
+    border-top: 0;
+    margin: 0;
+    padding: 0.3em 0.2em;
+    text-align: center;
+    background-color: transparent;
+}
+
+.pagination a,
+.pagination .currentStep {
+    color: #666666;
+    display: inline-block;
+    margin: 0 0em;
+    /*padding: 0.25em 0.7em;*/
+    /*text-decoration: none;*/
+    /*-moz-border-radius: 0.3em;*/
+    /*-webkit-border-radius: 0.3em;*/
+    border-radius: 0em;
+    float: center;
+    padding: 4px 12px;
+    line-height: 20px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.pagination :first-child  {
+    border-left: 1px solid #dddddd;
+    border-top-left-radius: 0.4em;
+    border-bottom-left-radius: 0.4em;
+}
+
+.pagination :last-child  {
+    border-top-right-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+}
+
+.pagination .gap + a {
+    border-left: 1px solid #dddddd;
+}
+
+.pagination a:hover, .pagination a:focus,
+.pagination .currentStep {
+    background-color: rgb(177, 177, 177);
+    color: #ffffff;
+    outline: none;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
+.no-borderradius .pagination .currentStep {
+    background-color: transparent;
+    color: #444444;
+    text-decoration: underline;
+}

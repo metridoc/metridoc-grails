@@ -1,0 +1,17 @@
+h1. refresh-metridoc-dependencies
+
+h2. Usage
+{code}
+grails flush-cache
+{code}
+
+h2. Description
+
+Many times in development you may have an application referencing a snapshot that just got updated, or the Grails
+dependency mechanism is causing problems.  Grails does an
+ok job of refreshing snapshots, but when it is not reliable run this script to blow away all
+cached dependencies.  By doing this, grails will be forced to re-download all dependencies.  If you are in the
+Grails shell, you will have to exit and re-enter the shell.  After running this script, your next grails command should
+be @grails --refresh-dependencies compile@.  If you have any other grails shells open, you might be forced to exit
+and restart them due to corrupt caches.
+

@@ -1,0 +1,12 @@
+h1. configure-for-job-only
+
+h2. Usage
+{code}
+grails configure-for-job-only [job name]
+{code}
+
+h2. Description
+
+Configures an application / plugin as a job only project.  Grails creates a lot of folders and files by default, a lot
+of which are unnecessary when you only need to create jobs.  If a job name is not provided the user will be prompted to
+add one.

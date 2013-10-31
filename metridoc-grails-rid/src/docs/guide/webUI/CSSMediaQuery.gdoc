@@ -1,0 +1,17 @@
+HTML4 and CSS2 currently support media-dependent style sheets tailored for different media types.
+For example, a document may use sans-serif fonts when displayed on a screen and serif fonts when printed.
+To accomplish this, media types ‘screen’ and ‘print’ have been defined. Media queries extend the functionality
+of media types by allowing more precise labeling of style sheets.
+
+A media query consists of a media type and zero or more expressions that check for the conditions of
+particular media features, such as ‘width’, ‘height’, and ‘color’. By using media queries, presentations can
+be tailored to a specific range of output devices without changing the content itself.
+
+In this project, in order to let user views web-pages friendlier in their mobile devices, media
+queries are used to test the ‘width’ of a web page to dynamically change the format accordingly.
+
+!../../../src/docs/img/CSSMediaQuery.png!
+
+As you can see from the illustration, when you view a web page in your mobile device, the ‘width’ of the page
+will be smaller. The media query observes this change and automatically formats the table from horizontal
+(left side) to vertical (right side).

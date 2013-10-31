@@ -1,0 +1,18 @@
+.table th {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+
+
+.table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 0px;
+    border-bottom: 1px solid #dddddd;
+}

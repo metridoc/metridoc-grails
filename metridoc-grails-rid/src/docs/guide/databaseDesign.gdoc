@@ -1,0 +1,20 @@
+There are a total of ten tables related to Reference Instruction Database.
+* "rid_transaction" is the most important table. It represents one consultation record, and contains fields such as user name, user question, event length, so on and so forth. This table has fields related to all of the following tables.
+* "rid_course_sponsor" records different kinds of course sponsors, such as SAS, SEAS, Wharton, etc. It is specific to consultation transactions.
+* "rid_department" records different kinds of departments, such as BURS, CAMB, CBE, etc.
+* "rid_school" records different kinds of schools, such as GSE, Vet, Nursing, etc.
+* "rid_location" records different types of locations, such as classrooms, lecture halls, etc. It is specific to instructional transactions.
+* "rid_rank" records different kinds of user ranks, such as Undergrad student, Grad student, PhD/PostDoc, etc.
+* "rid_service_provided" records different kinds of services provided, such as Course design, Research assistance, etc. It is specific to consultation transactions.
+* "rid_user_goal" records different kinds of course sponsor, such as Senior Thesis, Master Thesis, Independent Research, etc. It is specific to consultation transactions.
+* "rid_mode_of_consultation" records different modes of consultation, such as Email, Phone, In Person, etc. It is specific to consultation transactions.
+* "rid_library_unit" records different kinds of library units, such as WIC, HSL, CDM, etc. The above three tables are grouped by library units. That means different library unit has different service provided, user goal and different mode of consultation accordingly.
+
+The following ER model shows the details of each table and relationship among them.
+
+!../../../src/docs/img/ERModel.png!
+
+{note}
+Please note that the ‘version’ item with BIGINT type in each table stands for the version of the content in this
+table, and is updated (added by one) each time when the content of this table is revised.
+{note}

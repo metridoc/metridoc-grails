@@ -1,0 +1,11 @@
+Grails has built-in support for handling
+[duplicated form submissions|http://grails.org/doc/2.2.1/ref/Controllers/withForm.html]
+using the "Synchronizer Token Pattern".
+After defining a token on the form tag, each submission is combined with a unique token before being processed.
+Grails checks the token of each submission, with duplicated tokens indicating duplicated submissions.
+
+This mechanism makes use of the session and hence requires session affinity or clustered sessions if used in a cluster.
+
+
+
+

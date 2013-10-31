@@ -1,0 +1,18 @@
+The project I did during this semester’s independent study course is called Reference
+Instruction Transactions Web Application. The purpose of this project is to build a web
+application (actually a Grails Plugins into [MetriDoc|http://devmetridoc.library.upenn.edu/metridoc-reports/])
+named Reference Instruction Transactions to keep the records of users’ consultation
+and instruction activities at the Van-Pelt Library.
+
+At Van Pelt, users can apply for a consultation with specialists to help them finish their study goals.
+For example, one student from CIS may want to find a specialist who is good at Computer Science to help
+solve his or her issues regarding the master thesis. The user would like to talk by phone or meet the
+specialist in person in the library three times totally and 30 minutes each time. All of these details
+and requirement from users make up a Reference Instruction Transaction. All the data is recorded in a
+MySQL database called Reference Instruction Database.
+
+The development process is similar to the iterative and incremental development. In each period,
+before start coding, we spent a decent amount of time discussing the technology we should use,
+design of the database schema, and the work schedule. Several meetings were organized to discuss the
+reliability and scalability of the program during the development process.
+

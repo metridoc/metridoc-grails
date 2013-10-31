@@ -1,0 +1,20 @@
+Since Metridoc is a web application, it contains both a back-end component and a front-end component.
+
+MySQL database is used for the back-end. The integration tool used is called
+[Jenkins|http://project.library.upenn.edu/jenkins/], which is a free open source continuous integration
+tool written in Java. The servlet container used to actually run the application is
+[Jetty|http://www.eclipse.org/jetty/], which has very similar functionality to Tomcat.
+Jenkins builds the software and deploys it to the Jetty instance.
+
+The front-end is handled by [Grails|http://www.grails.org/], an MVC development framework.
+Grails is an open source web application framework which uses the Groovy programming language (which is in
+turn based on the Java platform). Groovy is an object-oriented programming language for the Java platform.
+It is a dynamic language and also supports functional programming, such as closure.
+
+The user interface is implemented using jQuery and [Bootstrap|http://twitter.github.io/bootstrap/index.html]
+(a kind of CSS style template implemented by Twitter).
+Media queries are used to automatically and dynamically re-format web pages in order to let rendered
+web-pages more user-friendly in mobile devices.
+
+
+
