@@ -20,7 +20,20 @@ grails.project.source.level = 1.6
 grails.project.repos.metridocRepo.url = "https://api.bintray.com/maven/upennlib/metridoc/metridoc-illiad"
 grails.project.repos.default = "metridocRepo"
 
+String coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
+boolean coreVersionIsSnapshot = coreVersion.endsWith("SNAPSHOT")
+
+if(coreVersionIsSnapshot) {
+    grails.project.location."metridoc-core" = "../metridoc-grails-core"
+}
+
 grails.project.dependency.resolution = {
+
+    if(coreVersionIsSnapshot) {
+        //inline plugins require this for some reason
+        legacyResolve true
+    }
+
     inherits("global")
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
@@ -36,8 +49,10 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
-        compile ":metridoc-core:${coreVersion}"
+
+        if (!coreVersionIsSnapshot) {
+            compile ":metridoc-core:${coreVersion}"
+        }
 
         test(":spock:0.7") {
             exclude "spock-grails-support"
