@@ -10,14 +10,25 @@ grails.project.repos.default = "metridocRepo"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 
+String coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
+boolean coreVersionIsSnapshot = coreVersion.endsWith("SNAPSHOT")
+
+if (coreVersionIsSnapshot) {
+    grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
+}
+
 grails.project.dependency.resolution = {
     inherits("global")
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+
+    if(coreVersionIsSnapshot) {
+        //inline plugins require this for some reason
+        legacyResolve true
+    }
+
     repositories {
         grailsCentral()
-        mavenLocal()
         mavenCentral()
-        mavenRepo "http://metridoc.googlecode.com/svn/maven/repository/"
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
     }
@@ -33,9 +44,12 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":google-visualization:0.6.2"
         build(":rest-client-builder:1.0.3")
-        
-	coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
-	compile(":metridoc-core:${coreVersion}")
+
+
+        if (!coreVersionIsSnapshot) {
+            compile ":metridoc-core:${coreVersion}"
+        }
+
         build(":release:2.2.1", ":bintray-upload:0.2", ":tomcat:$grailsVersion") {
             export = false
         }
