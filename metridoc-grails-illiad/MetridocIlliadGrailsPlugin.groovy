@@ -10,5 +10,5 @@ Simple dashboard is provided
 to display some simple stats for the current fiscal year and to download all available data
 '''
 
-    def documentation = "https://github.com/metridoc/metridoc-grails-illiad"
+    def documentation = "https://github.com/metridoc/metridoc-grails"
 }
