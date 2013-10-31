@@ -122,8 +122,6 @@ environments {
 //sets the layout for all pages
 metridoc.style.layout = "main"
 
-// log4j configuration
-//TEMPLATE_LOG_4J
 log4j = {
 
     appenders {
@@ -176,7 +174,6 @@ log4j = {
         }
     }
 }
-//TEMPLATE_LOG_4J
 
 
 

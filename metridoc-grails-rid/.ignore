@@ -1,8 +1,0 @@
-*.ipr
-*.iws
-*.iml
-.idea
-projectFilesBackup
-grails-metridoc-rid*
-plugin.xml
-out
