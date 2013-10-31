@@ -33,13 +33,13 @@ class MetridocCoreGrailsPlugin {
     def authorEmail = "tbarker@pobox.upenn.edu"
     def description = '''\
 
-    Provides core functionality for metridoc and all related plugins
+    Provides core functionality for all metridoc views
 '''
-    def documentation = "https://github.com/metridoc/metridoc-core.git"
+    def documentation = "https://github.com/metridoc/metridoc-grails.git"
     def license = "ECL2"
     def organization = [name: "University of Pennsylvania", url: "http://www.upenn.edu/"]
-    def issueManagement = [system: "GitHuB", url: "https://github.com/metridoc/metridoc-core.git"]
-    def scm = [url: "https://github.com/metridoc/metridoc-core.git"]
+    def issueManagement = [system: "GitHuB", url: "https://github.com/metridoc/metridoc-grails.git"]
+    def scm = [url: "https://github.com/metridoc/metridoc-grails.git"]
     def doWithSpring = {
         def shiroConfig = application.config.security.shiro
         //have to do it in here instead of using the plugin config plugin since the shiro plugin does not use the
