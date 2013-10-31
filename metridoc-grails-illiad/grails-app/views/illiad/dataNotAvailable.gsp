@@ -26,6 +26,6 @@
         Data is not available.  You probably have not run the illiad job yet
     </div>
     <div>
-        Please see: <a href=https://github.com/metridoc/metridoc-job-illiad>https://github.com/metridoc/metridoc-job-illiad</a>
+        Please see job wiki: <a href=https://github.com/metridoc/metridoc-job/wiki>https://github.com/metridoc/metridoc-job/wiki</a>
     </div>
 </md:report>
