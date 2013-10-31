@@ -1,4 +1,4 @@
 metridoc-grails
 ===============
 
-All metridoc grails projects
+Please see the [wiki](https://github.com/metridoc/metridoc-grails/wiki) for documentation
