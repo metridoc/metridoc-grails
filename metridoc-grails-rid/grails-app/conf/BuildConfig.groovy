@@ -43,15 +43,9 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":google-visualization:0.6.2"
-        build(":rest-client-builder:1.0.3")
-
 
         if (!coreVersionIsSnapshot) {
             compile ":metridoc-core:${coreVersion}"
-        }
-
-        build(":release:2.2.1", ":bintray-upload:0.2", ":tomcat:$grailsVersion") {
-            export = false
         }
     }
 }

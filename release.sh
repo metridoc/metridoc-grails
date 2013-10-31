@@ -18,63 +18,38 @@ synchronizeVersions() {
     echo "synchronizing all versions to [$VERSION]"
     echo ""
 
-    DIRECTORIES=`find . -type d -maxdepth 1 -mindepth 1`
+    DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
     for DIRECTORY in $DIRECTORIES
     do
-        if [ $DIRECTORY == ./metridoc-grails* ]; then
-            echo $DIRECTORY
-            cd $DIRECTORY
-            systemCall "./grailsw set-version $VERSION"
-            systemCall "git add ."
-            git commit -m'synchronizing version for $DIRECTORY'
-            systemCall "git push origin master"
-            cd -
-        fi
+        cd $DIRECTORY
+        systemCall "./grailsw set-version $VERSION"
+        systemCall "git add ."
+        git commit -m"synchronizing version"
+        systemCall "git push origin master"
+        cd -
     done
 
 }
 
-DIRECTORIES=`find . -type d -maxdepth 1 -mindepth 1`
+DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
 
-echo ""
-echo "Testing all grails projects"
-echo ""
+if git diff-index --quiet HEAD --; then
+    echo "everything is up to date, safe to synchronize versions and release"
+else
+    echo "there are changes, cannot synchronize versions or release"
+    systemCall "git status"
+    exit 1
+fi
 
-for DIRECTORY in $DIRECTORIES
-do
-    if [ $DIRECTORY == ./metridoc-grails* ]; then
-        echo $DIRECTORY
-        cd $DIRECTORY
-        systemCall "./grailsw --refresh-dependencies --non-interactive tA"
-        cd -
-    fi
-done
-
-synchronizeVersions
-
-git checkout master
 VERSION=`cat VERSION`
-
 if grep -q "\-SNAPSHOT" "VERSION"; then
     echo "VERSION file has SNAPSHOT in it, skipping release"
     exit 0
 fi
 
+source buildAll.sh
+
 synchronizeVersions
-
-echo ""
-echo "Testing all grails projects for release"
-echo ""
-
-for DIRECTORY in $DIRECTORIES
-do
-    if [ $DIRECTORY == ./metridoc-grails* ]; then
-        echo $DIRECTORY
-        cd $DIRECTORY
-        systemCall "./grailsw --refresh-dependencies --non-interactive tA"
-        cd -
-    fi
-done
 
 echo ""
 echo "Releasing ${VERSION} to GitHub"
@@ -88,10 +63,15 @@ echo ""
 echo "Releasing ${VERSION} to BinTray"
 echo ""
 
+echo "resolving metridoc-core first"
+cd metridoc-grails-core
+systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
+cd -
+
 for DIRECTORY in $DIRECTORIES
-do
-    if [ $DIRECTORY == ./metridoc-grails* ]; then
-        echo $DIRECTORY
+    do
+    if [ "$DIRECTORY" != "./metridoc-grails-core" ]; then
+        echo "uploading [$DIRECTORY]"
         cd $DIRECTORY
         systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
         cd -

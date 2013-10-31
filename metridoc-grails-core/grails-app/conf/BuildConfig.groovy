@@ -55,6 +55,7 @@ grails.project.dependency.resolution = {
         compile("mysql:mysql-connector-java:5.1.20")
         compile('org.jasypt:jasypt:1.9.0')
         compile('com.google.guava:guava:13.0.1')
+        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 
     plugins {
@@ -70,20 +71,16 @@ grails.project.dependency.resolution = {
                     [name: "shiro-quartz", group: "org.apache.shiro"]
             )
         }
-        build(":tomcat:$grailsVersion") {
-            export = false
-        }
+        build(":tomcat:$grailsVersion")
         compile(":rest-client-builder:1.0.3")
-        build(":release:2.2.1", ":bintray-upload:0.2") {
-            export = false
-        }
+        build(":release:2.2.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
-            export = false
         }
-
-        test(":code-coverage:1.2.5") {
-            export = false
+        build(':squeaky-clean:0.1.1')
+        test(":code-coverage:1.2.5")
+        test(":spock:0.7") {
+            exclude "spock-grails-support"
         }
     }
 }
