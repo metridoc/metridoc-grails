@@ -66,7 +66,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.10.0"
         runtime ":font-awesome-resources:3.2.1.1"
         runtime ":jquery-validation:1.9"
-        runtime(":shiro:1.1.4") {
+        runtime(":shiro:1.2.0") {
             excludes(
                     [name: "shiro-quartz", group: "org.apache.shiro"]
             )
@@ -77,7 +77,7 @@ grails.project.dependency.resolution = {
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
-        build(':squeaky-clean:0.1.1')
+        build(':squeaky-clean:0.2')
         test(":code-coverage:1.2.5")
         test(":spock:0.7") {
             exclude "spock-grails-support"
