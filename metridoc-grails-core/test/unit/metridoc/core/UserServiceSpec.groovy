@@ -17,6 +17,7 @@ package metridoc.core
 import grails.test.mixin.Mock
 import org.junit.Before
 import org.junit.Test
+import spock.lang.Specification
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,12 +26,11 @@ import org.junit.Test
  * Time: 3:13 PM
  */
 @Mock([ShiroRole, ShiroUser])
-class UserServiceTest {
+class UserServiceSpec extends Specification {
 
     def userService = new UserService()
 
-    @Before
-    void setupMockData() {
+    void setup() {
         def anonymous = new ShiroRole(name: UserService.ROLE_ANONYMOUS)
         anonymous.id = 1
         anonymous.save(flush: true)
@@ -39,24 +39,32 @@ class UserServiceTest {
         foo.save(flush: true)
     }
 
-    @Test
-    void testAddingRoles() {
+    void "test adding roles"() {
+        when:
         def user = new ShiroUser()
         userService.addRolesToUser(user, ["ROLE_FOO"])
-        assert 2 == user.roles.size()
-        user.roles.each {
-            assert "ROLE_FOO" == it.name || "ROLE_ANONYMOUS" == it.name
-        }
+        def roles = user.roles as List
+
+        then:
+        2 == roles.size()
+        roles[0].name == "ROLE_FOO" || roles[0].name == "ROLE_ANONYMOUS"
+        roles[1].name == "ROLE_FOO" || roles[1].name == "ROLE_ANONYMOUS"
     }
 
-    @Test
     void "anonymous is added by default regardless of whether or not any roles are provided"() {
+        when:
         def user = new ShiroUser()
         userService.addRolesToUser(user, null)
-        assert 1 == user.roles.size()
+
+        then:
+        1 == user.roles.size()
 
         user.roles.each {
             assert UserService.ROLE_ANONYMOUS == it.name
         }
+    }
+
+    void "test validatingthe params"() {
+
     }
 }

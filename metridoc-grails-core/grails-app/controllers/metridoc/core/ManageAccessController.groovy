@@ -34,7 +34,7 @@ class ManageAccessController {
     def manageReportService
 
     def index() {
-        chain(action: "list")
+        chain(action: "list", flash: flash)
     }
 
     def list() {

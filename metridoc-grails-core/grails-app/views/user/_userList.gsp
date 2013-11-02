@@ -23,7 +23,7 @@
     </h2>
 
     <div id="createUserForm" hidden="true">
-        <g:form controller="user" action="save" class="form-horizontal">
+        <md:form controller="user" action="save" class="form-horizontal">
             <div class="control-group">
                 <g:render template="/user/userName"/>
             </div>
@@ -38,7 +38,7 @@
             <div class="control-group">
                 <g:render template="/commonTemplates/button" model="['content': 'Create']" icon="icon-edit"/>
             </div>
-        </g:form>
+        </md:form>
     </div>
 
     <div id="list-shiroUser" class="content scaffold-list" role="main">

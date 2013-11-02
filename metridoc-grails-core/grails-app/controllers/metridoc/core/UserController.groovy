@@ -16,6 +16,7 @@ package metridoc.core
 
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.crypto.hash.Sha256Hash
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
 
 class UserController {
@@ -56,7 +57,7 @@ class UserController {
 
         if (!shiroUserInstance.save(flush: true)) {
             ShiroUser.addAlertForAllErrors(shiroUserInstance, flash)
-            chain(controller: "manageAccess", action: "index", id: shiroUserInstance.id, previousExpanded: 'userList')
+            chain(controller: "manageAccess", action: "list", id: shiroUserInstance.id, previousExpanded: 'userList')
             return
         }
 

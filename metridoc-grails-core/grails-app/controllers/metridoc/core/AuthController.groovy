@@ -140,8 +140,6 @@ class AuthController {
         catch (AuthenticationException ignored) {
             // Authentication failed, so display the appropriate message
             // on the login page.
-
-
             log.info "Authentication failure for user '${params.username}'."
             flash.alert = message(code: "login.failed")
 

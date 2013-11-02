@@ -14,9 +14,14 @@
 
 package metridoc.core
 
+import org.codehaus.groovy.grails.web.servlet.FlashScope
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+
 class UserService {
 
     static final ROLE_ANONYMOUS = "ROLE_ANONYMOUS"
+
+
 
     def addRolesToUser(userInstance, roles) {
 
