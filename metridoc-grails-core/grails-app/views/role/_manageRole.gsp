@@ -23,7 +23,7 @@
     </h2>
 
     <div id="createRoleForm" hidden="true">
-        <g:form class="form-horizontal" controller="role" action="save">
+        <md:form class="form-horizontal" controller="role" action="save">
             <div class="control-group">
                 <label class="control-label" for="rolename">Role Name</label>
 
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <md:cgButton icon="icon-edit">Create</md:cgButton>
-        </g:form>
+        </md:form>
     </div>
 
 

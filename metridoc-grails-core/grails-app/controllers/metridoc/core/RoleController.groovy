@@ -38,8 +38,9 @@ class RoleController {
     def save(String rolename) {
 
         if (rolename == null || rolename == EMPTY) {
-            flash.alert = "rolename has to be provided"
+            flash.alert = "role name has to be provided"
             chain(controller: "manageAccess", action: "list")
+            return
         }
 
         def usedRoleName = rolename

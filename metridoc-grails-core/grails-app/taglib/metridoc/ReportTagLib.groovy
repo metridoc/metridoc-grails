@@ -182,7 +182,7 @@ class ReportTagLib {
 
         def rendered = g.form(attrs, body)
         if(novalidate) {
-            rendered = rendered.toString().replaceFirst(">", " novalidate")
+            rendered = rendered.toString().replaceFirst(">", " novalidate>")
         }
 
         out << rendered
