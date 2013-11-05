@@ -44,5 +44,5 @@
 # other
 *.iws
 *.DS_Store
-
+/cobertura.ser
 
