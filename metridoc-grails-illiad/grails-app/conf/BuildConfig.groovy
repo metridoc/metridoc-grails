@@ -20,11 +20,22 @@ grails.project.source.level = 1.6
 grails.project.repos.metridocRepo.url = "https://api.bintray.com/maven/upennlib/metridoc/metridoc-illiad"
 grails.project.repos.default = "metridocRepo"
 
-String coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
-boolean coreVersionIsSnapshot = coreVersion.endsWith("SNAPSHOT")
 
-if(coreVersionIsSnapshot) {
-    grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
+File versionFile = new File(new File(basedir).parent, "VERSION")
+
+String coreVersion
+boolean useInlinePlugin
+if (versionFile.exists()) {
+    coreVersion = versionFile.getText("utf-8").trim()
+    useInlinePlugin = coreVersion.endsWith("SNAPSHOT")
+
+    if (useInlinePlugin) {
+        grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
+    }
+}
+else {
+    def metadata = new XmlSlurper().parse("http://dl.bintray.com/upennlib/metridoc/org/grails/plugins/metridoc-core/maven-metadata.xml")
+    coreVersion = metadata.versioning.latest.text().trim()
 }
 
 grails.project.dependency.resolution = {
@@ -48,7 +59,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        if (!coreVersionIsSnapshot) {
+        if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
     }
