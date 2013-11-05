@@ -10,18 +10,28 @@ grails.project.repos.default = "metridocRepo"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 
-String coreVersion = new File(new File(basedir).parent, "VERSION").getText("utf-8").trim()
-boolean coreVersionIsSnapshot = coreVersion.endsWith("SNAPSHOT")
+File versionFile = new File(new File(basedir).parent, "VERSION")
 
-if (coreVersionIsSnapshot) {
-    grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
+String coreVersion
+boolean useInlinePlugin
+if (versionFile.exists()) {
+    coreVersion = versionFile.getText("utf-8").trim()
+    useInlinePlugin = coreVersion.endsWith("SNAPSHOT")
+
+    if (useInlinePlugin) {
+        grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
+    }
+}
+else {
+    def metadata = new XmlSlurper().parse("http://dl.bintray.com/upennlib/metridoc/org/grails/plugins/metridoc-core/maven-metadata.xml")
+    coreVersion = metadata.versioning.latest.text().trim()
 }
 
 grails.project.dependency.resolution = {
     inherits("global")
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
 
-    if(coreVersionIsSnapshot) {
+    if (useInlinePlugin) {
         //inline plugins require this for some reason
         legacyResolve true
     }
@@ -44,7 +54,7 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":google-visualization:0.6.2"
 
-        if (!coreVersionIsSnapshot) {
+        if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
     }
