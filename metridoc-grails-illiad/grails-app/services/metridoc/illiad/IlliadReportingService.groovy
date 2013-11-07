@@ -32,8 +32,10 @@ class IlliadReportingService {
     def selectAllFromIllTransaction = { String type, boolean isBorrowing ->
         def processType = isBorrowing ? "Borrowing" : "Lending"
         """
-            select *
-            from ill_transaction
+            select t.*, u.nvtgc
+            from ill_transaction t
+            left join ill_user_info u
+            on t.user_id = u.user_id
             where process_type = ${processType}
                 and request_type= ${type}
         """
