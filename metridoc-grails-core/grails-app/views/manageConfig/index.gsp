@@ -22,6 +22,6 @@
 
 <md:report>
     <g:render template="/commonTemplates/tabs"/>
-    <g:render template="/manageConfig/config"/>
-    <g:render template="/manageConfig/status"/>
+    <tmpl:config />
+    <tmpl:status />
 </md:report>
