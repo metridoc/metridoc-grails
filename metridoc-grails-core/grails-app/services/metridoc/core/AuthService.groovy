@@ -18,6 +18,7 @@ import org.apache.commons.lang.math.RandomUtils
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.crypto.hash.Sha256Hash
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 class AuthService {
 
@@ -28,6 +29,29 @@ class AuthService {
     public static final FIFTEEN_MINUTES = 1000 * 60 * 15
     //
     def resetableUserById = [:]
+
+    void updateUser(ShiroUser shiroUserInstance, GrailsParameterMap params) {
+
+        if (params.emailAddress) {
+            shiroUserInstance.emailAddress = params.emailAddress
+        }
+
+        if (params.changePW) {
+            shiroUserInstance.validatePasswords = true
+            shiroUserInstance.oldPassword = params.oldPassword
+            shiroUserInstance.password = params.password
+            shiroUserInstance.confirm = params.confirm
+            def valid = shiroUserInstance.validate()
+            if (valid) {
+                shiroUserInstance.passwordHash = shiroUserInstance.saltedHash()
+                shiroUserInstance.hashAgainstOldPassword = false
+            }
+
+            log.info "password and user details for ${shiroUserInstance.username} are changing"
+        } else {
+            log.info "user details for ${shiroUserInstance.username} are changing, password will remain the same"
+        }
+    }
 
     def addUserById(id, user) {
         resetableUserById[id] = user
@@ -104,4 +128,9 @@ class AuthService {
         def authToken = new UsernamePasswordToken(user.username, password as String)
         SecurityUtils.subject.login(authToken)
     }
+}
+
+class AuthChangeStatus {
+    String errorMessage
+    boolean success = true
 }
