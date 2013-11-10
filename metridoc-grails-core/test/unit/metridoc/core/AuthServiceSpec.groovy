@@ -24,14 +24,8 @@ class AuthServiceSpec extends Specification {
         then:
         user.emailAddress == "foo@bar.com"
 
-        when:
-        params.changePW = true
-        service.updateUser(user, params)
-
-        then:
-        user.emailAddress == "foo@bar.com"
-
         when: "password is stored in old method with no salting"
+        params.changePW = true
         user = new ShiroUser()
         params = new GrailsParameterMap([:], null)
         params.oldPassword = "password123"

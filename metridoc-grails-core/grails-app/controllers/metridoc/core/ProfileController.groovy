@@ -21,7 +21,7 @@ class ProfileController {
 
     static boolean isProtected = true
     static allowedMethods = [save: "POST", update: "POST", index: "GET"]
-
+    def authService
 
     def index() {
         chain(action: "edit")
@@ -38,7 +38,7 @@ class ProfileController {
             flash.message = params.flashMessage
         }
 
-        [shiroUserInstance: shiroUserInstance]
+        [shiroUserInstance: shiroUserInstance, managingAccount: true]
     }
 
     def update() {
@@ -60,22 +60,7 @@ class ProfileController {
 
         shiroUserInstance.lock()
 
-        if (params.changePW) {
-            shiroUserInstance.validatePasswords = true
-            shiroUserInstance.oldPassword = params.oldPassword
-            shiroUserInstance.password = params.password
-            shiroUserInstance.confirm = params.confirm
-            def valid = shiroUserInstance.validate()
-            if (valid) {
-                shiroUserInstance.passwordHash = new Sha256Hash(shiroUserInstance.password).toHex()
-                shiroUserInstance.hashAgainstOldPassword = false
-            }
-
-            log.info "password and user details for ${shiroUserInstance.username} are changing"
-        } else {
-            log.info "user details for ${shiroUserInstance.username} are changing, password will remain the same"
-            updateUserInfo(shiroUserInstance, params)
-        }
+        authService.updateUser(shiroUserInstance, params)
 
         if (!shiroUserInstance.save(flush: true)) {
             if (shiroUserInstance.errors) {

@@ -209,7 +209,9 @@ class ShiroUser {
     }
 
     boolean oldPasswordMatch() {
-        saltedHash(oldPassword) == passwordHash ?: hash(oldPassword) == passwordHash
+        def saltedMatch = saltedHash(oldPassword) == passwordHash
+        def deprecatedMatch = hash(oldPassword) == passwordHash
+        saltedMatch || deprecatedMatch
     }
 
     String hash() {

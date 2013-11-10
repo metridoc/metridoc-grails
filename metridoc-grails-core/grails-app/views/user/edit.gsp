@@ -16,23 +16,6 @@
 -->
 <%@ page import="metridoc.core.ShiroUser" %>
 <md:report>
-
     <g:render template="/commonTemplates/tabs"/>
-
-    <g:form method="post" class="form-horizontal">
-        <g:hiddenField name="id" value="${shiroUserInstance?.id}"/>
-        <g:hiddenField name="version" value="${shiroUserInstance?.version}"/>
-
-        <div class="control-group">
-            <tmpl:userName disabled="${true}"/>
-            %{--<g:render template="/user/userName"  model="[disabled: true]"></g:render>--}%
-            <tmpl:email/>
-            <g:render template="/commonTemplates/roles" model="${[target: shiroUserInstance]}"/>
-            <div class="controls">
-                <button class="btn" type="submit" name="_action_update">
-                    <i class="icon-edit"></i> Update
-                </button>
-            </div>
-        </div>
-    </g:form>
+    <g:render template="/commonTemplates/editUser"/>
 </md:report>

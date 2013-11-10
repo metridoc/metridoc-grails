@@ -37,8 +37,15 @@ class AuthService {
         }
 
         if (params.changePW) {
+            def onProfilePage = params.controller == "profile"
             shiroUserInstance.validatePasswords = true
-            shiroUserInstance.oldPassword = params.oldPassword
+            if (onProfilePage) {
+                shiroUserInstance.oldPassword = params.oldPassword
+            }
+            else {
+                shiroUserInstance.oldPassword = params.password
+                shiroUserInstance.passwordHash = shiroUserInstance.saltedHash(params.password)
+            }
             shiroUserInstance.password = params.password
             shiroUserInstance.confirm = params.confirm
             def valid = shiroUserInstance.validate()
