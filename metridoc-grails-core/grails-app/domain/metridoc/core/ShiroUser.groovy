@@ -74,7 +74,10 @@ class ShiroUser {
                     if (obj.hashAgainstOldPassword) {
                         if (!obj.oldPasswordMatch()) return "oldPassword.match"
                     }
-                } else return "password.nullable" //oldPassword should never be null or empty
+                }
+                else {
+                    return "password.nullable"
+                } //oldPassword should never be null or empty
 
                 if (obj.confirm != obj.password) {
                     return "confirm.match"
@@ -114,7 +117,7 @@ class ShiroUser {
         addAlertsForUserNameErrors(user, flash)
         addAlertsForRoleErrors(user, flash)
         if (flash.alert == null) {
-            flash.alert "unknown error occurred trying to update user"
+            flash.alert = "unknown error occurred trying to update user"
         }
     }
 
@@ -206,7 +209,9 @@ class ShiroUser {
     }
 
     boolean oldPasswordMatch() {
-        saltedHash(oldPassword) == passwordHash ?: hash(oldPassword) == passwordHash
+        def saltedMatch = saltedHash(oldPassword) == passwordHash
+        def deprecatedMatch = hash(oldPassword) == passwordHash
+        saltedMatch || deprecatedMatch
     }
 
     String hash() {

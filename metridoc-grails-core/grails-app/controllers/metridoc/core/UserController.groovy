@@ -21,7 +21,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class UserController {
 
-
+    def authService
     static allowedMethods = [save: "POST", update: "POST", delete: ['DELETE', "POST"], list: "GET", index: "GET"]
     static accessControl = {
         role(name: "ROLE_ADMIN")
@@ -89,8 +89,10 @@ class UserController {
             return
         }
 
-        [currentUserName: SecurityUtils.getSubject().getPrincipal(),
-                shiroUserInstance: shiroUserInstance]
+        [
+                currentUserName: SecurityUtils.getSubject().getPrincipal(),
+                shiroUserInstance: shiroUserInstance
+        ]
     }
 
     def update() {
@@ -115,15 +117,8 @@ class UserController {
         }
 
         shiroUserInstance.lock()
+        authService.updateUser(shiroUserInstance, params)
         shiroUserInstance.with {
-            emailAddress = params.emailAddress
-            if (params.password) {
-                validatePasswords = true
-                oldPassword = params.password
-                password = params.password
-                confirm = params.confirm
-                shiroUserInstance.setPasswordHash(new Sha256Hash(password, shiroUserInstance.username).toHex())
-            }
             roles = []
             def addRole = { roleName ->
                 log.debug("adding role ${roleName} for user ${shiroUserInstance}")

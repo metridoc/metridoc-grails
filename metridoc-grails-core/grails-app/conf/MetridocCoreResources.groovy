@@ -45,18 +45,18 @@ modules = {
 
     }
 
-    profile {
+    changePassword {
         dependsOn 'jquery'
         resource id: 'css',
-                url: [plugin: "metridocCore", dir: 'profile/css', file: 'profile.css'],
+                url: [plugin: "metridocCore", dir: 'css', file: 'changePassword.css'],
                 attrs: [type: 'css']
         resource id: 'js',
-                url: [plugin: "metridocCore", dir: 'profile/js', file: 'profile.js'],
+                url: [plugin: "metridocCore", dir: 'js', file: 'changePassword.js'],
                 attrs: [type: 'js']
     }
 
     user {
-        dependsOn 'jquery'
+        dependsOn 'jquery', 'changePassword'
         resource id: 'css',
                 url: [plugin: "metridocCore", dir: 'user/css', file: 'user.css'],
                 attrs: [type: 'css']
