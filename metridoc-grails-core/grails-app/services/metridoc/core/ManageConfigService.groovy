@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils
 class ManageConfigService {
 
     public static final String REPORT_ISSUES = "ReportIssues"
+    def shiroRememberMeManager
 
     def updateReportUserEmails(String reportIssueEmails, Map flash) {
         if(!reportIssueEmails) return
@@ -53,7 +54,7 @@ class ManageConfigService {
         }
     }
 
-    protected void removeNoLongerUsedEmails(Set<String> validEmails) {
+    protected static void removeNoLongerUsedEmails(Set<String> validEmails) {
 
         NotificationEmails.findByScope(ManageConfigService.REPORT_ISSUES).each {
             if(!validEmails.contains(it.email)) {
@@ -77,5 +78,15 @@ class ManageConfigService {
 
         log.debug "using emails [$response] for reporting errors issues"
         return response
+    }
+
+    def updateRememberMeCookieAge(int cookieAge) {
+        if (cookieAge >= 0) {
+            RememberCookieAge instance = RememberCookieAge.instance
+            instance.ageInSeconds = cookieAge
+            if(instance.save()) {
+                shiroRememberMeManager.getCookie().setMaxAge(cookieAge)
+            }
+        }
     }
 }

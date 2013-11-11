@@ -63,5 +63,11 @@
             <g:textField name="reportIssueEmails" placeholder="foo@foo.com bar@bar.com" value="${reportIssueEmails}"></g:textField>
         </div>
     </div>
+    <label for="rememberMeCookieAge" class="control-label">Security Cookie Age:</label>
+    <div class="control-group">
+        <div class="controls">
+            <g:textField name="rememberMeCookieAge" placeholder="360" value="${rememberMeCookieAge}"></g:textField>
+        </div>
+    </div>
     <md:cgButton icon="icon-edit">Update</md:cgButton>
 </md:form>

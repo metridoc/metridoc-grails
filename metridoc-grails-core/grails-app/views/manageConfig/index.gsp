@@ -14,13 +14,16 @@
 
 <md:report>
     <g:render template="/commonTemplates/tabs"/>
-    <tmpl:config metridocConfigExists="${metridocConfigExists}" reportIssueEmails="${reportIssueEmails}"/>
+    <tmpl:config
+            metridocConfigExists="${metridocConfigExists}"
+            reportIssueEmails="${reportIssueEmails}"
+            rememberMeCookieAge="${rememberMeCookieAge}"
+    />
     <tmpl:status
             javaCommand="${javaCommand}"
             javaVmArguments="${javaVmArguments}"
             mainCommand="${mainCommand}"
             dataSourceUrl="${dataSourceUrl}"
             applicationName="${applicationName}"
-            shiroFilters="${shiroFilters}"
-    />
+            shiroFilters="${shiroFilters}"/>
 </md:report>
