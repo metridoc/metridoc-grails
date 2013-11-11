@@ -5,6 +5,7 @@ class RidLibraryUnit {
     static hasMany = [userGoal: RidUserGoal,
             modeOfConsultation: RidModeOfConsultation,
             serviceProvided: RidServiceProvided,
+            sessionType: RidSessionType,
             ridConsTransaction: RidConsTransaction,
             ridInsTransaction: RidInsTransaction]
 

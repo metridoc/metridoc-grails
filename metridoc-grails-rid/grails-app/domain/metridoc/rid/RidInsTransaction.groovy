@@ -12,7 +12,7 @@ class RidInsTransaction extends RidInsTransactionBase {
             audience: RidAudience,
             instructionalMaterials: RidInstructionalMaterials]
 
-    static transients = [/*'otherRank',*/ 'otherUser', 'otherSchool', 'otherLocation',
+    static transients = ['otherSchool', 'otherLocation',
             'otherSessionType', 'otherAudience', 'otherInstructionalMaterials']
 
     String spreadsheetName

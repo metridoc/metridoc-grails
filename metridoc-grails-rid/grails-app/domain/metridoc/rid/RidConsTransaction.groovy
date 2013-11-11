@@ -11,7 +11,7 @@ class RidConsTransaction extends RidConsTransactionBase {
             school: RidSchool,
             ridLibraryUnit: RidLibraryUnit]
 
-    static transients = ['otherRank', 'otherUser', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
+    static transients = ['otherRank', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
             'otherCourseSponsor', 'otherService']
 
     String spreadsheetName
