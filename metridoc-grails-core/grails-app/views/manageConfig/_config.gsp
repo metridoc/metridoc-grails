@@ -54,3 +54,14 @@
         </div>
     </div>
 </g:form>
+
+<md:header>General Settings</md:header>
+<md:form class="form-horizontal" action="updateGeneralSettings" method="POST">
+    <label for="reportIssueEmails" class="control-label">Report Issues Email:</label>
+    <div class="control-group">
+        <div class="controls">
+            <g:textField name="reportIssueEmails" placeholder="foo@foo.com bar@bar.com" value="${reportIssueEmails}"></g:textField>
+        </div>
+    </div>
+    <md:cgButton icon="icon-edit">Update</md:cgButton>
+</md:form>

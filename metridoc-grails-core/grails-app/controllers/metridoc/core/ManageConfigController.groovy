@@ -25,6 +25,7 @@ class ManageConfigController {
     def generalSettingsService
     def dataSource
     def grailsApplication
+    def manageConfigService
 
     static accessControl = {
         role(name: "ROLE_ADMIN")
@@ -41,7 +42,8 @@ class ManageConfigController {
             workDirectory = workDirectoryFileExistsAndHasText ? generalSettingsService.workDirectoryFile.text : null
         }
 
-        [command: command,
+        [
+                command: command,
                 workDirectory: workDirectory,
                 javaCommand: generalSettingsService.javaCommand(),
                 javaVmArguments: generalSettingsService.javaVmArguments(),
@@ -49,7 +51,9 @@ class ManageConfigController {
                 dataSourceUrl: dataSource.connection.metaData.getURL(),
                 applicationName: grailsApplication.config.metridoc.app.name,
                 shiroFilters: grailsApplication.config.security.shiro.filter.filterChainDefinitions,
-                metridocConfigExists: commonService.metridocConfig.exists()]
+                reportIssueEmails: manageConfigService.reportIssueEmails,
+                metridocConfigExists: commonService.metridocConfig.exists()
+        ]
     }
 
     def upload() {
@@ -83,6 +87,13 @@ class ManageConfigController {
         }
 
         flash.alerts << "${config} does not exist"
+        redirect(action: "index")
+    }
+
+    def updateGeneralSettings(String reportIssueEmails) {
+        log.debug "reseting notification emails to [$reportIssueEmails]"
+        manageConfigService.updateReportUserEmails(reportIssueEmails, flash)
+
         redirect(action: "index")
     }
 }
