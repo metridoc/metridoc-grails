@@ -236,31 +236,44 @@ class RidTransactionService {
         }
     }
 
-    def ajaxMethod(Map params) {
-        def userGoals = RidUserGoal.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
-        def consultations = RidModeOfConsultation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
-        def services = RidServiceProvided.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
-        if (!params.goalID.isEmpty()) {
-            def goal = RidUserGoal.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.goalID)
-            if (goal != null && !userGoals.contains(goal))
-                userGoals.add(0, goal)
+    def ajaxMethod(Map params, String transType) {
+        if (transType == "consultation") {
+            def userGoals = RidUserGoal.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            def consultations = RidModeOfConsultation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            def services = RidServiceProvided.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            if (!params.goalID.isEmpty()) {
+                def goal = RidUserGoal.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.goalID)
+                if (goal != null && !userGoals.contains(goal))
+                    userGoals.add(0, goal)
+            }
+            if (!params.modeID.isEmpty()) {
+                def mode = RidModeOfConsultation.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.modeID)
+                if (mode != null && !consultations.contains(mode))
+                    consultations.add(0, mode)
+            }
+            if (!params.serviceID.isEmpty()) {
+                def service = RidServiceProvided.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.serviceID)
+                if (service != null && !userGoals.contains(service))
+                    services.add(0, service)
+            }
+            userGoals.sort { it.name }.addAll(RidUserGoal.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+            consultations.sort { it.name }.addAll(RidModeOfConsultation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+            services.sort { it.name }.addAll(RidServiceProvided.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+            return ['userGoal': userGoals,
+                    'modeOfConsultation': consultations,
+                    'serviceProvided': services]
         }
-        if (!params.modeID.isEmpty()) {
-            def mode = RidModeOfConsultation.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.modeID)
-            if (mode != null && !consultations.contains(mode))
-                consultations.add(0, mode)
+        else{
+            def sessionTypes = RidSessionType.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            if (!params.serviceID.isEmpty()) {
+                def session = RidServiceProvided.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.sessionID)
+                if (session != null && !sessionTypes.contains(session))
+                    sessionTypes.add(0, session)
+            }
+            sessionTypes.sort { it.name }.addAll(RidSessionType.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+            return ['sessionType':sessionTypes]
+
         }
-        if (!params.serviceID.isEmpty()) {
-            def service = RidServiceProvided.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.serviceID)
-            if (service != null && !userGoals.contains(service))
-                services.add(0, service)
-        }
-        userGoals.sort { it.name }.addAll(RidUserGoal.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
-        consultations.sort { it.name }.addAll(RidModeOfConsultation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
-        services.sort { it.name }.addAll(RidServiceProvided.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
-        return ['userGoal': userGoals,
-                'modeOfConsultation': consultations,
-                'serviceProvided': services]
     }
 
     def createNewConsInstanceMethod(Map params, RidConsTransactionBase ridTransactionInstance) {
