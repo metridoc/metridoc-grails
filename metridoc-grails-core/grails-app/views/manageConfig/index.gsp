@@ -12,16 +12,15 @@
   - 	or implied. See the License for the specific language governing
   - 	permissions and limitations under the License.  --}%
 
-<%--
-  Created by IntelliJ IDEA.
-  User: tbarker
-  Date: 2/4/13
-  Time: 3:31 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <md:report>
     <g:render template="/commonTemplates/tabs"/>
-    <tmpl:config />
-    <tmpl:status />
+    <tmpl:config metridocConfigExists="${metridocConfigExists}" reportIssueEmails="${reportIssueEmails}"/>
+    <tmpl:status
+            javaCommand="${javaCommand}"
+            javaVmArguments="${javaVmArguments}"
+            mainCommand="${mainCommand}"
+            dataSourceUrl="${dataSourceUrl}"
+            applicationName="${applicationName}"
+            shiroFilters="${shiroFilters}"
+    />
 </md:report>

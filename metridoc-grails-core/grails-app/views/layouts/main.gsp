@@ -114,11 +114,32 @@
     <md:alerts model="${params}"/>
     <g:layoutBody/>
 
+
     <div id="spinner" class="spinner" style="display:none;">
         <g:message code="spinner.alt" default="Loading&hellip;"/>
     </div>
-
-    <r:layoutResources/>
+    <g:if test="${"home" != controllerName && applicationContext.manageConfigService.getReportIssueEmails()}">
+        <div id="metridocFooter">
+            <shiro:isLoggedIn>
+                <a id="metridocReportIssues"
+                   href="mailto:${applicationContext.manageConfigService.getReportIssueEmails()}?Subject=Metridoc%20Issue"
+                   target="_blank">Report Issues</a>
+            </shiro:isLoggedIn>
+        </div>
+    </g:if>
 </div>
+
+<g:if test="${"home" == controllerName && applicationContext.manageConfigService.getReportIssueEmails()}">
+    <div id="metridocFooter">
+        <shiro:isLoggedIn>
+            <a id="metridocReportIssues"
+               href="mailto:${applicationContext.manageConfigService.getReportIssueEmails()}?Subject=Metridoc%20Issue"
+               target="_blank">Report Issues</a>
+        </shiro:isLoggedIn>
+    </div>
+</g:if>
+
+<r:layoutResources/>
+
 </body>
 </html>
