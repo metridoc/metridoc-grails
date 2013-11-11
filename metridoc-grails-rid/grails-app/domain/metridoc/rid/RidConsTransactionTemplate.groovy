@@ -11,7 +11,7 @@ class RidConsTransactionTemplate extends RidConsTransactionBase {
             school: RidSchool,
             ridLibraryUnit: RidLibraryUnit]
 
-    static transients = ['otherRank', 'otherUser', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
+    static transients = ['otherRank', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
             'otherCourseSponsor', 'otherService']
 
     //Records the owner/creator of this template

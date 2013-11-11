@@ -11,7 +11,7 @@ class RidInsTransactionTemplate extends RidInsTransactionBase {
             audience: RidAudience,
             instructionalMaterials: RidInstructionalMaterials]
 
-    static transients = [/*'otherRank',*/ 'otherUser', 'otherSchool', 'otherLocation', 'otherSessionType',
+    static transients = ['otherSchool', 'otherLocation', 'otherSessionType',
             'otherSessionType', 'otherAudience', 'otherInstructionalMaterials']
 
     //Records the owner/creator of this template
