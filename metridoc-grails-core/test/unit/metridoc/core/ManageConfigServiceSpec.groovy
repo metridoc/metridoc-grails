@@ -2,10 +2,13 @@ package metridoc.core
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import org.apache.shiro.mgt.RememberMeManager
+import org.apache.shiro.web.mgt.CookieRememberMeManager
+import org.apache.shiro.web.servlet.Cookie
 import spock.lang.Specification
 
 @TestFor(ManageConfigService)
-@Mock(NotificationEmails)
+@Mock([NotificationEmails, RememberCookieAge])
 class ManageConfigServiceSpec extends Specification {
 
     void "test flash alerts should fire off if there are any invalid emails"() {
@@ -48,5 +51,33 @@ class ManageConfigServiceSpec extends Specification {
         "bar@bar.com" == NotificationEmails.findByScope("notReportIssue").email
         reportIssueEmails.contains("foobar@flip.com")
         reportIssueEmails.contains("foobar@flop.com")
+    }
+
+    void "test setting the cookie age"() {
+        given:
+        boolean maxAgeCalled = false
+        service.shiroRememberMeManager = [
+                getCookie: {
+                    [
+                        setMaxAge:{
+                            maxAgeCalled = true
+                        }
+                    ] as Cookie
+                }
+        ] as CookieRememberMeManager
+
+        when: "cookie age is negative"
+        service.updateRememberMeCookieAge(-10)
+
+        then: "previous cookie age is used"
+        3600 == RememberCookieAge.instance.ageInSeconds
+        !maxAgeCalled
+
+        when:
+        service.updateRememberMeCookieAge(10)
+
+        then:
+        10 == RememberCookieAge.instance.ageInSeconds
+        maxAgeCalled
     }
 }

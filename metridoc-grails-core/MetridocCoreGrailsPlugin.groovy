@@ -1,3 +1,4 @@
+import metridoc.core.RememberCookieAge
 import metridoc.utils.BootupUtils
 import org.apache.shiro.mgt.RememberMeManager
 import org.apache.shiro.web.mgt.CookieRememberMeManager
@@ -50,7 +51,7 @@ class MetridocCoreGrailsPlugin {
     def doWithApplicationContext = { applicationContext ->
         RememberMeManager manager = applicationContext.getBean("shiroRememberMeManager", RememberMeManager)
         if (manager instanceof CookieRememberMeManager) {
-            manager.cookie.setMaxAge(DEFAULT_MAX_REMEMER_ME)
+            manager.cookie.setMaxAge(RememberCookieAge.instance.ageInSeconds)
             manager.cookie.setPath(SimpleCookie.ROOT_PATH)
         }
     }

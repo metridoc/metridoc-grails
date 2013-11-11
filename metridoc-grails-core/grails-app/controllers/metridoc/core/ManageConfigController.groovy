@@ -26,6 +26,7 @@ class ManageConfigController {
     def dataSource
     def grailsApplication
     def manageConfigService
+    def shiroRememberMeManager
 
     static accessControl = {
         role(name: "ROLE_ADMIN")
@@ -52,7 +53,8 @@ class ManageConfigController {
                 applicationName: grailsApplication.config.metridoc.app.name,
                 shiroFilters: grailsApplication.config.security.shiro.filter.filterChainDefinitions,
                 reportIssueEmails: manageConfigService.reportIssueEmails,
-                metridocConfigExists: commonService.metridocConfig.exists()
+                metridocConfigExists: commonService.metridocConfig.exists(),
+                rememberMeCookieAge:shiroRememberMeManager.cookie.getMaxAge()
         ]
     }
 
@@ -90,9 +92,12 @@ class ManageConfigController {
         redirect(action: "index")
     }
 
-    def updateGeneralSettings(String reportIssueEmails) {
+    def updateGeneralSettings(String reportIssueEmails, Integer rememberMeCookieAge) {
         log.debug "reseting notification emails to [$reportIssueEmails]"
         manageConfigService.updateReportUserEmails(reportIssueEmails, flash)
+        if (rememberMeCookieAge != null) {
+            manageConfigService.updateRememberMeCookieAge(rememberMeCookieAge)
+        }
 
         redirect(action: "index")
     }
