@@ -7,9 +7,10 @@
     <g:set var="entityName" value="${message(code: 'ridTransaction.label', default: 'RidInsTransaction')}"/>
 </g:else>
 
+
+
 <md:report>
     <div class="md-application-content">
-
         <tmpl:toggle/>
         <tmpl:tabs/>
 

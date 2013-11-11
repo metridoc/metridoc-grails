@@ -217,6 +217,7 @@ $(function () {
         var choiceService = $("#currentServiceProvided").text();
         var choiceGoal = $("#currentUserGoal").text();
         var choiceSession = $("#currentSessionType").text();
+
         $.ajax({
             //url: '${g.createLink(controller: 'RidConsTransaction', action: 'ajaxChooseType')}',
             url: 'ajaxChooseType',
@@ -271,7 +272,7 @@ $(function () {
                     $("#otherModeOfConsultationDiv").hide();
                     $("#otherModeOfConsultation").val("");
                 }
-                var choiceSessionType = $("#userGoal > option:first").attr("inForm");
+                var choiceSessionType = $("#sessionType > option:first").attr("inForm");
                 if (choiceSessionType == "2") {
                     $("#otherSessionTypeDiv").show();
                 }
@@ -279,10 +280,8 @@ $(function () {
                     $("#otherSessionTypeDiv").hide();
                     $("#otherSessionType").val("");
                 }
-
             }
         });
-
     })
 });
 
