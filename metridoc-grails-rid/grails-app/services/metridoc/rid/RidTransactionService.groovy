@@ -265,7 +265,7 @@ class RidTransactionService {
         }
         else{
             def sessionTypes = RidSessionType.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
-            if (!params.serviceID.isEmpty()) {
+            if (!params.sessionID.isEmpty()) {
                 def session = RidServiceProvided.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.sessionID)
                 if (session != null && !sessionTypes.contains(session))
                     sessionTypes.add(0, session)
