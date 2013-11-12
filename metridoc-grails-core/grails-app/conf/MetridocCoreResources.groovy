@@ -56,7 +56,7 @@ modules = {
     }
 
     user {
-        dependsOn 'jquery', 'changePassword'
+        dependsOn 'jquery', 'changePassword', 'row'
         resource id: 'css',
                 url: [plugin: "metridocCore", dir: 'user/css', file: 'user.css'],
                 attrs: [type: 'css']
@@ -65,8 +65,14 @@ modules = {
                 attrs: [type: 'js']
     }
 
+    row {
+        resource id: 'row_js',
+                url: [plugin: "metridocCore", dir: 'row/js', file: 'rowActions.js'],
+                attrs: [type: 'js']
+    }
+
     role {
-        dependsOn 'jquery'
+        dependsOn 'jquery', 'row'
         resource id: 'css',
                 url: [plugin: "metridocCore", dir: 'role/css', file: 'role.css'],
                 attrs: [type: 'css']

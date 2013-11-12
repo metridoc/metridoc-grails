@@ -38,14 +38,14 @@
 
     <div id="list-shiroRole" class="content scaffold-list" role="main">
 
-        <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+        <g:if test="${flash.roleMessage}">
+            <div class="message" role="status">${flash.roleMessage}</div>
         </g:if>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <g:sortableColumn property="name" title="Roles"/>
-
+                <th></th>
             </tr>
 
             </thead>
@@ -57,7 +57,12 @@
                                 id="${shiroRoleInstance.id}">${fieldValue(bean: shiroRoleInstance, field: "name")}
                         </g:link>
                     </td>
-
+                    <td>
+                        <span class="inCellActions">
+                            <g:render template="/commonTemplates/rowDeleteLink"
+                                      model="[id:shiroRoleInstance.id, deleteController:'role']" />
+                        </span>
+                    </td>
                 </tr>
             </g:each>
             </tbody>

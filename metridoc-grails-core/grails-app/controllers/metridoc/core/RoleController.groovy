@@ -18,6 +18,7 @@ import static org.apache.commons.lang.StringUtils.EMPTY
 
 class RoleController {
 
+    def roleService
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", list: "GET", index: "GET"]
     def static final reportName = "Manage Roles"
 
@@ -121,5 +122,27 @@ class RoleController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'shiroRole.label', default: 'Role'), shiroRoleInstance.name.substring(5)])
         session.setAttribute("previousExpanded", "roleList")
         chain(controller: "manageAccess", action: "index", id: shiroRoleInstance.id, previousExpanded: 'roleList')
+    }
+
+    def delete(long id) {
+        def role = ShiroRole.get(id)
+        if(!role) {
+            flash.alerts << "role with is [$id] does not exist"
+        }
+        else {
+            if(roleService.roleAttachedToUsers(id)) {
+                flash.alerts << "role [$role.name] is attached to one or more users"
+            }
+            else if (roleService.roleAttachedToLdapMapping(id)) {
+                flash.alerts << "role [$role.name] is attached to one or more ldap mappings"
+            }
+            else {
+                roleService.deletedRole(id)
+                flash.roleMessage = "deleted role [$role.name]"
+            }
+        }
+
+        session.setAttribute("previousExpanded", "roleList")
+        redirect(controller: "manageAccess", action: "list")
     }
 }
