@@ -12,11 +12,20 @@
  *	or implied. See the License for the specific language governing
  *	permissions and limitations under the License.  */
 
-$('#changePW').change(function () {
-    if(this.checked){
-        $('.password').show()
-    }else{
-        $('.password').hide()
+jQuery(function($){
+    if($('#changePW').length) {
+        //hide the password fields since we have the change password toggle
+        $(".password").css("display", "none");
+
+        //add toggle functionality
+        $('#changePW').change(function () {
+            if(this.checked){
+                $('.password').show();
+            }else{
+                $('.password').hide();
+            }
+        });
     }
 });
+
 
