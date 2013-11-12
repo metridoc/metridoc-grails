@@ -24,20 +24,11 @@
 
     <div id="createUserForm" hidden="true">
         <md:form controller="user" action="save" class="form-horizontal">
-            <div class="control-group">
-                <g:render template="/user/userName"/>
-            </div>
+            <g:render template="/user/userName"/>
             <g:render template="/user/passwords"/>
-            <div class="control-group">
-                <g:render template="/user/email"/>
-            </div>
-            <div class="control-group">
-                <g:render template="/commonTemplates/roles"/>
-            </div>
-
-            <div class="control-group">
-                <g:render template="/commonTemplates/button" model="['content': 'Create']" icon="icon-edit"/>
-            </div>
+            <g:render template="/user/email"/>
+            <g:render template="/commonTemplates/roles"/>
+            <g:render template="/commonTemplates/button" model="['content': 'Create']" icon="icon-edit"/>
         </md:form>
     </div>
 
