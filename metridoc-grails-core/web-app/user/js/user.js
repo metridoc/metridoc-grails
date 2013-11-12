@@ -12,12 +12,6 @@
   *	or implied. See the License for the specific language governing
   *	permissions and limitations under the License.  */
 
-function deleteUser(userId) {
-    if (window.confirm("are you sure you want to delete this user?")) {
-        $('#mdForm_' + userId).submit();
-    }
-}
-
 var userInput = $('.username');
 var userNameInputExists = userInput.length > 0;
 if (userNameInputExists) {

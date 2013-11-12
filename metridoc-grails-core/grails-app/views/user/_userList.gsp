@@ -76,19 +76,13 @@
                     <td>
                         <g:if test="${shiroUserInstance.username != 'anonymous'}">
                             <span class="inCellActions">
-
                                 <g:link controller="user" action="edit"
                                         id="${shiroUserInstance.id}"><i class="icon-edit"></i>
                                 </g:link>
                                 <g:if test="${shiroUserInstance.username != currentUserName}">
-                                    <a class="delete" href="#" onclick="deleteUser(${shiroUserInstance.id})">
-                                        <i class="icon-trash"></i>
-                                    </a>
+                                    <g:render template="/commonTemplates/rowDeleteLink"
+                                              model="[id:shiroUserInstance.id, deleteController:'user']" />
                                 </g:if>
-                                <g:form name="mdForm_${shiroUserInstance.id}" method="delete" controller="user"
-                                        action="delete"
-                                        id="${shiroUserInstance.id}"/>
-
                             </span>
                         </g:if>
                     </td>
