@@ -26,27 +26,37 @@ class LdapSettingsController {
         chain(controller: "ldapRole", action: "index")
     }
 
-    def save() {
+    def save(String server, String rootDN, String userSearchBase, String userSearchFilter, String managerDN, String unencryptedPassword) {
         def newLdapConfig
+
         if (LdapData.list().size() > 0) {
             newLdapConfig = LdapData.list().get(0)
-            newLdapConfig.server = params.server
-            newLdapConfig.rootDN = params.rootDN
-            newLdapConfig.userSearchBase = params.userSearchBase
-            newLdapConfig.userSearchFilter = params.userSearchFilter
-            newLdapConfig.managerDN = params.managerDN
+            newLdapConfig.server = server
+            newLdapConfig.rootDN = rootDN
+            newLdapConfig.userSearchBase = userSearchBase
+            newLdapConfig.userSearchFilter = userSearchFilter
+            newLdapConfig.managerDN = managerDN
         } else {
             newLdapConfig = new LdapData(
-                    server: params.server,
-                    rootDN: params.rootDN,
-                    userSearchBase: params.userSearchBase,
-                    userSearchFilter: params.userSearchFilter,
-                    managerDN: params.managerDN,
+                    server: server,
+                    rootDN: rootDN,
+                    userSearchBase: userSearchBase,
+                    userSearchFilter: userSearchFilter,
+                    managerDN: managerDN,
             )
         }
-        encryptionService.encryptString(newLdapConfig, params.unencryptedPassword)
-        newLdapConfig.save(failOnError: true)
-        flash.alert = "LDAP configuration updated"
+
+        encryptionService.encryptString(newLdapConfig, unencryptedPassword)
+        if(!newLdapConfig.validate()) {
+            newLdapConfig.errors.allErrors.each {
+                flash.alerts << message(error: it)
+            }
+        }
+        else {
+            newLdapConfig.save(failOnError: true)
+            flash.message = "LDAP configuration updated"
+        }
+
         session.setAttribute("previousExpanded", "ldapConfig")
         chain(controller: "ldapRole", action: "index")
     }
