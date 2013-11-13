@@ -25,11 +25,11 @@ class RidBootStrapService {
     static final UPENN_DATA = "metridoc.rid.ingestUpennData"
     static final TEST_DATA = "metridoc.rid.ingestTestData"
 
-    def ingestTestDataCheck(String environment){
+    def ingestTestDataCheck(environment){
 
         switch (environment) {
 
-            case "production":
+            case Environment.PRODUCTION:
                 //Default values are false
                 if(!System.properties.containsKey(TEST_DATA) || System?.getProperty(TEST_DATA)=="false"){
                     System.setProperty(TEST_DATA,"false")
@@ -73,7 +73,7 @@ class RidBootStrapService {
     def bootStrapContents() {
 
         if(!System.properties.containsKey(UPENN_DATA) || !System.properties.containsKey(TEST_DATA))
-            ingestTestDataCheck(Environment.current.getName())
+            ingestTestDataCheck(Environment.current)
 
         if(System.getProperty(TEST_DATA)=="true"){
             testDataService.populateTestFields()

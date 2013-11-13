@@ -16,13 +16,11 @@
 package metridoc.rid
 
 import grails.test.mixin.TestFor
-import org.apache.poi.ss.usermodel.*
-import org.codehaus.groovy.grails.io.support.ClassPathResource
+import grails.util.Environment
 import org.junit.Before
 import org.junit.Test
 import grails.test.mixin.Mock
-import grails.test.MockUtils.*
-import metridoc.rid.TestDataService
+
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -31,6 +29,7 @@ import metridoc.rid.TestDataService
 @Mock([RidAudience, RidConsTransaction, RidCourseSponsor, RidDepartment, RidInsTransaction, RidInstructionalMaterials, RidLibraryUnit, RidLocation, RidModeOfConsultation, RidRank, RidSchool, RidServiceProvided, RidSessionType, RidUserGoal])
 class RidBootStrapServiceTests {
 
+    @Before
     void clearProperties(){
         if (System.properties.containsKey("metridoc.rid.ingestUpennData")){
             System.properties.remove("metridoc.rid.ingestUpennData")
@@ -43,7 +42,7 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test bootstrapContents- no flags"() {
-        clearProperties()
+
         //Default values are to make test data
         service.testDataService = new TestDataService()
 
@@ -57,10 +56,10 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test production environment- no flags"() {
-        clearProperties()
+
         service.testDataService = new TestDataService()
 
-        service.ingestTestDataCheck("production")
+        service.ingestTestDataCheck(Environment.PRODUCTION)
         assert System.getProperty("metridoc.rid.ingestUpennData")== "false"
         assert System.getProperty("metridoc.rid.ingestTestData")== "false"
 
@@ -71,7 +70,7 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test both ingest flags true- default env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "true")
         System.setProperty("metridoc.rid.ingestTestData", "true")
@@ -84,7 +83,7 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test just upenn ingest flag true- default env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "true")
         System.setProperty("metridoc.rid.ingestTestData", "false")
@@ -97,7 +96,7 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test just test flag true- default env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "false")
         System.setProperty("metridoc.rid.ingestTestData", "true")
@@ -111,12 +110,12 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test both ingest flags true- production env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "true")
         System.setProperty("metridoc.rid.ingestTestData", "true")
 
-        service.ingestTestDataCheck("production")
+        service.ingestTestDataCheck(Environment.PRODUCTION)
         service.bootStrapContents()
         assert RidLibraryUnit.list().size() != 0
         assert RidConsTransaction.list().size() != 0
@@ -124,12 +123,12 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test just upenn ingest flag true- production env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "true")
         System.setProperty("metridoc.rid.ingestTestData", "false")
 
-        service.ingestTestDataCheck("production")
+        service.ingestTestDataCheck(Environment.PRODUCTION)
         service.bootStrapContents()
         assert RidLibraryUnit.list().size() != 0
         assert RidConsTransaction.list().size() == 0
@@ -137,12 +136,12 @@ class RidBootStrapServiceTests {
 
     @Test
     void "Test just test flag true- production env"(){
-        clearProperties()
+
         service.testDataService = new TestDataService()
         System.setProperty("metridoc.rid.ingestUpennData", "false")
         System.setProperty("metridoc.rid.ingestTestData", "true")
 
-        service.ingestTestDataCheck("production")
+        service.ingestTestDataCheck(Environment.PRODUCTION)
         assert System.getProperty("metridoc.rid.ingestUpennData") //Should be set to true because needed for test data
         service.bootStrapContents()
         assert RidLibraryUnit.list().size() != 0
