@@ -15,6 +15,8 @@
 
 package metridoc.rid
 
+import org.apache.commons.lang.RandomStringUtils
+
 class TestDataService {
     /**
      * For each domain object, check if any exist in the database
@@ -22,6 +24,8 @@ class TestDataService {
      */
 
     def populateTestFields() {
+        log.info("Importing University of Pennsylvania default data")
+
         if (!RidLibraryUnit.first()) {
             // for Library unit
             List<String> lUnit = Arrays.asList("WIC", "HSL", "CDM", "LIPPINCOTT", "RIS",
@@ -630,5 +634,79 @@ class TestDataService {
             }
             new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
         }
+    }
+
+    def createTestTransactions(){
+        log.info("Importing University of Pennsylvania test transactions")
+        if (!RidLibraryUnit.first()){
+          populateTestFields()
+        }
+        if (!RidConsTransaction.first()) {
+            println "Creating test data consultation for RID database"
+            // ---------------------------------------------------------------------------------------------
+                // for ridTransaction (only for demo)
+                for (int i = 0; i < 1; i++) {
+                    def t = new RidConsTransaction(staffPennkey: "012345667",
+                            userQuestion: RandomStringUtils.randomAlphanumeric(i % 50 + 1),
+                            interactOccurrences: i % 50, prepTime: i % 40,
+                            eventLength: i % 50, notes: "Sample Notes",
+                            facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
+                            courseNumber: "LIB001", dateOfConsultation: new Date(),
+                            department: RidDepartment.get(i % 6 + 1),
+                            courseSponsor: RidCourseSponsor.get(1),
+                            userGoal: RidUserGoal.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                            modeOfConsultation: RidModeOfConsultation.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                            rank: RidRank.get(1),
+                            serviceProvided: RidServiceProvided.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                            school: RidSchool.get(1),
+                            ridLibraryUnit: RidLibraryUnit.get(1 % 6 + 1)
+                    )
+
+                    try {
+                        if (!t.save()) {
+                            if (t.hasErrors()) println t.errors
+                        }
+                    } catch (Exception e) {
+                        log.error("an error occurred during bootstrap that will crash the entire application")
+                        throw e
+                    }
+                }
+            }
+
+
+        if (!RidInsTransaction.first()) {
+
+            println "Creating test instructional data for RID database"
+            for (int i = 0; i < 1; i++) {
+                    def rand = new Random()
+                    def t = new RidInsTransaction(instructorPennkey: "012345667",
+                            eventLength: i % 50, notes: "Sample Notes",
+                            sessionDescription: "Sample description",
+                            facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
+                            courseNumber: "LIB001", dateOfInstruction: new Date(),
+                            //department: RidDepartment.get(i % 6 + 1),
+                            sessionType: RidSessionType.get(1),
+                            instructionalMaterials: RidInstructionalMaterials.get(1),
+                            audience: RidAudience.get(1),
+                            school: RidSchool.get(1),
+                            location: RidLocation.get(1 % 3 + 1),
+                            attendanceTotal: 42,
+                            ridLibraryUnit: RidLibraryUnit.get(rand.nextInt(4) + 1)
+
+                    )
+
+                    try {
+                        if (!t.save()) {
+                            println "\n"
+                            if (t.hasErrors()) println t.errors
+                            println "\n"
+                        }
+                    } catch (Exception e) {
+                        log.error("an error occurred during bootstrap that will crash the entire application")
+                        throw e
+                    }
+                }
+            }
+
     }
 }
