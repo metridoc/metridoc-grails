@@ -14,23 +14,24 @@
 
 package metridoc.core
 
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException
 import org.jasypt.util.text.BasicTextEncryptor
 import org.jasypt.util.text.StrongTextEncryptor
 
 class EncryptionService {
     static transactional = false
 
-    def encryptString(LdapData data, String target) {
+    def encryptLdapData(LdapData data, String unencryptedPassword) {
         try {
             StrongTextEncryptor textEncrypt = new StrongTextEncryptor()
             textEncrypt.setPassword(CryptKey.list().get(0).encryptKey)
-            String encrypted = textEncrypt.encrypt(target)
+            String encrypted = textEncrypt.encrypt(unencryptedPassword)
             data.encryptedPassword = encrypted
             data.encryptStrong = true
-        } catch (org.jasypt.exceptions.EncryptionOperationNotPossibleException ex) {
+        } catch (EncryptionOperationNotPossibleException ignored) {
             BasicTextEncryptor textEncrypt = new BasicTextEncryptor()
             textEncrypt.setPassword(CryptKey.list().get(0).encryptKey)
-            String encrypted = textEncrypt.encrypt(target)
+            String encrypted = textEncrypt.encrypt(unencryptedPassword)
             data.encryptedPassword = encrypted
             data.encryptStrong = false
         }
@@ -42,7 +43,7 @@ class EncryptionService {
             textEncrypt.setPassword(CryptKey.list().get(0).encryptKey)
             String decrypted = textEncrypt.decrypt(target)
             return decrypted
-        } catch (org.jasypt.exceptions.EncryptionOperationNotPossibleException ex) {
+        } catch (EncryptionOperationNotPossibleException ignored) {
             BasicTextEncryptor textEncrypt = new BasicTextEncryptor()
             textEncrypt.setPassword(CryptKey.list().get(0).encryptKey)
             String decrypted = textEncrypt.decrypt(target)
