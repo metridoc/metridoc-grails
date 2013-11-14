@@ -44,7 +44,7 @@
                     <span id="dateOfConsultation-label" class="property-label"><g:message
                             code="ridTransaction.dateOfConsultation.label" default="Date Of Consultation"/></span>
                     :
-                    <span class="property-value" aria-labelledby="dateOfConsultation-label"><md:formatDate
+                    <span class="property-value" aria-labelledby="dateOfConsultation-label"><g:formatDate
                             format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfConsultation}"/></span>
                 </td>
                 <td colspan="2">
@@ -221,7 +221,7 @@
         <span id="dateOfInstruction-label" class="property-label"><g:message
                 code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
         :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><md:formatDate
+        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
                 format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
     </td>
     <td colspan="2">
@@ -238,7 +238,7 @@
         <span id="dateOfInstruction-label" class="property-label"><g:message
                 code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
         :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><md:formatDate
+        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
                 format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
     </td>
     <td colspan="2">
