@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.shiro.SecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.MultipartFile
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException
 
 import java.text.SimpleDateFormat
 
@@ -375,18 +376,26 @@ class RidTransactionController {
 
         withForm {
             MultipartFile uploadedFile = request.getFile("spreadsheetUpload")
-            Workbook wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            Workbook wb
+            if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
+                flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
+                redirect(action: "spreadsheetUpload")
+                return
+            }
+
             if (uploadedFile == null || uploadedFile.empty) {
                 flash.alerts << "No file was provided"
                 redirect(action: "spreadsheetUpload")
                 return
             }
 
-            if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
-                flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
-                redirect(action: "spreadsheetUpload")
+            try{
+                wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            }catch(InvalidFormatException e){
+                flash.message = message(code:"spreadsheet.illegal.argument")
                 return
             }
+
 
             if (!spreadsheetService.checkSpreadsheetFormat(wb)) {
                 flash.alerts << "Invalid Spreadsheet Format. Cannot Parse it."
@@ -416,7 +425,7 @@ class RidTransactionController {
 
             if (spreadsheetService.saveToDatabase(allInstances, uploadedFile.originalFilename, flash)) {
                 flash.infos << "Spreadsheet successfully uploaded. " +
-                        String.valueOf(allInstances.size()) + " instances uploaded."
+                    String.valueOf(allInstances.size()) + " instances uploaded."
                 redirect(action: "list")
             } else {
                 redirect(action: "spreadsheetUpload")
