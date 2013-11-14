@@ -29,7 +29,7 @@
         </ul>
     </g:hasErrors>
 
-    <g:form method="post" <%=multiPart ? ' enctype="multipart/form-data"' : '' %>>
+    <md:form method="post" <%=multiPart ? ' enctype="multipart/form-data"' : '' %>>
     <g:hiddenField name="id" value="\${${propertyName}?.id}"/>
     <g:hiddenField name="version" value="\${${propertyName}?.version}"/>
     <div class="form-horizontal" style="margin-top: 2em">
@@ -41,7 +41,7 @@
     %{--<g:actionSubmit style="float: right" class="btn btn-danger" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}"--}%
     %{--formnovalidate="" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />--}%
     %{--</fieldset>--}%
-    </g:form>
+    </md:form>
 </div>
 %{--</div>--}%
 %{--</md:report>--}%

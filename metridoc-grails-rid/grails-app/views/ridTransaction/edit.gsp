@@ -39,7 +39,7 @@
                     <g:renderErrors bean="${ridTransactionInstance}" as="list"/>
                 </div>
             </g:hasErrors>
-            <g:form method="post" useToken="true">
+            <md:form method="post" useToken="true">
                 <g:hiddenField name="id" value="${ridTransactionInstance?.id}"/>
                 <g:hiddenField name="version" value="${ridTransactionInstance?.version}"/>
                 <fieldset class="form">
@@ -53,7 +53,7 @@
                                     formnovalidate=""
                                     onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
                 </fieldset>
-            </g:form>
+            </md:form>
         </div>
     </div>
 </md:report>

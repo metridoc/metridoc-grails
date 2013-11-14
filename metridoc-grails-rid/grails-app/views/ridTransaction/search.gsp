@@ -29,7 +29,7 @@
             <div class="message" role="status">${flash.message}</div>
         </g:if>
 
-        <g:form class="form-horizontal" action="query" method="GET">
+        <md:form class="form-horizontal" action="query" method="GET">
             <fieldset class="form">
                 <div class="row-fluid">
                     <div class="span2 ">
@@ -155,7 +155,7 @@
                 <g:submitButton name="search" class="btn btn-success"
                                 value="${message(code: 'default.button.search.label', default: 'Search')}"/>
             </fieldset>
-        </g:form>
+        </md:form>
     </div>
 </g:if>
 <g:else>
@@ -166,7 +166,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
 
-            <g:form class="form-horizontal" action="query" method="GET">
+            <md:form class="form-horizontal" action="query" method="GET">
                 <fieldset class="form">
                     <div class="row-fluid">
                         <div class="span2 ">
@@ -319,7 +319,7 @@
                     <g:submitButton name="search" class="btn btn-success"
                                     value="${message(code: 'default.button.search.label', default: 'Search')}"/>
                 </fieldset>
-            </g:form>
+            </md:form>
         </div>
     </g:if>
     <g:else>

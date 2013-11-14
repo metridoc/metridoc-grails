@@ -53,7 +53,7 @@
                 </div>
             </g:hasErrors>
 
-            <g:form controller="RidTransaction" useToken="true">
+            <md:form controller="RidTransaction" useToken="true">
 
                 <fieldset class="form">
                     <tmpl:form/>
@@ -81,7 +81,7 @@
                     </g:if>
 
                 </fieldset>
-            </g:form>
+            </md:form>
         </div>
 
     </div>
