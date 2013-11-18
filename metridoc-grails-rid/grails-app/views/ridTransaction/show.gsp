@@ -44,7 +44,7 @@
                     <span id="dateOfConsultation-label" class="property-label"><g:message
                             code="ridTransaction.dateOfConsultation.label" default="Date Of Consultation"/></span>
                     :
-                    <span class="property-value" aria-labelledby="dateOfConsultation-label"><g:formatDate
+                    <span class="property-value" aria-labelledby="dateOfConsultation-label"><md:formatDate
                             format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfConsultation}"/></span>
                 </td>
                 <td colspan="2">
@@ -189,7 +189,7 @@
 
         </table>
 
-        <g:form>
+        <md:form>
             <fieldset class="buttons">
                 <g:hiddenField name="id" value="${ridTransactionInstance?.id}"/>
                 <g:actionSubmit class="btn btn-success" action="edit" id="${ridTransactionInstance?.id}"
@@ -198,7 +198,7 @@
                                 value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                                 onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
             </fieldset>
-        </g:form>
+        </md:form>
 
     </div>
 </g:if>
@@ -221,7 +221,7 @@
         <span id="dateOfInstruction-label" class="property-label"><g:message
                 code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
         :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
+        <span class="property-value" aria-labelledby="dateOfInstruction-label"><md:formatDate
                 format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
     </td>
     <td colspan="2">
@@ -238,7 +238,7 @@
         <span id="dateOfInstruction-label" class="property-label"><g:message
                 code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
         :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
+        <span class="property-value" aria-labelledby="dateOfInstruction-label"><md:formatDate
                 format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
     </td>
     <td colspan="2">
@@ -428,7 +428,7 @@
 </tr>
 </table>
 
-<g:form>
+<md:form>
     <fieldset class="buttons">
         <g:hiddenField name="id" value="${ridTransactionInstance?.id}"/>
         <g:actionSubmit class="btn btn-success" action="edit" id="${ridTransactionInstance?.id}"
@@ -437,7 +437,7 @@
                         value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                         onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
     </fieldset>
-</g:form>
+</md:form>
 
 </div>
 </g:if>

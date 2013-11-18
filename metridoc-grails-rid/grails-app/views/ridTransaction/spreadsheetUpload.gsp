@@ -24,7 +24,7 @@
             <div id="spreadsheetUpload-ridTransaction" class="content scaffold-search" role="main">
                 <h1><g:message code="Upload Spreadsheet"/></h1>
 
-                <g:form style="padding-top: 15px" class="form-horizontal" enctype="multipart/form-data" useToken="true">
+                <md:form style="padding-top: 15px" class="form-horizontal" enctype="multipart/form-data" useToken="true">
                     <div class="control-group">
                         <div class="controls">
                             <input id="spreadsheetUpload" name="spreadsheetUpload" type="file" style="display: none"/>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                </g:form>
+                </md:form>
             </div>
         </g:if>
         <g:else>Not implemented</g:else>

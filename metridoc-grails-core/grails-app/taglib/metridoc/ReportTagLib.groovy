@@ -178,8 +178,13 @@ class ReportTagLib {
      * @attr method the form method to use, either 'POST' or 'GET'; defaults to 'POST'
      */
     def form = {attrs, body ->
-        boolean novalidate = params.containsKey("novalidate") ? params.getBoolean("novalidate") : false
-
+        boolean novalidate = false
+        if(System.properties?.containsKey("metridoc.form.novalidate") && System?.getProperty("metridoc.form.novalidate")!="false"){
+            novalidate = true
+        }
+        else{
+            novalidate = params.containsKey("novalidate") ? params.getBoolean("novalidate") : false
+        }
         def rendered = g.form(attrs, body)
         if(novalidate) {
             rendered = rendered.toString().replaceFirst(">", " novalidate>")

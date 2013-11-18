@@ -60,7 +60,7 @@
             %{--</g:if>--}%
 
             </ol>
-            <g:form>
+            <md:form>
                 <fieldset class="buttons">
                     <g:hiddenField name="id" value="${ridInstance?.id}"/>
                     <g:actionSubmit class="btn btn-success" action="edit" id="${ridInstance?.id}"
@@ -69,7 +69,7 @@
                                     value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                                     onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
                 </fieldset>
-            </g:form>
+            </md:form>
         </div>
     </div>
 </md:report>

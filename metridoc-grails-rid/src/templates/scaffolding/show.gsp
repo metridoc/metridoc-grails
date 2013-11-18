@@ -28,9 +28,9 @@
                         <%  } else if (p.manyToOne || p.oneToOne) { %>
                             <span class="property-value" aria-labelledby="${p.name}-label"><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link></span>
                         <%  } else if (p.type == Boolean || p.type == boolean) { %>
-                            <span class="property-value" aria-labelledby="${p.name}-label"><g:formatBoolean boolean="\${${propertyName}?.${p.name}}" /></span>
+                            <span class="property-value" aria-labelledby="${p.name}-label"><md:formatBoolean boolean="\${${propertyName}?.${p.name}}" /></span>
                         <%  } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
-                            <span class="property-value" aria-labelledby="${p.name}-label"><g:formatDate date="\${${propertyName}?.${p.name}}" /></span>
+                            <span class="property-value" aria-labelledby="${p.name}-label"><md:formatDate date="\${${propertyName}?.${p.name}}" /></span>
                         <%  } else if(!p.type.isArray()) { %>
                             <span class="property-value" aria-labelledby="${p.name}-label"><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></span>
                         <%  } %>
@@ -38,13 +38,13 @@
                     </g:if>
                 <%  } %>
                 </ol>
-                <g:form>
+                <md:form>
                     <fieldset class="buttons">
                         <g:hiddenField name="id" value="\${${propertyName}?.id}" />
                         <g:actionSubmit class="btn btn-success" action="edit" id="\${${propertyName}?.id}" value="\${message(code: 'default.button.edit.label', default: 'Edit')}" />
                         <g:actionSubmit class="btn btn-danger" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                     </fieldset>
-                </g:form>
+                </md:form>
             </div>
         </div>
 </md:report>

@@ -30,7 +30,7 @@
         </ul>
     </g:hasErrors>
 
-    <g:form class="form-horizontal" action="save" <%=multiPart ? ' enctype="multipart/form-data"' : '' %>>
+    <md:form class="form-horizontal" action="save" <%=multiPart ? ' enctype="multipart/form-data"' : '' %>>
 %{--<fieldset class="form">--}%
     <div style="margin-top: 2em">
         <tmpl:form/>
@@ -40,7 +40,7 @@
         <g:submitButton name="create" class="btn btn-danger"
                         value="\${message(code: 'default.button.create.label', default: 'Create')}"/>
     </fieldset>
-    </g:form>
+    </md:form>
 </div>
 %{--</div>--}%
 %{--</md:report>--}%
