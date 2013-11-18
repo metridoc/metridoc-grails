@@ -16,4 +16,18 @@
 <%@ page import="metridoc.rid.RidLibraryUnit" %>
 <g:set var="entityName" value="${message(code: 'ridLibraryUnit.label', default: 'RidLibraryUnit')}"/>
 
-<g:render template="/ridAdminBase/baseEdit" plugin="metridoc-rid"/>
+<div id="edit-ridInstance" class="content scaffold-edit" role="main">
+    <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
+
+    <md:form class="form-horizontal" enctype="multipart/form-data"  method="post" useToken="true">
+        <g:hiddenField name="id" value="${ridInstance?.id}"/>
+        <g:hiddenField name="version" value="${ridInstance?.version}"/>
+        <div style="margin-top: 2em">
+            <tmpl:form/>
+        </div>
+        <fieldset class="buttons">
+            <g:actionSubmit style="float: right; margin-left: 1em" class="btn btn-success" action="update"
+                            value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+        </fieldset>
+    </md:form>
+</div>

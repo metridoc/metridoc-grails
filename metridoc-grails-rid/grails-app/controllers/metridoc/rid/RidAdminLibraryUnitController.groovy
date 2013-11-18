@@ -45,7 +45,8 @@ class RidAdminLibraryUnitController extends RidAdminBaseController {
 
             // check and save spreadsheet
             MultipartFile uploadedFile = request.getFile('spreadsheetUpload')
-            Workbook wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            Workbook wb
+            wb= spreadsheetService.convertToWorkbook(uploadedFile)
             if (uploadedFile != null && !uploadedFile.empty) {
                 if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
                     flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
