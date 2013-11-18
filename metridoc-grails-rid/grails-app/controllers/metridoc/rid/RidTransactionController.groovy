@@ -16,6 +16,7 @@
 package metridoc.rid
 
 import grails.converters.JSON
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.shiro.SecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
@@ -375,7 +376,7 @@ class RidTransactionController {
 
         withForm {
             MultipartFile uploadedFile = request.getFile("spreadsheetUpload")
-            Workbook wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            Workbook wb
             if (uploadedFile == null || uploadedFile.empty) {
                 flash.alerts << "No file was provided"
                 redirect(action: "spreadsheetUpload")
@@ -385,6 +386,13 @@ class RidTransactionController {
             if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
                 flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
                 redirect(action: "spreadsheetUpload")
+                return
+            }
+
+            try{
+                wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            }catch(InvalidFormatException e){
+                flash.message = message(code:"spreadsheet.illegal.argument")
                 return
             }
 
@@ -416,7 +424,7 @@ class RidTransactionController {
 
             if (spreadsheetService.saveToDatabase(allInstances, uploadedFile.originalFilename, flash)) {
                 flash.infos << "Spreadsheet successfully uploaded. " +
-                        String.valueOf(allInstances.size()) + " instances uploaded."
+                    String.valueOf(allInstances.size()) + " instances uploaded."
                 redirect(action: "list")
             } else {
                 redirect(action: "spreadsheetUpload")
