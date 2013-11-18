@@ -15,6 +15,7 @@
 
 package metridoc.rid
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException
 import org.apache.poi.ss.usermodel.Workbook
 import org.codehaus.groovy.grails.io.support.ClassPathResource
 import org.springframework.web.multipart.MultipartFile
@@ -46,18 +47,26 @@ class RidAdminLibraryUnitController extends RidAdminBaseController {
             // check and save spreadsheet
             MultipartFile uploadedFile = request.getFile('spreadsheetUpload')
             Workbook wb
-            wb= spreadsheetService.convertToWorkbook(uploadedFile)
             if (uploadedFile != null && !uploadedFile.empty) {
                 if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
                     flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
                     redirect(action: "list")
                     return
                 }
+
                 if (uploadedFile.originalFilename != params.name + '_Bulkload_Schematic.xlsx') {
                     flash.alerts << "Invalid File Name. Should be '" + params.name + "_Bulkload_Schematic.xlsx'"
                     redirect(action: "list")
                     return
                 }
+
+                try{
+                    wb = spreadsheetService.convertToWorkbook(uploadedFile)
+                }catch(InvalidFormatException e){
+                    flash.message = message(code:"spreadsheet.illegal.argument")
+                    return
+                }
+
                 if (!spreadsheetService.checkSpreadsheetFormat(wb)) {
                     flash.alerts << "Invalid Spreadsheet Format. Cannot Parse it."
                     redirect(action: "spreadsheetUpload")
@@ -118,7 +127,7 @@ class RidAdminLibraryUnitController extends RidAdminBaseController {
 
             // check and update spreadsheet file
             MultipartFile uploadedFile = request.getFile('spreadsheetUpload')
-            Workbook wb = spreadsheetService.convertToWorkbook(uploadedFile)
+            Workbook wb
             if (uploadedFile != null && !uploadedFile.empty) {
                 if (!spreadsheetService.checkFileType(uploadedFile.getContentType())) {
                     flash.alerts << "Invalid File Type. Only Excel Files are accepted!"
@@ -130,6 +139,14 @@ class RidAdminLibraryUnitController extends RidAdminBaseController {
                     redirect(action: "list")
                     return
                 }
+
+                try{
+                    wb = spreadsheetService.convertToWorkbook(uploadedFile)
+                }catch(InvalidFormatException e){
+                    flash.message = message(code:"spreadsheet.illegal.argument")
+                    return
+                }
+
                 if (!spreadsheetService.checkSpreadsheetFormat(wb)) {
                     flash.alerts << "Invalid Spreadsheet Format. Cannot Parse it."
                     redirect(action: "spreadsheetUpload")
