@@ -91,7 +91,7 @@
 
                             <td>${fieldValue(bean: ridTransactionInstance, field: "staffPennkey")}</td>
 
-                            <td><md:formatDate format="yyyy-MM-dd"
+                            <td><g:formatDate format="yyyy-MM-dd"
                                               date="${ridTransactionInstance?.dateOfConsultation}"/></td>
                             %{--<td>${fieldValue(bean: ridTransactionInstance, field: "dateOfConsultation")}</td>--}%
 
@@ -156,7 +156,7 @@
 
                                 <td>${fieldValue(bean: ridTransactionInstance, field: "instructorPennkey")}</td>
 
-                                <td><md:formatDate format="yyyy-MM-dd"
+                                <td><g:formatDate format="yyyy-MM-dd"
                                                   date="${ridTransactionInstance?.dateOfInstruction}"/></td>
                                 %{--<td>${fieldValue(bean: ridTransactionInstance, field: "dateofInstruction")}</td>--}%
 
