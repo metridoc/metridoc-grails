@@ -35,6 +35,20 @@
 </div>
 
 <div>
+    <label>Group Search Base</label>
+    <g:textField style="width:750px" class="userInput" name="groupSearchBase" maxlength="750"
+                 value="${LDAP.groupSearchBase}"/>
+</div>
+
+<div>
+    <label>Group Search Filter</label>
+    <g:textField style="width:750px" class="userInput" name="groupSearchFilter" maxlength="750"
+                 value="${LDAP.groupSearchFilter}"/>
+</div>
+
+
+
+<div>
     <label>Manager DN</label>
     <g:textField style="width:750px" class="userInput" name="managerDN" maxlength="750" value="${LDAP.managerDN}"/>
 </div>

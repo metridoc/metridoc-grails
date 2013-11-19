@@ -26,7 +26,16 @@ class LdapSettingsController {
         chain(controller: "ldapRole", action: "index")
     }
 
-    def save(String server, String rootDN, String userSearchBase, String userSearchFilter, String managerDN, String unencryptedPassword) {
+    def save(String server,
+             String rootDN,
+             String userSearchBase,
+             String userSearchFilter,
+             String managerDN,
+             String unencryptedPassword,
+             String groupSearchBase,
+             String groupSearchFilter) {
+
+
         def newLdapConfig
 
         if (LdapData.list().size() > 0) {
@@ -36,6 +45,8 @@ class LdapSettingsController {
             newLdapConfig.userSearchBase = userSearchBase
             newLdapConfig.userSearchFilter = userSearchFilter
             newLdapConfig.managerDN = managerDN
+            newLdapConfig.groupSearchBase = groupSearchBase
+            newLdapConfig.groupSearchFilter = groupSearchFilter
         } else {
             newLdapConfig = new LdapData(
                     server: server,
@@ -43,16 +54,17 @@ class LdapSettingsController {
                     userSearchBase: userSearchBase,
                     userSearchFilter: userSearchFilter,
                     managerDN: managerDN,
+                    groupSearchBase: groupSearchBase,
+                    groupSearchFilter: groupSearchFilter
             )
         }
 
         encryptionService.encryptLdapData(newLdapConfig, unencryptedPassword)
-        if(!newLdapConfig.validate()) {
+        if (!newLdapConfig.validate()) {
             newLdapConfig.errors.allErrors.each {
                 flash.alerts << message(error: it)
             }
-        }
-        else {
+        } else {
             newLdapConfig.save(failOnError: true)
             flash.message = "LDAP configuration updated"
         }
