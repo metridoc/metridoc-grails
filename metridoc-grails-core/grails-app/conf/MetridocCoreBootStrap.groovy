@@ -22,5 +22,6 @@ class MetridocCoreBootStrap {
     def init = { servletContext ->
         initAuthService.init()
         homeService.addApplicationsAndCategories()
+        System.setProperty("shutdownDate", "")
     }
 }

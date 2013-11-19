@@ -69,5 +69,10 @@
             <g:textField name="rememberMeCookieAge" placeholder="360" value="${rememberMeCookieAge}"></g:textField>
         </div>
     </div>
+    <label class="control-label" style=" padding-left:15px;">Server Shutdown Date:</label>
+
+    <input type="text" name="shutdownDate" style="width: 150px;"
+           value="${shutdownDate}" id="dp1" />
+    <button class="btn" id="clearDate">Clear</button>
     <md:cgButton icon="icon-edit">Update</md:cgButton>
 </md:form>
