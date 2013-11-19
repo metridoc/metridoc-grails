@@ -46,7 +46,7 @@ class LdapSettingsController {
             )
         }
 
-        encryptionService.encryptString(newLdapConfig, unencryptedPassword)
+        encryptionService.encryptLdapData(newLdapConfig, unencryptedPassword)
         if(!newLdapConfig.validate()) {
             newLdapConfig.errors.allErrors.each {
                 flash.alerts << message(error: it)

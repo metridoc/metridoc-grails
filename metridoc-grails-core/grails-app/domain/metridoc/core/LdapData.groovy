@@ -23,7 +23,8 @@ class LdapData {
     String userSearchBase
     String userSearchFilter
     String managerDN
-    String groupSearchBase = "NOT USED YET"
+    String groupSearchBase
+    String groupSearchFilter = "(| (member={0}) (uniqueMember={0}) (memberUid={1}))"
     Boolean encryptStrong = true
     String encryptedPassword
 

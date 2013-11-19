@@ -22,6 +22,7 @@ class ProfileController {
     static boolean isProtected = true
     static allowedMethods = [save: "POST", update: "POST", index: "GET"]
     def authService
+    def ldapOperationsService
 
     def index() {
         chain(action: "edit")
@@ -32,13 +33,15 @@ class ProfileController {
 
         ShiroUser shiroUserInstance = ShiroUser.findByUsername(currentUser as String)
 
-        if (shiroUserInstance.username == 'anonymous') {
-            flash.message = message(code: 'cannot.modify.message', args: ['Anonymous User'], default: 'Anonymous User cannot be modified.')
-        } else if (params.flashMessage) {
-            flash.message = params.flashMessage
+        if (shiroUserInstance) {
+            if (shiroUserInstance.username == 'anonymous') {
+                flash.message = message(code: 'cannot.modify.message', args: ['Anonymous User'], default: 'Anonymous User cannot be modified.')
+            } else if (params.flashMessage) {
+                flash.message = params.flashMessage
+            }
         }
 
-        [shiroUserInstance: shiroUserInstance, managingAccount: true]
+        [shiroUserInstance: shiroUserInstance, managingAccount: true, ldapGroups: ldapOperationsService.getGroups(currentUser)]
     }
 
     def update() {

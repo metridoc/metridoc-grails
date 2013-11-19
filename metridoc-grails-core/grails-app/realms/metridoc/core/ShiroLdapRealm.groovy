@@ -35,19 +35,14 @@ class ShiroLdapRealm {
     public static final int RECURSIVE_SEARCH_SCOPE = 2
     def grailsApplication
     def roleMappingService
+    def ldapOperationsService
 
     def authenticate(authToken) {
         log.info "Attempting to authenticate ${authToken.username} in LDAP realm..."
         def username = authToken.username
         def password = new String(authToken.password)
         def appConfig = LdapData.list().get(0)
-
-        // Skip authentication ?
-        if (appConfig.skipAuthentication) {
-            log.info "Skipping authentication in development mode."
-            return username
-        }
-
+        ldapOperationsService.clearCaches(username)
         // Null username is invalid
         if (username == null) {
             throw new AccountException("Null usernames are not allowed by this realm.")
@@ -58,44 +53,16 @@ class ShiroLdapRealm {
             throw new AccountException("Empty usernames are not allowed by this realm.")
         }
 
-        // Allow empty passwords ?
-        if (!appConfig.allowEmptyPasswords) {
-            // Null password is invalid
-            if (password == null) {
-                throw new CredentialsException("Null password are not allowed by this realm.")
-            }
-
-            // empty password is invalid
-            if (password == "") {
-                throw new CredentialsException("Empty passwords are not allowed by this realm.")
-            }
-        }
-
-        // Accept strings and GStrings for convenience, but convert to
-        // a list.
         def ldapUrl = appConfig.server
 
-        // Set up the configuration for the LDAP search we are about
-        // to do.
-        def env = new Hashtable()
-        env[Context.INITIAL_CONTEXT_FACTORY] = "com.sun.jndi.ldap.LdapCtxFactory"
-        if (appConfig.managerDN) {
-            // Non-anonymous access for the search.
-            env[Context.SECURITY_AUTHENTICATION] = "simple"
-            env[Context.SECURITY_PRINCIPAL] = appConfig.managerDN
-            env[Context.SECURITY_CREDENTIALS] = appConfig.unencryptedPassword
-        }
-
-        // Find an LDAP server that we can connect to.
         def ctx
         log.info "Trying to connect to LDAP server ${ldapUrl} ..."
-        env[Context.PROVIDER_URL] = ldapUrl
 
         // If an exception occurs, log it.
         try {
-            ctx = new InitialDirContext(env)
+            ctx = ldapOperationsService.connect()
         }
-        catch (NamingException e) {
+        catch (Exception e) {
             if (ldapUrl != LOCALHOST_LDAP) {
                 log.error "Could not connect to ${ldapUrl}: ${e}"
             }
@@ -104,71 +71,18 @@ class ShiroLdapRealm {
             throw new org.apache.shiro.authc.AuthenticationException(msg)
         }
 
-        // Look up the DN for the LDAP entry that has a 'uid' value
-        // matching the given username.
-        SearchControls searchControls = new SearchControls()
+        String fullLdapName = ldapOperationsService.validateThatUserExists(username, ctx)
+        ldapOperationsService.validateUserCredentials(fullLdapName, password)
 
-        searchControls.setSearchScope(RECURSIVE_SEARCH_SCOPE)
-        String filter = "($appConfig.userSearchFilter=$username)"
-
-        def base = "$appConfig.userSearchBase,$appConfig.rootDN"
-        def result = ctx.search(base, filter, searchControls)
-        if (!result.hasMore()) {
-            throw new UnknownAccountException("No account found for user [${username}]")
-        }
-
-        // Skip credentials check ?
-        if (appConfig.skipCredentialsCheck) {
-            log.info "Skipping credentials check in development mode."
-            return username
-        }
-
-        // Now connect to the LDAP server again, but this time use
-        // authentication with the principal associated with the given
-        // username.
-        def searchResult = result.next()
-        env[Context.SECURITY_AUTHENTICATION] = "simple"
-        env[Context.SECURITY_PRINCIPAL] = searchResult.nameInNamespace
-        env[Context.SECURITY_CREDENTIALS] = password
-
-        try {
-            new InitialDirContext(env)
-            return username
-        }
-        catch (AuthenticationException ignored) {
-            log.info "Invalid password"
-            throw new IncorrectCredentialsException("Invalid password for user '${username}'")
-        }
-    }
-
-    protected static List getParams(LdapData appConfig) {
-
-        def ldapUrl = appConfig.server ?: [LOCALHOST_LDAP]
-        def searchBase = appConfig.userSearchBase
-        def searchUser = appConfig.rootDN
-        def searchPass = appConfig.unencryptedPassword
-        def searchScope = 2
-        def usernameAttribute = appConfig.userSearchFilter
-        def skipAuthc = appConfig.skipAuthentication
-        def skipCredChk = appConfig.skipCredentialsCheck
-        def allowEmptyPass = appConfig.allowEmptyPasswords
-        [skipAuthc, allowEmptyPass, ldapUrl, searchUser, searchPass, searchScope, usernameAttribute, searchBase, skipCredChk]
+        return username
     }
 
     def isAdmin(principal) {
-        def adminRole = ShiroRole.findByName("ROLE_ADMIN")
-        def groups = roleMappingService.userGroupsAsList(principal)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
-        return roles.contains(adminRole.name)
+        ldapOperationsService.hasRole(principal, "ROLE_ADMIN")
     }
 
     def hasRole(principal, roleName) {
-
-        def groups = roleMappingService.userGroupsAsList(principal)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
-        return roles?.contains(roleName)
+        ldapOperationsService.hasRole(principal as String, roleName as String)
     }
 
     def hasAllRoles(principal, roleList) {
@@ -178,11 +92,8 @@ class ShiroLdapRealm {
             return true
         }
 
-        def groups = roleMappingService.userGroupsAsList(principal as String)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
         for (role in roleList) {
-            if (!roles.contains(role)) {
+            if (!ldapOperationsService.hasRole(role)) {
                 allRoles = false
             }
         }
