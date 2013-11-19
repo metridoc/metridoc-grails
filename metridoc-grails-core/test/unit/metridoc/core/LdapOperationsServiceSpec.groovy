@@ -65,7 +65,7 @@ class LdapOperationsServiceSpec extends Specification {
         a == service.getUserQuery(b, c)
 
         where:
-        a              || b | c
+        a              || b     | c
         "(bar=foo)"    || "foo" | "bar"
         "(foobar=foo)" || "foo" | "foobar={0}"
     }

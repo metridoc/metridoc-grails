@@ -15,5 +15,17 @@
 
 <%@ page import="metridoc.core.ShiroUser" %>
 <md:report module="changePassword">
-    <g:render template="/commonTemplates/editUser" />
+    <g:if test="${shiroUserInstance}">
+        <g:render template="/commonTemplates/editUser"/>
+    </g:if>
+
+
+    <g:if test="${ldapGroups}">
+        <md:header>LDAP Groups</md:header>
+        <ul>
+        <g:each in="${ldapGroups}" var="ldapGroup">
+            <li>${ldapGroup}</li>
+        </g:each>
+        </ul>
+    </g:if>
 </md:report>

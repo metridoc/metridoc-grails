@@ -42,7 +42,7 @@ class ShiroLdapRealm {
         def username = authToken.username
         def password = new String(authToken.password)
         def appConfig = LdapData.list().get(0)
-
+        ldapOperationsService.clearCaches(username)
         // Null username is invalid
         if (username == null) {
             throw new AccountException("Null usernames are not allowed by this realm.")
@@ -78,19 +78,11 @@ class ShiroLdapRealm {
     }
 
     def isAdmin(principal) {
-        def adminRole = ShiroRole.findByName("ROLE_ADMIN")
-        def groups = roleMappingService.userGroupsAsList(principal)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
-        return roles.contains(adminRole.name)
+        ldapOperationsService.hasRole(principal, "ROLE_ADMIN")
     }
 
     def hasRole(principal, roleName) {
-
-        def groups = roleMappingService.userGroupsAsList(principal)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
-        return roles?.contains(roleName)
+        ldapOperationsService.hasRole(principal as String, roleName as String)
     }
 
     def hasAllRoles(principal, roleList) {
@@ -100,11 +92,8 @@ class ShiroLdapRealm {
             return true
         }
 
-        def groups = roleMappingService.userGroupsAsList(principal as String)
-        if (!groups) return false
-        def roles = roleMappingService.rolesByGroups(groups)
         for (role in roleList) {
-            if (!roles.contains(role)) {
+            if (!ldapOperationsService.hasRole(role)) {
                 allRoles = false
             }
         }
