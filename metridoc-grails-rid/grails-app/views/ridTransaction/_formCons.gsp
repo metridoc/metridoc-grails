@@ -15,7 +15,6 @@
 
 <%@ page import="metridoc.rid.RidDepartment;metridoc.rid.RidSchool;metridoc.rid.RidRank;java.text.SimpleDateFormat;metridoc.rid.RidUserGoal;metridoc.rid.RidLibraryUnit;metridoc.rid.RidLibraryUnit;metridoc.rid.RidDepartment;metridoc.rid.RidCourseSponsor;metridoc.rid.RidConsTransaction;metridoc.rid.RidInsTransaction" %>
 
-<r:require module="datePicker"/>
 <r:external dir="select2-3.4.0" file="select2edit.css" plugin="metridoc-rid"/>
 <r:external dir="select2-3.4.0" file="select2.js" plugin="metridoc-rid"/>
 

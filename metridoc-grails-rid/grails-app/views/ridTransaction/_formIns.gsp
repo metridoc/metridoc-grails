@@ -15,7 +15,6 @@
 
 <%@ page import="metridoc.rid.RidDepartment;metridoc.rid.RidSchool;metridoc.rid.RidLocation;metridoc.rid.RidRank;java.text.SimpleDateFormat;metridoc.rid.RidUserGoal;metridoc.rid.RidLibraryUnit;metridoc.rid.RidLibraryUnit;metridoc.rid.RidDepartment;metridoc.rid.RidCourseSponsor;metridoc.rid.RidConsTransaction;metridoc.rid.RidInsTransaction;metridoc.rid.RidAudience;metridoc.rid.RidInstructionalMaterials;metridoc.rid.RidSessionType" %>
 
-<r:require module="datePicker"/>
 
 <div class="row-fluid">
     <div class="span2">

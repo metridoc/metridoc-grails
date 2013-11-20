@@ -106,7 +106,7 @@ modules = {
     }
 
     application {
-        dependsOn 'jquery', 'bootstrap', 'bootstrap-responsive-less', 'font-awesome', 'datePicker'
+        dependsOn 'jquery', 'bootstrap', 'bootstrap-responsive-less', 'font-awesome'
         resource id: 'appJs',
                 url: [plugin: "metridocCore", dir: 'js', file: 'application.js'],
                 attrs: [type: 'js']

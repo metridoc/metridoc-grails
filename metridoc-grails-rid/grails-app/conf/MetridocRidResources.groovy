@@ -12,18 +12,10 @@ modules = {
                 url: [plugin: 'metridocRid', dir: 'css', file: 'floating_table.css'],
                 attrs: [type: 'css']
     }
-    datePicker {
-        resource id: 'css',
-                url: [plugin: 'metridocRid', dir: 'datepicker/css', file: 'datepicker.css'],
-                attrs: [type: 'css']
 
-        resource id: 'js',
-                url: [plugin: 'metridocRid', dir: 'datepicker/js', file: 'bootstrap-datepicker.js'],
-                attrs: [type: 'js']
-    }
 
     ridTransaction {
-        dependsOn "application"
+        dependsOn "application", "datePicker"
         resource id: 'css',
                 url: [plugin: 'metridocRid', dir: 'css', file: 'RidTransaction.css'],
                 attrs: [type: 'css']

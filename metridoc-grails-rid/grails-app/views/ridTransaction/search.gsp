@@ -18,7 +18,6 @@
 
 <md:report>
 <div class="md-application-content">
-<r:require module="datePicker"/>
 
 <tmpl:toggle/>
 <tmpl:tabs/>
