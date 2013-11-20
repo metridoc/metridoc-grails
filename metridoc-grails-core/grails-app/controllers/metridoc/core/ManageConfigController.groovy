@@ -43,6 +43,7 @@ class ManageConfigController {
             workDirectory = workDirectoryFileExistsAndHasText ? generalSettingsService.workDirectoryFile.text : null
         }
 
+
         [
                 command: command,
                 workDirectory: workDirectory,
@@ -54,7 +55,8 @@ class ManageConfigController {
                 shiroFilters: grailsApplication.config.security.shiro.filter.filterChainDefinitions,
                 reportIssueEmails: manageConfigService.reportIssueEmails,
                 metridocConfigExists: commonService.metridocConfig.exists(),
-                rememberMeCookieAge:shiroRememberMeManager.cookie.getMaxAge()
+                rememberMeCookieAge:shiroRememberMeManager.cookie.getMaxAge(),
+                shutdownDate:System.getProperty("shutdownDate")
         ]
     }
 
@@ -98,6 +100,9 @@ class ManageConfigController {
         if (rememberMeCookieAge != null) {
             manageConfigService.updateRememberMeCookieAge(rememberMeCookieAge)
         }
+        System.setProperty("shutdownDate", params.shutdownDate)
+        flash.alert = System.getProperty("shutdownDate")
+
 
         redirect(action: "index")
     }

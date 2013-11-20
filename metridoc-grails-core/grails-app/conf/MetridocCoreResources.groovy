@@ -14,6 +14,16 @@
  */
 modules = {
 
+    datePicker {
+        resource id: 'css',
+                url: [plugin: 'metridocCore', dir: 'datepicker/css', file: 'datepicker.css'],
+                attrs: [type: 'css']
+
+        resource id: 'js',
+                url: [plugin: 'metridocCore', dir: 'datepicker/js', file: 'bootstrap-datepicker.js'],
+                attrs: [type: 'js']
+    }
+
     home {
         dependsOn 'jquery'
         resource id: 'js',
@@ -22,9 +32,13 @@ modules = {
     }
 
     manageConfig {
-        resource id: 'js',
+        dependsOn 'datePicker'
+        resource id: 'css',
                 url: [dir: "manageConfig", file: "manageConfig.css", plugin: "metridocCore"],
                 attrs: [type: "css"]
+        resource id: 'js',
+                url: [dir: "manageConfig", file: "manageConfig.js", plugin: "metridocCore"],
+                attrs: [type: "js"]
     }
 
     manageAccess {
