@@ -7,8 +7,8 @@ grails.project.repos.metridocRepo.url = "https://api.bintray.com/maven/upennlib/
 //name of the repository
 grails.project.repos.default = "metridocRepo"
 
-grails.project.target.level = 1.6
-grails.project.source.level = 1.6
+grails.project.target.level = 1.7
+grails.project.source.level = 1.7
 
 File versionFile = new File(new File(basedir).parent, "VERSION")
 
