@@ -2,15 +2,31 @@
 
 source helper.sh
 
-synchronizeVersions() {
+systemCall() {
+    echo "running $1"
+    if eval $1; then
+		echo "command [$1] ran successfully"
+	else
+		echo "command [$1] failed with exit status [$?]"
+		exit 1
+	fi
+}
 
-    VERSION=`cat VERSION`
+DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
+
+VERSION=`cat VERSION`
+if grep -q "\-SNAPSHOT" "VERSION"; then
+    echo "VERSION file has SNAPSHOT in it, skipping release and just running build"
+    source buildAll.sh
+    exit 0
+fi
+
+synchronizeVersions() {
 
     echo ""
     echo "synchronizing all versions to [$VERSION]"
     echo ""
 
-    DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
     for DIRECTORY in $DIRECTORIES
     do
         cd $DIRECTORY
@@ -31,14 +47,6 @@ else
     exit 1
 fi
 
-VERSION=`cat VERSION`
-if grep -q "\-SNAPSHOT" "VERSION"; then
-    echo "VERSION file has SNAPSHOT in it, skipping release"
-    exit 0
-fi
-
-source buildAll.sh
-
 synchronizeVersions
 
 echo ""
@@ -55,6 +63,7 @@ echo ""
 
 echo "resolving metridoc-core first"
 cd metridoc-grails-core
+systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
 systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
 cd -
 
@@ -63,6 +72,7 @@ for DIRECTORY in $DIRECTORIES
     if [ "$DIRECTORY" != "./metridoc-grails-core" ]; then
         echo "uploading [$DIRECTORY]"
         cd $DIRECTORY
+        systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
         systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
         cd -
     fi

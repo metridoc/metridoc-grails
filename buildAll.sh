@@ -20,6 +20,3 @@ do
         cd -
     fi
 done
-
-source installAll.sh
-

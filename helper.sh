@@ -11,3 +11,9 @@ systemCall() {
 }
 
 DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
+
+VERSION=`cat VERSION`
+if grep -q "\-SNAPSHOT" "VERSION"; then
+    echo "VERSION file has SNAPSHOT in it, skipping release"
+    exit 0
+fi
