@@ -53,7 +53,12 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":google-visualization:0.6.2"
-
+        build(":tomcat:$grailsVersion")
+        build(":release:2.2.1", ":bintray-upload:0.2")
+        build(":codenarc:0.18") {
+            excludes "log4j", "groovy-all", "ant", "junit"
+        }
+        build(':squeaky-clean:0.2')
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
