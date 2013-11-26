@@ -19,7 +19,7 @@ systemCall "git push origin master"
 echo "resolving metridoc-core first"
 cd metridoc-grails-core
 
-systemCall "./grailsw set-version $VERSION"
+systemCall "./grailsw set-version $NEW_VERSION"
 systemCall "git add ."
 git commit -m"synchronizing version"
 systemCall "git push origin master"
@@ -30,7 +30,7 @@ for DIRECTORY in $DIRECTORIES
     if [ "$DIRECTORY" != "./metridoc-grails-core" ]; then
         echo "uploading [$DIRECTORY]"
         cd $DIRECTORY
-        systemCall "./grailsw set-version $VERSION"
+        systemCall "./grailsw set-version $NEW_VERSION"
         systemCall "git add ."
         git commit -m"synchronizing version"
         systemCall "git push origin master"
