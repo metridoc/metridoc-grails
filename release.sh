@@ -47,10 +47,6 @@ for DIRECTORY in $DIRECTORIES
     fi
 done
 
-MINOR_VERSION=`sed 's/[0-9]*\.[0-9]*\.\([0-9]*\).*/\1/g' VERSION`
-MAJOR_VERSION=`sed 's/\([0-9]*\.[0-9]*\).*/\1/g' VERSION`
-NEW_VERSION="$MAJOR_VERSION.$((MINOR_VERSION+1))-SNAPSHOT"
-
 echo ""
 echo "Releasing ${VERSION} to GitHub"
 echo ""
@@ -58,15 +54,4 @@ echo ""
 systemCall "git tag -a v${VERSION} -m 'tagging release'"
 systemCall "git push origin v${VERSION}"
 
-echo ""
-echo "Bumping version to [$NEW_VERSION]"
-echo ""
-
-echo "$NEW_VERSION" > VERSION
-
-systemCall "git add VERSION"
-systemCall "git commit -m 'committing a new version'"
-systemCall "git push origin master"
-
-synchronizeVersions
-
+source bumpVersion.sh
