@@ -14,7 +14,7 @@
 
 <div class="top-border"></div>
 
-<div id="manageRole">
+<div id="manage-role">
     <h2 id="new-role-header">Create New Role
         <a href="#" onclick="showRoleForm()">
             <i id="createRole" class="icon-plus-sign"></i>

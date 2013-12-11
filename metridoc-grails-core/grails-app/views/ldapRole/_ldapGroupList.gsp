@@ -14,7 +14,7 @@
     permissions and limitations under the License.
 
 -->
-<div id="ldapGroups">
+<div id="ldap-groups">
     <h1>Create New Group
         <a href="#" onclick="showGroupForm()">
             <i id="createGroup" class="icon-plus-sign"></i>

@@ -17,7 +17,7 @@
 <div class="top-border"></div>
 <br>
 
-<div id="manageReport">
+<div id="manage-report">
     <g:render template="/manageReport/manageReportHeaders"/>
     <strong>Controller Specific Security:</strong>
     <br>
