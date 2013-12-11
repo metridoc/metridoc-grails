@@ -28,13 +28,13 @@
     <g:hiddenField name="previousExpanded" id="previousExpanded" value="${previousExpanded}"/>
     <g:render template="/commonTemplates/tabs"/>
 
-    <div class="border-bot">
+    <div class="manage-div">
         <a href="#" onclick="collapseOthers('userList')">
-            <h1 class="header14">Manage Users&nbsp<i id="cUserList"
+            <h1 class="manage-header">Manage Users&nbsp<i id="cUserList"
                                                                         class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sUserList" class="lMargin25">Create, view, and edit user info</span>
+        <span id="sUserList" class="manage-subheader">Create, view, and edit user info</span>
 
         <div id="userList" class="collapse">
             <g:render template="/user/userList"/>
@@ -42,13 +42,13 @@
     </div>
     <br>
 
-    <div class="border-bot">
+    <div class="manage-div">
         <a href="#" onclick="collapseOthers('roleList')">
-            <h1 class="header14">Manage Roles&nbsp<i id="cRoleList"
+            <h1 class="manage-header">Manage Roles&nbsp<i id="cRoleList"
                                                                         class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sRoleList" class="lMargin25">Add roles</span>
+        <span id="sRoleList" class="manage-subheader">Add roles</span>
 
         <div id="roleList" class="collapse">
             <g:render template="/role/manageRole"/>
@@ -56,13 +56,13 @@
     </div>
     <br>
 
-    <div class="border-bot">
+    <div class="manage-div">
         <a href="#" onclick="collapseOthers('manageReportIndex')">
-            <h1 class="header14">Manage Controllers&nbsp<i id="cManageReportIndex"
+            <h1 class="manage-header">Manage Controllers&nbsp<i id="cManageReportIndex"
                                                                               class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sManageReportIndex" class="lMargin25">View and manage controller permissions</span>
+        <span id="sManageReportIndex" class="manage-subheader">View and manage controller permissions</span>
 
         <div id="manageReportIndex" class="collapse">
             <g:render template="/manageReport/manageReportIndex"/>
