@@ -33,7 +33,6 @@ class ShiroSecurityFilters {
                 def details = manageReportService.getControllerDetails().get(controllerName)
                 def roles = details.roles
                 def isProtected = details.isProtected
-                SecurityUtils.
 
                 if (isProtected) {
                     def notLoggedIn = SecurityUtils.subject.principal == null
