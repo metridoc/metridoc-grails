@@ -23,8 +23,13 @@
 
     <div class="border-bot">
         <a href="#" onclick="changeIcon('groupList')">
+<<<<<<< HEAD
             <h1 class="ldap-header">LDAP Groups&nbsp
                 <i id="cGroupList" data-toggle="collapse" data-target="#groupList" class="icon-minus-sign"></i>
+=======
+            <h1 style="font-size:14px; color:black" data-toggle="collapse" data-target="#groupList">LDAP Groups&nbsp
+                <i id="cGroupList"  class="icon-minus-sign"></i>
+>>>>>>> 8a08655c99fec37dbd7a77524b61103f3568f949
             </h1>
         </a>
 
@@ -38,8 +43,13 @@
 
     <div class="border-bot">
         <a href="#" onclick="changeIcon('ldapConfig')">
+<<<<<<< HEAD
             <h1 class="ldap-header">LDAP Config&nbsp
                 <i id="cLdapConfig" data-toggle="collapse" data-target="#ldapConfig" class="icon-plus-sign"></i>
+=======
+            <h1 style="font-size:14px; color:black" data-toggle="collapse" data-target="#ldapConfig">LDAP Config&nbsp
+                <i id="cLdapConfig"  class="icon-plus-sign"></i>
+>>>>>>> 8a08655c99fec37dbd7a77524b61103f3568f949
             </h1>
         </a>
 
