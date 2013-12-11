@@ -18,7 +18,7 @@
     </head>
 
     <body>
-    <div id="page-body" role="main" style="padding: 20px; padding-left: 0px">
+    <div id="page-body" role="main">
         <h1>Welcome to MetriDoc</h1>
 
         <p>

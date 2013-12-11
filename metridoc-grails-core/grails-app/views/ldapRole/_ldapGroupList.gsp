@@ -14,7 +14,7 @@
     permissions and limitations under the License.
 
 -->
-<div style="margin-left:25px">
+<div class="lMargin25">
     <h1>Create New Group
         <a href="#" onclick="showGroupForm()">
             <i id="createGroup" class="icon-plus-sign"></i>
@@ -69,7 +69,7 @@
                             </g:if>
                             <g:if test="${count == 10}">
                                 <a href="#" name="popRoles" class="popRoles" rel="popover" data-trigger="hover"
-                                   data-content="${ldapRoleMappingInstance.roles}" style="font:14">...</a>
+                                   data-content="${ldapRoleMappingInstance.roles}">...</a>
                             </g:if>
 
                         </g:each>

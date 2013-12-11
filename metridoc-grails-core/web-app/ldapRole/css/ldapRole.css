@@ -19,3 +19,15 @@
 .popover-title {
     display: none;
 }
+
+.lMargin25{margin-left:25px;}
+
+.lMargin180{margin-left:180px;}
+
+.popRoles{font:14;}
+
+.border-bot{border-bottom: 1px solid #ddd;}
+
+.ldap-header{font-size:14px; color:black;}
+
+.ldap-span{margin-left: 25px;}

@@ -12,10 +12,10 @@
   - 	or implied. See the License for the specific language governing
   - 	permissions and limitations under the License.  --}%
 
-<div style="border-top: 1px solid #ddd"></div>
+<div class="border-top"></div>
 
-<div style="margin-left:25px">
-    <h2 style="font-size:16px; color:#48802c">Create New User
+<div class="lMargin25">
+    <h2 class="font16">Create New User
         <a href="#" onclick="showUserForm()">
             <i id="createUser" class="icon-plus-sign"></i>
         </a>
@@ -67,7 +67,7 @@
                             </g:if>
                             <g:if test="${count == 10}">
                                 <a href="#" name="popRoles" class="popRoles" rel="popover" data-trigger="hover"
-                                   data-content="${shiroUserInstance.roles}" style="font:14">...</a>
+                                   data-content="${shiroUserInstance.roles}">...</a>
                             </g:if>
 
                         </g:each>

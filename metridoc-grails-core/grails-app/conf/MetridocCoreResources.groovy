@@ -29,15 +29,19 @@ modules = {
         resource id: 'js',
                 url: [plugin: "metridocCore", dir: 'home/js', file: 'home.js'],
                 attrs: [type: 'js']
+
+        resource id: 'css',
+                url: [plugin: 'metridocCore', dir: 'home/css', file: 'home.css'],
+                attrs: [type: 'css']
     }
 
     manageConfig {
         dependsOn 'datePicker'
         resource id: 'css',
-                url: [dir: "manageConfig", file: "manageConfig.css", plugin: "metridocCore"],
+                url: [dir: "manageConfig/css", file: "manageConfig.css", plugin: "metridocCore"],
                 attrs: [type: "css"]
         resource id: 'js',
-                url: [dir: "manageConfig", file: "manageConfig.js", plugin: "metridocCore"],
+                url: [dir: "manageConfig/js", file: "manageConfig.js", plugin: "metridocCore"],
                 attrs: [type: "js"]
     }
 
@@ -46,6 +50,9 @@ modules = {
         resource id: 'js',
                 url: [dir: "manageAccess/js", file: "manageAccess.js", plugin: "metridocCore"],
                 attrs: [type: "js"]
+        resource id: 'css',
+                url: [dir: "manageAccess/css", file: "manageAccess.css", plugin: "metridocCore"],
+                attrs: [type: "css"]
     }
 
     manageReport {
@@ -103,6 +110,12 @@ modules = {
         resource id: 'js',
                 url: [plugin: "metridocCore", dir: 'ldapRole/js', file: 'ldapRole.js'],
                 attrs: [type: 'js']
+    }
+    ldapSettings {
+        dependsOn 'jquery'
+        resource id: 'css',
+                url: [plugin: "metridocCore", dir: 'ldapSettings/css', file: 'ldapSettings.css'],
+                attrs: [type: 'css']
     }
 
     application {

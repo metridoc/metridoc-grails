@@ -12,10 +12,10 @@
   - 	or implied. See the License for the specific language governing
   - 	permissions and limitations under the License.  --}%
 
-<div style="border-top: 1px solid #ddd"></div>
+<div class="border-top"></div>
 
-<div style="margin-left:25px">
-    <h2 style="font-size:16px; color:#48802c">Create New Role
+<div class="lMargin25">
+    <h2 class="font16">Create New Role
         <a href="#" onclick="showRoleForm()">
             <i id="createRole" class="icon-plus-sign"></i>
         </a>

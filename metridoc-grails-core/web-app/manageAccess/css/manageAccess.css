@@ -12,12 +12,8 @@
   *	or implied. See the License for the specific language governing
   *	permissions and limitations under the License.  */
 
-#newRoleButton {
-    padding-top: 10px
-}
+.border-bot{border-bottom: 1px solid #ddd;}
 
-.lMargin25{margin-left:25px;}
+.header14{font-size: 14px; color: black;}
 
-.border-top{border-top: 1px solid #ddd;}
-
-.font16{font-size: 16px; color: #48802c;}
+.lMargin25{margin-left: 25px;}

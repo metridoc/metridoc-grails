@@ -28,13 +28,13 @@
     <g:hiddenField name="previousExpanded" id="previousExpanded" value="${previousExpanded}"/>
     <g:render template="/commonTemplates/tabs"/>
 
-    <div style="border-bottom: 1px solid #ddd">
+    <div class="border-bot">
         <a href="#" onclick="collapseOthers('userList')">
-            <h1 style="font-size:14px; color:black">Manage Users&nbsp<i id="cUserList"
+            <h1 class="header14">Manage Users&nbsp<i id="cUserList"
                                                                         class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sUserList" style="margin-left: 25px">Create, view, and edit user info</span>
+        <span id="sUserList" class="lMargin25">Create, view, and edit user info</span>
 
         <div id="userList" class="collapse">
             <g:render template="/user/userList"/>
@@ -42,13 +42,13 @@
     </div>
     <br>
 
-    <div style="border-bottom: 1px solid #ddd">
+    <div class="border-bot">
         <a href="#" onclick="collapseOthers('roleList')">
-            <h1 style="font-size:14px; color:black">Manage Roles&nbsp<i id="cRoleList"
+            <h1 class="header14">Manage Roles&nbsp<i id="cRoleList"
                                                                         class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sRoleList" style="margin-left: 25px">Add roles</span>
+        <span id="sRoleList" class="lMargin25">Add roles</span>
 
         <div id="roleList" class="collapse">
             <g:render template="/role/manageRole"/>
@@ -56,13 +56,13 @@
     </div>
     <br>
 
-    <div style="border-bottom: 1px solid #ddd">
+    <div class="border-bot">
         <a href="#" onclick="collapseOthers('manageReportIndex')">
-            <h1 style="font-size:14px; color:black">Manage Controllers&nbsp<i id="cManageReportIndex"
+            <h1 class="header14">Manage Controllers&nbsp<i id="cManageReportIndex"
                                                                               class="icon-plus-sign"></i></h1>
 
         </a>
-        <span id="sManageReportIndex" style="margin-left: 25px">View and manage controller permissions</span>
+        <span id="sManageReportIndex" class="lMargin25">View and manage controller permissions</span>
 
         <div id="manageReportIndex" class="collapse">
             <g:render template="/manageReport/manageReportIndex"/>

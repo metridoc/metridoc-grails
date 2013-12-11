@@ -21,14 +21,14 @@
     <g:hiddenField name="previousExpanded" id="previousExpanded" value="${previousExpanded}"/>
     <g:render template="/commonTemplates/tabs"/>
 
-    <div style="border-bottom: 1px solid #ddd">
+    <div class="border-bot">
         <a href="#" onclick="changeIcon('groupList')">
-            <h1 style="font-size:14px; color:black">LDAP Groups&nbsp
+            <h1 class="ldap-header">LDAP Groups&nbsp
                 <i id="cGroupList" data-toggle="collapse" data-target="#groupList" class="icon-minus-sign"></i>
             </h1>
         </a>
 
-        <span id="sGroupList" style="margin-left: 25px">Create and view LDAP groups</span>
+        <span id="sGroupList" class="ldap-span">Create and view LDAP groups</span>
 
         <div id="groupList" class="collapse in">
             <g:render template="/ldapRole/ldapGroupList"/>
@@ -36,14 +36,14 @@
     </div>
     <br>
 
-    <div style="border-bottom: 1px solid #ddd">
+    <div class="border-bot">
         <a href="#" onclick="changeIcon('ldapConfig')">
-            <h1 style="font-size:14px; color:black">LDAP Config&nbsp
+            <h1 class="ldap-header">LDAP Config&nbsp
                 <i id="cLdapConfig" data-toggle="collapse" data-target="#ldapConfig" class="icon-plus-sign"></i>
             </h1>
         </a>
 
-        <span id="sLdapConfig" style="margin-left: 25px">Change LDAP configuration</span>
+        <span id="sLdapConfig" class="ldap-span">Change LDAP configuration</span>
 
         <div id="ldapConfig" class="collapse">
             <g:render template="/ldapSettings/ldapConfig"/>

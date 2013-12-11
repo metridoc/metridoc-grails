@@ -13,7 +13,7 @@
   - 	permissions and limitations under the License.  --}%
 
 <span class="linkContainer">
-    <div style="margin-top: 20px">
+    <div class="wMargin">
         <md:header>${category.appName} <i class="${category.iconName}"></i>
             <a href="#" onclick="showApps(this.id)" class="categoryHeader">
                 <i class="icon-minus-sign"></i>

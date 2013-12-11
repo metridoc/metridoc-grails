@@ -33,7 +33,7 @@
                           model="[type: 'submit', action: '_action_edit', icon: 'icon-edit', content: 'Edit']"/>
                 <g:if test="${ldapRoleMappingInstance}">
                     <button class="btn btn-danger" type="submit" name="_action_delete"
-                            onclick="deleteMapping(${ldapRoleMappingInstance.id})" style="margin-left:180px">
+                            onclick="deleteMapping(${ldapRoleMappingInstance.id})" class="lMargin180">
                         <i class="icon-trash"></i> Delete
                     </button>
                     <g:form name="mdForm_${ldapRoleMappingInstance.id}" method="delete" action="delete"

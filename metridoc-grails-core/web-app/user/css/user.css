@@ -20,3 +20,10 @@
     display: none;
 }
 
+.lMargin25{margin-left:25px;}
+
+.border-top{border-top: 1px solid #ddd;}
+
+.font16{font-size: 16px; color: #48802c;}
+
+.popRoles{font-size: 14px;}

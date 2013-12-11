@@ -27,7 +27,7 @@
 
         %{--TODO: move all scripts and css to separate js and css files--}%
         <div class="controls">
-            <input id="metridocConfig" name="metridocConfig" type="file" style="display: none"/>
+            <input id="metridocConfig" name="metridocConfig" type="file" class="noDisplay/>
 
             <div class="input-append">
                 <!--suppress HtmlFormInputWithoutLabel -->
@@ -69,9 +69,9 @@
             <g:textField name="rememberMeCookieAge" placeholder="360" value="${rememberMeCookieAge}"></g:textField>
         </div>
     </div>
-    <label class="control-label" style=" padding-left:15px;">Server Shutdown Date:</label>
+    <label class="control-label" id="dateLabel">Server Shutdown Date:</label>
 
-    <input type="text" name="shutdownDate" style="width: 150px;"
+    <input type="text" name="shutdownDate" id="shutdownDate"
            value="${shutdownDate}" id="dp1" />
     <button class="btn" id="clearDate">Clear</button>
     <md:cgButton icon="icon-edit">Update</md:cgButton>
