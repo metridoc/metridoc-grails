@@ -14,10 +14,10 @@
 
 <%@ page import="metridoc.core.ShiroRole" %>
 <%@ page import="metridoc.core.ShiroUser" %>
-<div class="border-top"></div>
+<div class="top-border"></div>
 <br>
 
-<div class="lMargin25">
+<div id="manage-report">
     <g:render template="/manageReport/manageReportHeaders"/>
     <strong>Controller Specific Security:</strong>
     <br>

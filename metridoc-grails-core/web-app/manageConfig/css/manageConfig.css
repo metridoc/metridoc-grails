@@ -18,5 +18,5 @@ code {
 
 #shutdownDate{width: 150px;}
 #dateLabel{padding-left: 15px;}
-.lMargin25{margin-left: 25px;}
-.noDisplay{display:none;}
+#metridocConfig{display:none;}
+#status{margin-left: 25px;}

@@ -27,7 +27,7 @@
 
         %{--TODO: move all scripts and css to separate js and css files--}%
         <div class="controls">
-            <input id="metridocConfig" name="metridocConfig" type="file" class="noDisplay/>
+            <input id="metridocConfig" name="metridocConfig" type="file"/>
 
             <div class="input-append">
                 <!--suppress HtmlFormInputWithoutLabel -->

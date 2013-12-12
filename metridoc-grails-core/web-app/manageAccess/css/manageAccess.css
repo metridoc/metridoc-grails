@@ -12,8 +12,8 @@
   *	or implied. See the License for the specific language governing
   *	permissions and limitations under the License.  */
 
-.border-bot{border-bottom: 1px solid #ddd;}
+.manage-div{border-bottom: 1px solid #ddd;}
 
-.header14{font-size: 14px; color: black;}
+.manage-header{font-size: 14px; color: black;}
 
-.lMargin25{margin-left: 25px;}
+.manage-subheader{margin-left: 25px;}

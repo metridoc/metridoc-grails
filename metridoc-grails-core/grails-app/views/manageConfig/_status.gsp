@@ -13,7 +13,7 @@
   - 	permissions and limitations under the License.  --}%
 
 <md:header>Status</md:header>
-<div class="lMargin25">
+<div id="status">
     <ul>
         <li><strong>Java Exec:&nbsp;&nbsp;</strong><code>${javaCommand}</code></li>
         <li><strong>Java VM Arguments:&nbsp;&nbsp;</strong><code>${javaVmArguments}</code></li>
