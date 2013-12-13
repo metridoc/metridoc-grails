@@ -206,6 +206,20 @@ $(function () {
     })
 });
 
+
+$(function () {
+    $("#location").change(function () {
+        var choice = $("#location option:selected").attr("inForm");
+        if (choice == "2") {
+            $("#otherLocationDiv").show();
+        }
+        else {
+            $("#otherLocationDiv").hide();
+            $("#otherLocation").val("");
+        }
+    })
+});
+
 $(function () {
     $("#resetButton").click(function () {
         $("#otherRankDiv").hide();
@@ -222,6 +236,7 @@ $(function () {
         $("#otherInstructionalMaterials").val("");
         $("#otherAudienceDiv").hide();
         $("#otherAudience").val("");
+        $("#otherLocation").val("");
     })
 });
 
@@ -295,6 +310,7 @@ $(function () {
                     $("#otherSessionTypeDiv").hide();
                     $("#otherSessionType").val("");
                 }
+                
             }
         });
     })
