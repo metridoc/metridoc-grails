@@ -33,7 +33,7 @@
         <input id="spreadsheetUpload" class="userInput" name="spreadsheetUpload" type="file" style="display: none"/>
 
         <div class="input-append">
-            <input id="spreadsheetUploadPath" name="spreadsheetUploadPath" type="text" disabled="true"/>
+            <input id="spreadsheet-upload-path" name="spreadsheetUploadPath" type="text" disabled="true"/>
             <a class="btn" onclick="$('input[id=spreadsheetUpload]').click();">Browse</a>
         </div>
     </div>

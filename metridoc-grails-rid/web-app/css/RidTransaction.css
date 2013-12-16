@@ -18,43 +18,43 @@
     width: auto;
 }
 
-#dateOfConsultation_day,
-#dateOfConsultation_start_day,
-#dateOfConsultation_end_day {
+#date-of-consultation-day,
+#date-of-consultation-start-day,
+#date-of-consultation-end-day {
     width: 60px;
 }
 
-#dateOfConsultation_month,
-#dateOfConsultation_start_month,
-#dateOfConsultation_end_month {
+#date-of-consultation-month,
+#date-of-consultation-start-month,
+#date-of-consultation-end-month {
     width: 100px;
 }
 
-#dateOfConsultation_year,
-#dateOfConsultation_start_year,
-#dateOfConsultation_end_year {
+#date-of-consultation-year,
+#date-of-consultation-start-year,
+#date-of-consultation-end-year {
     width: 80px;
 }
 
-#dateOfInstructionLabel{
+#date-of-instruction-label {
     width: 150px;
     margin-left: -37px;
 }
 
-#spreadsheetUploadForm{
+#spreadsheet-upload-form {
     padding-top: 15px;
 }
 
-#libraryUnitControls, #spreadsheetUploadPath{
+#library-unit-controls, #spreadsheet-upload-path {
     margin-left: 45px; float: left;
 }
 
-#spreadsheetDownload{
+#spreadsheet-download {
     margin-left: 5px;
     float: left;
 }
 
-#submitSpreadsheet{
+#submit-spreadsheet {
     margin-bottom: 10px;
 }
 

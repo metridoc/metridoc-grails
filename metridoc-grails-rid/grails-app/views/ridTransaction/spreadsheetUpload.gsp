@@ -30,7 +30,7 @@
                             <input id="spreadsheetUpload" name="spreadsheetUpload" type="file" class="hidden-div"/>
 
                             <div class="input-append">
-                                <input id="spreadsheetUploadPath" name="spreadsheetUploadPath" type="text"
+                                <input id="spreadsheet-upload-path" name="spreadsheetUploadPath" type="text"
                                        disabled="true"/>
                                 <a class="btn" onclick="$('input[id=spreadsheetUpload]').click();">Browse</a>
                             </div>
@@ -42,7 +42,7 @@
                                 });
                             </g:javascript>
 
-                            <button class="btn" type="submit" id="submitSpreadsheet" name="_action_upload" disabled="true">
+                            <button class="btn" type="submit" id="submit-spreadsheet" name="_action_upload" disabled="true">
                                 <i class="icon-upload-alt"></i> Upload
                             </button>
 
@@ -59,13 +59,13 @@
                         <h1><g:message code="Download Blank Spreadsheet"/></h1>
 
                         <div class="control-group">
-                            <div class="controls" id="libraryUnitControls">
+                            <div class="controls" id="library-unit-controls">
                                 <label for="ridLibraryUnit">Choose Library Unit</label>
                                 <g:select id="ridLibraryUnit" class="input-wide" name="ridLibraryUnit.name"
                                           from="${metridoc.rid.RidLibraryUnit.list()}" optionKey="name" required=""/>
                             </div>
 
-                            <div class="controls" id="spreadsheetDownload">
+                            <div class="controls" id="spreadsheet-download">
                                 <button class="btn" type="submit" name="_action_download">
                                     <i class="icon-download-alt"></i> Download Spreadsheet
                                 </button>

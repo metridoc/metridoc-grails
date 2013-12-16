@@ -32,7 +32,7 @@
 
     <div class="span3">
         <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'dateOfInstruction', 'error')} required">
-            <label for="dateOfInstruction" id="dateOfInstructionLabel">
+            <label for="dateOfInstruction" id="date-of-instruction-label">
                 <g:message code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/>
                 <span class="required-indicator">*</span>
             </label>
