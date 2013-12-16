@@ -74,9 +74,8 @@
                     </thead>
                     <tbody>
                     <g:each in="${ridTransactionInstanceList}" status="i" var="ridTransactionInstance">
-                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}"
-                            onclick="window.location = 'show/${ridTransactionInstance.id}'"
-                            style="cursor: pointer;">
+                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'} clickable-row"
+                            onclick="window.location = 'show/${ridTransactionInstance.id}'">
                             <%
                                 userQ = ridTransactionInstance.userQuestion
                                 if (userQ != null && userQ.length() > 12)
@@ -150,9 +149,8 @@
                         </thead>
                         <tbody>
                         <g:each in="${ridTransactionInstanceList}" status="i" var="ridTransactionInstance">
-                            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}"
-                                onclick="window.location = 'show/${ridTransactionInstance.id}'"
-                                style="cursor: pointer;">
+                            <tr class="${(i % 2) == 0 ? 'even' : 'odd'} clickable-row"
+                                onclick="window.location = 'show/${ridTransactionInstance.id}'">
 
                                 <td>${fieldValue(bean: ridTransactionInstance, field: "instructorPennkey")}</td>
 

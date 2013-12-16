@@ -30,7 +30,7 @@
         <br/>
 
         <table border="0"
-               style="font-size: 12px; border-top: 0px; width: 90%; table-layout: fixed; word-wrap: break-word"
+               class="show-table"
                align="center">
             <tr align="center">
                 <td colspan="2">
@@ -213,25 +213,9 @@
 <br/>
 
 <table border="0"
-       style="font-size: 12px; border-top: 0px; width: 90%; table-layout: fixed; word-wrap: break-word"
+       class="show-table:
        align="center">
-<tr align="center">
 
-    <td colspan="2">
-        <span id="dateOfInstruction-label" class="property-label"><g:message
-                code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
-        :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
-                format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
-    </td>
-    <td colspan="2">
-        <span id="instructorPennkey-label" class="property-label"><g:message
-                code="ridTransaction.instructorPennkey.label" default="Instructor Pennkey"/></span>
-        :
-        <span class="property-value" aria-labelledby="instructorPennkey-label"><g:fieldValue
-                bean="${ridTransactionInstance}" field="instructorPennkey"/></span>
-    </td>
-</tr>
 <tr><td></td></tr>
 <tr align="center">
     <td colspan="2">

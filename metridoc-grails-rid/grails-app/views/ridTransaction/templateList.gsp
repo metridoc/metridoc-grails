@@ -22,7 +22,7 @@
         %{--<r:external dir="css" file="floating_tables_for_admin_2.css" />--}%
         <!--<![endif]-->
 
-        <h1 style="padding-bottom: 10px">Choose a template from the list</h1>
+        <h1 class="template-header">Choose a template from the list</h1>
         <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
         </g:if>
@@ -45,7 +45,7 @@
             </thead>
             <tbody>
             <g:each in="${ridTransactionInstanceList}" status="i" var="ridTransactionInstance">
-                <tr onclick="window.location = 'create?tmp=${ridTransactionInstance.id}'" style="cursor: pointer;">
+                <tr onclick="window.location = 'create?tmp=${ridTransactionInstance.id}'" class="clickable-row">
                     <td>${fieldValue(bean: ridTransactionInstance, field: "ridLibraryUnit")}</td>
                     <td>${fieldValue(bean: ridTransactionInstance, field: "school")}</td>
                     <td>${fieldValue(bean: ridTransactionInstance, field: "department")}</td>
@@ -69,7 +69,7 @@
         %{--<r:external dir="css" file="floating_tables_for_admin_2.css" />--}%
         <!--<![endif]-->
 
-        <h1 style="padding-bottom: 10px">Choose a template from the list</h1>
+        <h1 class="template-header">Choose a template from the list</h1>
         <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
         </g:if>
@@ -93,7 +93,7 @@
             </thead>
             <tbody>
             <g:each in="${ridTransactionInstanceList}" status="i" var="ridTransactionInstance">
-                <tr onclick="window.location = 'create?tmp=${ridTransactionInstance.id}'" style="cursor: pointer;">
+                <tr onclick="window.location = 'create?tmp=${ridTransactionInstance.id}'" class="clickable-row">
                     <td>${fieldValue(bean: ridTransactionInstance, field: "ridLibraryUnit")}</td>
                     <td>${fieldValue(bean: ridTransactionInstance, field: "location")}</td>
                     <td>${fieldValue(bean: ridTransactionInstance, field: "school")}</td>
