@@ -40,7 +40,7 @@
     %{--TEMPORARY REMOVE TEMPLATES--}%
 %{--            <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
                 <h1>
-                    <a style="font-size: 14px" data-toggle="modal" href="templateList" data-target="#myModal">
+                    <a class="modal-label" data-toggle="modal" href="templateList" data-target="#myModal">
                         <i class="icon-file-alt">Use Template</i>
                     </a>
                 </h1>

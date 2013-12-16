@@ -39,10 +39,10 @@
                                     </label>
 
                                     <div class="controls">
-                                        <input type="text" name="dateOfConsultation_start" style="width: 150px"
+                                        <input type="text" name="dateOfConsultation_start" class="input-search"
                                                id="dpd1"/>
-                                        <span style="font-size: 12px; color: #666666">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
-                                        <input type="text" name="dateOfConsultation_end" style="width: 150px"
+                                        <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
+                                        <input type="text" name="dateOfConsultation_end" class="input-search"
                                                id="dpd2"/>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                     </label>
 
                                     <div class="controls">
-                                        <g:select id="ridLibraryUnitSearch" style="width:150px"
+                                        <g:select id="ridLibraryUnitSearch" class="input-search"
                                                   name="ridLibraryUnitSearch"
                                                   noSelection="${['0': 'All Units']}" optionKey="id" multiple="true"
                                                   value="0"
@@ -74,7 +74,7 @@
                                     </label>
 
                                     <div class="controls">
-                                        <g:textField id="staffPennkey" style="width:150px" class="userInput"
+                                        <g:textField id="staffPennkey" class="userInput input-search"
                                                      name="staffPennkey"
                                                      value=""/>
                                     </div>
@@ -93,7 +93,7 @@
                                     </label>
 
                                     <div class="controls">
-                                        <g:select id="ridSchoolSearch" style="width:150px" name="ridSchoolSearch"
+                                        <g:select id="ridSchoolSearch" class="input-search" name="ridSchoolSearch"
                                                   noSelection="${['0': 'All Schools']}" optionKey="id" multiple="true"
                                                   value="0"
                                                   from="${metridoc.rid.RidSchool.where { inForm == 1 }.list()}"/>
@@ -108,7 +108,7 @@
                                     </label>
 
                                     <div class="controls">
-                                        <g:select id="ridDepartmentSearch" style="width:150px"
+                                        <g:select id="ridDepartmentSearch" class="input-search"
                                                   name="ridDepartmentSearch"
                                                   noSelection="${['0': 'All Departments']}" multiple="true" value="0"
                                                   optionKey="id"

@@ -30,7 +30,7 @@
         <br/>
 
         <table border="0"
-               style="font-size: 12px; border-top: 0px; width: 90%; table-layout: fixed; word-wrap: break-word"
+               class="show-table"
                align="center">
             <tr align="center">
                 <td colspan="2">
@@ -213,7 +213,7 @@
 <br/>
 
 <table border="0"
-       style="font-size: 12px; border-top: 0px; width: 90%; table-layout: fixed; word-wrap: break-word"
+       class="show-table:
        align="center">
 
 <tr><td></td></tr>

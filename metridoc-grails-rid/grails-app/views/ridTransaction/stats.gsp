@@ -58,7 +58,7 @@
 
 </h1>
 
-<div style='overflow:auto; font-size:10pt'>
+<div class="stats-overview">
 <input type="button" id="toggleCol1" value="Expand to monthly view"> </input>
 <table class="table table-striped table-hover" id="Table1">
 <thead>
@@ -146,7 +146,7 @@
 <input type="button" id="showDepartments_2" value="Show all Departments"> </input>
 <input type="button" id="toggleCol2" value="Expand to monthly view"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
     <table class="table table-striped table-hover" id="Table2">
         <thead>
         <tr>
@@ -250,7 +250,7 @@
 <input type="button" id="toggleCol4" value="Expand to monthly view"> </input>
 <input type="button" id="allRanks_4" value="Show only Ranks with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
     <table class="table table-striped table-hover" id="Table4">
         <thead>
         <tr>
@@ -292,7 +292,7 @@
 <input type="button" id="toggleCol5" value="Expand to monthly view"> </input>
 <input type="button" id="allGoals_5" value="Show only User Goals with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table5">
     <thead>
     <tr>
@@ -334,7 +334,7 @@
 <input type="button" id="toggleCol6" value="Expand to monthly view"> </input>
 <input type="button" id="allModes_6" value="Show only Modes with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table6">
     <thead>
     <tr>
@@ -376,7 +376,7 @@
 <input type="button" id="toggleCol7" value="Expand to monthly view"> </input>
 <input type="button" id="allSchools_7" value="Show only Schools with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table7">
     <thead>
     <tr>
@@ -418,7 +418,7 @@
 <input type="button" id="toggleCol8" value="Expand to monthly view"> </input>
 <input type="button" id="allSponsors_8" value="Show only Course Sponsors with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table8">
     <thead>
     <tr>
@@ -460,7 +460,7 @@
 <input type="button" id="toggleCol9" value="Expand to monthly view"> </input>
 <input type="button" id="allServices_9" value="Show only Services with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table9">
     <thead>
     <tr>
@@ -503,7 +503,7 @@
 <input type="button" id="toggleCol10" value="Expand to monthly view"> </input>
 <input type="button" id="allLibraries_10" value="Show only Libraries with transactions"> </input>
 
-<div style='overflow:auto; font-size:10pt; height:260px'>
+<div class="stats-table>
 <table class="table table-striped table-hover" id="Table10">
     <thead>
     <tr>

@@ -39,9 +39,9 @@
                             </label>
 
                             <div class="controls">
-                                <input type="text" name="dateOfConsultation_start" style="width: 150px" id="dpd1"/>
-                                <span style="font-size: 12px; color: #666666">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
-                                <input type="text" name="dateOfConsultation_end" style="width: 150px" id="dpd2"/>
+                                <input type="text" name="dateOfConsultation_start" class="input-search" id="dpd1"/>
+                                <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
+                                <input type="text" name="dateOfConsultation_end" class="input-search" id="dpd2"/>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:select id="ridLibraryUnitSearch" style="width:150px" name="ridLibraryUnitSearch"
+                                <g:select id="ridLibraryUnitSearch" class="input-search" name="ridLibraryUnitSearch"
                                           noSelection="${['0': 'All Units']}" optionKey="id" multiple="true" value="0"
                                           from="${metridoc.rid.RidLibraryUnit.list()}"/>
                             </div>
@@ -70,7 +70,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:textField id="staffPennkey" style="width:150px" class="userInput" name="staffPennkey"
+                                <g:textField id="staffPennkey" class="userInput input-search" name="staffPennkey"
                                              value=""/>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:textField id="userName" style="width:150px" class="userInput" name="userName"
+                                <g:textField id="userName" class="userInput input-search" name="userName"
                                              value=""/>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:select id="ridSchoolSearch" style="width:150px" name="ridSchoolSearch"
+                                <g:select id="ridSchoolSearch" class="input-search" name="ridSchoolSearch"
                                           noSelection="${['0': 'All Schools']}" optionKey="id" multiple="true" value="0"
                                           from="${metridoc.rid.RidSchool.where { inForm == 1 }.list()}"/>
                             </div>
@@ -115,7 +115,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:select id="ridDepartmentSearch" style="width:150px" name="ridDepartmentSearch"
+                                <g:select id="ridDepartmentSearch" class="input-search" name="ridDepartmentSearch"
                                           noSelection="${['0': 'All Departments']}" multiple="true" value="0"
                                           optionKey="id"
                                 //optionValue="${{ it.name.empty ? 'NOT SPECIFIED' : it.name }}"
@@ -134,7 +134,7 @@
                     </label>
 
                     <div class="controls">
-                        <g:textField id="userQuestion" style="width:350px" class="userInput" name="userQuestion"
+                        <g:textField id="userQuestion" class="userInput input-box" name="userQuestion"
                                      value=""/>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                     </label>
 
                     <div class="controls">
-                        <g:textField id="notes" style="width:350px" class="userInput" name="notes" value=""/>
+                        <g:textField id="notes" class="userInput input-box" name="notes" value=""/>
                     </div>
                 </div>
             </fieldset>
@@ -176,9 +176,9 @@
                                 </label>
 
                                 <div class="controls">
-                                    <input type="text" name="dateOfInstruction_start" style="width: 150px" id="dpd1"/>
-                                    <span style="font-size: 12px; color: #666666">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
-                                    <input type="text" name="dateOfInstruction_end" style="width: 150px" id="dpd2"/>
+                                    <input type="text" name="dateOfInstruction_start" class="input-search" id="dpd1"/>
+                                    <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
+                                    <input type="text" name="dateOfInstruction_end" class="input-search" id="dpd2"/>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:select id="ridLibraryUnitSearch" style="width:150px" name="ridLibraryUnitSearch"
+                                    <g:select id="ridLibraryUnitSearch" class="input-search" name="ridLibraryUnitSearch"
                                               noSelection="${['0': 'All Units']}" optionKey="id" multiple="true"
                                               value="0"
                                               from="${metridoc.rid.RidLibraryUnit.list()}"/>
@@ -209,7 +209,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:textField id="instructorPennkey" style="width:150px" class="userInput"
+                                    <g:textField id="instructorPennkey" class="userInput input-search"
                                                  name="instructorPennkey"
                                                  value=""/>
                                 </div>
@@ -225,7 +225,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:textField id="courseName" style="width:150px" class="userInput"
+                                    <g:textField id="courseName" class="userInput input-search"
                                                  name="courseName"
                                                  value=""/>
                                 </div>
@@ -244,7 +244,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:select id="ridSchoolSearch" style="width:150px" name="ridSchoolSearch"
+                                    <g:select id="ridSchoolSearch" class="input-search" name="ridSchoolSearch"
                                               noSelection="${['0': 'All Schools']}" optionKey="id" multiple="true"
                                               value="0"
                                               from="${metridoc.rid.RidSchool.where { inForm == 1 }.list()}"/>
@@ -259,7 +259,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:select id="ridDepartmentSearch" style="width:150px" name="ridDepartmentSearch"
+                                    <g:select id="ridDepartmentSearch" class="input-search" name="ridDepartmentSearch"
                                               noSelection="${['0': 'All Departments']}" multiple="true" value="0"
                                               optionKey="id"
                                     //optionValue="${{ it.name.empty ? 'NOT SPECIFIED' : it.name }}"
@@ -279,7 +279,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:select id="ridLocationSearch" style="width:150px" name="ridLocationSearch"
+                                    <g:select id="ridLocationSearch" class="input-search" name="ridLocationSearch"
                                               noSelection="${['0': 'All Locations']}" multiple="true" value="0"
                                               optionKey="id"
                                     //optionValue="${{ it.name.empty ? 'NOT SPECIFIED' : it.name }}"
@@ -297,7 +297,7 @@
                         </label>
 
                         <div class="controls">
-                            <g:textField id="notes" style="width:350px" class="userInput" name="notes" value=""/>
+                            <g:textField id="notes" class="userInput input-box" name="notes" value=""/>
                         </div>
                     </div>
 
@@ -307,7 +307,7 @@
                         </label>
 
                         <div class="controls">
-                            <g:textField id="sessionDescription" style="width:350px" class="userInput"
+                            <g:textField id="sessionDescription" class="userInput input-box"
                                          name="sessionDescription" value=""/>
                         </div>
                     </div>

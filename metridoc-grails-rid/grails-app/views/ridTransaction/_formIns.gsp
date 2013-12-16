@@ -23,23 +23,21 @@
                 <g:message code="ridTransaction.ridLibraryUnit.label" default="Library Unit"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:select id="ridLibraryUnit" style="width:160px" name="ridLibraryUnit.id"
+            <g:select id="ridLibraryUnit" name="ridLibraryUnit.id"
                       from="${metridoc.rid.RidLibraryUnit.list()}"
                       optionKey="id" required="" value="${ridTransactionInstance?.ridLibraryUnit?.id}"
-                      class="many-to-one"/>
+                      class="many-to-one input-wide"/>
         </div>
     </div>
 
     <div class="span3">
         <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'dateOfInstruction', 'error')} required">
-            <label for="dateOfInstruction" style="width: 150px; margin-left: -37px">
+            <label for="dateOfInstruction" id="dateOfInstructionLabel">
                 <g:message code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/>
                 <span class="required-indicator">*</span>
             </label>
-            %{--<g:datePicker style="width: 150px" name="dateOfInstruction" precision="day"  --}%
-            %{--value="${ridTransactionInstance?.dateOfInstruction}"  />--}%
-            <% def dateString = ridTransactionInstance?.dateOfInstruction ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfInstruction) : ""; %>
-            <input type="text" name="dateOfInstruction" style="width: 150px"
+           <% def dateString = ridTransactionInstance?.dateOfInstruction ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfInstruction) : ""; %>
+            <input type="text" name="dateOfInstruction" class="input-wide"
                    value="${dateString}" id="dp1" required=""/>
         </div>
     </div>
@@ -50,7 +48,7 @@
                 <g:message code="ridTransaction.instructorPennkey.label" default="Instructor Pennkey"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:textField style="width:150px" class="userInput" name="instructorPennkey" maxlength="100"
+            <g:textField class="userInput input-wide" name="instructorPennkey" maxlength="100"
                          required="" value="${ridTransactionInstance?.instructorPennkey}"/>
         </div>
     </div>
@@ -61,7 +59,7 @@
                 <g:message code="ridTransaction.coInstructorPennkey.label" default="Co-Instructor Pennkey"/>
 
             </label>
-            <g:textField style="width:150px" class="userInput" name="coInstructorPennkey" maxlength="100"/>
+            <g:textField class="userInput input-wide" name="coInstructorPennkey" maxlength="100"/>
         </div>
     </div>
 </div>
@@ -80,7 +78,7 @@
             locationList = locationList.sort { it.name }
             %>
             <% locationList.addAll(RidLocation.findAllByInForm(2)) %>
-            <select style="width:120px" id="location" name="location.id" required="" class="many-to-one">
+            <select id="location" name="location.id" required="" class="many-to-one input-create">
                 <g:each in="${locationList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.location?.id == it.id}">selected=""</g:if>>
@@ -90,12 +88,12 @@
             </select>
         </div>
 
-        <div id="otherLocationDiv" style="display:none;"
-             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherLocation', 'error')} ">
+        <div id="otherLocationDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherLocation', 'error')} hidden-div">
             <label for="otherLocation">
                 <g:message code="ridTransaction.otherLocation.label" default="Other Location"/>
             </label>
-            <g:textField class="userInput" style="width:120px" name="otherLocation" maxlength="50"
+            <g:textField class="userInput input-create" name="otherLocation" maxlength="50"
                          value="${ridTransactionInstance?.otherLocation}"/>
         </div>
     </div>
@@ -107,7 +105,7 @@
                 <g:message code="ridTransaction.prepTime.label" default="Prep Time (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput" style="width:120px"
+            <g:field class="userInput input-create"
                      name="prepTime" type="number" value="${ridTransactionInstance.prepTime}" required=""/>
         </div>
     </div>
@@ -118,7 +116,7 @@
                 <g:message code="ridTransaction.eventLength.label" default="Event Length (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field style="width:120px" class="userInput" name="eventLength" type="number"
+            <g:field class="userInput input-create" name="eventLength" type="number"
                      value="${ridTransactionInstance.eventLength}" required=""/>
         </div>
     </div>
@@ -129,7 +127,7 @@
                 <g:message code="ridTransaction.attendanceTotal.label" default="Total Attendance"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field style="width:120px" class="userInput" name="attendanceTotal" type="number" max="50"
+            <g:field class="userInput input-create" name="attendanceTotal" type="number" max="50"
                      value="${ridTransactionInstance.attendanceTotal}" required=""/>
         </div>
     </div>
@@ -142,7 +140,7 @@
                 <g:message code="ridTransaction.sequenceName.label" default="Sequence Name"/>
 
             </label>
-            <g:textField style="width:150px" class="userInput" name="sequenceName" maxlength="100"/>
+            <g:textField class="userInput input-wide" name="sequenceName" maxlength="100"/>
         </div>
     </div>
 
@@ -152,7 +150,7 @@
                 <g:message code="ridTransaction.sequenceUnit.label" default="Module Number"/>
 
             </label>
-            <g:field class="userInput" style="width:120px"
+            <g:field class="userInput input-create"
                      name="sequenceUnit" type="number" value="${ridTransactionInstance.sequenceUnit}"/>
         </div>
     </div>
@@ -162,7 +160,7 @@
             <label for="courseName">
                 <g:message code="ridTransaction.courseName.label" default="Course Name"/>
             </label>
-            <g:textField class="userInput" name="courseName" style="width: 120px" maxlength="100"
+            <g:textField class="userInput input-create" name="courseName" maxlength="100"
                          value="${ridTransactionInstance?.courseName}"/>
         </div>
     </div>
@@ -172,7 +170,7 @@
             <label for="courseNumber">
                 <g:message code="ridTransaction.courseNumber.label" default="Course Number"/>
             </label>
-            <g:textField class="userInput" name="courseNumber" style="width: 120px" maxlength="100"
+            <g:textField class="userInput input-create" name="courseNumber" maxlength="100"
                          value="${ridTransactionInstance?.courseNumber}"/>
         </div>
     </div>
@@ -181,14 +179,14 @@
         <div class="fieldcontain ${hasErrors(bea: ridTransactionInstance, field: 'department', 'error')}">
             <label for="department">
                 <g:message code="ridTransaction.department.label" default="Department"/>
-                <a style="font-size: 14px" data-toggle="modal"
+                <a class="modal-label" data-toggle="modal"
                    href="../ridAdminDepartment/departmentList" data-target="#myDepartment">
                     <i class="icon-file-alt"></i>
                 </a>
             </label>
-            <g:select style="width:120px" id="department" name="department.id"
+            <g:select id="department" name="department.id"
                       from="${metridoc.rid.RidDepartment.list().sort { it.name }}" optionKey="id"
-                      value="${ridTransactionInstance?.department?.id}" class="many-to-one"/>
+                      value="${ridTransactionInstance?.department?.id}" class="many-to-one input-create"/>
         </div>
     </div>
 
@@ -201,7 +199,7 @@
             <label for="facultySponsor">
                 <g:message code="ridTransaction.facultySponsor.label" default="Faculty Sponsor"/>
             </label>
-            <g:textField class="userInput" name="facultySponsor" style="width: 120px" maxlength="300"
+            <g:textField class="userInput input-create" name="facultySponsor" maxlength="300"
                          value="${ridTransactionInstance?.facultySponsor}"/>
         </div>
     </div>
@@ -219,7 +217,7 @@
             schoolList = schoolList.sort { it.name }
             %>
             <% schoolList.addAll(RidSchool.findAllByInForm(2)) %>
-            <select style="width:120px" id="school" name="school.id" required="" class="many-to-one">
+            <select id="school" name="school.id" required="" class="many-to-one input-create">
                 <g:each in="${schoolList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.school?.id == it.id}">selected=""</g:if>>
@@ -229,12 +227,12 @@
             </select>
         </div>
 
-        <div id="otherSchoolDiv" style="display:none;"
-             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherSchool', 'error')} ">
+        <div id="otherSchoolDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherSchool', 'error')} hidden-div">
             <label for="otherSchool">
                 <g:message code="ridTransaction.otherSchool.label" default="Other School"/>
             </label>
-            <g:textField class="userInput" style="width:120px" name="otherSchool" maxlength="50"
+            <g:textField class="userInput input-create" name="otherSchool" maxlength="50"
                          value="${ridTransactionInstance?.otherSchool}"/>
         </div>
     </div>
@@ -250,7 +248,7 @@
             </label>
 
 
-            <div id="currentSessionType" style="display: none;">${ridTransactionInstance?.sessionType?.id}</div>
+            <div id="currentSessionType" class="hidden-div">${ridTransactionInstance?.sessionType?.id}</div>
             <%
                 typeList = metridoc.rid.RidSessionType.findAllByInFormAndRidLibraryUnit(1,
                         ridTransactionInstance?.ridLibraryUnit ?: RidLibraryUnit.get(1))
@@ -261,7 +259,7 @@
                 typeList.addAll(metridoc.rid.RidSessionType.findAllByInFormAndRidLibraryUnit(2,
                         ridTransactionInstance?.ridLibraryUnit ?: RidLibraryUnit.get(1)))
             %>
-            <select style="width:120px" id="sessionType" name="sessionType.id" required="" class="many-to-one">
+            <select id="sessionType" name="sessionType.id" required="" class="many-to-one input-create">
                 <g:each in="${typeList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.sessionType?.id == it.id}">selected=""</g:if>>
@@ -271,12 +269,12 @@
             </select>
         </div>
 
-        <div id="otherSessionTypeDiv" style="display:none;"
-             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherSessionType', 'error')} ">
+        <div id="otherSessionTypeDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherSessionType', 'error')} hidden-div">
             <label for="otherSessionType">
                 <g:message code="ridTransaction.otherSessionType.label" default="Other Session Type"/>
             </label>
-            <g:textField class="userInput" name="otherSessionType" style="width:120px"
+            <g:textField class="userInput input-create" name="otherSessionType"
                          maxlength="100" value="${ridTransactionInstance?.otherSessionType}"/>
         </div>
     </div>
@@ -288,8 +286,8 @@
 
             </label>
 
-            <div id="currentInstructionalMaterials"
-                 style="display: none;">${ridTransactionInstance?.instructionalMaterials?.id}</div>
+            <div id="currentInstructionalMaterials" class="hidden-div"
+                 >${ridTransactionInstance?.instructionalMaterials?.id}</div>
             <%
                 instructionalMaterialsList = RidInstructionalMaterials.findAllByInForm(1)
                 if (ridTransactionInstance?.instructionalMaterials?.inForm == 0)
@@ -298,8 +296,8 @@
                 instructionalMaterialsList = instructionalMaterialsList.sort { it.name }
                 instructionalMaterialsList.addAll(RidInstructionalMaterials.findAllByInForm(2))
             %>
-            <select style="width:120px" id="instructionalMaterials" name="instructionalMaterials.id" required=""
-                    class="many-to-one">
+            <select id="instructionalMaterials" name="instructionalMaterials.id" required=""
+                    class="many-to-one input-create">
                 <g:each in="${instructionalMaterialsList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.instructionalMaterials?.id == it.id}">selected=""</g:if>>
@@ -309,13 +307,13 @@
             </select>
         </div>
 
-        <div id="otherInstructionalMaterialsDiv" style="display:none"
-             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherInstructionalMaterials', 'error')} ">
+        <div id="otherInstructionalMaterialsDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherInstructionalMaterials', 'error')} hidden-div">
             <label for="otherInstructionalMaterials">
                 <g:message code="ridTransaction.otherInstructionalMaterials.label"
                            default="Other InstructionalMaterials"/>
             </label>
-            <g:textField class="userInput" name="otherInstructionalMaterials" style="width:120px" maxlength="50"
+            <g:textField class="userInput input-create" name="otherInstructionalMaterials" maxlength="50"
                          value="${ridTransactionInstance?.otherInstructionalMaterials}"/>
         </div>
     </div>
@@ -327,7 +325,7 @@
 
             </label>
 
-            <div id="currentAudience" style="display: none;">${ridTransactionInstance?.audience?.id}</div>
+            <div id="currentAudience" class="hidden-div">${ridTransactionInstance?.audience?.id}</div>
             <%
                 audienceList = RidAudience.findAllByInForm(1)
                 if (ridTransactionInstance?.audience?.inForm == 0)
@@ -336,7 +334,7 @@
                 audienceList = audienceList.sort { it.name }
                 audienceList.addAll(RidAudience.findAllByInForm(2))
             %>
-            <select style="width:120px" id="audience" name="audience.id" required="" class="many-to-one">
+            <select id="audience" name="audience.id" required="" class="many-to-one input-create">
                 <g:each in="${audienceList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.audience?.id == it.id}">selected=""</g:if>>
@@ -346,12 +344,12 @@
             </select>
         </div>
 
-        <div id="otherAudienceDiv" style="display:none"
-             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherAudience', 'error')} ">
+        <div id="otherAudienceDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherAudience', 'error')} hidden-div">
             <label for="otherAudience">
                 <g:message code="ridTransaction.otherAudience.label" default="Other Audience"/>
             </label>
-            <g:textField class="userInput" name="otherAudience" style="width:120px" maxlength="50"
+            <g:textField class="userInput input-create" name="otherAudience" maxlength="50"
                          value="${ridTransactionInstance?.otherAudience}"/>
         </div>
     </div>
@@ -361,7 +359,7 @@
             <label for="requestor">
                 <g:message code="ridTransaction.requestor.label" default="Requestor"/>
             </label>
-            <g:textField style="width:150px" class="userInput" name="requestor" maxlength="100"
+            <g:textField class="userInput input-wide" name="requestor" maxlength="100"
                          value="${ridTransactionInstance?.requestor}"/>
         </div>
     </div>
