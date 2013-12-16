@@ -74,7 +74,7 @@
                                     </label>
 
                                     <div class="controls">
-                                        <g:textField id="staffPennkey" class="userInput input-search"
+                                        <g:textField id="staffPennkey" class="trans-user-input input-search"
                                                      name="staffPennkey"
                                                      value=""/>
                                     </div>

@@ -55,7 +55,7 @@
                 <g:message code="ridTransaction.staffPennkey.label" default="Staff Pennkey"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:textField class="userInput input-wide" name="staffPennkey" maxlength="100"
+            <g:textField class="trans-user-input input-wide" name="staffPennkey" maxlength="100"
                          required="" value="${ridTransactionInstance?.staffPennkey}"/>
         </div>
     </div>
@@ -68,7 +68,7 @@
             <label for="userName">
                 <g:message code="ridTransaction.user.label" default="User Name"/>
             </label>
-            <g:textField class="userInput input-create" name="userName"  maxlength="100"
+            <g:textField class="trans-user-input input-create" name="userName"  maxlength="100"
                          value="${ridTransactionInstance?.userName}"/>
         </div>
     </div>
@@ -104,7 +104,7 @@
             <label for="otherRank">
                 <g:message code="ridTransaction.otherRank.label" default="Other Rank"/>
             </label>
-            <g:textField class="userInput input-create" name="otherRank" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherRank" maxlength="50"
                          value="${ridTransactionInstance?.otherRank}"/>
         </div>
     </div>
@@ -137,7 +137,7 @@
             <label for="otherSchool">
                 <g:message code="ridTransaction.otherSchool.label" default="Other School"/>
             </label>
-            <g:textField class="userInput input-create" name="otherSchool" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherSchool" maxlength="50"
                          value="${ridTransactionInstance?.otherSchool}"/>
         </div>
     </div>
@@ -148,7 +148,7 @@
                 <g:message code="ridTransaction.interactOccurrences.label" default="Interact Occurrences"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field  class="userInput input-create" name="interactOccurrences" type="number" max="50"
+            <g:field  class="trans-user-input input-create" name="interactOccurrences" type="number" max="50"
                      value="${ridTransactionInstance.interactOccurrences}" required=""/>
         </div>
     </div>
@@ -189,7 +189,7 @@
             <label for="otherModeOfConsultation">
                 <g:message code="ridTransaction.otherModeOfConsultation.label" default="Other Consult-Mode"/>
             </label>
-            <g:textField class="userInput input-create" name="otherModeOfConsultation"
+            <g:textField class="trans-user-input input-create" name="otherModeOfConsultation"
                          maxlength="100" value="${ridTransactionInstance?.otherModeOfConsultation}"/>
         </div>
     </div>
@@ -226,7 +226,7 @@
             <label for="otherService">
                 <g:message code="ridTransaction.otherService.label" default="Other Service"/>
             </label>
-            <g:textField class="userInput input-create" name="otherService"
+            <g:textField class="trans-user-input input-create" name="otherService"
                          maxlength="100" value="${ridTransactionInstance?.otherService}"/>
         </div>
     </div>
@@ -263,7 +263,7 @@
             <label for="otherUserGoal">
                 <g:message code="ridTransaction.otherUserGoal.label" default="Other User Goal"/>
             </label>
-            <g:textField class="userInput input-create" name="otherUserGoal"
+            <g:textField class="trans-user-input input-create" name="otherUserGoal"
                          maxlength="100" value="${ridTransactionInstance?.otherUserGoal}"/>
         </div>
     </div>
@@ -274,7 +274,7 @@
                 <g:message code="ridTransaction.prepTime.label" default="Prep Time (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput input-create"
+            <g:field class="trans-user-input input-create"
                      name="prepTime" type="number" value="${ridTransactionInstance.prepTime}" required=""/>
         </div>
     </div>
@@ -285,7 +285,7 @@
                 <g:message code="ridTransaction.eventLength.label" default="Event Length (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput input-create" name="eventLength" type="number"
+            <g:field class="trans-user-input input-create" name="eventLength" type="number"
                      value="${ridTransactionInstance.eventLength}" required=""/>
         </div>
     </div>
@@ -297,7 +297,7 @@
             <label for="courseName">
                 <g:message code="ridTransaction.courseName.label" default="Course Name"/>
             </label>
-            <g:textField class="userInput input-create" name="courseName" maxlength="100"
+            <g:textField class="trans-user-input input-create" name="courseName" maxlength="100"
                          value="${ridTransactionInstance?.courseName}"/>
         </div>
     </div>
@@ -307,7 +307,7 @@
             <label for="courseNumber">
                 <g:message code="ridTransaction.courseNumber.label" default="Course Number"/>
             </label>
-            <g:textField class="userInput input-create" name="courseNumber" maxlength="100"
+            <g:textField class="trans-user-input input-create" name="courseNumber" maxlength="100"
                          value="${ridTransactionInstance?.courseNumber}"/>
         </div>
     </div>
@@ -339,7 +339,7 @@
             <label for="otherCourseSponsor">
                 <g:message code="ridTransaction.otherCourseSponsor.label" default="Other Course Sponsor"/>
             </label>
-            <g:textField class="userInput input-create" name="otherCourseSponsor" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherCourseSponsor" maxlength="50"
                          value="${ridTransactionInstance?.otherCourseSponsor}"/>
         </div>
     </div>
@@ -350,7 +350,7 @@
             <label for="facultySponsor">
                 <g:message code="ridTransaction.facultySponsor.label" default="Faculty Sponsor"/>
             </label>
-            <g:textField class="userInput input-create" name="facultySponsor" maxlength="300"
+            <g:textField class="trans-user-input input-create" name="facultySponsor" maxlength="300"
                          value="${ridTransactionInstance?.facultySponsor}"/>
         </div>
     </div>
@@ -380,7 +380,7 @@
                 <g:message code="ridTransaction.userQuestion.label" default="User Question"/>
             </label>
             <br/>
-            <g:textArea class="userInput" name="userQuestion" cols="40" rows="5" maxlength="500"
+            <g:textArea class="trans-user-input" name="userQuestion" cols="40" rows="5" maxlength="500"
                         value="${ridTransactionInstance?.userQuestion}" onkeydown="isFull(this)"/>
         </div>
     </div>
@@ -391,7 +391,7 @@
                 <g:message code="ridTransaction.notes.label" default="Notes"/>
             </label>
             <br/>
-            <g:textArea class="userInput" name="notes" cols="40" rows="5" maxlength="500"
+            <g:textArea class="trans-user-input" name="notes" cols="40" rows="5" maxlength="500"
                         value="${ridTransactionInstance?.notes}" onkeydown="isFull(this)"/>
         </div>
     </div>

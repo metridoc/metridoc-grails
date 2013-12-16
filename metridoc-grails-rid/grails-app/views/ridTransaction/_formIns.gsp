@@ -48,7 +48,7 @@
                 <g:message code="ridTransaction.instructorPennkey.label" default="Instructor Pennkey"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:textField class="userInput input-wide" name="instructorPennkey" maxlength="100"
+            <g:textField class="trans-user-input input-wide" name="instructorPennkey" maxlength="100"
                          required="" value="${ridTransactionInstance?.instructorPennkey}"/>
         </div>
     </div>
@@ -59,7 +59,7 @@
                 <g:message code="ridTransaction.coInstructorPennkey.label" default="Co-Instructor Pennkey"/>
 
             </label>
-            <g:textField class="userInput input-wide" name="coInstructorPennkey" maxlength="100"/>
+            <g:textField class="trans-user-input input-wide" name="coInstructorPennkey" maxlength="100"/>
         </div>
     </div>
 </div>
@@ -93,7 +93,7 @@
             <label for="otherLocation">
                 <g:message code="ridTransaction.otherLocation.label" default="Other Location"/>
             </label>
-            <g:textField class="userInput input-create" name="otherLocation" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherLocation" maxlength="50"
                          value="${ridTransactionInstance?.otherLocation}"/>
         </div>
     </div>
@@ -105,7 +105,7 @@
                 <g:message code="ridTransaction.prepTime.label" default="Prep Time (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput input-create"
+            <g:field class="trans-user-input input-create"
                      name="prepTime" type="number" value="${ridTransactionInstance.prepTime}" required=""/>
         </div>
     </div>
@@ -116,7 +116,7 @@
                 <g:message code="ridTransaction.eventLength.label" default="Event Length (minutes)"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput input-create" name="eventLength" type="number"
+            <g:field class="trans-user-input input-create" name="eventLength" type="number"
                      value="${ridTransactionInstance.eventLength}" required=""/>
         </div>
     </div>
@@ -127,7 +127,7 @@
                 <g:message code="ridTransaction.attendanceTotal.label" default="Total Attendance"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="userInput input-create" name="attendanceTotal" type="number" max="50"
+            <g:field class="trans-user-input input-create" name="attendanceTotal" type="number" max="50"
                      value="${ridTransactionInstance.attendanceTotal}" required=""/>
         </div>
     </div>
@@ -140,7 +140,7 @@
                 <g:message code="ridTransaction.sequenceName.label" default="Sequence Name"/>
 
             </label>
-            <g:textField class="userInput input-wide" name="sequenceName" maxlength="100"/>
+            <g:textField class="trans-user-input input-wide" name="sequenceName" maxlength="100"/>
         </div>
     </div>
 
@@ -150,7 +150,7 @@
                 <g:message code="ridTransaction.sequenceUnit.label" default="Module Number"/>
 
             </label>
-            <g:field class="userInput input-create"
+            <g:field class="trans-user-input input-create"
                      name="sequenceUnit" type="number" value="${ridTransactionInstance.sequenceUnit}"/>
         </div>
     </div>
@@ -160,7 +160,7 @@
             <label for="courseName">
                 <g:message code="ridTransaction.courseName.label" default="Course Name"/>
             </label>
-            <g:textField class="userInput input-create" name="courseName" maxlength="100"
+            <g:textField class="trans-user-input input-create" name="courseName" maxlength="100"
                          value="${ridTransactionInstance?.courseName}"/>
         </div>
     </div>
@@ -170,7 +170,7 @@
             <label for="courseNumber">
                 <g:message code="ridTransaction.courseNumber.label" default="Course Number"/>
             </label>
-            <g:textField class="userInput input-create" name="courseNumber" maxlength="100"
+            <g:textField class="trans-user-input input-create" name="courseNumber" maxlength="100"
                          value="${ridTransactionInstance?.courseNumber}"/>
         </div>
     </div>
@@ -199,7 +199,7 @@
             <label for="facultySponsor">
                 <g:message code="ridTransaction.facultySponsor.label" default="Faculty Sponsor"/>
             </label>
-            <g:textField class="userInput input-create" name="facultySponsor" maxlength="300"
+            <g:textField class="trans-user-input input-create" name="facultySponsor" maxlength="300"
                          value="${ridTransactionInstance?.facultySponsor}"/>
         </div>
     </div>
@@ -232,7 +232,7 @@
             <label for="otherSchool">
                 <g:message code="ridTransaction.otherSchool.label" default="Other School"/>
             </label>
-            <g:textField class="userInput input-create" name="otherSchool" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherSchool" maxlength="50"
                          value="${ridTransactionInstance?.otherSchool}"/>
         </div>
     </div>
@@ -274,7 +274,7 @@
             <label for="otherSessionType">
                 <g:message code="ridTransaction.otherSessionType.label" default="Other Session Type"/>
             </label>
-            <g:textField class="userInput input-create" name="otherSessionType"
+            <g:textField class="trans-user-input input-create" name="otherSessionType"
                          maxlength="100" value="${ridTransactionInstance?.otherSessionType}"/>
         </div>
     </div>
@@ -313,7 +313,7 @@
                 <g:message code="ridTransaction.otherInstructionalMaterials.label"
                            default="Other InstructionalMaterials"/>
             </label>
-            <g:textField class="userInput input-create" name="otherInstructionalMaterials" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherInstructionalMaterials" maxlength="50"
                          value="${ridTransactionInstance?.otherInstructionalMaterials}"/>
         </div>
     </div>
@@ -349,7 +349,7 @@
             <label for="otherAudience">
                 <g:message code="ridTransaction.otherAudience.label" default="Other Audience"/>
             </label>
-            <g:textField class="userInput input-create" name="otherAudience" maxlength="50"
+            <g:textField class="trans-user-input input-create" name="otherAudience" maxlength="50"
                          value="${ridTransactionInstance?.otherAudience}"/>
         </div>
     </div>
@@ -359,7 +359,7 @@
             <label for="requestor">
                 <g:message code="ridTransaction.requestor.label" default="Requestor"/>
             </label>
-            <g:textField class="userInput input-wide" name="requestor" maxlength="100"
+            <g:textField class="trans-user-input input-wide" name="requestor" maxlength="100"
                          value="${ridTransactionInstance?.requestor}"/>
         </div>
     </div>
@@ -373,7 +373,7 @@
                 <g:message code="ridTransaction.sessionDescription.label" default="Session Description"/>
             </label>
             <br/>
-            <g:textArea class="userInput" name="sessionDescription" cols="40" rows="5" maxlength="500"
+            <g:textArea class="trans-user-input" name="sessionDescription" cols="40" rows="5" maxlength="500"
                         value="${ridTransactionInstance?.sessionDescription}" onkeydown="isFull(this)"/>
         </div>
     </div>
@@ -384,7 +384,7 @@
                 <g:message code="ridTransaction.notes.label" default="Notes"/>
             </label>
             <br/>
-            <g:textArea class="userInput" id="notes" name="notes" cols="40" rows="5" maxlength="500"
+            <g:textArea class="trans-user-input" id="notes" name="notes" cols="40" rows="5" maxlength="500"
                         value="${ridTransactionInstance?.notes}" onkeydown="isFull(this)"/>
 
         </div>

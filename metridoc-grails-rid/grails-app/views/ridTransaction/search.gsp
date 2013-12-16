@@ -70,7 +70,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:textField id="staffPennkey" class="userInput input-search" name="staffPennkey"
+                                <g:textField id="staffPennkey" class="trans-user-input input-search" name="staffPennkey"
                                              value=""/>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             </label>
 
                             <div class="controls">
-                                <g:textField id="userName" class="userInput input-search" name="userName"
+                                <g:textField id="userName" class="trans-user-input input-search" name="userName"
                                              value=""/>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                     </label>
 
                     <div class="controls">
-                        <g:textField id="userQuestion" class="userInput input-box" name="userQuestion"
+                        <g:textField id="userQuestion" class="trans-user-input input-box" name="userQuestion"
                                      value=""/>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                     </label>
 
                     <div class="controls">
-                        <g:textField id="notes" class="userInput input-box" name="notes" value=""/>
+                        <g:textField id="notes" class="trans-user-input input-box" name="notes" value=""/>
                     </div>
                 </div>
             </fieldset>
@@ -209,7 +209,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:textField id="instructorPennkey" class="userInput input-search"
+                                    <g:textField id="instructorPennkey" class="trans-user-input input-search"
                                                  name="instructorPennkey"
                                                  value=""/>
                                 </div>
@@ -225,7 +225,7 @@
                                 </label>
 
                                 <div class="controls">
-                                    <g:textField id="courseName" class="userInput input-search"
+                                    <g:textField id="courseName" class="trans-user-input input-search"
                                                  name="courseName"
                                                  value=""/>
                                 </div>
@@ -297,7 +297,7 @@
                         </label>
 
                         <div class="controls">
-                            <g:textField id="notes" class="userInput input-box" name="notes" value=""/>
+                            <g:textField id="notes" class="trans-user-input input-box" name="notes" value=""/>
                         </div>
                     </div>
 
@@ -307,7 +307,7 @@
                         </label>
 
                         <div class="controls">
-                            <g:textField id="sessionDescription" class="userInput input-box"
+                            <g:textField id="sessionDescription" class="trans-user-input input-box"
                                          name="sessionDescription" value=""/>
                         </div>
                     </div>
