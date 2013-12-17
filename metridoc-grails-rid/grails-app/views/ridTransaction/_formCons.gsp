@@ -24,7 +24,7 @@
 
 
 <div class="row-fluid">
-    <div class="span3">
+    <div class="span2">
         <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'ridLibraryUnit', 'error')}">
             <label for="ridLibraryUnit">
                 <g:message code="ridTransaction.ridLibraryUnit.label" default="Library Unit"/>
@@ -33,7 +33,7 @@
             <g:select id="ridLibraryUnit" name="ridLibraryUnit.id"
                       from="${metridoc.rid.RidLibraryUnit.list()}"
                       optionKey="id" required="" value="${ridTransactionInstance?.ridLibraryUnit?.id}"
-                      class="input-wide"/>
+                      class="many-to-one input-wide"/>
         </div>
     </div>
 

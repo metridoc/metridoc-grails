@@ -25,29 +25,41 @@ $(function () {
     var begin = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0).setMonth(nowTemp.getMonth() - 1);
     var end = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-    var dateOfConsultation = $('#dp1').datepicker({
-//        onRender: function(date) {
-//            return date.valueOf() < now.valueOf() ? 'disabled' : '';
-//        }
-    }).on('changeDate',function (ev) {
-            dateOfConsultation.hide();
-            $('#dp1').blur();
+    var dateOfTransaction = $('#transaction-date').datepicker().on('changeDate',function (ev) {
+        if (ev.date.valueOf() > end) {
+            dateOfTransaction.setValue(end);
+            alert("Cannot select a date in the future!")
+            return
+        }
+            dateOfTransaction.hide();
+            $('#transaction-date').blur();
         }).data('datepicker');
 
 
-    $('#dpd1').datepicker('setValue', begin);
-    $('#dpd2').datepicker('setValue', end);
-    var checkin = $('#dpd1').datepicker().on('changeDate',function (ev) {
+    $('#start-date').datepicker('setValue', begin);
+    $('#end-date').datepicker('setValue', end);
+    var checkin = $('#start-date').datepicker().on('changeDate',function (ev) {
+        if (ev.date.valueOf() > end) {
+            checkin.setValue(end);
+            alert("Cannot select a date in the future!")
+            return
+        }
+
         if (ev.date.valueOf() > checkout.date.valueOf()) {
             var newDate = new Date(ev.date)
             newDate.setDate(newDate.getDate());
             checkout.setValue(newDate);
         }
         checkin.hide();
-        $('#dpd2')[0].focus();
+        $('#end-date')[0].focus();
     }).data('datepicker');
-    var checkout = $('#dpd2').datepicker()
+    var checkout = $('#end-date').datepicker()
         .on('changeDate',function (ev) {
+            if (ev.date.valueOf() > end) {
+                checkout.setValue(end);
+                alert("Cannot select a date in the future!")
+                return
+            }
             if (ev.date.valueOf() < checkin.date.valueOf()) {
                 var newDate = new Date(ev.date)
                 newDate.setDate(newDate.getDate());
@@ -325,7 +337,7 @@ function removeRequired() {
     $("#rank").removeAttr("required");
     $("#school").removeAttr("required");
     $("#interactOccurrences").removeAttr("required");
-    $("#dp1").removeAttr("required");
+    $("#transaction-date").removeAttr("required");
 }
 
 function setRequired() {
@@ -337,7 +349,7 @@ function setRequired() {
     $("#rank").attr("required", "");
     $("#school").attr("required", "");
     $("#interactOccurrences").attr("required", "");
-    $("#dp1").attr("required", "");
+    $("#transaction-date").attr("required", "");
 }
 
 function setDepartment(id) {
