@@ -17,7 +17,7 @@
 <%@ page import="metridoc.core.LdapRoleMapping" %>
 <md:report>
 
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <g:form action="save" class="form-horizontal">
         <div class="control-group">

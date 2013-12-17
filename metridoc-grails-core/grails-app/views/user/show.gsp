@@ -19,7 +19,7 @@
 
 <md:report>
 
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <md:form class="form-horizontal"
              onsubmit="if(this.submited == '_action_delete') return window.confirm('Are you sure you want to delete the user ${shiroUserInstance?.username}?'); return true;">

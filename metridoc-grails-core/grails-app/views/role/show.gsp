@@ -19,7 +19,7 @@
 
 <md:report>
 
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <g:form class="form-horizontal">
         <div class="control-group">

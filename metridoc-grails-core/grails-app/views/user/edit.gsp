@@ -16,6 +16,6 @@
 -->
 <%@ page import="metridoc.core.ShiroUser" %>
 <md:report>
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
     <g:render template="/commonTemplates/editUser"/>
 </md:report>
