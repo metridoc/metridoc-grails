@@ -25,12 +25,13 @@ $(function () {
     var begin = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0).setMonth(nowTemp.getMonth() - 1);
     var end = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-    var dateOfConsultation = $('#dp1').datepicker({
-//        onRender: function(date) {
-//            return date.valueOf() < now.valueOf() ? 'disabled' : '';
-//        }
-    }).on('changeDate',function (ev) {
-            dateOfConsultation.hide();
+    var dateOfTransaction = $('#dp1').datepicker().on('changeDate',function (ev) {
+        if (ev.date.valueOf() > end) {
+            dateOfTransaction.setValue(end);
+            alert("Cannot select a date in the future!")
+            return
+        }
+            dateOfTransaction.hide();
             $('#dp1').blur();
         }).data('datepicker');
 
@@ -38,6 +39,12 @@ $(function () {
     $('#dpd1').datepicker('setValue', begin);
     $('#dpd2').datepicker('setValue', end);
     var checkin = $('#dpd1').datepicker().on('changeDate',function (ev) {
+        if (ev.date.valueOf() > end) {
+            checkin.setValue(end);
+            alert("Cannot select a date in the future!")
+            return
+        }
+
         if (ev.date.valueOf() > checkout.date.valueOf()) {
             var newDate = new Date(ev.date)
             newDate.setDate(newDate.getDate());
@@ -48,6 +55,11 @@ $(function () {
     }).data('datepicker');
     var checkout = $('#dpd2').datepicker()
         .on('changeDate',function (ev) {
+            if (ev.date.valueOf() > end) {
+                checkout.setValue(end);
+                alert("Cannot select a date in the future!")
+                return
+            }
             if (ev.date.valueOf() < checkin.date.valueOf()) {
                 var newDate = new Date(ev.date)
                 newDate.setDate(newDate.getDate());
