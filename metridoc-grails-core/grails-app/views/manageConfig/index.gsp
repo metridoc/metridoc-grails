@@ -13,7 +13,7 @@
   - 	permissions and limitations under the License.  --}%
 
 <md:report>
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
     <tmpl:config
             metridocConfigExists="${metridocConfigExists}"
             reportIssueEmails="${reportIssueEmails}"

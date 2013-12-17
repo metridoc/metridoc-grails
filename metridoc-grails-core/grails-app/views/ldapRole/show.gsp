@@ -19,7 +19,7 @@
 
 <md:report>
 
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <g:form class="form-horizontal"
             onsubmit="if(this.submitted == '_action_delete') return window.confirm('Are you sure you want to delete the group ${ldapRoleMappingInstance?.name}?'); return true;">

@@ -26,7 +26,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <md:report>
     <g:hiddenField name="previousExpanded" id="previousExpanded" value="${previousExpanded}"/>
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <div class="manage-div">
         <a href="#" onclick="collapseOthers('userList')">

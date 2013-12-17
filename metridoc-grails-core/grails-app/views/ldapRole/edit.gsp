@@ -17,7 +17,7 @@
 <%@ page import="metridoc.core.LdapRoleMapping" %>
 <md:report>
 
-    <g:render template="/commonTemplates/tabs"/>
+    <g:render template="/commonTemplates/manageMetridocTabs"/>
 
     <g:form method="post" class="form-horizontal">
         <g:hiddenField name="id" value="${ldapRoleMappingInstance?.id}"/>
