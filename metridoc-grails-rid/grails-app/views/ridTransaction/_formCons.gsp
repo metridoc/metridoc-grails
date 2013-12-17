@@ -45,7 +45,7 @@
             </label>
             <% def dateString = ridTransactionInstance?.dateOfConsultation ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfConsultation) : ""; %>
             <input type="text" name="dateOfConsultation" class="input-wide"
-                   value="${dateString}" id="dp1" required=""/>
+                   value="${dateString}" id="transaction-date" required=""/>
         </div>
     </div>
 

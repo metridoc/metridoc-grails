@@ -61,7 +61,7 @@ class ValidateSpreadsheetService {
 
         if (validNames.size() != itemNames.size()) return false
         for (int i = 0; i < itemNames.size(); i++) {
-            if (!itemNames.get(i).trim().equals(validNames.get(i).trim())) return false
+            if (!itemNames.get(i).trim().toLowerCase().equals(validNames.get(i).trim().toLowerCase())) return false
         }
         return true
     }
