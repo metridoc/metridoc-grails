@@ -40,10 +40,10 @@
 
                                     <div class="controls">
                                         <input type="text" name="dateOfConsultation_start" class="input-search"
-                                               id="dpd1"/>
+                                               id="start-date"/>
                                         <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
                                         <input type="text" name="dateOfConsultation_end" class="input-search"
-                                               id="dpd2"/>
+                                               id="end-date"/>
                                     </div>
                                 </div>
                             </div>
