@@ -181,7 +181,7 @@ class ValidateSpreadsheetServiceTests {
         Sheet sheetGood = goodWB.getSheetAt(0)
 
         row = sheetGood.createRow(5)
-        row.createCell(1).setCellValue("Library Unit")
+        row.createCell(1).setCellValue("library unit") //Case shouldn't matter
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("Science Libraries")
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
