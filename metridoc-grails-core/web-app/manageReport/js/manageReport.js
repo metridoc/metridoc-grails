@@ -21,11 +21,11 @@
  */
 
 function protect() {
-    $('#isProtected').prop("checked", true)
+    $('#is-protected').prop("checked", true)
 }
 
 function unProtect() {
-    $('#isProtected').prop("checked", false)
+    $('#is-protected').prop("checked", false)
 }
 
 function getControllerNames() {
@@ -50,6 +50,9 @@ function getControllerNames() {
     $('#searchFilter').val(searchField);
     var roleField = $('#roleFilter').val();
     $('#rFilter').val(roleField);
+    var e = jQuery.Event( "change" );
+    $( "#controllerNames" ).trigger( e );
+
 }
 
 $(document).ready(function () {
@@ -143,6 +146,7 @@ $(document).ready(function () {
         else {
             $('input[name=controllerNames]').prop("checked", false);
         }
+        getControllerNames()
     });
 });
 $(function () {

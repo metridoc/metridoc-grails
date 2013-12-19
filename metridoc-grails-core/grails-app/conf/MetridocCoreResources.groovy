@@ -118,8 +118,18 @@ modules = {
                 attrs: [type: 'css']
     }
 
+    monitorForms{
+        dependsOn 'jquery'
+        resource id: 'js',
+                url: [plugin: "metridocCore", dir: 'js', file: 'jquery.are-you-sure.js'],
+                attrs: [type: 'js']
+        resource id: 'js',
+                url: [plugin: "metridocCore", dir: 'js', file: 'monitorForms.js'],
+                attrs: [type: 'js']
+    }
+
     application {
-        dependsOn 'jquery', 'bootstrap', 'bootstrap-responsive-less', 'font-awesome'
+        dependsOn 'jquery', 'bootstrap', 'bootstrap-responsive-less', 'font-awesome', 'monitorForms'
         resource id: 'appJs',
                 url: [plugin: "metridocCore", dir: 'js', file: 'application.js'],
                 attrs: [type: 'js']
