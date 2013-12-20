@@ -63,7 +63,7 @@ grails.project.dependency.resolution = {
         runtime ":mail:1.0.1"
         runtime ":hibernate:$grailsVersion"
         runtime ":resources:1.1.6"
-        runtime ":jquery:1.10.0"
+        runtime ":jquery:1.10.2.2"
         runtime ":font-awesome-resources:3.2.1.1"
         runtime ":jquery-validation:1.9"
         runtime(":shiro:1.2.0") {
