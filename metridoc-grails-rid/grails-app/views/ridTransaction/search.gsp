@@ -150,7 +150,7 @@
                 </div>
             </fieldset>
             <fieldset class="buttons">
-                <input id="resetButton" class="btn btn-danger" type="reset" value="Reset"/>
+                <input id="resetButton" class="btn btn-danger active-on-change" type="reset" value="Reset"/>
                 <g:submitButton name="search" class="btn btn-success"
                                 value="${message(code: 'default.button.search.label', default: 'Search')}"/>
             </fieldset>
