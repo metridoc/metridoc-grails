@@ -193,14 +193,7 @@ class ReportTagLib {
             rendered = rendered.toString().replaceFirst(">", " novalidate>")
         }
 
-        boolean nomonitor = false
-        if(System.properties?.containsKey("metridoc.form.nomonitor") && System?.getProperty("metridoc.form.nomonitor")!="false"){
-            nomonitor = true
-        }
-        else{
-            nomonitor = params.containsKey("nomonitor") ? params.getBoolean("nomonitor") : false
-        }
-        if(!nomonitor && !rendered.contains("unmonitored-form")) {
+        if(!rendered.contains("unmonitored-form")) {
             rendered = rendered.replaceFirst("<form ", "<form class=\"monitored-form \"")
         }
 
