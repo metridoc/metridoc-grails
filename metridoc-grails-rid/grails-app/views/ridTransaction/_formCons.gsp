@@ -362,9 +362,10 @@
             <label for="department">
                 <g:message code="ridTransaction.department.label" default="Department"/>
                 <a class="modal-label" data-toggle="modal"
-                   href="../ridAdminDepartment/departmentList" data-target="#myDepartment">
+                   href="#deptModal">
                     <i class="icon-file-alt"></i>
                 </a>
+                <tmpl:departmentModal/>
             </label>
             <g:select id="department" name="department.id"
                       from="${RidDepartment.list().sort { it.name }}" optionKey="id"
