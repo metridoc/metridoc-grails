@@ -19,7 +19,7 @@
 
     <g:render template="/commonTemplates/manageMetridocTabs"/>
 
-    <g:form method="post" class="form-horizontal">
+    <g:form method="post" class="form-horizontal monitored-form">
         <g:hiddenField name="id" value="${ldapRoleMappingInstance?.id}"/>
         <g:hiddenField name="version" value="${ldapRoleMappingInstance?.version}"/>
 
@@ -28,7 +28,7 @@
                       model="${[disabled: true, target: ldapRoleMappingInstance, required: true, category: 'Group Name']}"/>
             <g:render template="/commonTemplates/roles" model="${[target: ldapRoleMappingInstance]}"/>
             <g:render template="/commonTemplates/button"
-                      model="${[content: 'Update', icon: 'icon-edit', action: '_action_update']}"/>
+                      model="${[content: 'Update', icon: 'icon-edit', action: '_action_update', buttonClass: 'active-on-change']}"/>
         </div>
     </g:form>
 </md:report>

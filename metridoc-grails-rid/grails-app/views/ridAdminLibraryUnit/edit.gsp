@@ -26,7 +26,7 @@
             <tmpl:form/>
         </div>
         <fieldset class="buttons">
-            <g:actionSubmit style="float: right; margin-left: 1em" class="btn btn-success" action="update"
+            <g:actionSubmit style="float: right; margin-left: 1em" class="btn btn-success active-on-change" action="update"
                             value="${message(code: 'default.button.update.label', default: 'Update')}"/>
         </fieldset>
     </md:form>

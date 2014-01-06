@@ -151,6 +151,9 @@ class ReportTagLib {
         if(attrs.icon) {
             model.icon = "<i class=\"${attrs.icon}\"></i>"
         }
+        if(attrs.class) {
+            model.btnClass = "${attrs.class}"
+        }
         model.type = attrs.type ?: "submit"
 
         out << render(
@@ -188,6 +191,10 @@ class ReportTagLib {
         def rendered = g.form(attrs, body)
         if(novalidate) {
             rendered = rendered.toString().replaceFirst(">", " novalidate>")
+        }
+
+        if(!rendered.contains("unmonitored-form")) {
+            rendered = rendered.replaceFirst("<form ", "<form class=\"monitored-form \"")
         }
 
         out << rendered

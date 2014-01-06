@@ -24,7 +24,7 @@
 <md:report>
     <tmpl:manageReportHeaders/>
     <md:header>Edit Controller Security</md:header>
-    <g:form class="form-horizontal" action="update">
+    <g:form class="form-horizontal monitored-form" action="update">
         <g:hiddenField name="controllerName" value="${controllerDetails.controllerName}"/>
         <div class="control-group">
             <label for="controllerForSecurity" class="control-label">Controller Name:</label>
@@ -39,7 +39,7 @@
             </div>
             <g:render template="/commonTemplates/roles" model="[selectedRoles: controllerDetails.roles]"/>
             <div class="controls">
-                <button class="btn" type="submit">
+                <button class="btn active-on-change" type="submit">
                     <i class="icon-edit"></i> Update
                 </button>
             </div>

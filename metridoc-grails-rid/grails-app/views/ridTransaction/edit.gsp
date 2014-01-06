@@ -46,7 +46,7 @@
                     <tmpl:form/>
                 </fieldset>
                 <fieldset class="buttons">
-                    <g:actionSubmit class="btn btn-success" action="update"
+                    <g:actionSubmit class="btn btn-success active-on-change" action="update"
                                     value="${message(code: 'default.button.update.label', default: 'Update')}"/>
                     <g:actionSubmit class="btn btn-danger" action="delete"
                                     value="${message(code: 'default.button.delete.label', default: 'Delete')}"

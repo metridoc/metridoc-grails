@@ -31,7 +31,7 @@
 
             <div class="controls" id="ifChangePassword">
                 <%--suppress CheckTagEmptyBody --%>
-                <g:checkBox name="changePW" id="changePW" value="${false}"></g:checkBox>
+                <g:checkBox class="ays-ignore" name="changePW" id="changePW" value="${false}"></g:checkBox>
             </div>
         </div>
         <g:if test="${managingAccount}">
@@ -41,7 +41,8 @@
         <g:render template="/user/passwords" model="[noValidation: true]"/>
         <g:render template="/commonTemplates/button"
                   model="[content: 'Update',
-                          icon: 'icon-edit']"/>
+                          icon: 'icon-edit',
+                          buttonClass: 'active-on-change']"/>
 
     </md:form>
 </g:if>

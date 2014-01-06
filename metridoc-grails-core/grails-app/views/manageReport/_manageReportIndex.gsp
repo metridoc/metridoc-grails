@@ -39,7 +39,7 @@
             <table id="controllerTable" class="table table-striped table-hover">
                 <tr>
                     <th><!--suppress HtmlFormInputWithoutLabel -->
-                        <input type="checkbox" name="selectAll"></th>
+                        <input type="checkbox" name="selectAll" onclick="getControllerNames()"></th>
                     <th>Controller</th>
                     <th>Protected?</th>
                     <th>Has Roles?</th>
@@ -48,7 +48,7 @@
                     <g:if test="${detail.key != "home" && detail.key != "logout" && detail.key != "profile" && detail.key != "auth"}">
                         <tr>
                             <td><!--suppress HtmlFormInputWithoutLabel -->
-                                <input type="checkbox" name="controllerNames" value="${detail.key}"></td>
+                                <input type="checkbox" name="controllerNames" onclick="getControllerNames()" value="${detail.key}"></td>
                             <td><g:link controller="manageReport" action="show"
                                         params="[id: detail.key]">${detail.key}</g:link></td>
 
@@ -83,15 +83,15 @@
 
     <div class="span4">
         <md:header>Edit Controller Security</md:header>
-        <g:form controller="manageReport" action="updateAll">
-            <g:hiddenField id="controllerNames" name="controllerNames" value=""/>
-            <g:hiddenField id="searchFilter" name="searchFilter" value=""/>
+        <md:form controller="manageReport" action="updateAll">
+            <g:hiddenField id="controllerNames" name="controllerNames"/>
+            <g:hiddenField id="searchFilter" name="searchFilter"/>
             <div class="control-group">
 
-                <label for="isProtected" class="control-label">Protected?</label>
+                <label for="is-protected" class="control-label">Protected?</label>
 
                 <div class="controls">
-                    <input type="checkbox" id="isProtected" name="isProtected" hidden/>
+                    <input type="checkbox" id="is-protected" name="isProtected" />
 
                     <div class="btn-group" data-toggle="buttons-radio">
                         <button type="button" class="btn btn-primary" name="isProtected"
@@ -108,12 +108,12 @@
 
             <div class="control-group">
                 <div class="controls">
-                    <button class="btn" type="submit" onmouseover="getControllerNames()">
+                    <button class="btn active-on-change" type="submit">
                         <i class="icon-edit"></i> Update
                     </button>
                 </div>
             </div>
-        </g:form>
+        </md:form>
 
     </div>
 </div>

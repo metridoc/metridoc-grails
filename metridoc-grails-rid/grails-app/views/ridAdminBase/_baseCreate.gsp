@@ -21,7 +21,7 @@
             <tmpl:form/>
         </div>
         <fieldset class="buttons">
-            <g:submitButton name="create" class="btn btn-danger" style="float: right"
+            <g:submitButton name="create" class="btn btn-danger active-on-change" style="float: right"
                             value="${message(code: 'default.button.create.label', default: 'Create')}"/>
         </fieldset>
     </md:form>

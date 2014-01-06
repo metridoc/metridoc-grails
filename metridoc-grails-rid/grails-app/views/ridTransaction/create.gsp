@@ -60,9 +60,9 @@
                 </fieldset>
 
 
-                <fieldset class="buttons">
-                    <input id="resetButton" class="btn btn-danger" type="reset" value="Reset"/>
-                    <g:actionSubmit action="save" name="create" class="btn btn-success"
+                <fieldset class="buttons active-on-change">
+                    <input id="resetButton" class="btn btn-danger active-on-change" type="reset" value="Reset"/>
+                    <g:actionSubmit action="save" name="create" class="btn btn-success active-on-change"
                                     value="${message(code: 'default.button.create.label', default: 'Create')}"/>
 
                     <g:if test="${SecurityUtils.getSubject().getPrincipal()}">

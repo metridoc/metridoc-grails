@@ -28,7 +28,7 @@
             <g:render template="/user/passwords"/>
             <g:render template="/user/email"/>
             <g:render template="/commonTemplates/roles"/>
-            <g:render template="/commonTemplates/button" model="['content': 'Create']" icon="icon-edit"/>
+            <g:render template="/commonTemplates/button" model="['content': 'Create', buttonClass:'active-on-change']" icon="icon-edit"/>
         </md:form>
     </div>
 
