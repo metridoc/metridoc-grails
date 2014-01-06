@@ -29,7 +29,7 @@
         <g:render template="/user/email" model="[disabled: true]"/>
         <g:render template="/commonTemplates/roles" model="[disabled: true, target: shiroUserInstance]"/>
         <g:render template="/commonTemplates/button"
-                  model="[type: 'submit', action: '_action_edit', icon: 'icon-edit', content: 'Edit']"/>
+                  model="[type: 'submit', action: '_action_edit', icon: 'icon-edit', content: 'Edit', buttonClass:'active-on-change']"/>
         <g:if test="${shiroUserInstance != null && shiroUserInstance.username != 'admin'}">
             <g:render template="/commonTemplates/button"
                       model="[type: 'submit',

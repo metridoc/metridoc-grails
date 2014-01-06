@@ -22,12 +22,12 @@
     </h1>
 
     <div id="createGroupForm" hidden="true">
-        <g:form action="save" class="form-horizontal">
+        <g:form action="save" class="form-horizontal monitored-form">
             <div class="control-group">
                 <g:render template="/commonTemplates/nameLabel"
                           model="${[disabled: false, target: ldapRoleMappingInstance, required: true, category: 'Group Name']}"/>
                 <g:render template="/commonTemplates/roles" model="${[target: ldapRoleMappingInstance]}"/>
-                <g:render template="/commonTemplates/button" model="${[content: 'Create', icon: 'icon-edit']}"/>
+                <g:render template="/commonTemplates/button" model="${[content: 'Create', icon: 'icon-edit', buttonClass:"active-on-change"]}"/>
             </div>
         </g:form>
     </div>

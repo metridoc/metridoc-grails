@@ -15,7 +15,7 @@
 <md:report module="login">
     <div id="template">
 
-        <g:form action="signIn" class="form-horizontal">
+        <g:form action="signIn" class="form-horizontal monitored-form">
 
             <input type="hidden" name="targetUri" value="${targetUri}"/>
 
@@ -29,7 +29,7 @@
 
                 <div class="controls inline-password-control">
                     <input type="password" id="password" name="password" value="" placeholder="Password"/>
-                    <button type="submit" class="btn">
+                    <button type="submit" class="btn active-on-change">
                         Sign In
                     </button>
                 </div>

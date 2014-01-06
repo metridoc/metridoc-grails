@@ -74,5 +74,5 @@
     <input type="text" name="shutdownDate" id="shutdownDate"
            value="${shutdownDate}" id="dp1" />
     <button class="btn" id="clearDate">Clear</button>
-    <md:cgButton icon="icon-edit">Update</md:cgButton>
+    <md:cgButton icon="icon-edit" class="active-on-change">Update</md:cgButton>
 </md:form>

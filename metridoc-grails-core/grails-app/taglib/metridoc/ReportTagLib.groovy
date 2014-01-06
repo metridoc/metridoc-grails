@@ -151,6 +151,9 @@ class ReportTagLib {
         if(attrs.icon) {
             model.icon = "<i class=\"${attrs.icon}\"></i>"
         }
+        if(attrs.class) {
+            model.btnClass = "${attrs.class}"
+        }
         model.type = attrs.type ?: "submit"
 
         out << render(

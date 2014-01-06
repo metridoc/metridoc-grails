@@ -22,7 +22,7 @@
 
 <div class="md-application-content">
     <strong>LDAP Settings</strong>
-    <g:form controller="LdapSettings">
+    <g:form controller="LdapSettings monitored-form">
         <g:hiddenField id="encryptStrong" name="encryptStrong" value="${LDAP.encryptStrong}"/>
 
 
@@ -32,7 +32,7 @@
 
 
         <fieldset class="buttons">
-            <g:actionSubmit action="save" name="save" class="btn btn-success"
+            <g:actionSubmit action="save" name="save" class="btn btn-success active-on-change"
                             value="Save"/>
         </fieldset>
     </g:form>
