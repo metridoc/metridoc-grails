@@ -26,3 +26,9 @@ $(function () {
     })
 
 });
+
+
+$('input[id=metridocConfig]').change(function () {
+    var fileName = $(this).val().replace("C:\\fakepath\\", "");
+    $('#metridocConfigPath').val(fileName);
+});

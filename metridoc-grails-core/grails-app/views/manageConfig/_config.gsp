@@ -34,12 +34,7 @@
                 <input id="metridocConfigPath" name="metridocConfigPath" type="text" disabled="true"/>
                 <a class="btn" onclick="$('input[id=metridocConfig]').click();">Browse</a>
             </div>
-            <g:javascript>
-                $('input[id=metridocConfig]').change(function () {
-                    var fileName = $(this).val().replace("C:\\fakepath\\", "");
-                    $('#metridocConfigPath').val(fileName);
-                });
-            </g:javascript>
+
         </div>
 
         <div class="controls">
