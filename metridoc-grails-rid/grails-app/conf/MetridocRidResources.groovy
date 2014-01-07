@@ -22,6 +22,9 @@ modules = {
         resource id: 'js',
                 url: [plugin: 'metridocRid', dir: 'js', file: 'RidTransaction.js'],
                 attrs: [type: 'js']
+        resource id: 'js',
+                url: [plugin: 'metridocRid', dir: 'js', file: 'SpreadsheetUpload.js'],
+                attrs: [type: 'js']
     }
 
     statistics {

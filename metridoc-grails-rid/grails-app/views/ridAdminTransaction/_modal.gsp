@@ -32,6 +32,6 @@
     // just for spreadsheet uploading function in ridLibraryUnit administration page
     $(document).delegate('input[id=spreadsheetUpload]', 'change', function () {
         var fileName = $(this).val().replace("C:\\fakepath\\", "");
-        $('#spreadsheetUploadPath').val(fileName);
+        $('#spreadsheet-upload-path').val(fileName);
     });
 </script>
