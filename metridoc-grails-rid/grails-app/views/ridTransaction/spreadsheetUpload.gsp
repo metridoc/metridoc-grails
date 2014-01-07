@@ -34,25 +34,10 @@
                                        disabled="true"/>
                                 <a class="btn" onclick="$('input[id=spreadsheetUpload]').click();">Browse</a>
                             </div>
-                            <g:javascript>
-                                $('input[id=spreadsheetUpload]').change(function () {
-                                    var fileName = $(this).val().replace("C:\\fakepath\\", "");
-                                    $('#spreadsheetUploadPath').val(fileName);
-                                    checkInput();
-                                });
-                            </g:javascript>
 
                             <button class="btn" type="submit" id="submit-spreadsheet" name="_action_upload" disabled="true">
                                 <i class="icon-upload-alt"></i> Upload
                             </button>
-
-                            <g:javascript>
-                                function checkInput() {
-                                    if ($('input[id=spreadsheetUpload]').valueOf() != "") {
-                                        document.getElementById("submitSpreadsheet").disabled = "";
-                                    }
-                                }
-                            </g:javascript>
 
                         </div>
 
