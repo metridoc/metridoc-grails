@@ -23,7 +23,7 @@ if (typeof jQuery !== 'undefined') {
 }
 
 $('#runJenkins').click(function () {
-        $('#toRunJDiv').children('form').submit()
+        $('#toRunJDiv').children('form').submit();
     }
 );
 
