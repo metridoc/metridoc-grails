@@ -25,9 +25,6 @@
         <tmpl:toggle/>
         <tmpl:tabs/>
 
-        <g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
-                  model="[title: 'Academic Departments', myID: 'myDepartment']"/>
-
         <div id="edit-ridTransaction" class="content scaffold-edit" role="main">
             <h1><g:message code="default.edit.label" args="[entityName]"/></h1>
             <g:if test="${flash.message}">

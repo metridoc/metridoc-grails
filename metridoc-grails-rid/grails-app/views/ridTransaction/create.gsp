@@ -32,8 +32,6 @@
         %{--TEMPORARY REMOVE TEMPLATES--}%
         %{--<g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
                   model="[title: entityName + ' Creation']"/>--}%
-        <g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
-                  model="[title: 'Academic Departments', myID: 'myDepartment']"/>
 
         <div id="create-ridTransaction" class="content scaffold-create" role="main">
 
@@ -53,7 +51,7 @@
                 </div>
             </g:hasErrors>
 
-            <md:form controller="RidTransaction" useToken="true">
+            <md:form controller="RidTransaction" useToken="true" id="createForm">
 
                 <fieldset class="form">
                     <tmpl:form/>

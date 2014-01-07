@@ -353,8 +353,11 @@ function setRequired() {
 }
 
 function setDepartment(id) {
-    $('#myDepartment').modal('hide');
+    $('#deptModal').modal('hide');
     $('#department').val(id).attr('selected', true);
+    $('.monitored-form').addClass('dirty');
+    $('.active-on-change').removeAttr('disabled');
+
 }
 
 function isFull(obj) {

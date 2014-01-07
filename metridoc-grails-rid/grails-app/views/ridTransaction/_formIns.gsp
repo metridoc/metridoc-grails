@@ -175,18 +175,21 @@
         </div>
     </div>
 
-    <div class="span2">
-        <div class="fieldcontain ${hasErrors(bea: ridTransactionInstance, field: 'department', 'error')}">
-            <label for="department">
-                <g:message code="ridTransaction.department.label" default="Department"/>
-                <a class="modal-label" data-toggle="modal"
-                   href="../ridAdminDepartment/departmentList" data-target="#myDepartment">
-                    <i class="icon-file-alt"></i>
-                </a>
-            </label>
-            <g:select id="department" name="department.id"
-                      from="${metridoc.rid.RidDepartment.list().sort { it.name }}" optionKey="id"
-                      value="${ridTransactionInstance?.department?.id}" class="many-to-one input-create"/>
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="fieldcontain ${hasErrors(bea: ridTransactionInstance, field: 'department', 'error')}">
+                <label for="department">
+                    <g:message code="ridTransaction.department.label" default="Department"/>
+                    <a class="modal-label" data-toggle="modal"
+                       href="#deptModal">
+                        <i class="icon-file-alt"></i>
+                    </a>
+                    <tmpl:departmentModal/>
+                </label>
+                <g:select id="department" name="department.id"
+                          from="${RidDepartment.list().sort { it.name }}" optionKey="id"
+                          value="${ridTransactionInstance?.department?.id}" class="many-to-one input-create"/>
+            </div>
         </div>
     </div>
 

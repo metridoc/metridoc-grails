@@ -70,6 +70,12 @@ class RidTransactionController {
     //TODO: Refactor using an abstract getTransactionClass like the admin controllers do to remove duplicated code
 
     def create() {
+
+        //Generating a list of departments here, rather than using AJAX once the page is loaded
+        def depts = RidDepartment.where { name != "" }.sort('name')
+        def ridDepartmentInstanceList= depts.list()
+        def ridDepartmentInstanceTotal = RidDepartment.count()
+
         if (session?.getAttribute("transType") == null) {
             session.setAttribute("transType", new String("consultation"))//Sets default mode to consultation
         }
@@ -81,13 +87,17 @@ class RidTransactionController {
                 if (params.tmp != null && RidConsTransactionTemplate.get(Long.valueOf(params.tmp))) {
                     ridTransactionInstance = RidConsTransactionTemplate.get(Long.valueOf(params.tmp))
                 }
-                [ridTransactionInstance: ridTransactionInstance]
+                [ridTransactionInstance: ridTransactionInstance,
+                 ridDepartmentInstanceList: ridDepartmentInstanceList,
+                 ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             } catch (Exception e) {
                 flash.alerts << e.message
                 if (params.tmp.equals("templateList"))
                     redirect(action: "templateList")
                 else
-                    [ridTransactionInstance: new RidConsTransaction(params)]
+                    [ridTransactionInstance: new RidConsTransaction(params),
+                     ridDepartmentInstanceList: ridDepartmentInstanceList,
+                     ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             }
         } else {
             try {
@@ -95,13 +105,17 @@ class RidTransactionController {
                 if (params.tmp != null && RidInsTransactionTemplate.get(Long.valueOf(params.tmp))) {
                     ridTransactionInstance = RidInsTransactionTemplate.get(Long.valueOf(params.tmp))
                 }
-                [ridTransactionInstance: ridTransactionInstance]
+                [ridTransactionInstance: ridTransactionInstance,
+                 ridDepartmentInstanceList: ridDepartmentInstanceList,
+                 ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             } catch (Exception e) {
                 flash.alerts << e.message
                 if (params.tmp.equals("templateList"))
                     redirect(action: "templateList")
                 else
-                    [ridTransactionInstance: new RidInsTransaction(params)]
+                    [ridTransactionInstance: new RidInsTransaction(params),
+                     ridDepartmentInstanceList: ridDepartmentInstanceList,
+                     ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             }
         }
     }
@@ -240,6 +254,11 @@ class RidTransactionController {
  * Note that this method controls the "edit" view. Update is responsible for actually changing the transaction
  */
     def edit(Long id) {
+        //Generating a list of departments here, rather than using AJAX once the page is loaded
+        def depts = RidDepartment.where { name != "" }.sort('name')
+        def ridDepartmentInstanceList= depts.list()
+        def ridDepartmentInstanceTotal = RidDepartment.count()
+
 
         if (session.getAttribute("transType") == "consultation") {
             def ridTransactionInstance = RidConsTransaction.get(id)
@@ -262,7 +281,9 @@ class RidTransactionController {
                 return
             }
 
-            [ridTransactionInstance: ridTransactionInstance]
+            [ridTransactionInstance: ridTransactionInstance,
+             ridDepartmentInstanceList: ridDepartmentInstanceList,
+             ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
         }
     }
 
