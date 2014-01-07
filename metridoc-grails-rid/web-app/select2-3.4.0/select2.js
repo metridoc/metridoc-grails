@@ -231,7 +231,7 @@
             }
             return value;
         };
-    };
+    }
 
     function installDebouncedScroll(threshold, element) {
         var notify = debounce(threshold, function (e) {
@@ -775,7 +775,7 @@
             // Calculate size of scrollbar
             scrollBarDimensions = scrollBarDimensions || measureScrollbar();
 
-            this.autofocus = opts.element.prop("autofocus")
+            this.autofocus = opts.element.prop("autofocus");
             opts.element.prop("autofocus", false);
             if (this.autofocus) this.focus();
         },
@@ -1748,7 +1748,7 @@
                 } else {
                     return this.opts.width;
                 }
-            };
+            }
 
             var width = resolveContainerWidth.call(this);
             if (width !== null) {
@@ -2369,7 +2369,7 @@
                 //killEvent(e);
                 _this.search[0].focus();
                 _this.selectChoice($(this));
-            })
+            });
             //.sortable({
             //    items: " > li",
             //    tolerance: "pointer",

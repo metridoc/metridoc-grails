@@ -20,8 +20,8 @@ $(document).ready(function () {
     $('#Table1 td:nth-child(4), #Table1  th:nth-child(4)').show();
     $('#Table1 td:nth-child(17), #Table1  th:nth-child(17)').hide();
 
-    $('#Table2 tr').slice(6).hide();
-    $('#Table3 tr').slice(6).hide();
+    $('#Table2').find('tr').slice(6).hide();
+    $('#Table3').find('tr').slice(6).hide();
 
     $('div[id*="dTable"]').hide();
 
