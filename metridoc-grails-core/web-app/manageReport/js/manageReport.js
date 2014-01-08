@@ -60,6 +60,7 @@ $(document).ready(function () {
         var searchText = $('#searchControllers').val();
         var cellText;
         var table = document.getElementById("controllerTable");
+        var $jqTable = $('#controllerTable');
         var i, j;
         //When changing search, boxes should be unchecked
         $('input[name=selectAll]').prop("checked", false);
@@ -70,10 +71,10 @@ $(document).ready(function () {
             cellText = cellText.replace('</a>', "");
             cellText = cellText.replace(/[a-zA-Z]*">/, "");
             if (cellText.indexOf(searchText) != -1) {
-                $('#controllerTable tr').slice(i, i + 1).show();
+                $jqTable.find('tr').slice(i, i + 1).show();
             }
             else {
-                $('#controllerTable tr').slice(i, i + 1).hide();
+                $jqTable.find('tr').slice(i, i + 1).hide();
             }
         }
 
@@ -82,11 +83,11 @@ $(document).ready(function () {
         var selRow, lastCell;
         //When changing search, boxes should be unchecked
         for (i = 2, j = table.rows.length; i <= j; i++) {
-            selRow = $('#controllerTable tr:nth-child(' + i + ')');
+            selRow = $jqTable.find('tr:nth-child(' + i + ')');
             lastCell = selRow.find('td:last');
             cellText = lastCell.html();
             if (cellText.indexOf(filterValue) == -1) {
-                $('#controllerTable tr').slice(i - 1, i).hide();
+                $jqTable.find('tr').slice(i - 1, i).hide();
             }
         }
     });
@@ -96,20 +97,22 @@ $(document).ready(function () {
             var filterValue = $('#roleFilter').val();
             var cellText;
             var table = document.getElementById("controllerTable");
+            var $jqTable = $('#controllerTable');
+
             var i, j;
             var selRow, lastCell;
             //When changing search, boxes should be unchecked
             $('input[name=selectAll]').prop("checked", false);
             $('input[name=controllerNames]').prop("checked", false);
             for (i = 2, j = table.rows.length; i <= j; i++) {
-                selRow = $('#controllerTable tr:nth-child(' + i + ')');
+                selRow = $jqTable.find('tr:nth-child(' + i + ')');
                 lastCell = selRow.find('td:last');
                 cellText = lastCell.html();
                 if (cellText.indexOf(filterValue) != -1) {
-                    $('#controllerTable tr').slice(i - 1, i).show();
+                    $jqTable.find('tr').slice(i - 1, i).show();
                 }
                 else {
-                    $('#controllerTable tr').slice(i - 1, i).hide();
+                    $jqTable.find('tr').slice(i - 1, i).hide();
                 }
             }
             $('[name="roles"] option').each(function () {
@@ -119,7 +122,7 @@ $(document).ready(function () {
                 else {
                     $(this).prop('selected', false);
                 }
-            })
+            });
 
             var searchText = $('#searchControllers').val();
             table = document.getElementById("controllerTable");
@@ -129,15 +132,17 @@ $(document).ready(function () {
                 cellText = cellText.replace('</a>', "");
                 cellText = cellText.replace(/[a-zA-Z]*">/, "");
                 if (cellText.indexOf(searchText) == -1) {
-                    $('#controllerTable tr').slice(i, i + 1).hide();
+                    $jqTable.find('tr').slice(i, i + 1).hide();
                 }
             }
         });
     });
 
     $('input[name=selectAll]').click(function () {
+        var $jqTable = $('#controllerTable');
+
         if (this.checked) {
-            $('#controllerTable tr').slice(1).each(function () {
+            $jqTable.find('tr').slice(1).each(function () {
                 if ($(this).is(':visible')) {
                     $(this).find('input:checkbox').prop("checked", true);
                 }
@@ -172,6 +177,8 @@ $(document).ready(function () {
         var roleFilter = $('#roleFilter').val();
         var cellText;
         var table = document.getElementById("controllerTable");
+        var $jqTable = $('#controllerTable');
+
         var i, j;
         //When changing search, boxes should be unchecked
         $('input[name=selectAll]').prop("checked", false);
@@ -182,10 +189,10 @@ $(document).ready(function () {
             cellText = cellText.replace('</a>', "");
             cellText = cellText.replace(/[a-zA-Z]*">/, "");
             if (cellText.indexOf(searchText) != -1) {
-                $('#controllerTable tr').slice(i, i + 1).show();
+                $jqTable.find('tr').slice(i, i + 1).show();
             }
             else {
-                $('#controllerTable tr').slice(i, i + 1).hide();
+                $jqTable.find('tr').slice(i, i + 1).hide();
             }
         }
     }

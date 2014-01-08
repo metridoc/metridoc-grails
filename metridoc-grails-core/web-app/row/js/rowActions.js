@@ -17,8 +17,9 @@ jQuery(function ($) {
          * add icons and enables delete actions on all a.delete links
          */
         result.transformDeleteLinks = function() {
-            $('a.delete-link').html("<i class='icon-trash'></i>");
-            $('a.delete-link').click(function (event) {
+            var $deleteLink = $('a.delete-link');
+            $deleteLink.html("<i class='icon-trash'></i>");
+            $deleteLink.click(function (event) {
                 //the event will be the enclosed trash icon
                 var id = $(event.target).parent().attr('id');
                 var deleteRegex = /^delete-(.+)$/g;

@@ -28,40 +28,42 @@ $(function () {
     var dateOfTransaction = $('#transaction-date').datepicker().on('changeDate',function (ev) {
         if (ev.date.valueOf() > end) {
             dateOfTransaction.setValue(end);
-            alert("Cannot select a date in the future!")
+            alert("Cannot select a date in the future!");
             return
         }
             dateOfTransaction.hide();
             $('#transaction-date').blur();
         }).data('datepicker');
 
+    var $startDate = $('#start-date');
+    var $endDate = $('#end-date');
 
-    $('#start-date').datepicker('setValue', begin);
-    $('#end-date').datepicker('setValue', end);
-    var checkin = $('#start-date').datepicker().on('changeDate',function (ev) {
+    $startDate.datepicker('setValue', begin);
+    $endDate.datepicker('setValue', end);
+    var checkin = $startDate.datepicker().on('changeDate',function (ev) {
         if (ev.date.valueOf() > end) {
             checkin.setValue(end);
-            alert("Cannot select a date in the future!")
+            alert("Cannot select a date in the future!");
             return
         }
 
         if (ev.date.valueOf() > checkout.date.valueOf()) {
-            var newDate = new Date(ev.date)
+            var newDate = new Date(ev.date);
             newDate.setDate(newDate.getDate());
             checkout.setValue(newDate);
         }
         checkin.hide();
         $('#end-date')[0].focus();
     }).data('datepicker');
-    var checkout = $('#end-date').datepicker()
+    var checkout = $endDate.datepicker()
         .on('changeDate',function (ev) {
             if (ev.date.valueOf() > end) {
                 checkout.setValue(end);
-                alert("Cannot select a date in the future!")
+                alert("Cannot select a date in the future!");
                 return
             }
             if (ev.date.valueOf() < checkin.date.valueOf()) {
-                var newDate = new Date(ev.date)
+                var newDate = new Date(ev.date);
                 newDate.setDate(newDate.getDate());
                 checkin.setValue(newDate);
             }
@@ -71,42 +73,42 @@ $(function () {
 });
 
 $(function () {
-    var choiceRank = $("#rank option:selected").attr("inForm");
+    var choiceRank = $("#rank").find("option:selected").attr("inForm");
     if (choiceRank == "2") {
         $("#otherRankDiv").show();
         $("#otherRank").val("");
     }
-    var choiceService = $("#serviceProvided option:selected").attr("inForm");
+    var choiceService = $("#serviceProvided").find("option:selected").attr("inForm");
     if (choiceService == "2") {
         $("#otherServiceDiv").show();
         $("#otherService").val("");
     }
-    var choiceSchool = $("#school option:selected").attr("inForm");
+    var choiceSchool = $("#school").find("option:selected").attr("inForm");
     if (choiceSchool == "2") {
         $("#otherSchoolDiv").show();
         $("#otherSchool").val("");
     }
-    var choiceCourseSponsor = $("#courseSponsor option:selected").attr("inForm");
+    var choiceCourseSponsor = $("#courseSponsor").find("option:selected").attr("inForm");
     if (choiceCourseSponsor == "2") {
         $("#otherCourseSponsorDiv").show();
         $("#otherCourseSponsor").val("");
     }
-    var choiceUserGoal = $("#userGoal option:selected").attr("inForm");
+    var choiceUserGoal = $("#userGoal").find("option:selected").attr("inForm");
     if (choiceUserGoal == "2") {
         $("#otherUserGoalDiv").show();
         $("#otherUserGoal").val("");
     }
-    var choiceMode = $("#modeOfConsultation option:selected").attr("inForm");
+    var choiceMode = $("#modeOfConsultation").find("option:selected").attr("inForm");
     if (choiceMode == "2") {
         $("#otherModeOfConsultationDiv").show();
         $("#otherModeOfConsultation").val("");
     }
-    var choiceInstructionalMaterials = $("#instructionalMaterials option:selected").attr("inForm");
+    var choiceInstructionalMaterials = $("#instructionalMaterials").find("option:selected").attr("inForm");
     if (choiceInstructionalMaterials == "2") {
         $("#otherInstructionalMaterialsDiv").show();
         $("#otherInstructionalMaterials").val("");
     }
-    var choiceAudience = $("#userGoal option:selected").attr("inForm");
+    var choiceAudience = $("#audience").find("option:selected").attr("inForm");
     if (choiceAudience == "2") {
         $("#otherAudienceDiv").show();
         $("#otherAudience").val("");
@@ -116,7 +118,7 @@ $(function () {
 
 $(function () {
     $("#modeOfConsultation").change(function () {
-        var choice = $("#modeOfConsultation option:selected").attr("inForm");
+        var choice = $("#modeOfConsultation").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherModeOfConsultationDiv").show();
         }
@@ -129,7 +131,7 @@ $(function () {
 
 $(function () {
     $("#userGoal").change(function () {
-        var choice = $("#userGoal option:selected").attr("inForm");
+        var choice = $("#userGoal").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherUserGoalDiv").show();
         }
@@ -142,7 +144,7 @@ $(function () {
 
 $(function () {
     $("#rank").change(function () {
-        var choice = $("#rank option:selected").attr("inForm");
+        var choice = $("#rank").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherRankDiv").show();
         }
@@ -155,7 +157,7 @@ $(function () {
 
 $(function () {
     $("#serviceProvided").change(function () {
-        var choice = $("#serviceProvided option:selected").attr("inForm");
+        var choice = $("#serviceProvided").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherServiceDiv").show();
         }
@@ -168,7 +170,7 @@ $(function () {
 
 $(function () {
     $("#school").change(function () {
-        var choice = $("#school option:selected").attr("inForm");
+        var choice = $("#school").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherSchoolDiv").show();
         }
@@ -181,7 +183,7 @@ $(function () {
 
 $(function () {
     $("#courseSponsor").change(function () {
-        var choice = $("#courseSponsor option:selected").attr("inForm");
+        var choice = $("#courseSponsor").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherCourseSponsorDiv").show();
         }
@@ -194,7 +196,7 @@ $(function () {
 
 $(function () {
     $("#instructionalMaterials").change(function () {
-        var choice = $("#instructionalMaterials option:selected").attr("inForm");
+        var choice = $("#instructionalMaterials").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherInstructionalMaterialsDiv").show();
         }
@@ -207,7 +209,7 @@ $(function () {
 
 $(function () {
     $("#audience").change(function () {
-        var choice = $("#audience option:selected").attr("inForm");
+        var choice = $("#audience").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherAudienceDiv").show();
         }
@@ -221,7 +223,7 @@ $(function () {
 
 $(function () {
     $("#location").change(function () {
-        var choice = $("#location option:selected").attr("inForm");
+        var choice = $("#location").find("option:selected").attr("inForm");
         if (choice == "2") {
             $("#otherLocationDiv").show();
         }
@@ -290,7 +292,7 @@ $(function () {
                 alert(error);
             },
             complete: function () {
-                var choiceService = $("#serviceProvided > option:first").attr("inForm");
+                var choiceService = $("#serviceProvided").children("option:first").attr("inForm");
                 if (choiceService == "2") {
                     $("#otherServiceDiv").show();
                 }
@@ -298,7 +300,7 @@ $(function () {
                     $("#otherServiceDiv").hide();
                     $("#otherService").val("");
                 }
-                var choiceUserGoal = $("#userGoal > option:first").attr("inForm");
+                var choiceUserGoal = $("#userGoal").children("option:first").attr("inForm");
                 if (choiceUserGoal == "2") {
                     $("#otherUserGoalDiv").show();
                 }
@@ -306,7 +308,7 @@ $(function () {
                     $("#otherUserGoalDiv").hide();
                     $("#otherUserGoal").val("");
                 }
-                var choiceMode = $("#modeOfConsultation > option:first").attr("inForm");
+                var choiceMode = $("#modeOfConsultation").children("option:first").attr("inForm");
                 if (choiceMode == "2") {
                     $("#otherModeOfConsultationDiv").show();
                 }
@@ -314,7 +316,7 @@ $(function () {
                     $("#otherModeOfConsultationDiv").hide();
                     $("#otherModeOfConsultation").val("");
                 }
-                var choiceSessionType = $("#sessionType > option:first").attr("inForm");
+                var choiceSessionType = $("#sessionType").children("option:first").attr("inForm");
                 if (choiceSessionType == "2") {
                     $("#otherSessionTypeDiv").show();
                 }

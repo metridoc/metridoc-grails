@@ -20,9 +20,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var newID = "category"
-var newHeader = "header"
-var newIcon = "icon"
+var newID = "category";
+var newHeader = "header";
+var newIcon = "icon";
 $(function () {
     $('.categoryDiv').each(function (i) {
         $(this).attr({id: newID + i});
@@ -38,16 +38,16 @@ $(function () {
 
 });
 function showApps(id) {
-    var targetID = id.replace("header", "category")
-    var iconID = id.replace("header", "icon")
-    $('#' + targetID).toggle()
-    $('#' + iconID).toggleClass('icon-minus-sign icon-plus-sign')
+    var targetID = id.replace("header", "category");
+    var iconID = id.replace("header", "icon");
+    $('#' + targetID).toggle();
+    $('#' + iconID).toggleClass('icon-minus-sign icon-plus-sign');
 }
 $(document).ready(function () {
     function assignID() {
-        var newID = "category"
-        var newHeader = "header"
-        var newIcon = "icon"
+        var newID = "category";
+        var newHeader = "header";
+        var newIcon = "icon";
         $('.categoryDiv').each(function (i) {
             $(this).attr({id: newID + i});
         });
@@ -58,7 +58,7 @@ $(document).ready(function () {
             $(this).attr({id: newIcon + i});
         });
 
-    };
+    }
 });
 
 

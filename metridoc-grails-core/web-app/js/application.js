@@ -23,12 +23,12 @@ if (typeof jQuery !== 'undefined') {
 }
 
 $('#runJenkins').click(function () {
-        $('#toRunJDiv > form').submit()
+        $('#toRunJDiv').children('form').submit();
     }
-)
+);
 
 $(function () {
-    var dialog = $("#dialog")
+    var dialog = $("#dialog");
     if (dialog.length) {
         dialog.dialog({
             autoOpen:false,
@@ -41,7 +41,7 @@ $(function () {
 
 $(document).ready(function () {
 
-     $('#metridocNavigation li').hover(
+     $('#metridocNavigation').find('li').hover(
          function () {
              //show its submenu
             //TODO: delete this if show hide works better
@@ -88,31 +88,31 @@ $(document).ready(function() {
     $('a[data-confirm]').click(function(ev) {
         var href = $(this).attr('href');
 
-        addConfirmModal()
-
-        $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+        addConfirmModal();
+        var $dataConfirmModal = $('#dataConfirmModal');
+        $dataConfirmModal.find('.modal-body').text($(this).attr('data-confirm'));
         $('#dataConfirmOK').attr('href', href);
-        $('#dataConfirmModal').modal({show:true});
+        $dataConfirmModal.modal({show:true});
         return false;
     });
 
     //handle forms
-    var isSubmitting = false
+    var isSubmitting = false;
 
     $('form[data-confirm]').submit(function(){
-        if(isSubmitting) return true
-        var form = $('form[data-confirm]')
+        if(isSubmitting) return true;
+        var form = $('form[data-confirm]');
 
-        addConfirmModal()
+        addConfirmModal();
 
         $('#dataConfirmOK').click(function(){
-            isSubmitting = true
-            form.submit()
-        })
+            isSubmitting = true;
+            form.submit();
+        });
 
         $('#dataConfirmModal').modal({show:true});
 
-        return false
+        return false;
     });
 });
 
