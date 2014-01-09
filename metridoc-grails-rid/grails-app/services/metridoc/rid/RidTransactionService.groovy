@@ -251,7 +251,7 @@ class RidTransactionService {
         }
     }
 
-    def ajaxMethod(Map params, String transType) {
+    def getFieldsByLibraryUnit(Map params, String transType) {
         if (transType == "consultation") {
             def userGoals = RidUserGoal.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
             def consultations = RidModeOfConsultation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)

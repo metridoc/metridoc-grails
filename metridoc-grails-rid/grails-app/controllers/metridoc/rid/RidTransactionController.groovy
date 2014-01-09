@@ -34,7 +34,7 @@ class RidTransactionController {
     static boolean isProtected = true
 
     def ajaxChooseType = {
-        def response = ridTransactionService.ajaxMethod(params, session.getAttribute("transType"))
+        def response = ridTransactionService.getFieldsByLibraryUnit(params, session.getAttribute("transType"))
         render response as JSON
     }
 

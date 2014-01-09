@@ -37,7 +37,7 @@ abstract class RidTransactionControllerTests { //Removes no runnable methods err
     void setUpSessionAndSecurityUtils() {
         serviceMocker = mockFor(RidTransactionService, true)  // mock the service
         serviceMocker.demand.createNewConsInstanceMethod { params, ridTransactionInstance -> }
-        serviceMocker.demand.ajaxMethod { params -> return [book: "Great"] }
+        serviceMocker.demand.getParamsByLibraryUnit { params -> return [book: "Great"] }
         controller.ridTransactionService = serviceMocker.createMock(); // inject it into the controller
         session.setAttribute("transType", "consultation")
         // Mocks the SecurityUtils
