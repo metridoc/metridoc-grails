@@ -139,7 +139,7 @@ class TestDataService {
                     "WOMEN'S STUDIES"
             )
             // since departmental affiliation is not required, this stands for null value
-            new RidDepartment(name: "", fullName: "").save(validate: false)
+            new RidDepartment(name: "NA", fullName: "NA").save()
             for (int i = 1; i < dps.size(); i++) {
                 if (!RidDepartment.findByName(dps.get(i).trim())) {
                     def da = new RidDepartment(name: dps.get(i).trim(), fullName: dpsa.get(i).trim())
@@ -193,7 +193,7 @@ class TestDataService {
             // ---------------------------------------------------------------------------------------------
             // for instructionalMaterials
             List<String> im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-            new RidInstructionalMaterials(name: "", inForm: 1).save(validate: false)
+            new RidInstructionalMaterials(name: "NA", inForm: 1).save()
             for (String i in im.sort()) {
                 if (!RidInstructionalMaterials.findByName(i)) {
                     def nl = new RidInstructionalMaterials(name: i, inForm: 1)
@@ -211,7 +211,7 @@ class TestDataService {
             // ---------------------------------------------------------------------------------------------
             // for audience
             List<String> aud = Arrays.asList("Undergraduates", "Grad Students", "Teachers")
-            new RidAudience(name: "", inForm: 1).save(validate: false)
+            new RidAudience(name: "NA", inForm: 1).save(validate: false)
             for (String i in aud.sort()) {
                 if (!RidAudience.findByName(i)) {
                     def nl = new RidAudience(name: i, inForm: 1)
@@ -232,7 +232,7 @@ class TestDataService {
                     "Dental", "SP2", "Design", "Annenberg", "Law", "Coursera",
                     "Independent Research")
             // since course sponsor is not required, this stands for null value
-            new RidCourseSponsor(name: "", inForm: 1).save(validate: false)
+            new RidCourseSponsor(name: "NA", inForm: 1).save(validate: false)
             for (String i in cSponsor.sort()) {
                 if (!RidCourseSponsor.findByName(i)) {
                     def c = new RidCourseSponsor(name: i, inForm: 1)
@@ -271,7 +271,7 @@ class TestDataService {
             List<String> uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation",
                     "Independent Research", "Improvement in Teaching")
             // since here the user goal is not required, this stands for null value
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in uGoal.sort()) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
@@ -282,7 +282,7 @@ class TestDataService {
             new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
             // for user goal -- HSL
             uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
             for (String i in uGoal.sort()) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
@@ -293,7 +293,7 @@ class TestDataService {
             new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
             // for user goal -- CDM
             uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
             for (String i in uGoal) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
@@ -304,7 +304,7 @@ class TestDataService {
             new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
             // for user goal -- LIPPINCOTT
             uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
             for (String i in uGoal.sort()) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
@@ -317,7 +317,7 @@ class TestDataService {
             uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                     "Dissertation", "Research article", "Monograph", "Data Management",
                     "Independent Research", "Course Creation", "Grant Proposal")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
             for (String i in uGoal) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
@@ -330,7 +330,7 @@ class TestDataService {
             uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                     "Dissertation", "Research article", "Monograph", "Data Management",
                     "Independent Research", "Course Creation", "Grant Proposal")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
             for (String i in uGoal) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
@@ -343,7 +343,7 @@ class TestDataService {
             uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                     "Dissertation", "Research article", "Monograph", "Data Management",
                     "Independent Research", "Course Creation", "Grant Proposal")
-            new RidUserGoal(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
             for (String i in uGoal) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
                     def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
@@ -359,7 +359,7 @@ class TestDataService {
             // for mode of consultation -- WIC
             List<String> cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "Video or web conference", "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
@@ -371,7 +371,7 @@ class TestDataService {
             // for mode of consutlation -- HSL
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
@@ -382,7 +382,7 @@ class TestDataService {
             // for mode of consutlation -- CDM
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
@@ -393,7 +393,7 @@ class TestDataService {
             // for mode of consutlation -- LIPPINCOTT
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
@@ -404,7 +404,7 @@ class TestDataService {
             // for mode of consutlation -- RIS
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
@@ -415,7 +415,7 @@ class TestDataService {
             // for mode of consutlation -- Science Libraries
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
@@ -426,7 +426,7 @@ class TestDataService {
             // for mode of consutlation -- General
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
             for (String i in cMode) {
                 if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
                     def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
@@ -442,7 +442,7 @@ class TestDataService {
             // for session type -- WIC
             List<String> cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "Video or web conference", "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
@@ -454,7 +454,7 @@ class TestDataService {
             // for session type -- HSL
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
@@ -465,7 +465,7 @@ class TestDataService {
             // for session type -- CDM
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
@@ -476,7 +476,7 @@ class TestDataService {
             // for session type -- LIPPINCOTT
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
@@ -487,7 +487,7 @@ class TestDataService {
             // for session type -- RIS
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
@@ -498,7 +498,7 @@ class TestDataService {
             // for session type -- Science Libraries
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
@@ -509,7 +509,7 @@ class TestDataService {
             // for session type -- General
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
             for (String i in cType) {
                 if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
                     def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
@@ -525,7 +525,7 @@ class TestDataService {
             List<String> sProvided = Arrays.asList("Course design", "Research assistance",
                     "Instructional support (apart from course design)", "Tour",
                     "Tech/Software instruction", "Mobile technology", "Assistance to undergraduates")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
@@ -544,7 +544,7 @@ class TestDataService {
                     "Consumer health", "Admin/policy questions", "Citation management instruction",
                     "Scholarly Commons/Repository Services", "Creating faculty profiles/selected works/VIVO",
                     "Comprehensive Lit Search/Systematic Reviews")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
@@ -563,7 +563,7 @@ class TestDataService {
                     "Admin/policy questions", "Citation management instruction",
                     "Scholarly Commons/Repository Services", "Creating faculty profiles/selected works/VIVO",
                     "Coursera/MOOCs support", "Research practice support")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
@@ -579,7 +579,7 @@ class TestDataService {
                     "Tech/Software instruction", "Search instruction",
                     "Literature search", "Bibliometrics or citation metrics",
                     "Admin/policy questions", "Citation management instruction")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
@@ -594,7 +594,7 @@ class TestDataService {
                     "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                     "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                     "Scholarly Commons/Repository Services")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
@@ -609,7 +609,7 @@ class TestDataService {
                     "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                     "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                     "Scholarly Commons/Repository Services")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
@@ -624,7 +624,7 @@ class TestDataService {
                     "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                     "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                     "Scholarly Commons/Repository Services")
-            new RidServiceProvided(name: "", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
             for (String i in sProvided) {
                 if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
                     def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
