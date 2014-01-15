@@ -19,7 +19,7 @@
   Time: 3:31 PM
   To change this template use File | Settings | File Templates.
 --%>
-
+<%@ page import="java.text.SimpleDateFormat;"%>
 
 <md:header>Metridoc Configuration</md:header>
 <g:form class="form-horizontal" enctype="multipart/form-data">
@@ -65,9 +65,14 @@
         </div>
     </div>
     <label class="control-label" id="dateLabel">Server Shutdown Date:</label>
+%{--
+    <% def dateString = ridTransactionInstance?.dateOfConsultation ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfConsultation) : ""; %>
+    <input type="text" name="dateOfConsultation" class="input-wide"
+           value="${dateString}" id="transaction-date" required=""/>--}%
 
-    <input type="text" name="shutdownDate" id="shutdownDate"
-           value="${shutdownDate}" id="dp1" />
+   %{-- <% def dateString = shutdownDate ? new SimpleDateFormat("MM/dd/yyyy").format(shutdownDate) : ""; %>
+    value="${dateString}"--}%
+    <input type="text" name="shutdownDate" id="shutdownDate" value="${shutdownDate}"/>
     <button class="btn" id="clearDate">Clear</button>
-    <md:cgButton icon="icon-edit" class="active-on-change">Update</md:cgButton>
+    <md:cgButton id="updateConfig" icon="icon-edit" class="active-on-change">Update</md:cgButton>
 </md:form>
