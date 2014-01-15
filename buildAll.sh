@@ -9,6 +9,7 @@ echo ""
 echo "first testing core"
 cd metridoc-grails-core
 systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
+systemCall "./grailsw --refresh-dependencies --non-interactive maven-install --stacktrace"
 cd -
 
 for DIRECTORY in $DIRECTORIES
@@ -17,6 +18,7 @@ do
         echo "testing [$DIRECTORY]"
         cd $DIRECTORY
         systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
+        systemCall "./grailsw --refresh-dependencies --non-interactive maven-install --stacktrace"
         cd -
     fi
 done
