@@ -17,12 +17,19 @@ $(function () {
     var nowTemp = new Date();
     var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-    $('#dp1').datepicker({onRender: function(date) {
+    var $ssd = $('#shutdownDate');
+    $ssd.datepicker({onRender: function(date) {
         return date.valueOf() < now.valueOf() ? 'disabled' : '';
     }});
 
+    var shutdownDate = $ssd.datepicker().on('changeDate',function (ev) {
+        $('.monitored-form').children().trigger('change');
+        shutdownDate.hide();
+    }).data('datepicker');
+
     $('#clearDate').click(function(){
-        $('#dp1').val("")
+        $ssd.val("");
+        $('.monitored-form').submit();
     })
 
 });
