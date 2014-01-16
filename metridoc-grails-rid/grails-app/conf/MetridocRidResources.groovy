@@ -27,6 +27,16 @@ modules = {
                 attrs: [type: 'js']
     }
 
+    ridAdminBase {
+        dependsOn "application", "datePicker"
+        resource id: 'css',
+                url: [plugin: 'metridocRid', dir: 'css', file: 'RidTransaction.css'],
+                attrs: [type: 'css']
+
+    }
+
+
+
     statistics {
         resource id: 'js',
                 url: [plugin: 'metridocRid', dir: 'js', file: 'RidStatistics.js'],

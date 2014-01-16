@@ -68,7 +68,7 @@
             <label for="userName">
                 <g:message code="ridTransaction.user.label" default="User Name"/>
             </label>
-            <g:textField class="trans-user-input input-create" name="userName"  maxlength="100"
+            <g:textField class="trans-user-input input-create" name="userName" maxlength="100"
                          value="${ridTransactionInstance?.userName}"/>
         </div>
     </div>
@@ -89,7 +89,7 @@
             <%
                 rankList.addAll(RidRank.findAllByInForm(2))
             %>
-            <select  id="rank" name="rank.id" required="" class="many-to-one input-create">
+            <select id="rank" name="rank.id" required="" class="many-to-one input-create">
                 <g:each in="${rankList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.rank?.id == it.id}">selected=""</g:if>>
@@ -148,7 +148,7 @@
                 <g:message code="ridTransaction.interactOccurrences.label" default="Interact Occurrences"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field  class="trans-user-input input-create" name="interactOccurrences" type="number" max="50"
+            <g:field class="trans-user-input input-create" name="interactOccurrences" type="number" max="50"
                      value="${ridTransactionInstance.interactOccurrences}" required=""/>
         </div>
     </div>
@@ -161,7 +161,8 @@
                 <g:message code="ridTransaction.modeOfConsultation.label" default="Mode Of Consultation"/>
             </label>
 
-            <div id="currentModeOfConsultation" class="hidden-div">${ridTransactionInstance?.modeOfConsultation?.id}</div>
+            <div id="currentModeOfConsultation"
+                 class="hidden-div">${ridTransactionInstance?.modeOfConsultation?.id}</div>
             <%
                 modeList = metridoc.rid.RidModeOfConsultation.findAllByInFormAndRidLibraryUnit(1,
                         ridTransactionInstance?.ridLibraryUnit ?: RidLibraryUnit.get(1))
@@ -396,7 +397,6 @@
                         value="${ridTransactionInstance?.notes}" onkeydown="isFull(this)"/>
         </div>
     </div>
-
 
 </div>
 

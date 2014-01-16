@@ -13,27 +13,62 @@
   - 	permissions and limitations under the License.
   --}%
 
+<r:require module="ridAdminBase"/>
+
 <div class="control-group fieldcontain required">
-    <label class="control-label" for="name">
-        <g:message code="${ridInstance}.name.label" default="Name"/>
-        <span class="required-indicator">*</span>
-    </label>
 
     <div class="controls">
-        <g:textField class="userInput" name="name" required="" value="${ridInstance?.name}"/>
+        <label class="control-label admin-label" for="name">
+            &nbsp;&nbsp;&nbsp;Name
+            <span class="required-indicator">*</span>
+        </label>
+        <input type="text" class="userInput" name="name" required="" value="" id="name">
     </div>
 </div>
 
 <div class="control-group fieldcontain required">
-    <label class="control-label" for="inForm">
-        <g:message code="${ridInstance}.inForm.label" default="In Form"/>
-        <span class="required-indicator">*</span>
-    </label>
 
     <div class="controls">
+        <label class="control-label admin-label" for="inForm">
+            <g:message code="${ridInstance}.inForm.label" default="In Form"/>
+            <span class="required-indicator">*</span>
+        </label>
         <% def choices = ['NO', 'YES, and no indication needed', 'YES, and indication required'] %>
         <g:select name="inForm" from="${choices}" required=""
                   value="${ridInstance?.inForm}"
                   keys="${ridInstance.constraints.inForm.inList}"/>
     </div>
 </div>
+
+
+%{--
+
+        <div class="control-group fieldcontain required">
+            <label class="control-label" for="name">
+                Name
+                <span class="required-indicator">*</span>
+            </label>
+
+            <div class="controls">
+                <input type="text" class="userInput" name="name" required="" value="" id="name">
+            </div>
+        </div>
+
+        <div class="control-group fieldcontain required">
+            <label class="control-label" for="inForm">
+                In Form
+                <span class="required-indicator">*</span>
+            </label>
+
+            <div class="controls">
+
+                <select name="inForm" required="" id="inForm">
+                    <option value="0" selected="selected">NO</option>
+                    <option value="1">YES, and no indication needed</option>
+                    <option value="2">YES, and indication required</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+--}%

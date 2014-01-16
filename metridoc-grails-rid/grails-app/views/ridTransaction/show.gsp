@@ -220,25 +220,25 @@
 <tr align="center">
     <td colspan="2">
         <span id="dateOfInstruction-label" class="property-label"><g:message
-                code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
+        code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/></span>
         :
-        <span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
-                format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
-    </td>
-    <td colspan="2">
-        <span id="instructorPennkey-label" class="property-label"><g:message
-                code="ridTransaction.instructorPennkey.label" default="Instructor Pennkey"/></span>
-        :
-        <span class="property-value" aria-labelledby="instructorPennkey-label"><g:fieldValue
-                bean="${ridTransactionInstance}" field="instructorPennkey"/></span>
-    </td>
-    <td colspan="2">
-        <span id="coInstructorPennkey-label" class="property-label"><g:message
-                code="ridTransaction.coInstructorPennkey.label" default="Co-instructor Pennkey"/></span>
-        :
-        <span class="property-value" aria-labelledby="coInstructorPennkey-label"><g:fieldValue
-                bean="${ridTransactionInstance}" field="coInstructorPennkey"/></span>
-    </td>
+<span class="property-value" aria-labelledby="dateOfInstruction-label"><g:formatDate
+        format="yyyy-MM-dd" date="${ridTransactionInstance?.dateOfInstruction}"/></span>
+</td>
+<td colspan="2">
+    <span id="instructorPennkey-label" class="property-label"><g:message
+            code="ridTransaction.instructorPennkey.label" default="Instructor Pennkey"/></span>
+    :
+    <span class="property-value" aria-labelledby="instructorPennkey-label"><g:fieldValue
+            bean="${ridTransactionInstance}" field="instructorPennkey"/></span>
+</td>
+<td colspan="2">
+    <span id="coInstructorPennkey-label" class="property-label"><g:message
+            code="ridTransaction.coInstructorPennkey.label" default="Co-instructor Pennkey"/></span>
+    :
+    <span class="property-value" aria-labelledby="coInstructorPennkey-label"><g:fieldValue
+            bean="${ridTransactionInstance}" field="coInstructorPennkey"/></span>
+</td>
 
 </tr>
 <tr><td></td></tr>

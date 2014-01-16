@@ -36,7 +36,7 @@
                 <g:message code="ridTransaction.dateOfInstruction.label" default="Date Of Instruction"/>
                 <span class="required-indicator">*</span>
             </label>
-           <% def dateString = ridTransactionInstance?.dateOfInstruction ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfInstruction) : ""; %>
+            <% def dateString = ridTransactionInstance?.dateOfInstruction ? new SimpleDateFormat("MM/dd/yyyy").format(ridTransactionInstance?.dateOfInstruction) : ""; %>
             <input type="text" name="dateOfInstruction" class="input-wide"
                    value="${dateString}" id="transaction-date" required=""/>
         </div>
@@ -289,8 +289,8 @@
 
             </label>
 
-            <div id="currentInstructionalMaterials" class="hidden-div"
-                 >${ridTransactionInstance?.instructionalMaterials?.id}</div>
+            <div id="currentInstructionalMaterials"
+                 class="hidden-div">${ridTransactionInstance?.instructionalMaterials?.id}</div>
             <%
                 instructionalMaterialsList = RidInstructionalMaterials.findAllByInForm(1)
                 if (ridTransactionInstance?.instructionalMaterials?.inForm == 0)

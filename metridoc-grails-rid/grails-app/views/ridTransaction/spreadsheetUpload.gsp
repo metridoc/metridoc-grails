@@ -35,7 +35,8 @@
                                 <a class="btn" onclick="$('input[id=spreadsheetUpload]').click();">Browse</a>
                             </div>
 
-                            <button class="btn" type="submit" id="submit-spreadsheet" name="_action_upload" disabled="true">
+                            <button class="btn" type="submit" id="submit-spreadsheet" name="_action_upload"
+                                    disabled="true">
                                 <i class="icon-upload-alt"></i> Upload
                             </button>
 
