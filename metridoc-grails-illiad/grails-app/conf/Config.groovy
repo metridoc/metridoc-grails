@@ -12,25 +12,6 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
-import org.apache.commons.lang.SystemUtils
-import org.slf4j.LoggerFactory
-
-def rootLoader = Thread.currentThread().contextClassLoader.rootLoader
-
-def driverDirectory = new File("${SystemUtils.USER_HOME}/.grails/drivers")
-if (driverDirectory.exists() && driverDirectory.isDirectory()) {
-    if (rootLoader) {
-        driverDirectory.eachFile {
-            if (it.name.endsWith(".jar")) {
-                def url = it.toURI().toURL()
-                LoggerFactory.getLogger("config.Config").info "adding driver ${url}" as String
-                rootLoader.addURL(url)
-            }
-        }
-    }
-}
-
 metridoc.home = "${userHome}/.metridoc"
 
 grails.dbconsole.enabled = true

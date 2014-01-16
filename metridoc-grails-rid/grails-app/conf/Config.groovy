@@ -12,10 +12,6 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
-import org.apache.commons.lang.SystemUtils
-import org.slf4j.LoggerFactory
-
 // config files can either be Java properties files or ConfigSlurper scripts
 
 // grails.config.locations = [ "classpath:${appName}-config.properties",
@@ -29,22 +25,6 @@ import org.slf4j.LoggerFactory
 
 //for jquery
 grails.views.javascript.library = "jquery"
-
-def rootLoader = Thread.currentThread().contextClassLoader.rootLoader
-
-def driverDirectory = new File("${SystemUtils.USER_HOME}/.grails/drivers")
-if (driverDirectory.exists() && driverDirectory.isDirectory()) {
-    if (rootLoader) {
-        driverDirectory.eachFile {
-            if (it.name.endsWith(".jar")) {
-                def url = it.toURI().toURL()
-                LoggerFactory.getLogger("config.Config").info "adding driver ${url}" as String
-                rootLoader.addURL(url)
-            }
-        }
-    }
-}
-
 
 grails.converters.default.pretty.print = true
 metridoc.home = "${userHome}/.metridoc"
@@ -181,20 +161,8 @@ log4j = {
             'org.codehaus.groovy.grails.scaffolding',
             'metridoc.utils.CamelUtils'
 
-    //since it it running via commandline, it is assumed that standard out is only needed
-    if ("true" == System.getProperty("metridoc.job.cliOnly")) {
-        root {
-            info 'stdout'
-        }
-    } else {
-        if ("false" == System.getProperty("metridoc.job.loggedLogLocation", "false")) {
-            println "INFO: logs will be stored at ${config.metridoc.home}/logs"
-            //avoids duplicate logging
-            System.setProperty("metridoc.job.loggedLogLocation", "true")
-        }
-        root {
-            info 'stdout', 'file'
-        }
+    root {
+        info 'stdout', 'file'
     }
 }
 

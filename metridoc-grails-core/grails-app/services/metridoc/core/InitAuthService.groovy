@@ -67,7 +67,7 @@ class InitAuthService {
                 }
                 adminUser = new ShiroUser(username: 'admin', passwordHash: new Sha256Hash(password, "admin").toHex(), emailAddress: "admin@admin.com")
                 def adminRole = ShiroRole.find {
-                    name == createRoleName(ADMIN)
+                    name == InitAuthService.createRoleName(ADMIN)
                 }
                 adminUser.addToRoles(adminRole)
                 adminUser.save()
@@ -93,7 +93,7 @@ class InitAuthService {
             def hasRoles = anonymousUser.roles
             if (!hasRoles) {
                 def anonymousRole = ShiroRole.find {
-                    name == createRoleName(ANONYMOUS)
+                    name == InitAuthService.createRoleName(ANONYMOUS)
                 }
                 anonymousUser.addToRoles(anonymousRole)
                 anonymousUser.save()
@@ -107,7 +107,7 @@ class InitAuthService {
     def initDefaultRoles() {
         DEFAULT_ROLES.each { shortRoleName ->
             def roleExists = ShiroRole.find {
-                name == createRoleName(shortRoleName)
+                name == InitAuthService.createRoleName(shortRoleName)
             }
             if (!roleExists) {
                 createRole(shortRoleName).save()
@@ -132,7 +132,7 @@ class InitAuthService {
      */
     static createRole(String type) {
         def role = new ShiroRole(
-                name: createRoleName(type)
+                name: InitAuthService.createRoleName(type)
         )
         role.addToPermissions(type)
     }

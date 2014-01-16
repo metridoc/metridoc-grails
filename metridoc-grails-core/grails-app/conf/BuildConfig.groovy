@@ -31,6 +31,21 @@ codenarc.properties = {
     GrailsPublicControllerMethod.enabled = false
 }
 
+grails.project.fork = [
+        // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
+        //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+
+        // configure settings for the test-app JVM, uses the daemon by default
+        test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+        // configure settings for the run-app JVM
+        run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+        // configure settings for the run-war JVM
+        war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+        // configure settings for the Console UI JVM
+        console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+]
+
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies, this has to be here
     inherits("global")
@@ -61,7 +76,7 @@ grails.project.dependency.resolution = {
     plugins {
         runtime ":twitter-bootstrap:2.3.2"
         runtime ":mail:1.0.1"
-        runtime ":hibernate:$grailsVersion"
+        runtime ":hibernate:3.6.10.6"
         runtime ":resources:1.1.6"
         runtime ":jquery:1.10.2.2"
         runtime ":font-awesome-resources:3.2.1.1"
@@ -71,9 +86,10 @@ grails.project.dependency.resolution = {
                     [name: "shiro-quartz", group: "org.apache.shiro"]
             )
         }
-        build(":tomcat:$grailsVersion")
+        compile ":scaffolding:2.0.1"
+        build ":tomcat:7.0.47"
         compile(":rest-client-builder:1.0.3")
-        build(":release:2.2.1", ":bintray-upload:0.2")
+        build(":release:3.0.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }

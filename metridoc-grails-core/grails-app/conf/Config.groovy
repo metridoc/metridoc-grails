@@ -16,22 +16,6 @@
 import org.apache.commons.lang.SystemUtils
 import org.slf4j.LoggerFactory
 
-def rootLoader = Thread.currentThread().contextClassLoader.rootLoader
-
-def driverDirectory = new File("${SystemUtils.USER_HOME}/.grails/drivers")
-if (driverDirectory.exists() && driverDirectory.isDirectory()) {
-    if (rootLoader) {
-        driverDirectory.eachFile {
-            if (it.name.endsWith(".jar")) {
-                def url = it.toURI().toURL()
-                LoggerFactory.getLogger("config.Config").info "adding driver ${url}" as String
-                rootLoader.addURL(url)
-            }
-        }
-    }
-}
-
-
 grails.converters.default.pretty.print = true
 metridoc.home = "${userHome}/.metridoc"
 
@@ -158,20 +142,8 @@ log4j = {
             'org.apache',
             'net.sf' //ehcache
 
-    //since it it running via commandline, it is assumed that standard out is only needed
-    if ("true" == System.getProperty("metridoc.job.cliOnly")) {
-        root {
-            info 'stdout'
-        }
-    } else {
-        if ("false" == System.getProperty("metridoc.job.loggedLogLocation", "false")) {
-            println "INFO: logs will be stored at ${config.metridoc.home}/logs/${config.metridoc.app.name ?: 'metridoc'}.log"
-            //avoids duplicate logging
-            System.setProperty("metridoc.job.loggedLogLocation", "true")
-        }
-        root {
-            info 'stdout', 'file'
-        }
+    root {
+        info 'stdout', 'file'
     }
 }
 
