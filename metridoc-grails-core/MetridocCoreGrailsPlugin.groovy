@@ -1,5 +1,6 @@
 import metridoc.core.RememberCookieAge
 import metridoc.utils.BootupUtils
+import org.apache.shiro.crypto.AesCipherService
 import org.apache.shiro.mgt.RememberMeManager
 import org.apache.shiro.web.mgt.CookieRememberMeManager
 import org.apache.shiro.web.servlet.SimpleCookie
@@ -53,6 +54,10 @@ class MetridocCoreGrailsPlugin {
         if (manager instanceof CookieRememberMeManager) {
             manager.cookie.setMaxAge(RememberCookieAge.instance.ageInSeconds)
             manager.cookie.setPath(SimpleCookie.ROOT_PATH)
+            AesCipherService aes = new AesCipherService()
+            byte[] key = aes.generateNewKey().getEncoded()
+
+            manager.cipherKey = key
         }
     }
 }
