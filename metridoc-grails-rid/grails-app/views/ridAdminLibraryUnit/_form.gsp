@@ -14,22 +14,23 @@
   --}%
 
 <%@ page import="metridoc.rid.RidLibraryUnit" %>
+<r:require module="ridAdminBase"/>
 
 <div class="control-group fieldcontain required">
-    <label class="control-label" for="name">
-        <g:message code="ridLibraryUnit.name.label" default="Name"/>
-        <span class="required-indicator">*</span>
-    </label>
-
     <div class="controls">
+        <label class="control-label admin-label" for="name">
+            <g:message code="ridLibraryUnit.name.label" default="Name"/>
+            <span class="required-indicator">*</span>
+        </label>
         <g:textField class="userInput" name="name" required="" value="${ridInstance?.name}"/>
     </div>
 </div>
 
 <div class="control-group fieldcontain">
-    <label class="control-label" for="spreadsheetUpload">Spreadsheet</label>
 
     <div class="controls">
+        <label class="control-label admin-label" for="spreadsheetUpload">Spreadsheet</label>
+
         <input id="spreadsheetUpload" class="userInput" name="spreadsheetUpload" type="file" style="display: none"/>
 
         <div class="input-append">

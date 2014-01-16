@@ -193,3 +193,14 @@ label {
     table-layout: fixed;
     word-wrap: break-word;
 }
+
+.admin-label{
+    padding-left: 120px;
+    width: 50px;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #666666;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}

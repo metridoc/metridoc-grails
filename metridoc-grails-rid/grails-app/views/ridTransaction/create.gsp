@@ -35,14 +35,14 @@
 
         <div id="create-ridTransaction" class="content scaffold-create" role="main">
 
-    %{--TEMPORARY REMOVE TEMPLATES--}%
-%{--            <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
-                <h1>
-                    <a class="modal-label" data-toggle="modal" href="templateList" data-target="#myModal">
-                        <i class="icon-file-alt">Use Template</i>
-                    </a>
-                </h1>
-            </g:if>--}%
+        %{--TEMPORARY REMOVE TEMPLATES--}%
+        %{--            <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
+                        <h1>
+                            <a class="modal-label" data-toggle="modal" href="templateList" data-target="#myModal">
+                                <i class="icon-file-alt">Use Template</i>
+                            </a>
+                        </h1>
+                    </g:if>--}%
 
 
             <g:hasErrors bean="${ridTransactionInstance}">
@@ -65,17 +65,17 @@
 
                     <g:if test="${SecurityUtils.getSubject().getPrincipal()}">
                     %{--TEMPORARY REMOVE TEMPLATES--}%
-                        %{--<g:if test="${params.tmp}">
-                            <g:hiddenField name="id" value="${params.tmp}"/>
-                            <g:hiddenField name="isTemplate" value="true"/>
-                            <g:actionSubmit class="btn btn-danger" action="delete" style="float: right"
-                                            value="Delete template" formnovalidate=""
-                                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-                        </g:if>
-                        <g:actionSubmit action="remember" style="float: right; margin-right: 5px"
-                                        name="remember" class="btn btn-warning"
-                                        value="${message(code: 'default.button.remember.label', default: 'Remember as new template')}"
-                                        onmouseover="removeRequired()" onmouseout="setRequired()"/>--}%
+                    %{--<g:if test="${params.tmp}">
+                        <g:hiddenField name="id" value="${params.tmp}"/>
+                        <g:hiddenField name="isTemplate" value="true"/>
+                        <g:actionSubmit class="btn btn-danger" action="delete" style="float: right"
+                                        value="Delete template" formnovalidate=""
+                                        onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+                    </g:if>
+                    <g:actionSubmit action="remember" style="float: right; margin-right: 5px"
+                                    name="remember" class="btn btn-warning"
+                                    value="${message(code: 'default.button.remember.label', default: 'Remember as new template')}"
+                                    onmouseover="removeRequired()" onmouseout="setRequired()"/>--}%
                     </g:if>
 
                 </fieldset>

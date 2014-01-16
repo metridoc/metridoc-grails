@@ -31,7 +31,7 @@
         <md:form class="form-horizontal" action="query" method="GET">
             <fieldset class="form">
                 <div class="row-fluid">
-                    <div class="span2 ">
+                    <div class="span4 ">
                         <div class="control-group fieldcontain">
                             <label class="control-label" for="dateOfConsultation">
                                 <g:message code="ridTransaction.dateOfConsultation.label"
@@ -39,14 +39,15 @@
                             </label>
 
                             <div class="controls">
-                                <input type="text" name="dateOfConsultation_start" class="input-search" id="start-date"/>
-                                <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
+                                <input type="text" name="dateOfConsultation_start" class="input-search"
+                                       id="start-date"/><br>
+                                <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span><br>
                                 <input type="text" name="dateOfConsultation_end" class="input-search" id="end-date"/>
                             </div>
                         </div>
                     </div>
 
-                    <div class="span2 offset2">
+                    <div class="span2">
                         <div class="control-group fieldcontain">
                             <label class="control-label" for="ridLibraryUnit">
                                 <g:message code="ridTransaction.ridLibraryUnit.label" default="Library Unit"/>
@@ -176,7 +177,8 @@
                                 </label>
 
                                 <div class="controls">
-                                    <input type="text" name="dateOfInstruction_start" class="input-search" id="start-date"/>
+                                    <input type="text" name="dateOfInstruction_start" class="input-search"
+                                           id="start-date"/>
                                     <span class="search-date-middle">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
                                     <input type="text" name="dateOfInstruction_end" class="input-search" id="end-date"/>
                                 </div>

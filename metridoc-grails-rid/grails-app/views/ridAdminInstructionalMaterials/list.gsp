@@ -14,7 +14,8 @@
   --}%
 
 <%@ page import="metridoc.rid.RidInstructionalMaterials" %>
-<g:set var="entityName" value="${message(code: 'ridInstructionalMaterials.label', default: 'RidInstructionalMaterials')}"/>
+<g:set var="entityName"
+       value="${message(code: 'ridInstructionalMaterials.label', default: 'RidInstructionalMaterials')}"/>
 
 <md:report>
     <r:require module="tableModule"/>
