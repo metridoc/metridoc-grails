@@ -52,8 +52,7 @@ grails.project.fork = [
         console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
-grails.project.dependency.resolver = "maven"
-
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
 
     if(coreVersionIsSnapshot) {

@@ -45,8 +45,7 @@ grails.project.fork = [
         console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
-grails.project.dependency.resolver = "maven"
-
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies, this has to be here
     inherits("global")
@@ -90,7 +89,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.1"
         build ":tomcat:7.0.47"
         compile(":rest-client-builder:1.0.3")
-        build(":release:2.2.1", ":bintray-upload:0.2")
+        build(":release:3.0.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
