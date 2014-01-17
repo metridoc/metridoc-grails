@@ -75,7 +75,9 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":twitter-bootstrap:2.3.2"
-        runtime ":mail:1.0.1"
+        runtime(":mail:1.0.1") {
+            excludes 'spring-test'
+        }
         runtime ":hibernate:3.6.10.6"
         runtime ":resources:1.1.6"
         runtime ":jquery:1.10.2.2"

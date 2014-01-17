@@ -77,8 +77,6 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile 'net.sf.opencsv:opencsv:2.3'
-        //not sure why I need this, but the resolution step could not find it
-        test 'org.springframework:spring-test:3.2.5.RELEASE'
     }
 
     plugins {
