@@ -29,8 +29,8 @@ class NotificationEmails {
 
 
     static constraints = {
-        email email: true, blank: false, unique: ['scope']
-        scope blank: false
+        email email: true, blank: false, unique: ['scope'], maxSize: 75
+        scope blank: false, maxSize: 75
     }
 
     static List<NotificationEmails> convertToEmails(String scope, String emails) {

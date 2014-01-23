@@ -33,7 +33,7 @@ class ManageReport {
     }
 
     static constraints = {
-
+        controllerName(maxSize: 75)
     }
 
     static void overrideRoleMaps(Map<String, Map<String, List<String>>> roleMaps) {
