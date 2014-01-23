@@ -100,12 +100,6 @@ log4j = {
                 maxFileSize: "1MB",
                 maxBackupIndex: 10,
                 file: "${config.metridoc.home}/logs/metridoc-stacktrace.log"
-
-        //not used yet... this will be where we log cli jobs
-        rollingFile name: "jobLog",
-                maxFileSize: "1MB",
-                maxBackupIndex: 10,
-                file: "${config.metridoc.home}/logs/metridoc-job.log"
     }
 
     error 'org.codehaus.groovy.grails.web.servlet',  //  controllers

@@ -24,6 +24,7 @@ class MetridocBdGrailsPlugin {
         def slurper = new ConfigSlurper()
         baseConfig.merge(slurper.parse(Queries))
         baseConfig.merge(application.config)
+        //by doing this, we make sure the main config is overwritten by the application config
         application.config = baseConfig
 
         if(baseConfig.grails.validateable.packages) {

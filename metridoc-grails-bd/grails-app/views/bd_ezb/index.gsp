@@ -18,8 +18,6 @@
 <%@page import="metridoc.penn.bd.DataDumpMultCommand"%>
 <%@page import="metridoc.penn.bd.DataDumpCommand"%>
 <%@page import="metridoc.penn.bd.BorrowDirectService"%>
-<%@page import="org.codehaus.groovy.grails.commons.ConfigurationHolder"%>
-<g:set var="minCalYear" value="${org.codehaus.groovy.grails.commons.ConfigurationHolder.config.datafarm.minCalYear }"/>
 
 <%@ page contentType="text/html;charset=ISO-8859-1"%>
 

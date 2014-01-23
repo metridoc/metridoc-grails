@@ -14,15 +14,16 @@
 
 package metridoc.penn.bd
 
-import edu.upennlib.collmanagement.BucketService;
+import edu.upennlib.collmanagement.BucketService
 import edu.upennlib.collmanagement.CallNoService.CallNoCounts
-import groovy.sql.GroovyRowResult;
+import grails.util.Holders
+import groovy.sql.GroovyRowResult
 import metridoc.penn.util.DateUtil
-import org.codehaus.groovy.grails.commons.ConfigurationHolder;
-import org.codehaus.groovy.grails.validation.Validateable;
+import org.codehaus.groovy.grails.validation.Validateable
 
 class BdEzbController {
-	def borrowDirectService
+	def grailsApplication
+    def borrowDirectService
 	def serviceKey = BorrowDirectService.BD_SERVICE_KEY;
     private static final BORROW_DIRECT_INST_BLACK_LIST = ["CRL"]
 	
@@ -36,7 +37,8 @@ class BdEzbController {
 	
     def index(){ 
 		def model = getIndexPageModel() 
-		if(serviceKey == BorrowDirectService.BD_SERVICE_KEY) {
+		model.minCalYear = grailsApplication.config.datafarm.minCalYear
+        if(serviceKey == BorrowDirectService.BD_SERVICE_KEY) {
             List libraries = model.libraries
             model.libraries = libraries.findAll {GroovyRowResult result ->
                 !BORROW_DIRECT_INST_BLACK_LIST.contains(result.institution)
@@ -241,7 +243,7 @@ class LibReportCommand {
 	public static final int LC_CLASS = 1;
 	public static final int UNFILLED_REQUESTS = 2;
 
-	static config = ConfigurationHolder.config
+	static config = Holders.applicationContext.grailsApplication.config
 	public static sortByOptions = [config.borrowdirect.db.column.title,
 		config.borrowdirect.db.column.callNo,
 		config.borrowdirect.db.column.publicationYear,
