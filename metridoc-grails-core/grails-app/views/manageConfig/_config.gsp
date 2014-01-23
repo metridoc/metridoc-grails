@@ -21,7 +21,7 @@
 --%>
 
 <md:header>Metridoc Configuration</md:header>
-<g:form class="form-horizontal" enctype="multipart/form-data">
+<g:form class="form-inline" enctype="multipart/form-data">
     <div class="control-group">
 
         %{--TODO: move all scripts and css to separate js and css files--}%
@@ -63,9 +63,21 @@
             <g:textField name="rememberMeCookieAge" placeholder="360" value="${rememberMeCookieAge}"></g:textField>
         </div>
     </div>
-    <label class="control-label" id="dateLabel">Server Shutdown Date:</label>
 
-    <input type="text" name="shutdownDate" id="shutdownDate" value="${shutdownDate}"/>
-    <button class="btn" id="clearDate">Clear</button>
+    <label for="shutdownDate" class="control-label">Server Shutdown Date:</label>
+    <div class="control-group">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span2">
+                    <input type="text" name="shutdownDate" id="shutdownDate" value="${shutdownDate}"/>
+                </div>
+                <div class="span3">
+                    <button class="btn" id="clearDate">Clear</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <md:cgButton id="updateConfig" icon="icon-edit" class="active-on-change">Update</md:cgButton>
 </md:form>

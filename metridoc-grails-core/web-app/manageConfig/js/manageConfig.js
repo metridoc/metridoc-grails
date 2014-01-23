@@ -23,7 +23,7 @@ $(function () {
     }});
 
     var shutdownDate = $ssd.datepicker().on('changeDate',function (ev) {
-        $('.monitored-form').children().trigger('change');
+        $('.monitored-form').children().find('#shutdownDate').trigger('change');
         shutdownDate.hide();
     }).data('datepicker');
 

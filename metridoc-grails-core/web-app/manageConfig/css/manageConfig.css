@@ -16,7 +16,8 @@ code {
     white-space: normal;
 }
 
-#shutdownDate{width: 150px;}
+#shutdownDate{width: 125px;}
 #dateLabel{padding-left: 15px;}
 #metridocConfig{display:none;}
 #status{margin-left: 25px;}
+#metridocConfigPath{margin-bottom: 5px;}
