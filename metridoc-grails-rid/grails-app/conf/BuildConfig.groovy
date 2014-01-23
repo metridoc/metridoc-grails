@@ -67,7 +67,6 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":google-visualization:0.6.2"
-        build(":tomcat:$grailsVersion")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
