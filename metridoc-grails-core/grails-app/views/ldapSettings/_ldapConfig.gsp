@@ -21,7 +21,6 @@
 --%>
 
 <div class="md-application-content">
-    <strong>LDAP Settings</strong>
     <g:form controller="LdapSettings monitored-form">
         <g:hiddenField id="encryptStrong" name="encryptStrong" value="${LDAP.encryptStrong}"/>
 

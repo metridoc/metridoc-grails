@@ -30,7 +30,7 @@
         </a>
 
         <span id="sGroupList" class="ldap-span">Create and view LDAP groups</span>
-
+<br>
         <div id="groupList" class="collapse in">
             <g:render template="/ldapRole/ldapGroupList"/>
         </div>
@@ -46,7 +46,7 @@
         </a>
 
         <span id="sLdapConfig" class="ldap-span">Change LDAP configuration</span>
-
+<br>
         <div id="ldapConfig" class="collapse">
             <g:render template="/ldapSettings/ldapConfig"/>
         </div>

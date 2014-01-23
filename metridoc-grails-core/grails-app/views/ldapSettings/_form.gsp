@@ -12,50 +12,82 @@
   - 	or implied. See the License for the specific language governing
   - 	permissions and limitations under the License.  --}%
 
-<div>
-    <label>Server</label>
-    <g:textField  class="userInput" name="server" maxlength="750" value="${LDAP.server}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Server</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="server" maxlength="750" value="${LDAP.server}"/>
+    </div>
 </div>
 
-<div>
-    <label>Root DN</label>
-    <g:textField  class="userInput" name="rootDN" maxlength="750" value="${LDAP.rootDN}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Root DN</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="rootDN" maxlength="750" value="${LDAP.rootDN}"/>
+    </div>
 </div>
 
-<div>
-    <label>User Search Base</label>
-    <g:textField  class="userInput" name="userSearchBase" maxlength="750"
-                 value="${LDAP.userSearchBase}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>User Search Base</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="userSearchBase" maxlength="750"
+                      value="${LDAP.userSearchBase}"/>
+    </div>
 </div>
 
-<div>
-    <label>User Search Filter</label>
-    <g:textField  class="userInput" name="userSearchFilter" maxlength="750"
-                 value="${LDAP.userSearchFilter}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>User Search Filter</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="userSearchFilter" maxlength="750"
+                      value="${LDAP.userSearchFilter}"/>
+    </div>
 </div>
 
-<div>
-    <label>Group Search Base</label>
-    <g:textField  class="userInput" name="groupSearchBase" maxlength="750"
-                 value="${LDAP.groupSearchBase}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Group Search Base</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="groupSearchBase" maxlength="750"
+                      value="${LDAP.groupSearchBase}"/>
+    </div>
 </div>
 
-<div>
-    <label>Group Search Filter</label>
-    <g:textField  class="userInput" name="groupSearchFilter" maxlength="750"
-                 value="${LDAP.groupSearchFilter}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Group Search Filter</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="groupSearchFilter" maxlength="750"
+                      value="${LDAP.groupSearchFilter}"/>
+    </div>
 </div>
 
 
 
-<div>
-    <label>Manager DN</label>
-    <g:textField  class="userInput" name="managerDN" maxlength="750" value="${LDAP.managerDN}"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Manager DN</label>
+    </div>
+    <div class="span3">
+        <g:textField  class="userInput" name="managerDN" maxlength="750" value="${LDAP.managerDN}"/>
+    </div>
 </div>
 
-<div>
-    <label>Manager Password</label>
-    <g:passwordField name="unencryptedPassword" id="${LDAP.getUnencryptedPassword()}"
-                     value="${LDAP.getUnencryptedPassword()}"
-                     placeholder="Password"/>
+<div class="row-fluid">
+    <div class="span3">
+        <label>Manager Password</label>
+    </div>
+    <div class="span3">
+        <g:passwordField name="unencryptedPassword" id="${LDAP.getUnencryptedPassword()}"
+                         value="${LDAP.getUnencryptedPassword()}"
+                         placeholder="Password"/>
+    </div>
 </div>
