@@ -154,7 +154,7 @@
         	<g:if test="${BorrowDirectService.EZB_SERVICE_KEY.equals(serviceKey)}">
         	 <div class="formRow" style="margin-left:15px; padding-top:0px; font-style: italic;">
         	 Choose a comparison group:
-        	<div style="display:inline;float:right; padding: 0 15px"><a href="javascript:showHideLibraryFilter()"><img src="${resource(dir:'images',file:'open.gif')}" id="filterIcon"/>&nbsp;Filter</a></div>
+        	<div style="display:inline;float:right; padding: 0 15px"><a href="javascript:showHideLibraryFilter()"><img src="${resource(plugin: "metridocBd", dir:'images',file:'open.gif')}" id="filterIcon"/>&nbsp;Filter</a></div>
         	 <g:form name="summary_form" method="post" action="summary" id="summary_form" style="margin:10px; display:none">
         	 <center>
         	 <table style="border:none">
