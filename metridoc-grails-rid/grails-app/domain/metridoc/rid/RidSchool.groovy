@@ -28,7 +28,7 @@ class RidSchool {
     }
 
     static constraints = {
-        name(blank: false, nullable: false, unique: true)
+        name(blank: false, nullable: false, unique: true, maxSize: 150)
         inForm(nullable: false, inList: [0, 1, 2])
         ridConsTransaction(nullable: true)
         ridInsTransaction(nullable: true)

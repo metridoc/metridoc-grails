@@ -31,6 +31,6 @@ class RidLibraryUnit {
     }
 
     static constraints = {
-        name(blank: false, nullable: false, unique: true)
+        name(blank: false, nullable: false, unique: true, maxSize: 150)
     }
 }
