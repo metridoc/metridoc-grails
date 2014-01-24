@@ -68,7 +68,7 @@
         </tr>
         <tr><td colspan="2" align="center">
             <g:link url="http://code.google.com/p/metridoc/"><img width="90" alt="metridoc"
-                                                                  src="${resource(dir: 'images', file: 'E.jpg')}"
+                                                                  src="${resource(plugin: "metridocBd", dir: 'images', file: 'E.jpg')}"
                                                                   style="border:0px"></g:link></td></tr>
     </table>
 </div>
