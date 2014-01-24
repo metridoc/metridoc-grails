@@ -27,7 +27,7 @@ class RidDepartment {
     }
 
     static constraints = {
-        name(blank: false, nullable: false, unique: true)
+        name(blank: false, nullable: false, unique: true, maxSize: 150)
         fullName(blank: true, nullable: true)
         ridConsTransaction(nullable: true)
         ridInsTransaction(nullable: true)
