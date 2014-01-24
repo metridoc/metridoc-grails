@@ -23,8 +23,8 @@ class ControllerData {
     Boolean homePage = false
     String validity
     static constraints = {
-        controllerPath(nullable: false, blank: false, unique: true)
-        appName(nullable: false, blank: false, unique: true)
+        controllerPath(nullable: false, blank: false, unique: true, maxSize: 150)
+        appName(nullable: false, blank: false, unique: true, maxSize: 150)
         appDescription(nullable: false, blank: false)
         category(nullable: false)
     }

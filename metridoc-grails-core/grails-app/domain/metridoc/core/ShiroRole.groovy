@@ -23,7 +23,7 @@ class ShiroRole {
     }
 
     static constraints = {
-        name(nullable: false, blank: false, unique: true)
+        name(nullable: false, blank: false, unique: true, maxSize: 75)
     }
 
     @Override
