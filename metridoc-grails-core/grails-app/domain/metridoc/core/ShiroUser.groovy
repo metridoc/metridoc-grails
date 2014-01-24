@@ -60,8 +60,8 @@ class ShiroUser {
     static hasMany = [roles: ShiroRole, permissions: String]
 
     static constraints = {
-        username(nullable: false, blank: false, unique: true)
-        emailAddress(email: true, blank: false, unique: true)
+        username(nullable: false, blank: false, unique: true, maxSize: 75)
+        emailAddress(email: true, blank: false, unique: true, maxSize: 75)
         passwordHash(blank: false, validator: { val, obj ->
             Boolean validatePasswords = obj.validatePasswords
             if (validatePasswords) {
