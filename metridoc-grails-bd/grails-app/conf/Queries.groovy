@@ -29,6 +29,7 @@ queries{
 		bl.isbn,
 		bl.lccn,
 		bl.oclc,
+		bl.local_item_found,
 		bl.call_number as callNumber,
 		cn.call_number as callNumberUnf,
 		bl.supplier_code as supplierCode,
