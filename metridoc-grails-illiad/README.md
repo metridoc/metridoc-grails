@@ -42,5 +42,15 @@ all the dashboard data in json format while `ill_transaction` provides all the d
 [illiad job](http://github.com/metridoc/metridoc-job-illiad) for more details about the illiad table structure.
 
 
+Local Development
+-----------
+
+Developing on a local instance of Illiad requires a local copy of the Illiad database tables. The following is a guide to acquiring these tables. Note that this guide assumes a remote server is set up with MySQL and.
+
+1. Run the [Illiad Metridoc job](https://github.com/metridoc/metridoc-job/tree/master/metridoc-job-illiad) to populate the remote database with Illiad data.
+2. ssh into your remote server and identify the Illiad tables. Use `mysql -u username -p password database_foo -e'show tables where Tables_in_database_foo like "ill_%"'` to find them quickly. 
+3. Use mysqldump and gzip to export the desired tables: `sudo sh -c 'mysqldump -u username -p password database_foo ill_table... | gzip > /data/illTables.sql.gz'`
+4. Use scp to transfer the zipped table data to your local machine and unzip the files. 
+5. Import them into a local MySQL database: `mysql foo < ~/scratch/illTables.sql`
 
 
