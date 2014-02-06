@@ -76,7 +76,11 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        compile 'net.sf.opencsv:opencsv:2.3'
+        compile("org.apache.poi:poi:3.8-beta3")
+        compile("org.apache.poi:poi-ooxml:3.8-beta3") {
+            excludes 'poi'
+            excludes 'dom4j'
+        }
     }
 
     plugins {
