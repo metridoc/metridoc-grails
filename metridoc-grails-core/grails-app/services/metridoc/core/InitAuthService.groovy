@@ -106,9 +106,8 @@ class InitAuthService {
      */
     def initDefaultRoles() {
         DEFAULT_ROLES.each { shortRoleName ->
-            def roleExists = ShiroRole.find {
-                name == InitAuthService.createRoleName(shortRoleName)
-            }
+            def roleName = InitAuthService.createRoleName(shortRoleName)
+            def roleExists = ShiroRole.findByName(roleName)
             if (!roleExists) {
                 createRole(shortRoleName).save()
             }
