@@ -14,6 +14,7 @@
 
 package metridoc.core
 
+import grails.transaction.Transactional
 import org.apache.shiro.crypto.hash.Sha256Hash
 
 /**
@@ -38,6 +39,7 @@ class InitAuthService {
     /**
      * calls all security initializations
      */
+    @Transactional
     def init() {
         initDefaultRoles()
         initRoleOverides()
