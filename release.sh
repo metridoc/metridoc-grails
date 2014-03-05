@@ -28,7 +28,7 @@ systemCall "./grailsw set-version $VERSION"
 systemCall "git add ."
 git commit -m"synchronizing version"
 systemCall "git push origin master"
-systemCall "./grailsw --refresh-dependencies --non-interactive tA:unit --stacktrace"
+systemCall "./grailsw --refresh-dependencies --non-interactive tA :unit --stacktrace"
 systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
 cd -
 
@@ -41,7 +41,7 @@ for DIRECTORY in $DIRECTORIES
         systemCall "git add ."
         git commit -m"synchronizing version"
         systemCall "git push origin master"
-        systemCall "./grailsw --refresh-dependencies --non-interactive tA --stacktrace"
+        systemCall "./grailsw --refresh-dependencies --non-interactive tA :unit --stacktrace"
         systemCall "./grailsw --refresh-dependencies --non-interactive upload-to-bintray --failOnBadCondition=false"
         cd -
     fi
