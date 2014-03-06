@@ -22,7 +22,7 @@ class ManageAccessController {
             title: "Manage Metridoc",
             adminOnly: true,
             description: """
-                Create, update and delete users and roles.  Change configuration, load plugins and restart the
+                Create, update, and delete users and roles.  Change configuration, load plugins and restart the
                 application
             """
     ]
