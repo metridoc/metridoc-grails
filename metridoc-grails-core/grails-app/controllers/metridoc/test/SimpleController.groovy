@@ -17,7 +17,7 @@ package metridoc.test
 class SimpleController {
 
     static homePage = [
-            title: "Simple Controller",
+            title: "A Simple Controller",
             description: """
                 A simple controller that doesn't do anything.  Used for testing, such as setting authentication stuff.. etc.
             """
