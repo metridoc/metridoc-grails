@@ -73,5 +73,7 @@ grails.project.dependency.resolution = {
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
+        
+        build(":release:3.0.1", ":bintray-upload:0.2")
     }
 }
