@@ -14,7 +14,7 @@
  */
 
 class MetridocCoreUrlMappings {
- 
+  
     static mappings = {
 
         "/"(controller: "home", action: "index")
