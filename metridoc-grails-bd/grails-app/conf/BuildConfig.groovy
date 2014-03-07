@@ -34,6 +34,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
+    	runtime ":hibernate:3.6.10.6"
         compile(":calendar:1.2.1")
     }
 }
