@@ -25,7 +25,7 @@ class MetridocCoreUrlMappings {
             constraints {
                 // apply constraints here
             }
-        }
+        } 
 
         "500"(view: '/error')
     }
