@@ -14,7 +14,7 @@
   */
 
 $(document).ready(function () {
-
+ 
     $('table td:nth-child(n+4), table  th:nth-child(n+4)').hide();
 
     $('#Table1 td:nth-child(4), #Table1  th:nth-child(4)').show();
