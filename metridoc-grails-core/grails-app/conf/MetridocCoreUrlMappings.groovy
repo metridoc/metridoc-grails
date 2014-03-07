@@ -14,7 +14,7 @@
  */
 
 class MetridocCoreUrlMappings {
-  
+
     static mappings = {
 
         "/"(controller: "home", action: "index")
@@ -26,7 +26,7 @@ class MetridocCoreUrlMappings {
                 // apply constraints here
             }
         }
-
+//Useless comment
         "500"(view: '/error')
     }
 }
