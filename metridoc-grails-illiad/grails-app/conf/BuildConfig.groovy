@@ -83,7 +83,7 @@ grails.project.dependency.resolution = {
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
-        build(":tomcat:$grailsVersion")
+        build(":tomcat:7.0.47")
         build(":release:2.2.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
