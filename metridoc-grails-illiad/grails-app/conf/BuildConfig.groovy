@@ -65,14 +65,14 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
         mavenLocal()
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
-        mavenCentral()
         mavenRepo "https://oss.sonatype.org/content/repositories/snapshots"
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
         mavenRepo "http://jcenter.bintray.com/"
+        grailsPlugins()
+        grailsHome()
+        grailsCentral()
+        mavenCentral()
     }
 
     dependencies {

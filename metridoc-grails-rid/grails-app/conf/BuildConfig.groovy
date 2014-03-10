@@ -22,6 +22,7 @@ if (versionFile.exists()) {
         grails.plugin.location."metridoc-core" = "../metridoc-grails-core"
     }
 }
+
 else {
     def metadata = new XmlSlurper().parse("http://dl.bintray.com/upennlib/metridoc/org/grails/plugins/metridoc-core/maven-metadata.xml")
     coreVersion = metadata.versioning.latest.text().trim()
@@ -52,10 +53,13 @@ grails.project.dependency.resolution = {
     }
 
     repositories {
-        grailsCentral()
+
         mavenCentral()
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
+        mavenLocal()
+        grailsCentral()
+
     }
     dependencies {
         compile("org.apache.poi:poi:3.8-beta3")

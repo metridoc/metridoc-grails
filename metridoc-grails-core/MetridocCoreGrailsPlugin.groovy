@@ -21,7 +21,7 @@ import org.apache.shiro.web.servlet.SimpleCookie
 */
 class MetridocCoreGrailsPlugin {
     static DEFAULT_MAX_REMEMER_ME = 60 * 60 //one hour
-    def version = "0.7.12-SNAPSHOT"
+    def version = "0.7.18-SNAPSHOT"
     def grailsVersion = "2.0.4 > *"
     def loadAfter = ["rest-client-builder", "release", "hibernate", "resources"]
 
