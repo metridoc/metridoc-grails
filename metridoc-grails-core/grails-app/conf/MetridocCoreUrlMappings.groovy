@@ -26,7 +26,6 @@ class MetridocCoreUrlMappings {
                 // apply constraints here
             }
         }
-//Useless comment
         "500"(view: '/error')
     }
 }
