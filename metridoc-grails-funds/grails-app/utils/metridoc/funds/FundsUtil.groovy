@@ -20,11 +20,10 @@ import org.apache.poi.ss.usermodel.Sheet
 class FundsUtil {
 	
 	private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");//"yyyy-MM-dd");
-	
-	private static ApplicationContext applicationContext = (ApplicationContext) ServletContextHolder.getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
-	
+
 	static String getMessage(String code){
-	return applicationContext.getMessage(code, null, null);
+        ApplicationContext applicationContext = (ApplicationContext) ServletContextHolder.getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+        return applicationContext.getMessage(code, null, null);
 	}
 	static String getMonthString(int month){
 		return getMessage("month."+month);
