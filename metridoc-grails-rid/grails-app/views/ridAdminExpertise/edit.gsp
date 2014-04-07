@@ -13,6 +13,8 @@
   - 	permissions and limitations under the License.
   --}%
 
-<%@ page import="metridoc.rid.RidAudience" %>
+<%@ page import="metridoc.rid.RidExpertise" %>
+<g:set var="entityName" value="${message(code: 'ridExpertise.label', default: 'RidExpertise')}"/>
 
-<g:render template="/ridAdminBase/baseForm" plugin="metridoc-rid"/>
+<g:render template="/ridAdminBase/baseEdit" plugin="metridoc-rid"/>
+

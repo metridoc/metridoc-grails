@@ -44,7 +44,7 @@ class RidAdminTransactionController {
 
     def consultation() {
         session.setAttribute("transType", new String("consultation"))
-        if (session.getAttribute("prev").equals("RidAdminAudience") ||
+        if (session.getAttribute("prev").equals("RidAdminExpertise") ||
                 session.getAttribute("prev").equals("RidAdminInstructionalMaterials") ||
                 session.getAttribute("prev").equals("RidAdminLocation") ||
                 session.getAttribute("prev").equals("RidAdminSessionType")){

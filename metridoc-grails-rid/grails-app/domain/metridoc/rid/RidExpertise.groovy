@@ -15,7 +15,7 @@
 
 package metridoc.rid
 
-class RidAudience {
+class RidExpertise {
 
     static hasMany = [ridInsTransaction: RidInsTransaction]
 

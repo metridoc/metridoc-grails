@@ -26,7 +26,7 @@ import grails.test.mixin.Mock
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(RidBootStrapService)
-@Mock([RidAudience, RidConsTransaction, RidCourseSponsor, RidDepartment, RidInsTransaction, RidInstructionalMaterials, RidLibraryUnit, RidLocation, RidModeOfConsultation, RidRank, RidSchool, RidServiceProvided, RidSessionType, RidUserGoal])
+@Mock([RidExpertise, RidConsTransaction, RidCourseSponsor, RidDepartment, RidInsTransaction, RidInstructionalMaterials, RidLibraryUnit, RidLocation, RidModeOfConsultation, RidRank, RidSchool, RidServiceProvided, RidSessionType, RidUserGoal])
 class RidBootStrapServiceTests {
 
     @Before
