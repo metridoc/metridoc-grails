@@ -19,7 +19,7 @@
 <md:report>
     <r:require module="tableModule"/>
     <!--[if !IE]><!-->
-    <r:external dir="css" file="floating_tables_for_admin_1.css" plugin="metridoc-rid"/>
+    <r:external dir="css" file="floating_tables_for_admin_4.css" plugin="metridoc-rid"/>
     <!--<![endif]-->
 
     <div class="md-application-content">
@@ -54,10 +54,14 @@
                     <g:sortableColumn property="inForm"
                                       title="${message(code: 'ridLocation.inForm.label', default: 'In Form')}"/>
 
+                    <g:sortableColumn property="ridLibraryUnit"
+                                      title="${message(code: 'ridLocation.ridLibraryUnit.label', default: 'Library Unit')}"/>
+
+
                     <th>Number of RidTransaction</th>
                 </tr>
                 </thead>
-                <g:render template="/ridAdminBase/baseListWithoutLibUnit" plugin="metridoc-rid"/>
+                <g:render template="/ridAdminBase/baseListWithLibUnit" plugin="metridoc-rid"/>
             </table>
             <g:if test="${ridInstanceTotal > 10}">
                 <div class="pagination">

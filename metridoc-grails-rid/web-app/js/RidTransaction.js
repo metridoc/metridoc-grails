@@ -108,10 +108,16 @@ $(function () {
         $("#otherInstructionalMaterialsDiv").show();
         $("#otherInstructionalMaterials").val("");
     }
-    var choiceAudience = $("#audience").find("option:selected").attr("inForm");
-    if (choiceAudience == "2") {
-        $("#otherAudienceDiv").show();
-        $("#otherAudience").val("");
+    var choiceExpertise = $("#expertise").find("option:selected").attr("inForm");
+    if (choiceExpertise == "2") {
+        $("#otherExpertiseDiv").show();
+        $("#otherExpertise").val("");
+    }
+
+    var choiceLocation = $("#location").find("option:selected").attr("inForm");
+    if (choiceLocation == "2") {
+        $("#otherLocationDiv").show();
+        $("#otherLocation").val("");
     }
 
 });
@@ -208,14 +214,14 @@ $(function () {
 });
 
 $(function () {
-    $("#audience").change(function () {
-        var choice = $("#audience").find("option:selected").attr("inForm");
+    $("#expertise").change(function () {
+        var choice = $("#expertise").find("option:selected").attr("inForm");
         if (choice == "2") {
-            $("#otherAudienceDiv").show();
+            $("#otherExpertiseDiv").show();
         }
         else {
-            $("#otherAudienceDiv").hide();
-            $("#otherAudience").val("");
+            $("#otherExpertiseDiv").hide();
+            $("#otherExpertise").val("");
         }
     })
 });
@@ -248,19 +254,24 @@ $(function () {
         $("#otherUserGoal").val("");
         $("#otherInstructionalMaterialsDiv").hide();
         $("#otherInstructionalMaterials").val("");
-        $("#otherAudienceDiv").hide();
-        $("#otherAudience").val("");
+        $("#otherExpertiseDiv").hide();
+        $("#otherExpertise").val("");
+        $("#otherLocationDiv").hide();
         $("#otherLocation").val("");
     })
 });
 
-$(function () {
-    $("#ridLibraryUnit").change(function () {
+
+//$(function () {
+    function toggleOther(){
+//    $("#ridLibraryUnit").change(function () {
         var choiceType = $("#ridLibraryUnit").val();
         var choiceMode = $("#currentModeOfConsultation").text();
         var choiceService = $("#currentServiceProvided").text();
         var choiceGoal = $("#currentUserGoal").text();
         var choiceSession = $("#currentSessionType").text();
+        var choiceMaterials = $("#currentInstructionalMaterials").text();
+        var choiceLocation = $("#currentLocation").text();
 
         $.ajax({
             //url: '${g.createLink(controller: 'RidConsTransaction', action: 'ajaxChooseType')}',
@@ -272,12 +283,16 @@ $(function () {
                 modeID: choiceMode,
                 serviceID: choiceService,
                 goalID: choiceGoal,
-                sessionID: choiceSession
+                sessionID: choiceSession,
+                materialsID: choiceMaterials,
+                locationID: choiceLocation
             },
             success: function (data) {
                 $.each(data, function (index, itemList) {
+                    alert(index);
                     $('#' + index + ' > option').remove();
                     $.each(itemList, function (id, element) {
+
                         $('#' + index).append($("<option>", {
                             text: element.name
                         }).attr('value', element.id).attr('inForm', element.inForm));
@@ -324,11 +339,30 @@ $(function () {
                     $("#otherSessionTypeDiv").hide();
                     $("#otherSessionType").val("");
                 }
+
+                var choiceMaterials = $("#instructionalMaterials").children("option:first").attr("inForm");
+                if (choiceMaterials == "2") {
+                    $("#otherInstructionalMaterialsDiv").show();
+                }
+                else {
+                    $("#otherInstructionalMaterialsDiv").hide();
+                    $("#otherInstructionalMaterials").val("");
+                }
+
+                var choiceLocation = $("#location").children("option:first").attr("inForm");
+                if (choiceLocation == "2") {
+                    $("#otherLocationDiv").show();
+                }
+                else {
+                    $("#otherLocationDiv").hide();
+                    $("#otherLocation").val("");
+                }
                 
             }
         });
-    })
-});
+ //   })
+    }
+//});
 
 function removeRequired() {
     $("#ridLibraryUnit").removeAttr("required");

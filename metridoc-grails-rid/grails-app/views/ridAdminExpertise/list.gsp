@@ -13,8 +13,8 @@
   - 	permissions and limitations under the License.
   --}%
 
-<%@ page import="metridoc.rid.RidAudience" %>
-<g:set var="entityName" value="${message(code: 'ridAudience.label', default: 'RidAudience')}"/>
+<%@ page import="metridoc.rid.RidExpertise" %>
+<g:set var="entityName" value="${message(code: 'ridExpertise.label', default: 'RidExpertise')}"/>
 
 <md:report>
     <r:require module="tableModule"/>
@@ -29,12 +29,12 @@
         <g:render template="/ridAdminTransaction/modal" plugin="metridocRid"
                   model="[title: entityName + ' Create/Edit']"/>
 
-        <div id="list-ridAudience" class="content scaffold-list" role="main">
+        <div id="list-ridExpertise" class="content scaffold-list" role="main">
             <h1>
                 <g:message code="default.list.label" args="[entityName]"/>
                 <a data-tooltip="Creating" href="create?dummy=${org.apache.commons.lang.math.RandomUtils.nextInt()}"
                    data-target="#myModal" data-toggle="modal">
-                    <i title="Create Audience Type" class="icon-plus-sign-alt"></i>
+                    <i title="Create Expertise Type" class="icon-plus-sign-alt"></i>
                 </a>
             </h1>
 
@@ -49,10 +49,10 @@
                 <tr>
 
                     <g:sortableColumn property="name"
-                                      title="${message(code: 'ridAudience.name.label', default: 'Name')}"/>
+                                      title="${message(code: 'ridExpertise.name.label', default: 'Name')}"/>
 
                     <g:sortableColumn property="inForm"
-                                      title="${message(code: 'ridAudience.inForm.label', default: 'In Form')}"/>
+                                      title="${message(code: 'ridExpertise.inForm.label', default: 'In Form')}"/>
 
                     <th>Number of RidTransaction</th>
                 </tr>

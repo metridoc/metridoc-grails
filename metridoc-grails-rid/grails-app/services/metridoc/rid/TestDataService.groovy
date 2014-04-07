@@ -173,55 +173,190 @@ class TestDataService {
         }
 
         if (!RidLocation.first()) {
-            // ---------------------------------------------------------------------------------------------
-            // for location
-            List<String> loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
+            // for location -- WIC
+            List<String> loc = Arrays.asList("Classroom",  "Lecture hall")
+
+            // since here the location is not required, this stands for null value
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in loc.sort()) {
-                if (!RidLocation.findByName(i)) {
-                    def nl = new RidLocation(name: i, inForm: 1)
-                    nl.save()
-                    if (nl.hasErrors()) println nl.errors
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
                 }
             }
-            def otherLocation = "Other location (please indicate)"
-            if (!RidLocation.findByName(otherLocation)) {
-                new RidLocation(name: otherLocation, inForm: 2).save()
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            // for location -- HSL
+            loc = Arrays.asList("Classroom", "Library conference room")
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            for (String i in loc.sort()) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
             }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+            // for location -- CDM
+            loc = Arrays.asList("Library conference room", "Lecture hall")
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            for (String i in loc) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+            // for location -- LIPPINCOTT
+            loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            for (String i in loc.sort()) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+            // for location -- RIS
+            loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
+
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            for (String i in loc) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save()
+            // for location -- Science Libraries
+            loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
+
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            for (String i in loc) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+            // for location -- General
+            loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
+
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            for (String i in loc) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
         }
 
         if (!RidInstructionalMaterials.first()) {
-            // ---------------------------------------------------------------------------------------------
-            // for instructionalMaterials
-            List<String> im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-            new RidInstructionalMaterials(name: "NA", inForm: 1).save()
+            // for instructionalMaterials -- WIC
+            List<String> im = Arrays.asList("Handout", "Quiz")
+
+            // since here the instructionalMaterials is not required, this stands for null value
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
             for (String i in im.sort()) {
-                if (!RidInstructionalMaterials.findByName(i)) {
-                    def nl = new RidInstructionalMaterials(name: i, inForm: 1)
-                    nl.save()
-                    if (nl.hasErrors()) println nl.errors
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
                 }
             }
-            def otherInstructionalMaterials = "Other instructional Materials (please indicate)"
-            if (!RidInstructionalMaterials.findByName(otherInstructionalMaterials)) {
-                new RidInstructionalMaterials(name: otherInstructionalMaterials, inForm: 2).save()
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            // for instructionalMaterials -- HSL
+            im = Arrays.asList("PowerPoint", "Handout")
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
+            for (String i in im.sort()) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
             }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+            // for instructionalMaterials -- CDM
+            im = Arrays.asList("PowerPoint", "Quiz")
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
+            for (String i in im) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+            // for instructionalMaterials -- LIPPINCOTT
+            im = Arrays.asList("PowerPoint", "Handout", "Quiz")
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
+            for (String i in im.sort()) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+            // for instructionalMaterials -- RIS
+            im = Arrays.asList("PowerPoint", "Handout", "Quiz")
+
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save(validate: false)
+            for (String i in im) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("RIS"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("RIS"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("RIS")).save()
+            // for instructionalMaterials -- Science Libraries
+            im = Arrays.asList("PowerPoint", "Handout", "Quiz")
+
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
+            for (String i in im) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+            // for instructionalMaterials -- General
+            im = Arrays.asList("PowerPoint", "Handout", "Quiz")
+
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
+            for (String i in im) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
         }
 
-        if (!RidAudience.first()) {
+        if (!RidExpertise.first()) {
             // ---------------------------------------------------------------------------------------------
-            // for audience
-            List<String> aud = Arrays.asList("Undergraduates", "Grad Students", "Teachers")
-            new RidAudience(name: "NA", inForm: 1).save(validate: false)
-            for (String i in aud.sort()) {
-                if (!RidAudience.findByName(i)) {
-                    def nl = new RidAudience(name: i, inForm: 1)
+            // for expertise
+            List<String> exp = Arrays.asList("Non-professional", "Professional", "Expert")
+            new RidExpertise(name: "NA", inForm: 1).save(validate: false)
+            for (String i in exp) {
+                if (!RidExpertise.findByName(i)) {
+                    def nl = new RidExpertise(name: i, inForm: 1)
                     nl.save()
                     if (nl.hasErrors()) println nl.errors
                 }
             }
-            def otherAudience = "Other audience (please indicate)"
-            if (!RidAudience.findByName(otherAudience)) {
-                new RidAudience(name: otherAudience, inForm: 2).save()
+            def otherExpertise = "Other expertise (please indicate)"
+            if (!RidExpertise.findByName(otherExpertise)) {
+                new RidExpertise(name: otherExpertise, inForm: 2).save()
             }
         }
 
@@ -645,7 +780,7 @@ class TestDataService {
             println "Creating test data consultation for RID database"
             // ---------------------------------------------------------------------------------------------
                 // for ridTransaction (only for demo)
-                for (int i = 0; i < 1; i++) {
+                for (int i = 0; i < 50; i++) {
                     def t = new RidConsTransaction(staffPennkey: "012345667",
                             userQuestion: RandomStringUtils.randomAlphanumeric(i % 50 + 1),
                             interactOccurrences: i % 50, prepTime: i % 40,
@@ -677,7 +812,7 @@ class TestDataService {
         if (!RidInsTransaction.first()) {
 
             println "Creating test instructional data for RID database"
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 50; i++) {
                     def rand = new Random()
                     def t = new RidInsTransaction(instructorPennkey: "012345667",
                             eventLength: i % 50, notes: "Sample Notes",
@@ -687,7 +822,7 @@ class TestDataService {
                             //department: RidDepartment.get(i % 6 + 1),
                             sessionType: RidSessionType.get(1),
                             instructionalMaterials: RidInstructionalMaterials.get(1),
-                            audience: RidAudience.get(1),
+                            expertise: RidExpertise.get(1),
                             school: RidSchool.get(1),
                             location: RidLocation.get(1 % 3 + 1),
                             attendanceTotal: 42,

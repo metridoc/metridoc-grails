@@ -33,7 +33,8 @@
             <g:select id="ridLibraryUnit" name="ridLibraryUnit.id"
                       from="${metridoc.rid.RidLibraryUnit.list()}"
                       optionKey="id" required="" value="${ridTransactionInstance?.ridLibraryUnit?.id}"
-                      class="many-to-one input-wide"/>
+                      class="many-to-one input-wide"
+                      onchange="toggleOther()"/>
         </div>
     </div>
 

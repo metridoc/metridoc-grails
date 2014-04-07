@@ -27,7 +27,7 @@ abstract class RidInsTransactionBase {
     String sequenceName
     Integer sequenceUnit
     String otherSessionType
-    String otherAudience
+    String otherExpertise
     String sessionDescription
     String otherLocation
     String otherInstructionalMaterials

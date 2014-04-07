@@ -24,11 +24,11 @@ class RidInsTransaction extends RidInsTransactionBase {
             ridLibraryUnit: RidLibraryUnit,
             location: RidLocation,
             sessionType: RidSessionType,
-            audience: RidAudience,
+            expertise: RidExpertise,
             instructionalMaterials: RidInstructionalMaterials]
 
     static transients = ['otherSchool', 'otherLocation',
-            'otherSessionType', 'otherAudience', 'otherInstructionalMaterials']
+            'otherSessionType', 'otherExpertise', 'otherInstructionalMaterials']
 
     String spreadsheetName
 
@@ -63,8 +63,8 @@ class RidInsTransaction extends RidInsTransactionBase {
         spreadsheetName(nullable: true, blank: true)
         sessionType(nullable: false, blank: false)
         otherSessionType(nullable: true, blank: true)
-        audience(nullable: true, blank: true)
-        otherAudience(nullable: true, blank: true)
+        expertise(nullable: true, blank: true)
+        otherExpertise(nullable: true, blank: true)
         instructionalMaterials(blank: true, nullable: true, maxSize: 50)
         otherInstructionalMaterials(blank: true, nullable: true, maxSize: 50)
     }

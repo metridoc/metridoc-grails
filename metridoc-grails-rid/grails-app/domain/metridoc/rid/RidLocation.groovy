@@ -18,6 +18,7 @@ package metridoc.rid
 class RidLocation {
 
     static hasMany = [ridInsTransaction: RidInsTransaction]
+    static belongsTo = [ridLibraryUnit: RidLibraryUnit]
 
     String name
     Integer inForm = 0
@@ -27,8 +28,12 @@ class RidLocation {
     }
 
     static constraints = {
-        name(blank: false, nullable: false, unique: true, maxSize: 150)
+        name(blank: false, nullable: false, validator: { val, obj ->
+            def withSameNameAndType = RidLocation.findByNameAndRidLibraryUnitAndIdNotEqual(obj.name, obj.ridLibraryUnit, obj.id)
+            return !withSameNameAndType
+        })
         inForm(nullable: false, inList: [0, 1, 2])
         ridInsTransaction(nullable: true)
+        ridLibraryUnit(nullable: true)
     }
 }

@@ -16,3 +16,17 @@
 <%@ page import="metridoc.rid.RidLocation" %>
 
 <g:render template="/ridAdminBase/baseForm" plugin="metridoc-rid"/>
+
+<div class="control-group fieldcontain ${hasErrors(bean: ridInstance, field: 'ridLibraryUnit', 'error')} required">
+
+    <div class="controls">
+        <label class="control-label admin-label" for="ridLibraryUnit">
+            <g:message code="ridLocationInstance.ridLibraryUnit.label" default="Library Unit"/>
+            <span class="required-indicator">*</span>
+        </label>
+        <g:select id="ridLibraryUnit" style="width:120px" name="ridLibraryUnit.id"
+                  from="${metridoc.rid.RidLibraryUnit.list()}"
+                  optionKey="id" required="" value="${ridInstance?.ridLibraryUnit?.id}"
+                  class="many-to-one"/>
+    </div>
+</div>

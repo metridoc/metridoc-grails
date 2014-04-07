@@ -15,6 +15,6 @@
 
 package metridoc.rid
 
-class RidAdminAudienceController extends RidAdminBaseController {
-    Class domainClass = RidAudience
+class RidAdminExpertiseController extends RidAdminBaseController {
+    Class domainClass = RidExpertise
 }

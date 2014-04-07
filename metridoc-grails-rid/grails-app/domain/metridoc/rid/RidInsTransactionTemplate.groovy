@@ -23,11 +23,11 @@ class RidInsTransactionTemplate extends RidInsTransactionBase {
             ridLibraryUnit: RidLibraryUnit,
             location: RidLocation,
             sessionType: RidSessionType,
-            audience: RidAudience,
+            expertise: RidExpertise,
             instructionalMaterials: RidInstructionalMaterials]
 
     static transients = ['otherSchool', 'otherLocation', 'otherSessionType',
-            'otherSessionType', 'otherAudience', 'otherInstructionalMaterials']
+            'otherSessionType', 'otherExpertise', 'otherInstructionalMaterials']
 
     //Records the owner/creator of this template
     //Leaves it blank if this is NOT a template
@@ -63,8 +63,8 @@ class RidInsTransactionTemplate extends RidInsTransactionBase {
         attendanceTotal(blank: true, nullable: true, min: 0)
         sessionType(nullable: true, blank: true)
         otherSessionType(nullable: true, blank: true)
-        audience(nullable: true, blank: true)
-        otherAudience(nullable: true, blank: true)
+        expertise(nullable: true, blank: true)
+        otherExpertise(nullable: true, blank: true)
         instructionalMaterials(blank: true, nullable: true, maxSize: 50)
         otherInstructionalMaterials(blank: true, nullable: true, maxSize: 50)
     }

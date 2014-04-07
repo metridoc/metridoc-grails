@@ -17,7 +17,7 @@ package metridoc.rid
 
 class RidUserGoal {
 
-    static hasMany = [ridTransaction: RidConsTransaction]
+    static hasMany = [ridConsTransaction: RidConsTransaction]
     static belongsTo = [ridLibraryUnit: RidLibraryUnit]
 
     Integer inForm = 0
@@ -33,7 +33,7 @@ class RidUserGoal {
             return !withSameNameAndType
         })
         inForm(nullable: false, inList: [0, 1, 2])
-        ridTransaction(nullable: true)
+        ridConsTransaction(nullable: true)
         ridLibraryUnit(nullable: true)
     }
 }
