@@ -45,7 +45,7 @@
         plugin="metridocRid"
         model="[controllerName: controllerName,
                 actionName: actionName,
-                linkController: 'ridAdminAudience',
+                linkController: 'ridAdminExpertise',
                 linkAction: 'list',
-                linkText: 'Audience',
+                linkText: 'Expertise',
         ]"/>

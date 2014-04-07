@@ -21,6 +21,8 @@ class RidLibraryUnit {
             modeOfConsultation: RidModeOfConsultation,
             serviceProvided: RidServiceProvided,
             sessionType: RidSessionType,
+            instructionalMaterials: RidInstructionalMaterials,
+            location: RidLocation,
             ridConsTransaction: RidConsTransaction,
             ridInsTransaction: RidInsTransaction]
 
@@ -29,6 +31,12 @@ class RidLibraryUnit {
     String toString() {
         return "${name}"
     }
+
+    /*
+    def static getAllDependentFields(libraryUnitID){
+        def uGoal1 = RidUserGoal.findAllByInFormAndRidLibraryUnit(1, libraryUnitID ?: RidLibraryUnit.get(1))
+        return uGoal1
+    }*/
 
     static constraints = {
         name(blank: false, nullable: false, unique: true, maxSize: 150)

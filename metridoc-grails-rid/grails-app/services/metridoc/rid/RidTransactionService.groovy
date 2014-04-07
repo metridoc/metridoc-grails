@@ -280,13 +280,34 @@ class RidTransactionService {
         }
         else{
             def sessionTypes = RidSessionType.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            def instructionalMaterials = RidInstructionalMaterials.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+            def locations = RidLocation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 1)
+
+
             if (!params.sessionID.isEmpty()) {
-                def session = RidServiceProvided.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.sessionID)
+                def session = RidSessionType.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.sessionID)
                 if (session != null && !sessionTypes.contains(session))
                     sessionTypes.add(0, session)
             }
+
+            if (!params.materialsID.isEmpty()) {
+                def material = RidInstructionalMaterials.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.materialsID)
+                if (material != null && !instructionalMaterials.contains(material))
+                    instructionalMaterials.add(0, material)
+            }
+
+            if (!params.locationID.isEmpty()) {
+                def location = RidLocation.findByRidLibraryUnitAndId(RidLibraryUnit.get(params.typeId), params.locationID)
+                if (location != null && !locations.contains(location))
+                    locations.add(0, location)
+            }
             sessionTypes.sort { it.name }.addAll(RidSessionType.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
-            return ['sessionType':sessionTypes]
+            instructionalMaterials.sort { it.name }.addAll(RidInstructionalMaterials.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+            locations.sort { it.name }.addAll(RidLocation.findAllByRidLibraryUnitAndInForm(RidLibraryUnit.get(params.typeId), 2))
+
+            return ['sessionType':sessionTypes,
+                    'instructionalMaterials':instructionalMaterials,
+                    'location':locations]
 
         }
     }
@@ -393,15 +414,15 @@ class RidTransactionService {
             if (RidInstructionalMaterials.findAllByName(otherInstructionalMaterials).size() > 0)
                 ridTransactionInstance.instructionalMaterials = RidInstructionalMaterials.findByName(otherInstructionalMaterials)
         }
-        String otherAudience = params.otherAudience
-        if (otherAudience != null && !otherAudience.isEmpty()) {
-            if (RidAudience.findAllByName(otherAudience).size() == 0) {
-                def e = new RidAudience(name: otherAudience, inForm: 0)
+        String otherExpertise = params.otherExpertise
+        if (otherExpertise != null && !otherExpertise.isEmpty()) {
+            if (RidExpertise.findAllByName(otherExpertise).size() == 0) {
+                def e = new RidExpertise(name: otherExpertise, inForm: 0)
                 e.save()
                 if (e.hasErrors()) println e.errors
             }
-            if (RidAudience.findAllByName(otherAudience).size() > 0)
-                ridTransactionInstance.audience = RidAudience.findByName(otherAudience)
+            if (RidExpertise.findAllByName(otherExpertise).size() > 0)
+                ridTransactionInstance.expertise = RidExpertise.findByName(otherExpertise)
         }
         String otherSessionType = params.otherSessionType
         if (otherSessionType != null && !otherSessionType.isEmpty()) {

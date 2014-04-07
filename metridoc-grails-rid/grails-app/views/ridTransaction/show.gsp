@@ -377,11 +377,11 @@
     </td>
 
     <td>
-        <span id="audience-label" class="property-label"><g:message
-                code="ridTransaction.audience.label" default="Audience"/></span>
+        <span id="expertise-label" class="property-label"><g:message
+                code="ridTransaction.expertise.label" default="Expertise"/></span>
         :<br/>
-        <span class="property-value" aria-labelledby="audience-label"><g:fieldValue
-                bean="${ridTransactionInstance}" field="audience"/></span>
+        <span class="property-value" aria-labelledby="expertise-label"><g:fieldValue
+                bean="${ridTransactionInstance}" field="expertise"/></span>
     </td>
 
     <td>

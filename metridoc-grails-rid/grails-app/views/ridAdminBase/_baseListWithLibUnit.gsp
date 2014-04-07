@@ -30,7 +30,12 @@
 
         <td>${fieldValue(bean: ridInstance, field: "ridLibraryUnit")}</td>
 
-        <td>${ridInstance?.ridTransaction?.size()}</td>
+        <g:if test="${session.transType == "consultation"}">
+            <td>${ridInstance?.ridConsTransaction?.size()}</td>
+        </g:if>
+        <g:else>
+            <td>${ridInstance?.ridInsTransaction?.size()}</td>
+        </g:else>
     </tr>
 </g:each>
 </tbody>
