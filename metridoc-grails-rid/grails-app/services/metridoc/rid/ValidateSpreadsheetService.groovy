@@ -17,7 +17,6 @@ package metridoc.rid
 
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.util.CellReference
-import org.codehaus.groovy.grails.io.support.ClassPathResource
 import org.codehaus.groovy.grails.web.servlet.FlashScope
 import org.springframework.web.multipart.MultipartFile
 
@@ -693,7 +692,7 @@ class ValidateSpreadsheetService {
                         break
 
                     case 16:
-                        if (!RidAudience.findByName(instance.get(i).trim())) {
+                        if (!RidExpertise.findByName(instance.get(i).trim())) {
                             flash.alerts << "Invalid Course Sponsor at " + cellRef.formatAsString()
                             return false
                         }

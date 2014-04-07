@@ -1,7 +1,9 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
+
     driverClassName = "org.h2.Driver"
+
     username = "sa"
     password = ""
     username = "admin"
@@ -16,21 +18,24 @@ hibernate {
 environments {
     development {
         dataSource {
-
-            dbCreate = "update"
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "admin"
+            password = "password"
+            dbCreate = "create-drop"
+            //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            url = "jdbc:mysql://localhost:3306/metridoc"
         }
     }
     test {
         dataSource {
+            driverClassName = "org.h2.Driver"
             dbCreate = "create-drop"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
     production {
         dataSource {
-            //TODO: change back to "update" after everything is set down
+            driverClassName = "org.h2.Driver"
             dbCreate = "update"
             url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             pooled = true
