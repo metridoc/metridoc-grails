@@ -77,6 +77,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile 'net.sf.opencsv:opencsv:2.3'
+        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 
     plugins {
@@ -90,5 +91,8 @@ grails.project.dependency.resolution = {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
         build(':squeaky-clean:0.2')
+        test(":spock:0.7") {
+            exclude "spock-grails-support"
+        }
     }
 }
