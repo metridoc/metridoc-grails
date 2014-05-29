@@ -289,7 +289,6 @@ $(function () {
             },
             success: function (data) {
                 $.each(data, function (index, itemList) {
-                    alert(index);
                     $('#' + index + ' > option').remove();
                     $.each(itemList, function (id, element) {
 
