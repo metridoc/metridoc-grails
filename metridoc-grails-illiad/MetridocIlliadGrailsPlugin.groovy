@@ -1,5 +1,5 @@
 class MetridocIlliadGrailsPlugin {
-    def version = "0.7.21"
+    def version = "0.7.22"
     def grailsVersion = "2.0 > *"
 
     def title = "Metridoc Illiad Plugin" // Headline display name of the plugin
