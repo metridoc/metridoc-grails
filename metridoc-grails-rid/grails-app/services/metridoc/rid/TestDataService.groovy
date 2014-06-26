@@ -28,7 +28,7 @@ class TestDataService {
 
         if (!RidLibraryUnit.first()) {
             // for Library unit
-            List<String> lUnit = Arrays.asList("WIC", "HSL", "CDM", "LIPPINCOTT", "RIS",
+            List<String> lUnit = Arrays.asList("Commons", "HSL", "CDM", "LIPPINCOTT", "RIS",
                     "Science Libraries")
             for (String i in lUnit.sort()) {
                 if (!RidLibraryUnit.findByName(i)) {
@@ -173,19 +173,19 @@ class TestDataService {
         }
 
         if (!RidLocation.first()) {
-            // for location -- WIC
+            // for location -- Commons
             List<String> loc = Arrays.asList("Classroom",  "Lecture hall")
 
             // since here the location is not required, this stands for null value
-            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in loc.sort()) {
-                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     p.save()
                     if (p.hasErrors()) println p.errors
                 }
             }
-            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for location -- HSL
             loc = Arrays.asList("Classroom", "Library conference room")
             new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
@@ -258,19 +258,19 @@ class TestDataService {
         }
 
         if (!RidInstructionalMaterials.first()) {
-            // for instructionalMaterials -- WIC
+            // for instructionalMaterials -- Commons
             List<String> im = Arrays.asList("Handout", "Quiz")
 
             // since here the instructionalMaterials is not required, this stands for null value
-            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in im.sort()) {
-                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     p.save()
                     if (p.hasErrors()) println p.errors
                 }
             }
-            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for instructionalMaterials -- HSL
             im = Arrays.asList("PowerPoint", "Handout")
             new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
@@ -402,19 +402,19 @@ class TestDataService {
         if (!RidUserGoal.first()) {
 
             // ---------------------------------------------------------------------------------------------
-            // for user goal -- WIC
+            // for user goal -- Commons
             List<String> uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation",
                     "Independent Research", "Improvement in Teaching")
             // since here the user goal is not required, this stands for null value
-            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in uGoal.sort()) {
-                if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     p.save()
                     if (p.hasErrors()) println p.errors
                 }
             }
-            new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for user goal -- HSL
             uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
             new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
@@ -491,18 +491,18 @@ class TestDataService {
 
         if (!RidModeOfConsultation.first()) {
             // ---------------------------------------------------------------------------------------------
-            // for mode of consultation -- WIC
+            // for mode of consultation -- Commons
             List<String> cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "Video or web conference", "In person (in library)", "In person (outside library)")
-            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in cMode) {
-                if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     c.save()
                     if (c.hasErrors()) println c.errors
                 }
             }
-            new RidModeOfConsultation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidModeOfConsultation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for mode of consutlation -- HSL
             cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
@@ -574,18 +574,18 @@ class TestDataService {
         if (!RidSessionType.first()) {
 
             // ---------------------------------------------------------------------------------------------
-            // for session type -- WIC
+            // for session type -- Commons
             List<String> cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "Video or web conference", "In person (in library)", "In person (outside library)")
-            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in cType) {
-                if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     c.save()
                     if (c.hasErrors()) println c.errors
                 }
             }
-            new RidSessionType(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidSessionType(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for session type -- HSL
             cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                     "In person (in library)", "In person (outside library)")
@@ -656,19 +656,19 @@ class TestDataService {
 
         if (!RidServiceProvided.first()) {
             // ---------------------------------------------------------------------------------------------
-            // for service provided -- WIC
+            // for service provided -- Commons
             List<String> sProvided = Arrays.asList("Course design", "Research assistance",
                     "Instructional support (apart from course design)", "Tour",
                     "Tech/Software instruction", "Mobile technology", "Assistance to undergraduates")
-            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save(validate: false)
+            new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
             for (String i in sProvided) {
-                if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("WIC"))) {
-                    def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("WIC"))
+                if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Commons"))) {
+                    def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons"))
                     s.save()
                     if (s.hasErrors()) println s.errors
                 }
             }
-            new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("WIC")).save()
+            new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for service provided -- HSL
             sProvided = Arrays.asList("Research assistance", "Acquisitions/Collections",
                     "Copyright assistance for author", "Copyright assistance for rank",
