@@ -20,6 +20,7 @@
     <div class="md-application-content">
         <tmpl:toggle/>
         <tmpl:tabs/>
+        Under development%{--
         <g:if test="${session.transType == "consultation"}">
             <div id="spreadsheetUpload-ridTransaction" class="content scaffold-search" role="main">
                 <h1><g:message code="Upload Spreadsheet"/></h1>
@@ -61,6 +62,6 @@
                 </md:form>
             </div>
         </g:if>
-        <g:else>Not implemented</g:else>
+        <g:else>Not implemented</g:else>--}%
     </div>
 </md:report>

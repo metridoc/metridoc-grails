@@ -8,7 +8,7 @@ There are a total of ten tables related to Reference Instruction Database.
 * "rid_service_provided" records different kinds of services provided, such as Course design, Research assistance, etc. It is specific to consultation transactions.
 * "rid_user_goal" records different kinds of course sponsor, such as Senior Thesis, Master Thesis, Independent Research, etc. It is specific to consultation transactions.
 * "rid_mode_of_consultation" records different modes of consultation, such as Email, Phone, In Person, etc. It is specific to consultation transactions.
-* "rid_library_unit" records different kinds of library units, such as WIC, HSL, CDM, etc. The above three tables are grouped by library units. That means different library unit has different service provided, user goal and different mode of consultation accordingly.
+* "rid_library_unit" records different kinds of library units, such as Commons, HSL, CDM, etc. The above three tables are grouped by library units. That means different library unit has different service provided, user goal and different mode of consultation accordingly.
 
 The following ER model shows the details of each table and relationship among them.
 

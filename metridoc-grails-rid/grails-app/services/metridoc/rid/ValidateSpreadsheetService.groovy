@@ -68,226 +68,231 @@ class ValidateSpreadsheetService {
 
 
     def checkValid(List<String> instance, int count, FlashScope flash) {
-
+        boolean noErrors = true
+        ArrayList spreadsheetErrors = new ArrayList()
         for (int i = 0; i < instance.size(); i++) {
             CellReference cellRef = new CellReference(5 + i * 2, count + 2)
             switch (i) {
                 case 0:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Library Unit Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Library Unit Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
+
                     }
                     if (!RidLibraryUnit.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Library at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Library at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 1:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Date of Consultation Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Date of Consultation Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     try {
                         new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(i).trim())
                     } catch (Exception e) {
-                        flash.alerts << "Invalid Date Format at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Date Format at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 2:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Stuff Pennkey Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Stuff Pennkey Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        flash.alerts << "Stuff Pennkey Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Stuff Pennkey Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 3:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Mode of Consultation Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Mode of Consultation Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!RidModeOfConsultation.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Mode of Consultation at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Mode of Consultation at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        flash.alerts << "Mode of Consultation at " + cellRef.formatAsString() +
-                                " does NOT match the Report Type" + instance.get(0).trim()
-                        return false
+                        spreadsheetErrors.add("Mode of Consultation at " + cellRef.formatAsString() +
+                                " does NOT match the Report Type" + instance.get(0).trim())
+                        noErrors = false
                     }
                     break
 
                 case 4:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Service Provided Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Service Provided Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!RidServiceProvided.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Service Provided at " + cellRef.formatAsString() + instance.get(i)
-                        return false
+                        spreadsheetErrors.add("Invalid Service Provided at " + cellRef.formatAsString() + instance.get(i))
+                        noErrors = false
                     }
                     if (!RidServiceProvided.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        flash.alerts << "Service Provided at " + cellRef.formatAsString() +
-                                " does NOT match the Report Type" + instance.get(0).trim()
-                        return false
+                        spreadsheetErrors.add("Service Provided at " + cellRef.formatAsString() +
+                                " does NOT match the Report Type" + instance.get(0).trim())
+                        noErrors = false
                     }
                     break
 
                 case 5:
                     if (!instance.get(i).trim().empty && !RidUserGoal.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid User Goal at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid User Goal at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!instance.get(i).trim().empty && !RidUserGoal.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        flash.alerts << "User Goal at " + cellRef.formatAsString() +
-                                " does NOT match the Report Type" + instance.get(0).trim()
-                        return false
+                        spreadsheetErrors.add("User Goal at " + cellRef.formatAsString() +
+                                " does NOT match the Report Type" + instance.get(0).trim())
+                        noErrors = false
                     }
                     break
 
                 case 6:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Prep Time Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Prep Time Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            flash.alerts << "Negative Prep Time at " + cellRef.formatAsString()
-                            return false
+                            spreadsheetErrors.add("Negative Prep Time at " + cellRef.formatAsString())
+                            noErrors = false
                         }
                     } catch (Exception e) {
-                        flash.alerts << "Invalid Format for Prep Time at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Format for Prep Time at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 7:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Event Length Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Event Length Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            flash.alerts << "Negative Event Length at " + cellRef.formatAsString()
-                            return false
+                            spreadsheetErrors.add("Negative Event Length at " + cellRef.formatAsString())
+                            noErrors = false
                         }
                     } catch (Exception e) {
-                        flash.alerts << "Invalid Format for Event Length at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Format for Event Length at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 8:
                     if (instance.get(i).trim().length() > 50) {
-                        flash.alerts << "User Name Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("User Name Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 9:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Rank Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Rank Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!RidRank.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Rank at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Rank at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 10:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "School Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("School Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     if (!RidSchool.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid School at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid School at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 11:
                     if (instance.get(i).trim().empty) {
-                        flash.alerts << "Interact Occurrences Cannot be Empty at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Interact Occurrences Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            flash.alerts << "Negative Interact Occurrences at " + cellRef.formatAsString()
-                            return false
+                            spreadsheetErrors.add("Negative Interact Occurrences at " + cellRef.formatAsString())
+                            noErrors = false
                         }
                         if (Integer.valueOf(instance.get(i).trim()) > 50) {
-                            flash.alerts << "Interact Occurrences Too Large at " + cellRef.formatAsString()
-                            return false
+                            spreadsheetErrors.add("Interact Occurrences Too Large at " + cellRef.formatAsString())
+                            noErrors = false
                         }
                     } catch (Exception e) {
-                        flash.alerts << "Invalid Format for Interact Occurrences at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Format for Interact Occurrences at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 12:
                     if (instance.get(i).trim().length() > 100) {
-                        flash.alerts << "Course Name Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Course Name Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 13:
                     if (!instance.get(i).trim().empty && !RidDepartment.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Department at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Department at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 14:
                     if (instance.get(i).trim().length() > 100) {
-                        flash.alerts << "Course Number Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Course Number Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 15:
                     if (instance.get(i).trim().length() > 100) {
-                        flash.alerts << "Faculty Sponsor Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Faculty Sponsor Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 16:
                     if (!instance.get(i).trim().empty && !RidCourseSponsor.findByName(instance.get(i).trim())) {
-                        flash.alerts << "Invalid Course Sponsor at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Invalid Course Sponsor at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 17:
                     if (!instance.get(i).empty && instance.get(i).trim().length() > 500) {
-                        flash.alerts << "User Question Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("User Question Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
 
                 case 18:
                     if (instance.get(i).trim().length() > 500) {
-                        flash.alerts << "Notes Too Long at " + cellRef.formatAsString()
-                        return false
+                        spreadsheetErrors.add("Notes Too Long at " + cellRef.formatAsString())
+                        noErrors = false
                     }
                     break
                 default:
-                    return false
+                    noErrors = false
             }
         }
-        return true
+        for(error in spreadsheetErrors){
+            flash.alerts << error
+        }
+        return noErrors
     }
 
     def checkFileType(String fileType) {
