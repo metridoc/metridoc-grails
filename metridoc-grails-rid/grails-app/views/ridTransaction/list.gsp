@@ -113,8 +113,7 @@
         </g:if>
 
         <g:else>
-            <g:if env="development">
-                <div id="list-ridTransaction" class="content scaffold-list" role="main">
+            <div id="list-ridTransaction" class="content scaffold-list" role="main">
                     <h1>
                         <g:message code="default.list.label" args="[entityName]"/>
                         <g:if test="${ridTransactionAllList.size() > 0}">
@@ -176,10 +175,7 @@
                         </div>
                     </g:if>
                 </div>
-            </g:if>
-            <g:else>
-                Not yet Implemented
-            </g:else>
+
         </g:else>
     </div>
 </md:report>
