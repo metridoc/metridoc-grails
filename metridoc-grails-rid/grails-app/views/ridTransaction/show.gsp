@@ -203,7 +203,6 @@
     </div>
 </g:if>
 <g:else>
-<g:if env="development">
 <g:set var="entityName" value="${message(code: 'ridTransaction.label', default: 'RidInsTransaction')}"/>
 <div id="show-ridTransaction" class="content scaffold-show" role="main">
 <h1><g:message code="default.show.label" args="[entityName]"/></h1>
@@ -424,10 +423,7 @@
 </md:form>
 
 </div>
-</g:if>
-<g:else>
-    Not yet Implemented
-</g:else>
+
 </g:else>
 </div>
 </md:report>

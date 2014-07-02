@@ -159,8 +159,7 @@
     </div>
 </g:if>
 <g:else>
-    <g:if env="development">
-        <div id="search-ridTransaction" class="content scaffold-search" role="main">
+    <div id="search-ridTransaction" class="content scaffold-search" role="main">
         <!--<h1><g:message code="RidInsTransaction Search"/></h1>-->
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
@@ -322,10 +321,7 @@
                 </fieldset>
             </md:form>
         </div>
-    </g:if>
-    <g:else>
-        Not yet Implemented
-    </g:else>
+
 
 </g:else>
 </div>

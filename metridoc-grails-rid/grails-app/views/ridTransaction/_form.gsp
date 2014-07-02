@@ -21,10 +21,5 @@
     <tmpl:formCons/>
 </g:if>
 <g:else>
-    <g:if env="development">
-        <tmpl:formIns/>
-    </g:if>
-    <g:else>
-        Not implemented
-    </g:else>
+    <tmpl:formIns/>
 </g:else>
