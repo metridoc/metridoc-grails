@@ -290,10 +290,10 @@
     </div>
 
     <div class="span2">
-        <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'instructionalMaterials', 'error')} required">
+        <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'instructionalMaterials', 'error')}">
             <label for="instructionalMaterials">
                 <g:message code="ridTransaction.instructionalMaterials.label" default="Instructional Materials "/>
-                <span class="required-indicator">*</span>
+
             </label>
 
 
@@ -308,7 +308,7 @@
                 materialsList.addAll(metridoc.rid.RidInstructionalMaterials.findAllByInFormAndRidLibraryUnit(2,
                         ridTransactionInstance?.ridLibraryUnit ?: RidLibraryUnit.get(1)))
             %>
-            <select id="instructionalMaterials" name="instructionalMaterials.id" required="" class="many-to-one input-create">
+            <select id="instructionalMaterials" name="instructionalMaterials.id"  class="many-to-one input-create">
                 <g:each in="${materialsList}">
                     <option value="${it.id}" inForm="${it.inForm}"
                             <g:if test="${ridTransactionInstance?.instructionalMaterials?.id == it.id}">selected=""</g:if>>
