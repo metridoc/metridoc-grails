@@ -1,5 +1,5 @@
 class MetridocBdGrailsPlugin {
-    def version = "0.7.24"
+    def version = "0.8.0"
     def grailsVersion = "2.0.4 > *"
 
     def loadAfter = ['metridocCore']

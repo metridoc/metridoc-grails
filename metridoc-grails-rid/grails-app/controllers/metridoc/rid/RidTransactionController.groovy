@@ -21,6 +21,8 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.shiro.SecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.MultipartFile
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 import java.text.SimpleDateFormat
 
@@ -384,6 +386,7 @@ class RidTransactionController {
                 model: [ridTransactionInstanceList: queryResult.list(params),
                         ridTransactionInstanceTotal: queryResult.count(),
                         ridTransactionAllList: queryResult.list()])
+
         return
     }
 
@@ -410,6 +413,14 @@ class RidTransactionController {
                 return
             }
 
+            def valNameResponse = spreadsheetService.validateFilename(uploadedFile.originalFilename)
+            if (valNameResponse != "good"){
+                flash.alerts << valNameResponse
+                redirect(action: "spreadsheetUpload")
+                return
+            }
+
+
             try{
                 wb = spreadsheetService.convertToWorkbook(uploadedFile)
             }catch(InvalidFormatException e){
@@ -422,31 +433,35 @@ class RidTransactionController {
                 redirect(action: "spreadsheetUpload")
                 return
             }
+            def skipCons = false
+            def skipIns = false
 
-            if (session.getAttribute("transType") == "consultation") {
-                if (RidConsTransaction.findBySpreadsheetName(uploadedFile.originalFilename)) {
-                    flash.alerts << "This spreadsheet has been uploaded before. Change the file name, for example!"
-                    redirect(action: "spreadsheetUpload")
-                    return
-                }
-            } else {
-                if (RidInsTransaction.findBySpreadsheetName(uploadedFile.originalFilename)) {
-                    flash.alerts << "This spreadsheet has been uploaded before. Change the file name, for example!"
-                    redirect(action: "spreadsheetUpload")
-                    return
-                }
+            if (RidConsTransaction.findBySpreadsheetName(uploadedFile.originalFilename)) {
+                flash.alerts << "This spreadsheet has been uploaded before. Skipping consultation upload."
+                skipCons = true
+            }
+            if (RidInsTransaction.findBySpreadsheetName(uploadedFile.originalFilename)) {
+                flash.alerts << "This spreadsheet has been uploaded before. Skipping instructional upload"
+                skipIns = true
             }
 
-            List<List<String>> allInstances = spreadsheetService.getInstancesFromSpreadsheet(wb, flash)
-            if (!allInstances.size()) {
+            TreeMap<String,ArrayList<ArrayList<String>>> allInstances = spreadsheetService.getAllInstances(wb, flash, skipCons, skipIns)
+            if (!allInstances?.size()) {
                 redirect(action: "spreadsheetUpload")
                 return
             }
+            def numCons = allInstances?.get("cons")?.size() ?: 0
+            def numIns = allInstances?.get("ins")?.size() ?: 0
+            log.warn "***********************"
+            log.warn "${allInstances}"
+            log.warn "${numCons}"
+            log.warn "${numIns}"
+            log.warn "***********************"
 
             if (spreadsheetService.saveToDatabase(allInstances, uploadedFile.originalFilename, flash)) {
                 flash.infos << "Spreadsheet successfully uploaded. " +
-                    String.valueOf(allInstances.size()) + " instances uploaded."
-                redirect(action: "list")
+                    String.valueOf(numCons) + " consultation instances and "+ String.valueOf(numIns)+" instructional instances uploaded."
+                redirect(action: "spreadsheetUpload")
             } else {
                 redirect(action: "spreadsheetUpload")
                 return
