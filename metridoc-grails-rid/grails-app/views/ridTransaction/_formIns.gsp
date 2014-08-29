@@ -134,7 +134,7 @@
                 <g:message code="ridTransaction.attendanceTotal.label" default="Total Attendance"/>
                 <span class="required-indicator">*</span>
             </label>
-            <g:field class="trans-user-input input-create" name="attendanceTotal" type="number" max="50"
+            <g:field class="trans-user-input input-create" name="attendanceTotal" type="number" max="1023"
                      value="${ridTransactionInstance.attendanceTotal}" required=""/>
         </div>
     </div>

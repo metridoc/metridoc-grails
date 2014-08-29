@@ -34,7 +34,7 @@ class RidConsTransaction extends RidConsTransactionBase {
     static constraints = {
         // STATEMENT OF WORK
         userQuestion(blank: true, nullable: true, maxSize: 500)
-        interactOccurrences(nullable: false, min: 0, max: 50)
+        interactOccurrences(nullable: false, min: 0, max: 1023)
         prepTime(nullable: false, min: 0)
         eventLength(nullable: false, min: 0)
         notes(blank: true, nullable: true, maxSize: 500)
