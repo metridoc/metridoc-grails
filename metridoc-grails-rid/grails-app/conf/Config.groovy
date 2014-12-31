@@ -97,6 +97,18 @@ environments {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
+
+    local {
+        grails.logging.jul.usebridge = true
+        grails.gsp.reload.enable = true
+        grails.resources.processing.enabled = true
+        grails.resources.debug = true
+        grails.config.locations << "classpath:LocalMetridocConfig.groovy"
+        grails.config.locations << "file:${metridoc.home}/LocalMetridocConfig.groovy"
+        if (System.properties["${appName}.config.location"]) {
+            grails.config.locations << "file:" + System.properties["${appName}.config.location"]
+        }
+    }
 }
 
 // log4j configuration
