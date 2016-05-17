@@ -27,7 +27,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 */
 class ReportGeneratorHelper {
 	
-	private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss");
+	private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	private static String STATUS_UNFILLED = "UNF";
 	private static String STATUS_FILLED = "REC";
