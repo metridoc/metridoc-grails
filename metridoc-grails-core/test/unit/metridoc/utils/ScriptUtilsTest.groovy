@@ -24,12 +24,14 @@ import static metridoc.utils.ScriptUtils.SNAPSHOT
  */
 class ScriptUtilsTest {
 
+/*
     @Test
     void "do a basic integrated test"() {
         String version = ScriptUtils.getMostRecentCoreVersion()
         assert version
         assert !version.endsWith(SNAPSHOT)
     }
+*/
 
     @Test
     void "basic test on available metridoc-core versions"() {
