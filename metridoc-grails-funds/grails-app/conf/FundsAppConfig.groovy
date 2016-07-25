@@ -1,7 +1,12 @@
 AppConfig {
     ledgers = [
+<<<<<<< HEAD
+            69: ["startDate" : "6/22/2016"],
+            65: ["startDate" : "6/22/2015", "endDate": "6/21/2016"],
+=======
             69: ["startDate" : "6/24/16"],
             65: ["startDate" : "6/22/2015", "endDate" : "6/23/16"],
+>>>>>>> master
             62: ["startDate": "6/20/2014", "endDate": "6/21/2015"],
             59: ["startDate": "6/19/2013", "endDate": "6/19/2014"],
             56: ["startDate": "6/21/2012", "endDate": "6/18/2013"],

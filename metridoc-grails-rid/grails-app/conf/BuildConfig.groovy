@@ -59,6 +59,8 @@ grails.project.dependency.resolution = {
         mavenRepo "http://dl.bintray.com/upennlib/maven"
         mavenLocal()
         grailsCentral()
+        mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"
 
     }
     dependencies {
