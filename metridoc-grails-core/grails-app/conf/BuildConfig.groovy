@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
- 
+
 grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
@@ -63,6 +63,8 @@ grails.project.dependency.resolution = {
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
         mavenRepo "http://jcenter.bintray.com/"
+        mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"
     }
 
     //standard jar maven dependencies

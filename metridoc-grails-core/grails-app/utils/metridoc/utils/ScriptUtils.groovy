@@ -29,7 +29,7 @@ class ScriptUtils {
 
     public static final String SNAPSHOT = "-SNAPSHOT"
     public static final String VERSIONS_MUST_BE_PROVIDED = "a version list must be provided"
-    public static final String MAVEN_XML_DATA = "http://metridoc.googlecode.com/svn/maven/repository/org/grails/plugins/metridoc-core/maven-metadata.xml"
+    public static final String MAVEN_XML_DATA = "http://dl.bintray.com/upennlib/metridoc/org/grails/plugins/metridoc-core/maven-metadata.xml"//"http://metridoc.googlecode.com/svn/maven/repository/org/grails/plugins/metridoc-core/maven-metadata.xml"
     public static final String TEMPLATE = "TEMPLATE_"
     public static final String ENCODING = "utf-8"
 
