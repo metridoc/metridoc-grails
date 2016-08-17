@@ -48,7 +48,9 @@ class ReportGeneratorHelper {
 		if(obj instanceof Date){
 			return DATE_FORMAT.format((Date)obj);
 		}else{
-			return obj != null ? obj.toString() : "";
+			String objString = obj.toString();
+			String objStringSanitized = objString.replaceAll("\u00a0","");
+			return obj != null ? objStringSanitized : "";
 		}
 	}
 }
