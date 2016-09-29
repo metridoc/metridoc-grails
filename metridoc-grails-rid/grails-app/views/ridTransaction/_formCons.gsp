@@ -60,6 +60,17 @@
                          required="" value="${ridTransactionInstance?.staffPennkey}"/>
         </div>
     </div>
+
+    <div class="span3">
+        <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'testField', 'error')} ">
+            <label for="testField">
+                <g:message code="ridTransaction.testField.label" default="Test"/>
+                <span class="required-indicator">*</span>
+            </label>
+            <g:textField class="trans-user-input input-wide" name="testField" maxlength="100"
+                         required="" value="66666"/>
+        </div>
+    </div>
 </div>
 
 

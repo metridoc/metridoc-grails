@@ -39,6 +39,7 @@ class RidConsTransaction extends RidConsTransactionBase {
         eventLength(nullable: false, min: 0)
         notes(blank: true, nullable: true, maxSize: 500)
         staffPennkey(blank: false, nullable: false, maxSize: 100)
+        testField(blank:true,nullable: true ,maxSize:100)
 
         // ROLES
         facultySponsor(blank: true, nullable: true, maxSize: 100)

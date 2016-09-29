@@ -4,10 +4,8 @@ dataSource {
 
     driverClassName = "org.h2.Driver"
 
-    username = "sa"
-    password = ""
-    username = "admin"
-    password = "password"
+    username = "root"
+    password = "root"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -19,8 +17,8 @@ environments {
     development {
         dataSource {
             driverClassName = "com.mysql.jdbc.Driver"
-            username = "admin"
-            password = "password"
+            username = "root"
+            password = "root"
             dbCreate = "create-drop"
             //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             url = "jdbc:mysql://localhost:3306/metridoc"
