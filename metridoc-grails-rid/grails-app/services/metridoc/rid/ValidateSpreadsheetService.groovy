@@ -365,6 +365,18 @@ class ValidateSpreadsheetService {
                     break
 
                 case 17:
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
+                        break
+                    }
+                    if (!RidExpertise.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Expertise at " + cellRef.formatAsString())
+                        noErrors = false
+                        allEmpty = false
+                    }
+                    allEmpty = false
+                    break
+
+                case 18:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -376,7 +388,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 18:
+                case 19:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -600,19 +612,9 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 9:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        break
-                    }
-                    if (!RidExpertise.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Expertise at " + cellRef.formatAsString())
-                        noErrors = false
-                        allEmpty = false
-                    }
-                    allEmpty = false
-                    break
 
-                case 10:
+
+                case 9:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
@@ -624,7 +626,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 11:
+                case 10:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         spreadsheetErrors.add("Ins instance ${count+1}: Total Attendance Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
@@ -645,7 +647,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 12:
+                case 11:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -657,7 +659,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 13:
+                case 12:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
@@ -676,7 +678,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 14:
+                case 13:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -688,7 +690,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 15:
+                case 14:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -700,7 +702,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 16:
+                case 15:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -712,7 +714,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 17:
+                case 16:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -724,7 +726,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 18:
+                case 17:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -736,7 +738,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 19:
+                case 18:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }
@@ -748,7 +750,7 @@ class ValidateSpreadsheetService {
                     allEmpty = false
                     break
 
-                case 20:
+                case 19:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
                         break
                     }

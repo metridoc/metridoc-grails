@@ -17,17 +17,19 @@ package metridoc.rid
 
 class RidConsTransaction extends RidConsTransactionBase {
 
-    static belongsTo = [department: RidDepartment,
-            courseSponsor: RidCourseSponsor,
-            userGoal: RidUserGoal,
+    static belongsTo = [
+            department        : RidDepartment,
+            courseSponsor     : RidCourseSponsor,
+            userGoal          : RidUserGoal,
             modeOfConsultation: RidModeOfConsultation,
-            rank: RidRank,
-            serviceProvided: RidServiceProvided,
-            school: RidSchool,
-            ridLibraryUnit: RidLibraryUnit]
+            rank              : RidRank,
+            serviceProvided   : RidServiceProvided,
+            school            : RidSchool,
+            expertise         : RidExpertise,
+            ridLibraryUnit    : RidLibraryUnit]
 
     static transients = ['otherRank', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
-            'otherCourseSponsor', 'otherService']
+                         'otherCourseSponsor','otherExpertise', 'otherService']
 
     String spreadsheetName
 
@@ -39,7 +41,7 @@ class RidConsTransaction extends RidConsTransactionBase {
         eventLength(nullable: false, min: 0)
         notes(blank: true, nullable: true, maxSize: 500)
         staffPennkey(blank: false, nullable: false, maxSize: 100)
-        testField(blank:true,nullable: true ,maxSize:100)
+//        testField(blank:true,nullable: true ,maxSize:100)
 
         // ROLES
         facultySponsor(blank: true, nullable: true, maxSize: 100)
@@ -60,6 +62,8 @@ class RidConsTransaction extends RidConsTransactionBase {
         otherService(blank: true, nullable: true, maxSize: 100)
         modeOfConsultation(nullable: false)
         userGoal(nullable: true)
+        expertise(nullable: true, blank: true)
+        otherExpertise(nullable: true, blank: true)
         ridLibraryUnit(nullable: false)
         spreadsheetName(nullable: true, blank: true)
     }

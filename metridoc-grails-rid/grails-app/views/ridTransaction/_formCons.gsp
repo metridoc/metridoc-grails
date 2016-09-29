@@ -13,7 +13,7 @@
   - 	permissions and limitations under the License.
   --}%
 
-<%@ page import="metridoc.rid.RidDepartment;metridoc.rid.RidSchool;metridoc.rid.RidRank;java.text.SimpleDateFormat;metridoc.rid.RidUserGoal;metridoc.rid.RidLibraryUnit;metridoc.rid.RidLibraryUnit;metridoc.rid.RidDepartment;metridoc.rid.RidCourseSponsor;metridoc.rid.RidConsTransaction;metridoc.rid.RidInsTransaction" %>
+<%@ page import="metridoc.rid.RidExpertise;metridoc.rid.RidDepartment;metridoc.rid.RidSchool;metridoc.rid.RidRank;java.text.SimpleDateFormat;metridoc.rid.RidUserGoal;metridoc.rid.RidLibraryUnit;metridoc.rid.RidLibraryUnit;metridoc.rid.RidDepartment;metridoc.rid.RidCourseSponsor;metridoc.rid.RidConsTransaction;metridoc.rid.RidInsTransaction" %>
 
 <r:external dir="select2-3.4.0" file="select2edit.css" plugin="metridoc-rid"/>
 <r:external dir="select2-3.4.0" file="select2.js" plugin="metridoc-rid"/>
@@ -61,16 +61,16 @@
         </div>
     </div>
 
-    <div class="span3">
-        <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'testField', 'error')} ">
-            <label for="testField">
-                <g:message code="ridTransaction.testField.label" default="Test"/>
-                <span class="required-indicator">*</span>
-            </label>
-            <g:textField class="trans-user-input input-wide" name="testField" maxlength="100"
-                         required="" value="66666"/>
-        </div>
-    </div>
+    %{--<div class="span3">--}%
+        %{--<div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'testField', 'error')} ">--}%
+            %{--<label for="testField">--}%
+                %{--<g:message code="ridTransaction.testField.label" default="Test"/>--}%
+                %{--<span class="required-indicator">*</span>--}%
+            %{--</label>--}%
+            %{--<g:textField class="trans-user-input input-wide" name="testField" maxlength="100"--}%
+                         %{--required="" value="66666"/>--}%
+        %{--</div>--}%
+    %{--</div>--}%
 </div>
 
 
@@ -383,6 +383,42 @@
             <g:select id="department" name="department.id"
                       from="${RidDepartment.list().sort { it.name }}" optionKey="id"
                       value="${ridTransactionInstance?.department?.id}" class="many-to-one input-create"/>
+        </div>
+    </div>
+
+    <div class="span2">
+        <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'expertise', 'error')} required">
+            <label for="expertise">
+                <g:message code="ridTransaction.expertise.label" default="Expertise"/>
+
+            </label>
+
+            <div id="currentExpertise" class="hidden-div">${ridTransactionInstance?.expertise?.id}</div>
+            <%
+                expertiseList = RidExpertise.findAllByInForm(1)
+                if (ridTransactionInstance?.expertise?.inForm == 0)
+                    expertiseList.add(0, RidExpertise.findById(
+                            ridTransactionInstance?.expertise?.id))
+                expertiseList = expertiseList.sort { it.id }
+                expertiseList.addAll(RidExpertise.findAllByInForm(2))
+            %>
+            <select id="expertise" name="expertise.id" required="" class="many-to-one input-create">
+                <g:each in="${expertiseList}">
+                    <option value="${it.id}" inForm="${it.inForm}"
+                            <g:if test="${ridTransactionInstance?.expertise?.id == it.id}">selected=""</g:if>>
+                        ${it.name}
+                    </option>
+                </g:each>
+            </select>
+        </div>
+
+        <div id="otherExpertiseDiv"
+             class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'otherExpertise', 'error')} hidden-div">
+            <label for="otherExpertise">
+                <g:message code="ridTransaction.otherExpertise.label" default="Other Expertise"/>
+            </label>
+            <g:textField class="trans-user-input input-create" name="otherExpertise" maxlength="50"
+                         value="${ridTransactionInstance?.otherExpertise}"/>
         </div>
     </div>
 </div>

@@ -23,8 +23,7 @@ import org.springframework.web.multipart.MultipartFile
 
 import java.text.SimpleDateFormat
 
-class SpreadsheetService extends ValidateSpreadsheetService{
-
+class SpreadsheetService extends ValidateSpreadsheetService {
 
     //Workbook generated using convertToWorkbook in ValidateSpreadsheetService
     def getInstancesFromSpreadsheet(Workbook wb, FlashScope flash, String type) {
@@ -34,12 +33,11 @@ class SpreadsheetService extends ValidateSpreadsheetService{
         Boolean iterNext = Boolean.TRUE
         ArrayList<ArrayList<String>> allInstances = new ArrayList<ArrayList<String>>()
         def rowMax
-        if (type == "cons"){
+        if (type == "cons") {
             rowMax = 42
             sheet = wb.getSheetAt(0)
 
-        }
-        else{
+        } else {
             rowMax = 46
             sheet = wb.getSheetAt(1)
 
@@ -86,23 +84,20 @@ class SpreadsheetService extends ValidateSpreadsheetService{
                 }
             }
 
-            if (emptyCount == (rowMax-4)/2) iterNext = Boolean.FALSE
+            if (emptyCount == (rowMax - 4) / 2) iterNext = Boolean.FALSE
             if (iterNext) {
                 def validity
-                if (type == "cons"){
+                if (type == "cons") {
                     validity = checkValidCons(instance, allInstances.size(), flash)
-                }
-                else{
+                } else {
                     validity = checkValidIns(instance, allInstances.size(), flash)
                 }
-                if (validity == "empty"){
+                if (validity == "empty") {
                     allInstances.clear()
                     return allInstances
-                }
-                else if (validity){
+                } else if (validity) {
                     allInstances.add(instance)
-                }
-                else {
+                } else {
                     allInstances.clear()
                     return allInstances
                 }
@@ -114,32 +109,29 @@ class SpreadsheetService extends ValidateSpreadsheetService{
 
     def getAllInstances(Workbook wb, FlashScope flash, skipCons, skipIns) {
         def consInstances = null
-        if(!skipCons){
+        if (!skipCons) {
             consInstances = getInstancesFromSpreadsheet(wb, flash, "cons")
 
         }
         def insInstances = null
-        if(!skipIns){
-            insInstances= getInstancesFromSpreadsheet(wb, flash, "ins")
+        if (!skipIns) {
+            insInstances = getInstancesFromSpreadsheet(wb, flash, "ins")
         }
-        def allInstances = new TreeMap<String,ArrayList<ArrayList<String>>>()
-        if (!consInstances?.size() && !insInstances?.size()){
+        def allInstances = new TreeMap<String, ArrayList<ArrayList<String>>>()
+        if (!consInstances?.size() && !insInstances?.size()) {
             allInstances = null
-            if(!skipCons) flash.alerts << "Invalid consultation transactions found"
-            if(!skipIns) flash.alerts << "Invalid instructional transactions found"
-            if(!skipCons && !skipIns) flash.alerts << "No Instances in the Spreadsheet Uploaded!"
-        }
-        else if (!insInstances?.size()){
-            allInstances.put("cons",consInstances)
-            if(!skipIns) flash.alerts << "Invalid instructional transactions found"
-        }
-        else if (!consInstances?.size()){
-            allInstances.put("ins",insInstances)
-            if(!skipCons) flash.alerts << "Invalid consultation transactions found"
-        }
-        else{
-            allInstances.put("cons",consInstances)
-            allInstances.put("ins",insInstances)
+            if (!skipCons) flash.alerts << "Invalid consultation transactions found"
+            if (!skipIns) flash.alerts << "Invalid instructional transactions found"
+            if (!skipCons && !skipIns) flash.alerts << "No Instances in the Spreadsheet Uploaded!"
+        } else if (!insInstances?.size()) {
+            allInstances.put("cons", consInstances)
+            if (!skipIns) flash.alerts << "Invalid instructional transactions found"
+        } else if (!consInstances?.size()) {
+            allInstances.put("ins", insInstances)
+            if (!skipCons) flash.alerts << "Invalid consultation transactions found"
+        } else {
+            allInstances.put("cons", consInstances)
+            allInstances.put("ins", insInstances)
         }
         return allInstances
 
@@ -147,19 +139,19 @@ class SpreadsheetService extends ValidateSpreadsheetService{
     }
 
 
-
-    def saveToDatabase(TreeMap<String,ArrayList<ArrayList<String>>> allInstances, String spreadsheetName, FlashScope flash) {
+    def saveToDatabase(TreeMap<String, ArrayList<ArrayList<String>>> allInstances, String spreadsheetName, FlashScope flash) {
         def consInstances = allInstances.get("cons") ?: null
         def insInstances = allInstances.get("ins") ?: null
-        if (consInstances){
+        if (consInstances) {
             for (ArrayList<String> instance in consInstances) {
                 def type = RidLibraryUnit.findByName(instance.get(0))
-                def t = new RidConsTransaction(staffPennkey: instance.get(2), userQuestion: instance.get(17),
+                def t = new RidConsTransaction(staffPennkey: instance.get(2), userQuestion: instance.get(18),
+                        expertise: RidExpertise.findByName(instance.get(17)),
                         dateOfConsultation: new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(1)),
                         interactOccurrences: Integer.valueOf(instance.get(11)).intValue(),
                         prepTime: Integer.valueOf(instance.get(6)).intValue(),
                         eventLength: Integer.valueOf(instance.get(7)).intValue(),
-                        notes: instance.get(18), facultySponsor: instance.get(15), courseName: instance.get(12),
+                        notes: instance.get(19), facultySponsor: instance.get(15), courseName: instance.get(12),
                         courseNumber: instance.get(14), userName: instance.get(8),
                         department: RidDepartment.findByName(instance.get(13)),
                         courseSponsor: RidCourseSponsor.findByName(instance.get(16)),
@@ -184,24 +176,23 @@ class SpreadsheetService extends ValidateSpreadsheetService{
             }
         }
 
-        if (insInstances){
+        if (insInstances) {
             for (ArrayList<String> instance in insInstances) {
                 def type = RidLibraryUnit.findByName(instance.get(0))
-                def t = new RidInsTransaction(instructorPennkey: instance.get(2), sessionDescription: instance.get(19),
+                def t = new RidInsTransaction(instructorPennkey: instance.get(2), sessionDescription: instance.get(18),
                         dateOfInstruction: new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(1)),
-                        attendanceTotal: Integer.valueOf(instance.get(11)).intValue(),
+                        attendanceTotal: Integer.valueOf(instance.get(10)).intValue(),
                         location: RidLocation.findByName(instance.get(6)),
                         prepTime: Integer.valueOf(instance.get(7)).intValue(),
                         eventLength: Integer.valueOf(instance.get(8)).intValue(),
-                        sequenceUnit: Integer.valueOf(instance.get(13)).intValue(),
-                        notes: instance.get(20), facultySponsor: instance.get(17), sequenceName: instance.get(12),
-                        department: RidDepartment.findByName(instance.get(16)), requestor: instance.get(18),
-                        courseName: instance.get(14), courseNumber: instance.get(15),
+                        sequenceUnit: Integer.valueOf(instance.get(12)).intValue(),
+                        notes: instance.get(19), facultySponsor: instance.get(16), sequenceName: instance.get(11),
+                        department: RidDepartment.findByName(instance.get(15)), requestor: instance.get(17),
+                        courseName: instance.get(13), courseNumber: instance.get(14),
                         instructionalMaterials: RidInstructionalMaterials.findByNameAndRidLibraryUnit(instance.get(5), type),
                         coInstructorPennkey: instance.get(3),
-                        expertise: RidExpertise.findByName(instance.get(9)),
                         sessionType: RidSessionType.findByNameAndRidLibraryUnit(instance.get(4), type),
-                        school: RidSchool.findByName(instance.get(10)),
+                        school: RidSchool.findByName(instance.get(9)),
                         ridLibraryUnit: type,
                         spreadsheetName: spreadsheetName
                 )
@@ -238,10 +229,10 @@ class SpreadsheetService extends ValidateSpreadsheetService{
             def consHeaders = ["Library Unit", "Date of Consultation (mm/dd/yyyy)", "Staff Pennkey", "Consultation Mode",
                                "Service Provided", "User Goal", "Prep Time (min)", "Event Length (min)", "User Name",
                                "Rank", "School", "Interact Occurrences", "Course Name", "Course Number", "Department",
-                               "Faculty Sponsor", "Course Sponsor", "User Question", "Notes"]
+                               "Faculty Sponsor", "Course Sponsor", "Expertise", "User Question", "Notes"]
             Row row = sheet.createRow(rowNum++)
             def cellnum = 0
-            for (h in consHeaders){
+            for (h in consHeaders) {
                 row.createCell(cellnum).setCellValue(h)
                 cellnum++
             }
@@ -265,20 +256,21 @@ class SpreadsheetService extends ValidateSpreadsheetService{
                 row.createCell(14).setCellValue(rid?.department?.name ?: "")
                 row.createCell(15).setCellValue(rid?.facultySponsor ?: "")
                 row.createCell(16).setCellValue(rid?.courseSponsor?.name ?: "")
-                row.createCell(17).setCellValue(rid?.userQuestion ?: "")
-                row.createCell(18).setCellValue(rid?.notes ?: "")
+                row.createCell(17).setCellValue(rid?.expertise?.name ?: "")
+                row.createCell(18).setCellValue(rid?.userQuestion ?: "")
+                row.createCell(19).setCellValue(rid?.notes ?: "")
 
                 for (int c = 0; c < 19; c++)
                     row.getCell(c).setCellType(Cell.CELL_TYPE_STRING)
             }
         } else {
             def insHeaders = ["Library Unit", "Date of Instruction (mm/dd/yyyy)", "Instructor Pennkey", "Co-instructor Pennkey",
-                    "Session Type", "Instructional Materials", "Location", "Prep Time (min)", "Event Length (min)", "Expertise",
-                    "School", "Attendance", "Sequence Name", "Module Number", "Course Name", "Course Number", "Department",
-                    "Faculty Sponsor", "Requestor", "Session Description", "Notes"]
+                              "Session Type", "Instructional Materials", "Location", "Prep Time (min)", "Event Length (min)",
+                              "School", "Attendance", "Sequence Name", "Module Number", "Course Name", "Course Number", "Department",
+                              "Faculty Sponsor", "Requestor", "Session Description", "Notes"]
             Row row = sheet.createRow(rowNum++)
             def cellnum = 0
-            for (h in insHeaders){
+            for (h in insHeaders) {
                 row.createCell(cellnum).setCellValue(h)
                 cellnum++
             }
@@ -294,18 +286,17 @@ class SpreadsheetService extends ValidateSpreadsheetService{
                 row.createCell(6).setCellValue(rid.location.name)
                 row.createCell(7).setCellValue(String.valueOf(rid.prepTime))
                 row.createCell(8).setCellValue(String.valueOf(rid.eventLength))
-                row.createCell(9).setCellValue(rid?.expertise?.name ?: "")
-                row.createCell(10).setCellValue(rid?.school?.name ?: "")
-                row.createCell(11).setCellValue(String.valueOf(rid.attendanceTotal))
-                row.createCell(12).setCellValue(rid?.sequenceName ?: "")
-                row.createCell(13).setCellValue(String.valueOf(rid?.sequenceUnit ?: ""))
-                row.createCell(14).setCellValue(rid?.courseName ?: "")
-                row.createCell(15).setCellValue(rid?.courseNumber ?: "")
-                row.createCell(16).setCellValue(rid?.department?.name ?: "")
-                row.createCell(17).setCellValue(rid?.facultySponsor ?: "")
-                row.createCell(18).setCellValue(rid?.requestor ?: "")
-                row.createCell(19).setCellValue(rid?.sessionDescription ?: "")
-                row.createCell(20).setCellValue(rid?.notes ?: "")
+                row.createCell(9).setCellValue(rid?.school?.name ?: "")
+                row.createCell(10).setCellValue(String.valueOf(rid.attendanceTotal))
+                row.createCell(11).setCellValue(rid?.sequenceName ?: "")
+                row.createCell(12).setCellValue(String.valueOf(rid?.sequenceUnit ?: ""))
+                row.createCell(13).setCellValue(rid?.courseName ?: "")
+                row.createCell(14).setCellValue(rid?.courseNumber ?: "")
+                row.createCell(15).setCellValue(rid?.department?.name ?: "")
+                row.createCell(16).setCellValue(rid?.facultySponsor ?: "")
+                row.createCell(17).setCellValue(rid?.requestor ?: "")
+                row.createCell(18).setCellValue(rid?.sessionDescription ?: "")
+                row.createCell(19).setCellValue(rid?.notes ?: "")
 
                 for (int c = 0; c < 21; c++)
                     row.getCell(c).setCellType(Cell.CELL_TYPE_STRING)

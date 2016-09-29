@@ -40,12 +40,3 @@
                 linkAction: 'list',
                 linkText: 'Materials',
         ]"/>
-<g:render
-        template="/ridTransaction/tabLabel"
-        plugin="metridocRid"
-        model="[controllerName: controllerName,
-                actionName: actionName,
-                linkController: 'ridAdminExpertise',
-                linkAction: 'list',
-                linkText: 'Expertise',
-        ]"/>
