@@ -298,7 +298,7 @@ class SpreadsheetService extends ValidateSpreadsheetService {
                 row.createCell(18).setCellValue(rid?.sessionDescription ?: "")
                 row.createCell(19).setCellValue(rid?.notes ?: "")
 
-                for (int c = 0; c < 21; c++)
+                for (int c = 0; c < 20; c++)
                     row.getCell(c).setCellType(Cell.CELL_TYPE_STRING)
             }
         }
