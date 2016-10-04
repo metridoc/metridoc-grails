@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile
 import java.text.SimpleDateFormat
 
 class SpreadsheetService extends ValidateSpreadsheetService {
+    static final def CONS_ROW_NUM = 44
+    final def INS_ROW_NUM = 46
 
     //Workbook generated using convertToWorkbook in ValidateSpreadsheetService
     def getInstancesFromSpreadsheet(Workbook wb, FlashScope flash, String type) {
@@ -34,13 +36,12 @@ class SpreadsheetService extends ValidateSpreadsheetService {
         ArrayList<ArrayList<String>> allInstances = new ArrayList<ArrayList<String>>()
         def rowMax
         if (type == "cons") {
-            rowMax = 42
+            rowMax = CONS_ROW_NUM
             sheet = wb.getSheetAt(0)
 
         } else {
-            rowMax = 46
+            rowMax = INS_ROW_NUM;
             sheet = wb.getSheetAt(1)
-
         }
         while (iterNext && ++colNum) {
             int emptyCount = 0
@@ -179,20 +180,27 @@ class SpreadsheetService extends ValidateSpreadsheetService {
         if (insInstances) {
             for (ArrayList<String> instance in insInstances) {
                 def type = RidLibraryUnit.findByName(instance.get(0))
-                def t = new RidInsTransaction(instructorPennkey: instance.get(2), sessionDescription: instance.get(18),
+                def t = new RidInsTransaction(
                         dateOfInstruction: new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(1)),
-                        attendanceTotal: Integer.valueOf(instance.get(10)).intValue(),
+                        instructorPennkey: instance.get(2),
+                        coInstructorPennkey: instance.get(3),
+                        sessionType: RidSessionType.findByNameAndRidLibraryUnit(instance.get(4), type),
+                        instructionalMaterials: RidInstructionalMaterials.findByNameAndRidLibraryUnit(instance.get(5), type),
                         location: RidLocation.findByName(instance.get(6)),
                         prepTime: Integer.valueOf(instance.get(7)).intValue(),
                         eventLength: Integer.valueOf(instance.get(8)).intValue(),
-                        sequenceUnit: Integer.valueOf(instance.get(12)).intValue(),
-                        notes: instance.get(19), facultySponsor: instance.get(16), sequenceName: instance.get(11),
-                        department: RidDepartment.findByName(instance.get(15)), requestor: instance.get(17),
-                        courseName: instance.get(13), courseNumber: instance.get(14),
-                        instructionalMaterials: RidInstructionalMaterials.findByNameAndRidLibraryUnit(instance.get(5), type),
-                        coInstructorPennkey: instance.get(3),
-                        sessionType: RidSessionType.findByNameAndRidLibraryUnit(instance.get(4), type),
-                        school: RidSchool.findByName(instance.get(9)),
+                        userName: instance.get(9),
+                        school: RidSchool.findByName(instance.get(10)),
+                        attendanceTotal: Integer.valueOf(instance.get(11)).intValue(),
+                        sequenceName: instance.get(12),
+                        sequenceUnit: Integer.valueOf(instance.get(13)).intValue(),
+                        courseName: instance.get(14),
+                        department: RidDepartment.findByName(instance.get(15)),
+                        courseNumber: instance.get(16),
+                        facultySponsor: instance.get(17),
+                        requestor: instance.get(18),
+                        sessionDescription: instance.get(19),
+                        notes: instance.get(20),
                         ridLibraryUnit: type,
                         spreadsheetName: spreadsheetName
                 )
@@ -286,17 +294,18 @@ class SpreadsheetService extends ValidateSpreadsheetService {
                 row.createCell(6).setCellValue(rid.location.name)
                 row.createCell(7).setCellValue(String.valueOf(rid.prepTime))
                 row.createCell(8).setCellValue(String.valueOf(rid.eventLength))
-                row.createCell(9).setCellValue(rid?.school?.name ?: "")
-                row.createCell(10).setCellValue(String.valueOf(rid.attendanceTotal))
-                row.createCell(11).setCellValue(rid?.sequenceName ?: "")
-                row.createCell(12).setCellValue(String.valueOf(rid?.sequenceUnit ?: ""))
-                row.createCell(13).setCellValue(rid?.courseName ?: "")
-                row.createCell(14).setCellValue(rid?.courseNumber ?: "")
+                row.createCell(9).setCellValue(rid?.userName ?: "")
+                row.createCell(10).setCellValue(rid?.school?.name ?: "")
+                row.createCell(11).setCellValue(String.valueOf(rid.attendanceTotal))
+                row.createCell(12).setCellValue(rid?.sequenceName ?: "")
+                row.createCell(13).setCellValue(String.valueOf(rid?.sequenceUnit ?: ""))
+                row.createCell(14).setCellValue(rid?.courseName ?: "")
                 row.createCell(15).setCellValue(rid?.department?.name ?: "")
-                row.createCell(16).setCellValue(rid?.facultySponsor ?: "")
-                row.createCell(17).setCellValue(rid?.requestor ?: "")
-                row.createCell(18).setCellValue(rid?.sessionDescription ?: "")
-                row.createCell(19).setCellValue(rid?.notes ?: "")
+                row.createCell(16).setCellValue(rid?.courseNumber ?: "")
+                row.createCell(17).setCellValue(rid?.facultySponsor ?: "")
+                row.createCell(18).setCellValue(rid?.requestor ?: "")
+                row.createCell(19).setCellValue(rid?.sessionDescription ?: "")
+                row.createCell(20).setCellValue(rid?.notes ?: "")
 
                 for (int c = 0; c < 20; c++)
                     row.getCell(c).setCellType(Cell.CELL_TYPE_STRING)

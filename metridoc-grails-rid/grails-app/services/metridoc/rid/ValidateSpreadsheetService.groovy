@@ -35,7 +35,7 @@ class ValidateSpreadsheetService {
         int colNum = 1
 
         List<String> itemNames = new ArrayList<String>()
-        for (int rowNum = 5; rowNum < 42; rowNum += 2) {
+        for (int rowNum = 5; rowNum < SpreadsheetService.CONS_ROW_NUM; rowNum += 2) {
             Row row = sheet.getRow(rowNum)
             if (!row) return false
             Cell cell = row.getCell(colNum)
@@ -54,7 +54,7 @@ class ValidateSpreadsheetService {
         List<String> validNames = Arrays.asList('Library Unit', 'Date of Consultation (mm/dd/yyyy)', 'Staff Pennkey',
                 'Consultation Mode', 'Service Provided', 'User Goal', 'Prep Time (enter in minutes)',
                 'Event Length (enter in minutes)', 'User Name', 'Rank', 'School', 'Interact Occurrences', 'Course Name',
-                'Department', 'Course Number', 'Faculty Sponsor', 'Course Sponsor', 'User Question',
+                'Department', 'Course Number', 'Faculty Sponsor', 'Course Sponsor', 'Expertise', 'User Question',
                 'Notes'
         )
 
@@ -77,13 +77,13 @@ class ValidateSpreadsheetService {
             switch (i) {
                 case 0:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Library Unit Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Library Unit Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
 
                     }
                     if (!RidLibraryUnit.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Library at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Library at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -91,7 +91,7 @@ class ValidateSpreadsheetService {
 
                 case 1:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Date of Consultation Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Date of Consultation Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
@@ -102,33 +102,30 @@ class ValidateSpreadsheetService {
                         new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(i).trim())
 
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Date Format at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Date Format at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
                     }
-                    if(validateDate(reformattedSheetDate)!="good"){
-                        spreadsheetErrors.add("Cons instance ${count+1}: "+validateDate(reformattedSheetDate)+" "+cellRef.formatAsString())
+                    if (validateDate(reformattedSheetDate) != "good") {
+                        spreadsheetErrors.add("Cons instance ${count + 1}: " + validateDate(reformattedSheetDate) + " " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 2:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Stuff Pennkey Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Stuff Pennkey Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Stuff Pennkey Too Long at " + cellRef.formatAsString())
+                    } else if (instance.get(i).trim().length() > 100) {
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Stuff Pennkey Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
 
@@ -136,44 +133,38 @@ class ValidateSpreadsheetService {
 
                 case 3:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Mode of Consultation Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Mode of Consultation Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (!RidModeOfConsultation.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Mode of Consultation at " + cellRef.formatAsString())
+                    } else if (!RidModeOfConsultation.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Mode of Consultation at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(
+                    } else if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Mode of Consultation at " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Mode of Consultation at " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 4:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Service Provided Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Service Provided Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (!RidServiceProvided.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Service Provided at " + cellRef.formatAsString() + instance.get(i))
+                    } else if (!RidServiceProvided.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Service Provided at " + cellRef.formatAsString() + instance.get(i))
                         noErrors = false
-                    }
-                    else if (!RidServiceProvided.findByNameAndRidLibraryUnit(
+                    } else if (!RidServiceProvided.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Service Provided at " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Service Provided at " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
@@ -181,37 +172,34 @@ class ValidateSpreadsheetService {
                 case 5:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
-                    }
-                    else if (!instance.get(i).trim().empty && !RidUserGoal.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid User Goal at " + cellRef.formatAsString())
+                    } else if (!instance.get(i).trim().empty && !RidUserGoal.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid User Goal at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else if (!instance.get(i).trim().empty && !RidUserGoal.findByNameAndRidLibraryUnit(
+                    } else if (!instance.get(i).trim().empty && !RidUserGoal.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: User Goal at " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Cons instance ${count + 1}: User Goal at " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 6:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Prep Time Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Prep Time Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Cons instance ${count+1}: Negative Prep Time at " + cellRef.formatAsString())
+                            spreadsheetErrors.add("Cons instance ${count + 1}: Negative Prep Time at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
                         }
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Format for Prep Time at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Format for Prep Time at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
@@ -221,18 +209,18 @@ class ValidateSpreadsheetService {
 
                 case 7:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Event Length Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Event Length Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Cons instance ${count+1}: Negative Event Length at " + cellRef.formatAsString())
+                            spreadsheetErrors.add("Cons instance ${count + 1}: Negative Event Length at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
                         }
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Format for Event Length at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Format for Event Length at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
@@ -241,11 +229,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 8:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 50) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: User Name Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: User Name Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -254,12 +242,12 @@ class ValidateSpreadsheetService {
 
                 case 9:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Rank Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Rank Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     if (!RidRank.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Rank at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Rank at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -271,7 +259,7 @@ class ValidateSpreadsheetService {
                         break
                     }
                     if (!RidSchool.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid School at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid School at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -280,23 +268,22 @@ class ValidateSpreadsheetService {
 
                 case 11:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Interact Occurrences Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Interact Occurrences Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Cons instance ${count+1}: Negative Interact Occurrences at " + cellRef.formatAsString())
+                            spreadsheetErrors.add("Cons instance ${count + 1}: Negative Interact Occurrences at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
-                        }
-                        else if (Integer.valueOf(instance.get(i).trim()) > 50) {
-                            spreadsheetErrors.add("Cons instance ${count+1}: Interact Occurrences Too Large at " + cellRef.formatAsString())
+                        } else if (Integer.valueOf(instance.get(i).trim()) > 50) {
+                            spreadsheetErrors.add("Cons instance ${count + 1}: Interact Occurrences Too Large at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
                         }
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Format for Interact Occurrences at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Format for Interact Occurrences at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
@@ -305,11 +292,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 12:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Course Name Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Course Name Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -317,11 +304,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 13:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (!instance.get(i).trim().empty && !RidDepartment.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Department at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Department at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -329,11 +316,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 14:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Course Number Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Course Number Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -341,11 +328,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 15:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Faculty Sponsor Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Faculty Sponsor Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -353,11 +340,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 16:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (!instance.get(i).trim().empty && !RidCourseSponsor.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Course Sponsor at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Course Sponsor at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -369,7 +356,7 @@ class ValidateSpreadsheetService {
                         break
                     }
                     if (!RidExpertise.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Invalid Expertise at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Invalid Expertise at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -377,11 +364,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 18:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (!instance.get(i).empty && instance.get(i).trim().length() > 500) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: User Question Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: User Question Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -389,11 +376,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 19:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 500) {
-                        spreadsheetErrors.add("Cons instance ${count+1}: Notes Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Cons instance ${count + 1}: Notes Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -402,21 +389,21 @@ class ValidateSpreadsheetService {
                 default:
                     noErrors = false
             }
-            if (!allEmpty){
-                numberNotBlank=i
+            if (!allEmpty) {
+                numberNotBlank = i
             }
         }
-        if (allEmpty && numberNotBlank==0){
+        if (allEmpty && numberNotBlank == 0) {
             return "empty"
         }
         def errorCount = 0
         for (error in spreadsheetErrors) {
-            if (errorCount <= 3){
+            if (errorCount <= 3) {
                 flash.alerts << error
             }
             errorCount++
         }
-        if (errorCount > 3){
+        if (errorCount > 3) {
             flash.alerts << "And ${errorCount - 3} more errors"
         }
         return noErrors
@@ -431,13 +418,13 @@ class ValidateSpreadsheetService {
             switch (i) {
                 case 0:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Library Unit Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Library Unit Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
 
                     }
                     if (!RidLibraryUnit.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Library at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Library at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -445,7 +432,7 @@ class ValidateSpreadsheetService {
 
                 case 1:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Date of Instruction Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Date of Instruction Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
@@ -456,48 +443,43 @@ class ValidateSpreadsheetService {
                         new SimpleDateFormat("MM/dd/yyyy").parse(instance.get(i).trim())
 
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Date Format at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Date Format at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
                     }
-                    if(validateDate(reformattedSheetDate)!="good"){
-                        spreadsheetErrors.add("Ins instance ${count+1}: "+validateDate(reformattedSheetDate)+" "+cellRef.formatAsString())
+                    if (validateDate(reformattedSheetDate) != "good") {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: " + validateDate(reformattedSheetDate) + " " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 2:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Instructor Pennkey Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Instructor Pennkey Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Instructor Pennkey Too Long at " + cellRef.formatAsString())
+                    } else if (instance.get(i).trim().length() > 100) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Instructor Pennkey Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
 
                     break
 
                 case 3:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
-                    }
-                    else if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Co Instructor Pennkey Too Long at " + cellRef.formatAsString())
+                    } else if (instance.get(i).trim().length() > 100) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Co Instructor Pennkey Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
 
@@ -505,42 +487,36 @@ class ValidateSpreadsheetService {
 
                 case 4:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Session Type Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Session Type Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (!RidSessionType.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Session Type at " + cellRef.formatAsString())
+                    } else if (!RidSessionType.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Session Type at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else if (!RidSessionType.findByNameAndRidLibraryUnit(
+                    } else if (!RidSessionType.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Session Type at " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Session Type at " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 5:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
-                    }
-                    else if (!RidInstructionalMaterials.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Instructional Materials at " + cellRef.formatAsString() + instance.get(i))
+                    } else if (!RidInstructionalMaterials.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Instructional Materials at " + cellRef.formatAsString() + instance.get(i))
                         noErrors = false
-                    }
-                    else if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(
+                    } else if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Instructional Materials at " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Instructional Materials at " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
@@ -549,41 +525,38 @@ class ValidateSpreadsheetService {
 
                 case 6:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Location Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Location Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
-                    }
-                    else if (!RidLocation.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Location at " + cellRef.formatAsString())
+                    } else if (!RidLocation.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Location at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else if (!RidLocation.findByNameAndRidLibraryUnit(
+                    } else if (!RidLocation.findByNameAndRidLibraryUnit(
                             instance.get(i).trim(), RidLibraryUnit.findByName(instance.get(0).trim()))) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Location " + cellRef.formatAsString() +
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Location " + cellRef.formatAsString() +
                                 " does NOT match the Report Type " + instance.get(0).trim())
                         noErrors = false
                         allEmpty = false
-                    }
-                    else{
+                    } else {
                         allEmpty = false
                     }
                     break
 
                 case 7:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Prep Time Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Prep Time Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Ins instance ${count+1}: Negative Prep Time at " + cellRef.formatAsString())
+                            spreadsheetErrors.add("Ins instance ${count + 1}: Negative Prep Time at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
                         }
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Format for Prep Time at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Format for Prep Time at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
@@ -593,68 +566,66 @@ class ValidateSpreadsheetService {
 
                 case 8:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Event Length Cannot be Empty at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Event Length Cannot be Empty at " + cellRef.formatAsString())
                         noErrors = false
                         break
                     }
                     try {
                         if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Ins instance ${count+1}: Negative Event Length at " + cellRef.formatAsString())
+                            spreadsheetErrors.add("Ins instance ${count + 1}: Negative Event Length at " + cellRef.formatAsString())
                             noErrors = false
                             allEmpty = false
                         }
                     } catch (Exception e) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Format for Event Length at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Format for Event Length at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                         break
                     }
                     allEmpty = false
                     break
-
-
 
                 case 9:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
-                    if (!RidSchool.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid School at " + cellRef.formatAsString())
+                    if (instance.get(i).trim().length() > 50) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: User Name Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
                     allEmpty = false
-                    break
+                    break;
 
                 case 10:
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Total Attendance Cannot be Empty at " + cellRef.formatAsString())
-                        noErrors = false
                         break
                     }
-                    try {
-                        if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Ins instance ${count+1}: Negative Attendance at " + cellRef.formatAsString())
-                            noErrors = false
-                            allEmpty = false
-                        }
-                    } catch (Exception e) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Format for Attendance at " + cellRef.formatAsString())
+                    if (!RidSchool.findByName(instance.get(i).trim())) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid School at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                        break
                     }
                     allEmpty = false
                     break
 
                 case 11:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Total Attendance Cannot be Empty at " + cellRef.formatAsString())
+                        noErrors = false
                         break
                     }
-                    if (instance.get(i).trim().length() > 50) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Sequence Name Too Long at " + cellRef.formatAsString())
+                    try {
+                        if (Integer.valueOf(instance.get(i).trim()) < 0) {
+                            spreadsheetErrors.add("Ins instance ${count + 1}: Negative Attendance at " + cellRef.formatAsString())
+                            noErrors = false
+                            allEmpty = false
+                        }
+                    } catch (Exception e) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Format for Attendance at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
+                        break
                     }
                     allEmpty = false
                     break
@@ -663,39 +634,39 @@ class ValidateSpreadsheetService {
                     if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
-                    try {
-                        if (Integer.valueOf(instance.get(i).trim()) < 0) {
-                            spreadsheetErrors.add("Ins instance ${count+1}: Negative Module Unit at " + cellRef.formatAsString())
-                            noErrors = false
-                            allEmpty = false
-                        }
-                    } catch (Exception e) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Format for Module Unit Number at " + cellRef.formatAsString())
+                    if (instance.get(i).trim().length() > 50) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Sequence Name Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
-                        break
                     }
                     allEmpty = false
                     break
 
                 case 13:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
-                    if (instance.get(i).trim().length() > 50) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Course Name Too Long at " + cellRef.formatAsString())
+                    try {
+                        if (Integer.valueOf(instance.get(i).trim()) < 0) {
+                            spreadsheetErrors.add("Ins instance ${count + 1}: Negative Module Unit at " + cellRef.formatAsString())
+                            noErrors = false
+                            allEmpty = false
+                        }
+                    } catch (Exception e) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Format for Module Unit Number at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
+                        break
                     }
                     allEmpty = false
                     break
 
                 case 14:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
-                    if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Course Number Too Long at " + cellRef.formatAsString())
+                    if (instance.get(i).trim().length() > 50) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Course Name Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -703,11 +674,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 15:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (!instance.get(i).trim().empty && !RidDepartment.findByName(instance.get(i).trim())) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Invalid Department at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Invalid Department at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -715,11 +686,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 16:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Faculty Sponsor Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Course Number Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -727,11 +698,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 17:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 100) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Requestor Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Faculty Sponsor Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -739,11 +710,11 @@ class ValidateSpreadsheetService {
                     break
 
                 case 18:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
-                    if (!instance.get(i).empty && instance.get(i).trim().length() > 500) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Session Description Too Long at " + cellRef.formatAsString())
+                    if (instance.get(i).trim().length() > 100) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Requestor Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -751,11 +722,23 @@ class ValidateSpreadsheetService {
                     break
 
                 case 19:
-                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text"){
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
+                        break
+                    }
+                    if (!instance.get(i).empty && instance.get(i).trim().length() > 500) {
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Session Description Too Long at " + cellRef.formatAsString())
+                        noErrors = false
+                        allEmpty = false
+                    }
+                    allEmpty = false
+                    break
+
+                case 20:
+                    if (instance.get(i).trim().empty || instance.get(i).trim() == "free text") {
                         break
                     }
                     if (instance.get(i).trim().length() > 500) {
-                        spreadsheetErrors.add("Ins instance ${count+1}: Notes Too Long at " + cellRef.formatAsString())
+                        spreadsheetErrors.add("Ins instance ${count + 1}: Notes Too Long at " + cellRef.formatAsString())
                         noErrors = false
                         allEmpty = false
                     }
@@ -767,19 +750,19 @@ class ValidateSpreadsheetService {
         }
 
 
-        if (allEmpty){
+        if (allEmpty) {
             return "empty"
         }
 
         def errorCount = 0
         for (error in spreadsheetErrors) {
-            if (errorCount <= 3){
+            if (errorCount <= 3) {
                 flash.alerts << error
             }
             errorCount++
         }
-        if (errorCount > 5){
-            flash.alerts << "And ${errorCount-3} more errors"
+        if (errorCount > 5) {
+            flash.alerts << "And ${errorCount - 3} more errors"
         }
         return noErrors
 
@@ -796,8 +779,6 @@ class ValidateSpreadsheetService {
     }
 
 
-
-
     def validateDate(String date) {
         def validMonths = ["01": "31", "02": "29", "03": "31", "04": "30", "05": "31", "06": "30", "07": "31", "08": "31", "09": "30", "10": "31", "11": "30", "12": "31"]
         def dateMonth
@@ -809,14 +790,13 @@ class ValidateSpreadsheetService {
             return "Invalid Date Format"
         }
 
-        try{
+        try {
             if (!(dateDay.toInteger() <= validMonths.get(dateMonth).toInteger())) {
                 return "Invalid date"
-         }
-            else {
+            } else {
                 return "good"
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             return "Invalid date"
         }
     }
@@ -842,11 +822,9 @@ class ValidateSpreadsheetService {
         }
         if (!(validName.matcher(truncFilename))) {
             return "Invalid File Name. File Names must be of the format Pennkeyname_mmddyyyyy (example: zucca_01262012)"
-        }
-        else if (this.validateDate(fileDate) != "good"){
+        } else if (this.validateDate(fileDate) != "good") {
             return this.validateDate(fileDate)
-        }
-        else {
+        } else {
             return "good"
         }
 
