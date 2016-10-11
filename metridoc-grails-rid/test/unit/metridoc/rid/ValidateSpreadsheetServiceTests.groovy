@@ -55,8 +55,9 @@ class ValidateSpreadsheetServiceTests {
         //TODO: Refactor the test sheet creation code. Not sure what a good refactor location would be though
         //Moved to bottom for readability purposes
 
+        def a = System.getProperty("user.dir")
         ClassPathResource resource0 = new ClassPathResource("spreadsheet/Transaction_List.xlsx")//WorkbookFactory needs a file, and this file is pretty much blank anyway
-
+        def b = resource0.getPath()
         blankWB = WorkbookFactory.create(resource0.getFile().newInputStream())
         Sheet sheetBlank = blankWB.getSheetAt(0)
 
@@ -166,12 +167,18 @@ class ValidateSpreadsheetServiceTests {
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
         row = sheetBad.createRow(39)
+        row.createCell(1).setCellValue("Expertise")
+        row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
+        row.createCell(2).setCellValue("Expertise")
+        row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
+
+        row = sheetBad.createRow(41)
         row.createCell(1).setCellValue("User Question")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
-        row = sheetBad.createRow(41)
+        row = sheetBad.createRow(43)
         row.createCell(1).setCellValue("Notes")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
@@ -283,12 +290,18 @@ class ValidateSpreadsheetServiceTests {
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
         row = sheetGood.createRow(39)
+        row.createCell(1).setCellValue("Expertise")
+        row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
+        row.createCell(2).setCellValue("Expertise")
+        row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
+
+        row = sheetGood.createRow(41)
         row.createCell(1).setCellValue("User Question")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
-        row = sheetGood.createRow(41)
+        row = sheetGood.createRow(43)
         row.createCell(1).setCellValue("Notes")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")

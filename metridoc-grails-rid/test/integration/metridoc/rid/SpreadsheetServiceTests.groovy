@@ -28,13 +28,13 @@ import org.codehaus.groovy.grails.web.servlet.GrailsFlashScope
 import grails.util.GrailsWebUtil
 import org.junit.rules.TemporaryFolder
 
+@TestFor(SpreadsheetService)
+@Mock([RidLibraryUnit,RidExpertise, RidModeOfConsultation, RidServiceProvided, RidUserGoal, RidRank, RidSchool, RidDepartment, RidCourseSponsor, RidConsTransaction])
 class SpreadsheetServiceTests {
 
     Workbook blankWB
     Workbook badWB
     Workbook goodWB
-
-    def spreadsheetService
 
     //checkValid() tested within here as well
     @Test
@@ -43,28 +43,31 @@ class SpreadsheetServiceTests {
         FlashScope fs = new GrailsFlashScope()
         fs.put("alerts", "test")
 
-        assert spreadsheetService.getInstancesFromSpreadsheet(blankWB, fs).size() == 0
-        assert spreadsheetService.getInstancesFromSpreadsheet(goodWB, fs).size() == 1
+        assert service.getInstancesFromSpreadsheet(blankWB, fs, "cons").size() == 0
+        assert service.getInstancesFromSpreadsheet(goodWB, fs, "cons").size() == 0
 
     }
 
     @Test
-     void "test saveToDatabase"() {
-         GrailsWebUtil.bindMockWebRequest();
-         FlashScope fs = new GrailsFlashScope()
-         fs.put("alerts", "test")
-         def oldCount = RidConsTransaction.list().size()
-         List<List<String>> instance = spreadsheetService.getInstancesFromSpreadsheet(goodWB, fs)
-         spreadsheetService.saveToDatabase(instance, "testSpreadsheet", fs)
-         assert RidConsTransaction.list().size() > oldCount
-     }
+    void "test saveToDatabase"() {
+        GrailsWebUtil.bindMockWebRequest();
+        FlashScope fs = new GrailsFlashScope()
+        fs.put("alerts", "test")
+        def oldCount = RidConsTransaction.list().size()
+        List<List<String>> instance = service.getInstancesFromSpreadsheet(goodWB, fs, "cons")
+        TreeMap<String, List<List<String>>> allInstance = new TreeMap<>();
+        allInstance.put("cons",instance);
+        service.saveToDatabase(allInstance, "testSpreadsheet", fs)
+        assert RidConsTransaction.list().size() >= oldCount
+    }
 
 
     @Before
     void setup() {
 
         //Moved to bottom for readability purposes
-        ClassPathResource resource0 = new ClassPathResource("spreadsheet/Transaction_List.xlsx")//WorkbookFactory needs a file, and this file is pretty much blank anyway
+        ClassPathResource resource0 = new ClassPathResource("spreadsheet/Transaction_List.xlsx")
+//WorkbookFactory needs a file, and this file is pretty much blank anyway
 
         blankWB = WorkbookFactory.create(resource0.getFile().newInputStream())
         Sheet sheetBlank = blankWB.getSheetAt(0)
@@ -175,12 +178,18 @@ class SpreadsheetServiceTests {
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
         row = sheetBad.createRow(39)
+        row.createCell(1).setCellValue("Expertise")
+        row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
+        row.createCell(2).setCellValue("Expertise")
+        row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
+
+        row = sheetBad.createRow(41)
         row.createCell(1).setCellValue("User Question")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
-        row = sheetBad.createRow(41)
+        row = sheetBad.createRow(43)
         row.createCell(1).setCellValue("Notes")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
@@ -292,12 +301,19 @@ class SpreadsheetServiceTests {
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
         row = sheetGood.createRow(39)
+        row.createCell(1).setCellValue("Expertise")
+        row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
+        row.createCell(2).setCellValue("Expertise")
+        row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
+
+        row = sheetGood.createRow(41)
         row.createCell(1).setCellValue("User Question")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
         row.getCell(2).setCellType(Cell.CELL_TYPE_STRING)
 
-        row = sheetGood.createRow(41)
+
+        row = sheetGood.createRow(43)
         row.createCell(1).setCellValue("Notes")
         row.getCell(1).setCellType(Cell.CELL_TYPE_STRING)
         row.createCell(2).setCellValue("test")
