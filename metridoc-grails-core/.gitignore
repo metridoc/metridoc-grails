@@ -45,4 +45,5 @@
 *.iws
 *.DS_Store
 /cobertura.ser
+/.slcache
 
