@@ -20,6 +20,7 @@ environments {
             username = "root"
             password = "root"
 //            dbCreate = "create-drop"
+//            dbCreate "create"
 //            dbCreate = "update"
             //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             url = "jdbc:mysql://localhost:3306/metridoc"
@@ -29,7 +30,8 @@ environments {
         dataSource {
             driverClassName = "org.h2.Driver"
 //            dbCreate = "create-drop"
-//            dbCreate = "update"
+//            dbCreate "create"
+            // dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }

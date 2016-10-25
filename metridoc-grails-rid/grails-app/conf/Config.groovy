@@ -36,20 +36,20 @@ if (System.properties["${appName}.config.location"]) {
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
-grails.mime.types = [html: ['text/html', 'application/xhtml+xml'],
-        xml: ['text/xml', 'application/xml'],
-        text: 'text/plain',
-        js: 'text/javascript',
-        rss: 'application/rss+xml',
-        atom: 'application/atom+xml',
-        css: 'text/css',
-        csv: 'text/csv',
-        all: '*/*',
-        json: ['application/json', 'text/json'],
-        form: 'application/x-www-form-urlencoded',
-        multipartForm: 'multipart/form-data',
-        xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        xls: "application/vnd.ms-excel"
+grails.mime.types = [html         : ['text/html', 'application/xhtml+xml'],
+                     xml          : ['text/xml', 'application/xml'],
+                     text         : 'text/plain',
+                     js           : 'text/javascript',
+                     rss          : 'application/rss+xml',
+                     atom         : 'application/atom+xml',
+                     css          : 'text/css',
+                     csv          : 'text/csv',
+                     all          : '*/*',
+                     json         : ['application/json', 'text/json'],
+                     form         : 'application/x-www-form-urlencoded',
+                     multipartForm: 'multipart/form-data',
+                     xlsx         : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                     xls          : "application/vnd.ms-excel"
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -117,7 +117,6 @@ log4j = {
     appenders {
 
 
-
         rollingFile name: "file",
                 maxBackupIndex: 10,
                 maxFileSize: "1MB",
@@ -173,6 +172,7 @@ metridoc.style.layout = "main"
 // for grails doc
 grails.doc.authors = "Xiaofan Tong; Thomas Barker"
 grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.dropOnStart = false
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 
