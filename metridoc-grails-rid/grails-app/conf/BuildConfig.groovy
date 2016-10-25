@@ -79,6 +79,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":google-visualization:0.6.2"
+        compile ":database-migration:1.4.1"
         build ":tomcat:7.0.47"
 
         build(":codenarc:0.18") {
