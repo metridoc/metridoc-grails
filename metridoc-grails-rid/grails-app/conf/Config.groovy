@@ -172,7 +172,7 @@ metridoc.style.layout = "main"
 // for grails doc
 grails.doc.authors = "Xiaofan Tong; Thomas Barker"
 grails.plugin.databasemigration.updateOnStart = true
-grails.plugin.databasemigration.dropOnStart = false
+grails.plugin.databasemigration.dropOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 
