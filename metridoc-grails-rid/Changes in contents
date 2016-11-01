@@ -1,0 +1,33 @@
+Note: these changes only affect data that would be populated into database when the service starts and the table is created again. If there is some values that already in
+one table, then that table's data would not be populated again.
+
+1. Change the value of RIS to TRL in the rid_library_unit table
+
+2. Add "Course Creation", "Course Project", "Data Management", "Teaching/Presentation", "Grant Proposal", "Monograph", "Research Article", "Research Paper"
+into the rid_user_goal table with rid_library_unit_id corresponding to CDM.
+
+3. Change LIPPINCOTT's user goal to
+"ASP",
+"BPC",
+"Case Competition",
+"Course Project",
+"FAP",
+"GCP",
+"GIP",
+"ISP",
+"SBDC",
+"Thesis",
+"WFC",
+"WIP"
+
+4. Delete Science Library's mode: "Conferencing software"
+
+5. Changed HSL's Service from:
+"Copyright assistance for rank",
+to
+"Copyright assistance user"
+
+6. Changed CDM's Service from:
+"Copyright assistance for rank",
+to
+"Copyright assistance user"
