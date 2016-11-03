@@ -2,9 +2,20 @@ Note: these changes only affect data that would be populated into database when 
 one table, then that table's data would not be populated again.
 
 1. Change the value of RIS to TRL in the rid_library_unit table
+UPDATE `metridoc`.`rid_library_unit` SET `name`='TRL' WHERE `id`= $ID1;
+
 
 2. Add "Course Creation", "Course Project", "Data Management", "Teaching/Presentation", "Grant Proposal", "Monograph", "Research Article", "Research Paper"
 into the rid_user_goal table with rid_library_unit_id corresponding to CDM.
+
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Course Creation', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Course Project', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Data Management', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Teaching/Presentation', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Grant Proposal', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Monograph', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Research Article', $CDM_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Research Paper', $CDM_ID);
 
 3. Change LIPPINCOTT's user goal to
 "ASP",
@@ -20,14 +31,38 @@ into the rid_user_goal table with rid_library_unit_id corresponding to CDM.
 "WFC",
 "WIP"
 
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID2;
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID3;
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID4;
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID5;
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'ASP', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'BPC', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Case Competition', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Course Project', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'FAP', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'GCP', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'GIP', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'ISP', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'SBDC', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Thesis', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'WFC', $LIP_ID);
+INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'WIP', $LIP_ID);
+
+
 4. Delete Science Library's mode: "Conferencing software"
+
+DELETE FROM `metridoc`.`rid_mode_of_consultation` WHERE `id`= $ID6;
 
 5. Changed HSL's Service from:
 "Copyright assistance for rank",
 to
 "Copyright assistance user"
 
+UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID7;
+
 6. Changed CDM's Service from:
 "Copyright assistance for rank",
 to
 "Copyright assistance user"
+
+UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID8;
