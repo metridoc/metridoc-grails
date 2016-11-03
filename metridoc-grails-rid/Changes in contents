@@ -2,7 +2,7 @@ Note: these changes only affect data that would be populated into database when 
 one table, then that table's data would not be populated again.
 
 1. Change the value of RIS to TRL in the rid_library_unit table
-UPDATE `metridoc`.`rid_library_unit` SET `name`='TRL' WHERE `id`= $ID1;
+UPDATE `metridoc`.`rid_library_unit` SET `name`='TRL' WHERE `id`= $ID1; #name = 'RIS'
 
 
 2. Add "Course Creation", "Course Project", "Data Management", "Teaching/Presentation", "Grant Proposal", "Monograph", "Research Article", "Research Paper"
@@ -31,10 +31,10 @@ INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_libra
 "WFC",
 "WIP"
 
-DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID2;
-DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID3;
-DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID4;
-DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID5;
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID2; # name = 'Senior Thesis'
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID3; # name = 'Master Thesis'
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID4; # name = 'Dissertation'
+DELETE FROM `metridoc`.`rid_user_goal` WHERE `id`= $ID5; # name = 'Independent Research'
 INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'ASP', $LIP_ID);
 INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'BPC', $LIP_ID);
 INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_library_unit_id`) VALUES ('0', '1', 'Case Competition', $LIP_ID);
@@ -51,18 +51,18 @@ INSERT INTO `metridoc`.`rid_user_goal` (`version`, `in_form`, `name`, `rid_libra
 
 4. Delete Science Library's mode: "Conferencing software"
 
-DELETE FROM `metridoc`.`rid_mode_of_consultation` WHERE `id`= $ID6;
+DELETE FROM `metridoc`.`rid_mode_of_consultation` WHERE `id`= $ID6; # name = 'Conferencing software'
 
 5. Changed HSL's Service from:
 "Copyright assistance for rank",
 to
 "Copyright assistance user"
 
-UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID7;
+UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID7; # name = 'Copyright assistance for rank'
 
 6. Changed CDM's Service from:
 "Copyright assistance for rank",
 to
 "Copyright assistance user"
 
-UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID8;
+UPDATE `metridoc`.`rid_service_provided` SET `name`='Copyright assistance user' WHERE `id`= $ID8; # name = 'Copyright assistance for rank'
