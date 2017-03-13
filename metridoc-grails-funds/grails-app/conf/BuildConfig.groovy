@@ -73,6 +73,12 @@ grails.project.dependency.resolution = {
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
         mavenRepo "http://jcenter.bintray.com/"
+
+        mavenRepo "http://snapshots.repository.codehaus.org"
+        mavenRepo "http://repository.codehaus.org"
+        mavenRepo "http://download.java.net/maven/2/"
+        mavenRepo "http://repository.jboss.com/maven2/"
+
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "http://repo.grails.org/grails/plugins"
     }
@@ -91,7 +97,7 @@ grails.project.dependency.resolution = {
         }
         runtime ":hibernate:3.6.10.6"
         build(":tomcat:7.0.47")
-        build(":release:2.2.1", ":bintray-upload:0.2")
+        build(":release:3.0.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
