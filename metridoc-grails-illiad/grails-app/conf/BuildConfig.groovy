@@ -88,7 +88,7 @@ grails.project.dependency.resolution = {
         }
         runtime ":hibernate:3.6.10.6"
         build(":tomcat:7.0.47")
-        build(":release:2.2.1", ":bintray-upload:0.2")
+        build(":release:3.0.1", ":bintray-upload:0.2")
         build(":codenarc:0.18") {
             excludes "log4j", "groovy-all", "ant", "junit"
         }
