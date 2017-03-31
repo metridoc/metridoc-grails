@@ -61,6 +61,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "http://repo.grails.org/grails/plugins"
+        mavenRepo "https://mvnrepository.com/artifact/org.liquibase/liquibase-core"
 
     }
     dependencies {
@@ -73,7 +74,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":database-migration:1.3.1"
+        runtime ':database-migration:1.3.6'
         compile ":google-visualization:0.6.2"
         build ":tomcat:7.0.47"
 

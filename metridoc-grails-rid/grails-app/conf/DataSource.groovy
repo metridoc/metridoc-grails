@@ -29,7 +29,7 @@ environments {
     development {
         dataSource {
             pooled = true
-            dbCreate = "update"
+            // dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/metridoc"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"

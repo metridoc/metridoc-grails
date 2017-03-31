@@ -26,7 +26,9 @@ class TestDataService {
     def populateTestFields() {
         log.info("Importing University of Pennsylvania default data")
 
-        if (!RidLibraryUnit.first()) {
+        // Commented for now so that the function will update the database. Will uncomment when the modification is made in MetridocRidBootStrp is made
+        
+        // if (!RidLibraryUnit.first()) {
             // for Library unit
             
             // List<String> lUnit = Arrays.asList("Commons", "HSL", "CDM", "LIPPINCOTT", "RIS",
@@ -43,7 +45,7 @@ class TestDataService {
                 }
             }
             new RidLibraryUnit(name: "General").save()
-        }
+        // }
         // ---------------------------------------------------------------------------------------------
         // for department
         if (!RidDepartment.first()) {

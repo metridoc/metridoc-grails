@@ -76,7 +76,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":database-migration:1.3.1"
+        runtime ":database-migration:1.3.6"
         runtime ":twitter-bootstrap:2.3.2"
         runtime(":mail:1.0.1") {
             excludes 'spring-test'
