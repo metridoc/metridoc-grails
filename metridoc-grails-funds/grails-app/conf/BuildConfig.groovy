@@ -73,12 +73,6 @@ grails.project.dependency.resolution = {
         mavenRepo "http://dl.bintray.com/upennlib/metridoc"
         mavenRepo "http://dl.bintray.com/upennlib/maven"
         mavenRepo "http://jcenter.bintray.com/"
-
-        mavenRepo "http://snapshots.repository.codehaus.org"
-        mavenRepo "http://repository.codehaus.org"
-        mavenRepo "http://download.java.net/maven/2/"
-        mavenRepo "http://repository.jboss.com/maven2/"
-
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "http://repo.grails.org/grails/plugins"
     }
@@ -95,6 +89,7 @@ grails.project.dependency.resolution = {
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
+        runtime ":database-migration:1.3.1"
         runtime ":hibernate:3.6.10.6"
         build(":tomcat:7.0.47")
         build(":release:3.0.1", ":bintray-upload:0.2")

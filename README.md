@@ -1,6 +1,8 @@
 metridoc-grails
 ===============
 
+To set up, run ./buildAll.sh in your terminal at the file's directory.
+
 Please see the [wiki](https://github.com/metridoc/metridoc-grails/wiki) for documentation
 
 App-specific README files:
