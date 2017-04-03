@@ -8,10 +8,9 @@
 class MetridocRidBootStrap {
 
     def ridBootStrapService
-    def testDataService //need to modify a function in this service and invoke that function to update database.
     def ridManageLibraryUnitSpreadsheetsService
     def init = { servletContext ->
-        testDataService.populateTestFields()
+    	ridBootStrapService.bootStrapContents()
         ridManageLibraryUnitSpreadsheetsService.transferSpreadsheets()
     }
 

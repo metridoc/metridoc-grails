@@ -23,7 +23,7 @@ environments {
     development {
         dataSource {
             pooled = true
-            dbCreate = "create"
+            dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/metridoc"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
@@ -44,7 +44,7 @@ environments {
 
     test {
         dataSource {
-            dbCreate = "create"
+            dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
             pooled = true
             driverClassName = "org.h2.Driver"
