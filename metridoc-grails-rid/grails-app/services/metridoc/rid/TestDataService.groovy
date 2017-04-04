@@ -226,199 +226,96 @@ class TestDataService {
         }
     }
 
-    def updateRidLocation(){
-        // for location -- Commons
-        List<String> loc = Arrays.asList("Classroom",  "Lecture hall")
-
-        // since here the location is not required, this stands for null value
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in loc.sort()) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                p.save()
-                if (p.hasErrors()) println p.errors
+    def locationUpdateHelper(String lunit, List<String> loc){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidLocation.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidLocation(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in loc.sort()) {
+                if (!RidLocation.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            if(!RidLocation.findByNameAndRidLibraryUnit("Other (please indicate)",libunit)){
+                new RidLocation(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:libunit).save()
             }
         }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
+    }
+
+    def updateRidLocation(){
+        // for location -- Canvas
+        List<String> loc = Arrays.asList("Classroom",  "Lecture hall")
+        locationUpdateHelper("Canvas",loc)
         // for location -- HSL
         loc = Arrays.asList("Classroom", "Library conference room")
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in loc.sort()) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+        locationUpdateHelper("HSL",loc)
         // for location -- CDM
         loc = Arrays.asList("Library conference room", "Lecture hall")
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in loc) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+        locationUpdateHelper("CDM",loc)
         // for location -- LIPPINCOTT
         loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in loc.sort()) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+        locationUpdateHelper("LIPPINCOTT",loc)
         // for location -- TRL
         loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
-
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in loc) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save()
+        locationUpdateHelper("TRL",loc)
         // for location -- Science Libraries
         loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
-
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in loc) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+        locationUpdateHelper("Science Libraries",loc)
         // for location -- General
         loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
-
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in loc) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
-
+        locationUpdateHelper("General",loc)
         // for location -- KISLAK
         loc = Arrays.asList("Classroom", "Library conference room", "Lecture hall")
-        new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in loc.sort()) {
-            if (!RidLocation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def p = new RidLocation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                p.save()
-                if (p.hasErrors()) println p.errors
+        locationUpdateHelper("KISLAK",loc)
+    }
+
+    def imUpdateHelper(String lunit, List<String> im){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidInstructionalMaterials.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidInstructionalMaterials(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in im.sort()) {
+                if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            if(!RidInstructionalMaterials.findByNameAndRidLibraryUnit("Other (please indicate)",libunit)){
+                new RidInstructionalMaterials(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:libunit).save()
             }
         }
-        new RidLocation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save()
     }
 
     def updateRidInstructionalMaterials(){
         // for instructionalMaterials -- Commons
         List<String> im = Arrays.asList("Handout", "Quiz")
-
-        // since here the instructionalMaterials is not required, this stands for null value
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in im.sort()) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
+        imUpdateHelper("Canvas",im)
         // for instructionalMaterials -- HSL
         im = Arrays.asList("PowerPoint", "Handout")
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in im.sort()) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+        imUpdateHelper("HSL",im)
         // for instructionalMaterials -- CDM
         im = Arrays.asList("PowerPoint", "Quiz")
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in im) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+        imUpdateHelper("CDM",im)
         // for instructionalMaterials -- LIPPINCOTT
         im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in im.sort()) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+        imUpdateHelper("LIPPINCOTT",im)
         // for instructionalMaterials -- TRL
         im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in im) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save()
+        imUpdateHelper("TRL",im)
         // for instructionalMaterials -- Science Libraries
         im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in im) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+        imUpdateHelper("Science Libraries",im)
         // for instructionalMaterials -- General
         im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in im) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
-
+        imUpdateHelper("General",im)
         // for instructionalMaterials -- KISLAK
         im = Arrays.asList("PowerPoint", "Handout", "Quiz")
-
-        new RidInstructionalMaterials(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in im) {
-            if (!RidInstructionalMaterials.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def p = new RidInstructionalMaterials(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidInstructionalMaterials(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save()
+        imUpdateHelper("KISLAK",im)
     }
 
     def updateRidExpertise(){
@@ -470,107 +367,75 @@ class TestDataService {
         }
     }
 
+    def uGoalUpdateHelper(String lunit, List<String> uGoal){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidUserGoal.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidUserGoal(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in uGoal.sort()) {
+                if (!RidUserGoal.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            if(!RidUserGoal.findByNameAndRidLibraryUnit("Other (please indicate)",libunit)){
+                new RidUserGoal(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:libunit).save()
+            }
+        }
+    }
+
     def updateRidUserGoal(){
         // ---------------------------------------------------------------------------------------------
         // for user goal -- Commons
         List<String> uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation",
                 "Independent Research", "Improvement in Teaching")
-        // since here the user goal is not required, this stands for null value
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in uGoal.sort()) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
+        uGoalUpdateHelper("Canvas",uGoal)
         // for user goal -- HSL
         uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in uGoal.sort()) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+        uGoalUpdateHelper("HSL",uGoal)
         // for user goal -- CDM
         uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in uGoal) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+        uGoalUpdateHelper("CDM",uGoal)
         // for user goal -- LIPPINCOTT
         uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in uGoal.sort()) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+        uGoalUpdateHelper("LIPPINCOTT",uGoal)
         // for user goal -- TRL
         uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                 "Dissertation", "Research article", "Monograph", "Data Management",
                 "Independent Research", "Course Creation", "Grant Proposal")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in uGoal) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save()
+        uGoalUpdateHelper("TRL",uGoal)
         // for user goal -- Science Libraries
         uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                 "Dissertation", "Research article", "Monograph", "Data Management",
                 "Independent Research", "Course Creation", "Grant Proposal")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in uGoal) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+        uGoalUpdateHelper("Science Libraries",uGoal)
         // for user goal -- General
         uGoal = Arrays.asList("Research Paper", "Course Project", "Senior Thesis", "Master Thesis",
                 "Dissertation", "Research article", "Monograph", "Data Management",
                 "Independent Research", "Course Creation", "Grant Proposal")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in uGoal) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                p.save()
-                if (p.hasErrors()) println p.errors
-            }
-        }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
-
+        uGoalUpdateHelper("General",uGoal)
         // for user goal -- KISLAK
-        // for user goal -- LIPPINCOTT
         uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
-        new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in uGoal.sort()) {
-            if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def p = new RidUserGoal(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                p.save()
-                if (p.hasErrors()) println p.errors
+        uGoalUpdateHelper("KISLAK",uGoal)
+        
+    }
+
+    def mcUpdateHelper(String lunit, List<String> cMode){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidModeOfConsultation.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidModeOfConsultation(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in cMode.sort()) {
+                if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
             }
         }
-        new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save()
-        
     }
 
     def updateRidModeOfConsultation(){
@@ -578,90 +443,53 @@ class TestDataService {
         // for mode of consultation -- Commons
         List<String> cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "Video or web conference", "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
+        mcUpdateHelper("Canvas",cMode)
+        if(!RidModeOfConsultation.findByNameAndRidLibraryUnit("Other (please indicate)",RidLibraryUnit.findByName("Canvas"))){
+            new RidModeOfConsultation(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:RidLibraryUnit.findByName("Canvas")).save()
         }
-        new RidModeOfConsultation(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
         // for mode of consutlation -- HSL
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("HSL",cMode)
         // for mode of consutlation -- CDM
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("CDM",cMode)
         // for mode of consutlation -- LIPPINCOTT
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("LIPPINCOTT",cMode)
         // for mode of consutlation -- TRL
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("TRL",cMode)
         // for mode of consutlation -- Science Libraries
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("Science Libraries",cMode)
         // for mode of consutlation -- General
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        mcUpdateHelper("General",cMode)
         //for mode of consultation -- KISLAK
         cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in cMode) {
-            if (!RidModeOfConsultation.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def c = new RidModeOfConsultation(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                c.save()
-                if (c.hasErrors()) println c.errors
+        mcUpdateHelper("KISLAK",cMode)
+    }
+
+
+    def stUpdateHelper(String lunit, List<String> cType){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidSessionType.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidSessionType(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in cType.sort()) {
+                if (!RidSessionType.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
             }
         }
     }
@@ -671,90 +499,55 @@ class TestDataService {
         // for session type -- Commons
         List<String> cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "Video or web conference", "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
+        stUpdateHelper("Canvas",cType)
+        if(!RidSessionType.findByNameAndRidLibraryUnit("Other (please indicate)",RidLibraryUnit.findByName("Canvas"))){
+            new RidSessionType(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:RidLibraryUnit.findByName("Canvas")).save()
         }
-        new RidSessionType(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
         // for session type -- HSL
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("HSL",cType)
         // for session type -- CDM
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("CDM",cType)
         // for session type -- LIPPINCOTT
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("LIPPINCOTT",cType)
         // for session type -- TRL
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("TRL",cType)
         // for session type -- Science Libraries
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("Science Libraries",cType)
         // for session type -- General
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                c.save()
-                if (c.hasErrors()) println c.errors
-            }
-        }
+        stUpdateHelper("General",cType)
         // for session type -- KISLAK
         cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "In person (in library)", "In person (outside library)")
-        new RidSessionType(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in cType) {
-            if (!RidSessionType.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def c = new RidSessionType(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                c.save()
-                if (c.hasErrors()) println c.errors
+        stUpdateHelper("KISLAK",cType)
+    }
+
+    def spUpdateHelper(String lunit, List<String> sProvided){
+        def libunit = RidLibraryUnit.findByName(lunit)
+        if(libunit){
+            if(!RidServiceProvided.findByNameAndRidLibraryUnit("NA",libunit)){
+                new RidServiceProvided(name:"NA",inForm: 1, ridLibraryUnit:libunit).save(validate: false)
+            }
+            for (String i in sProvided.sort()) {
+                if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, libunit)) {
+                    def p = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: libunit)
+                    p.save()
+                    if (p.hasErrors()) println p.errors
+                }
+            }
+            if(!RidServiceProvided.findByNameAndRidLibraryUnit("Other (please indicate)",libunit)){
+                new RidServiceProvided(name:"Other (please indicate)",inForm: 2, ridLibraryUnit:libunit).save()
             }
         }
     }
@@ -765,15 +558,7 @@ class TestDataService {
         List<String> sProvided = Arrays.asList("Course design", "Research assistance",
                 "Instructional support (apart from course design)", "Tour",
                 "Tech/Software instruction", "Mobile technology", "Assistance to undergraduates")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Canvas"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Canvas"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Canvas")).save()
+        spUpdateHelper("Canvas",sProvided)
         // for service provided -- HSL
         sProvided = Arrays.asList("Research assistance", "Acquisitions/Collections",
                 "Copyright assistance for author", "Copyright assistance for rank",
@@ -784,15 +569,7 @@ class TestDataService {
                 "Consumer health", "Admin/policy questions", "Citation management instruction",
                 "Scholarly Commons/Repository Services", "Creating faculty profiles/selected works/VIVO",
                 "Comprehensive Lit Search/Systematic Reviews")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("HSL"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("HSL"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
+        spUpdateHelper("HSL",sProvided)
         // for service provided -- CDM
         sProvided = Arrays.asList("Course design", "Research assistance",
                 "Acquisitions/Collections", "Copyright assistance for author", "Copyright assistance for rank",
@@ -803,15 +580,7 @@ class TestDataService {
                 "Admin/policy questions", "Citation management instruction",
                 "Scholarly Commons/Repository Services", "Creating faculty profiles/selected works/VIVO",
                 "Coursera/MOOCs support", "Research practice support")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
+        spUpdateHelper("CDM",sProvided)
         // for service provided -- LIPPINCOTT
         sProvided = Arrays.asList("Research assistance", "Acquisitions/Collections",
                 "Correct an operational or service breakdown (incl. tech support)",
@@ -819,60 +588,28 @@ class TestDataService {
                 "Tech/Software instruction", "Search instruction",
                 "Literature search", "Bibliometrics or citation metrics",
                 "Admin/policy questions", "Citation management instruction")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save()
+        spUpdateHelper("LIPPINCOTT",sProvided)
         // for service provided -- TRL
         sProvided = Arrays.asList("Research assistance", "Clinic", "Tour",
                 "Acquisitions/Collections", "Citation management instruction", "Instructional Support",
                 "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                 "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                 "Scholarly Commons/Repository Services")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("TRL"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("TRL"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("TRL")).save()
+        spUpdateHelper("TRL",sProvided)
         // for service provided -- Science Libraries
         sProvided = Arrays.asList("Research assistance", "Clinic", "Tour",
                 "Acquisitions/Collections", "Citation management instruction", "Instructional Support",
                 "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                 "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                 "Scholarly Commons/Repository Services")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("Science Libraries"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save()
+        spUpdateHelper("Science Libraries",sProvided)
         // for service provided -- General
         sProvided = Arrays.asList("Research assistance", "Clinic", "Tour",
                 "Acquisitions/Collections", "Citation management instruction", "Instructional Support",
                 "Tech/Software instruction", "Mobile technology", "Correct an Operational or Service Breakdown",
                 "Admin/policy questions", "Bibliometrics or citation metrics", "Copyright",
                 "Scholarly Commons/Repository Services")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("General"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("General"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("General")).save()
+        spUpdateHelper("General",sProvided)
         // for service provided -- KISLAK
         sProvided = Arrays.asList("Research assistance", "Acquisitions/Collections",
                 "Correct an operational or service breakdown (incl. tech support)",
@@ -880,15 +617,7 @@ class TestDataService {
                 "Tech/Software instruction", "Search instruction",
                 "Literature search", "Bibliometrics or citation metrics",
                 "Admin/policy questions", "Citation management instruction")
-        new RidServiceProvided(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save(validate: false)
-        for (String i in sProvided) {
-            if (!RidServiceProvided.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("KISLAK"))) {
-                def s = new RidServiceProvided(name: i, inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK"))
-                s.save()
-                if (s.hasErrors()) println s.errors
-            }
-        }
-        new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("KISLAK")).save()
+        spUpdateHelper("KISLAK",sProvided)
     }
 
     def initialization(){
