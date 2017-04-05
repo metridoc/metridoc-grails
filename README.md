@@ -13,7 +13,7 @@ App-specific README files:
 Installation Guide:
 -------------------
 
-*LANGUAGES and DEPENDENCIES*
+### H3 LANGUAGES and DEPENDENCIES
 
 If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager by typing
 
@@ -54,7 +54,7 @@ sdk use grails2.3.4
 
 For more information about how to install and switch to the correct version, please refer to: http://sdkman.io/usage.html
 
-*NECESSARY REPOSITORIES:*
+### H3 NECESSARY REPOSITORIES
 
 Go to the directory where you wish to install and run metridoc, then type the following commands to clone metridoc-grails and metridoc-app:
 
@@ -64,7 +64,7 @@ git clone https://github.com/metridoc/metridoc-grails
 git clone https://github.com/metridoc/metridoc-app
 ```
 
-*BUILD and RUN:*
+### H3 BUILD and RUN
 
 Go to metridoc-app
 
