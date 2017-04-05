@@ -24,7 +24,7 @@ curl -s "https://get.sdkman.io" | bash
 For more instruction on how to install the SDK, please refer to:
 http://sdkman.io/install.html
 
-After installing SDK, please install the right version of Java, Groovy, and Grils by typing:
+After installing SDK, please install the right version of Java, Groovy, and Grails by typing:
 
 ```sh
 sdk install java 7u80
@@ -62,11 +62,26 @@ If you already have a MySQL connection, you can edit your connection and login i
 If you do not have a MySQL connection, you can install and start a MySQL server locally. Here are the instructions:
 
 ```sh
-sudo apt-get update sudo apt-get install mysql-server
+sudo apt-get update 
+
+sudo apt-get install mysql-server
 
 /usr/bin/mysql_secure_installation
 ```
 The second command will let you set up root user, password, and other options. You should put your credentials in the corresponding fields in the DataSource files. For simplicity, I suggest you to use "root" as your username and "password" as your password, since they are the default values in the files. The default port for MySQL server in DataSource files is 3306 and the default name of the database is "metridoc". You should have your server running on port 3306 and create a database called "metridoc" unless you modify the connection in DataSource files.
+
+To create a database called "metridoc", please do the following:
+
+```sh
+mysql -u root -p
+```
+Then in the mysql prompt, type:
+
+```sql
+CREATE DATABASE metridoc
+
+quit
+```
 
 Then run this to start the server.
 
@@ -115,3 +130,13 @@ After the build file finished running with no error, you can start the applicati
 
 You should then be able to see the application here:
 http://localhost:8080/metridoc-reports/
+
+### Other Potential Problems
+When running buildAll.sh, if it exits with an error "JAVA_HOME environment variable is not set", please refer to this page and set up your JAVA_HOME variable:
+https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/
+
+```sh
+export JAVA_HOME="directory where you installed JDK"
+
+export PATH=$JAVA_HOME
+```
