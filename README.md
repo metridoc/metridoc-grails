@@ -13,15 +13,13 @@ App-specific README files:
 Installation Guide:
 -------------------
 
-### H3 LANGUAGES and DEPENDENCIES
+### LANGUAGES and DEPENDENCIES
 
-If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager by typing
+If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager by typing the following command in your terminal:
 
 ```sh
 curl -s "https://get.sdkman.io" | bash
-```
-
-in your terminal. 
+``` 
 
 For more instruction on how to install the SDK, please refer to:
 http://sdkman.io/install.html
@@ -54,7 +52,7 @@ sdk use grails2.3.4
 
 For more information about how to install and switch to the correct version, please refer to: http://sdkman.io/usage.html
 
-### H3 NECESSARY REPOSITORIES
+### NECESSARY REPOSITORIES
 
 Go to the directory where you wish to install and run metridoc, then type the following commands to clone metridoc-grails and metridoc-app:
 
@@ -64,7 +62,7 @@ git clone https://github.com/metridoc/metridoc-grails
 git clone https://github.com/metridoc/metridoc-app
 ```
 
-### H3 BUILD and RUN
+### BUILD and RUN
 
 Go to metridoc-app
 
@@ -89,3 +87,6 @@ After the build file finished running with no error, you can start the applicati
 ```sh
 ./grailsw run-app
 ```
+
+You should then be able to see the application here:
+http://localhost:8080/metridoc-reports/
