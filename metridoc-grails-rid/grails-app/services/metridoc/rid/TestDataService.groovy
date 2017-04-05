@@ -23,7 +23,7 @@ class TestDataService {
      * If not, populate the table with initial domain objects
      */
     List<String> lUnit = Arrays.asList("Commons","HSL", "CDM", "LIPPINCOTT", "TRL",
-            "Science Libraries", "Canvas", "KISLAK")
+            "Science Libraries", "Canvas", "General", "KISLAK")
     List<String> dps = Arrays.asList(
             "AAMW", "ABIO", "ACCT", "ADMN", "ADMS", "AFAM", "AFRC", "AFST", "AMCS", "AMCV", "AMES",
             "ANAT", "ANCH", "ANCS", "ANNS", "ANTH", "ARBR", "ARCH", "ARTH", "AS", "ASAM", "ASTR",
@@ -130,17 +130,25 @@ class TestDataService {
         "Clinical: intern, resident, fellow", "Clinical: other", "Faculty", "Alumni", "Staff")
 
 
-    def adhocUpdateRidLibraryUnit(){
+    //This is a function for ad hoc changes in database, i.e., if you want to add/update extra rows, delete some rows,
+    // or merge some rows in the database, you can put code in this function.
+    // If you are changing some schemata in the database, do not do it here, as schemata are tied with domains 
+    // and should be modified there.
+    def adhocUpdate(){
+        //Change Courseware to Canvas in Library Unit
         def coursewareToCanvas = RidLibraryUnit.findByName("Courseware")
         if(coursewareToCanvas != null){
             coursewareToCanvas.name = "Canvas"
             coursewareToCanvas.save()
         }
+        //Change RIS to TRL in Library Unit
         def risToTRL = RidLibraryUnit.findByName("RIS")
         if(risToTRL != null){
             risToTRL.name = "TRL"
             risToTRL.save()
         }
+        //Merge Biomed into HSL and make sure that all other domains that have attribute that pointed to Biomed
+        // now point to HSL
         def biomed = RidLibraryUnit.findByName("Biomed")
         def hsl = RidLibraryUnit.findByName("HSL")
         if(hsl != null && biomed != null){
@@ -182,8 +190,9 @@ class TestDataService {
         }
     }
 
+    //The following update functions make sure that each domain list is up to date
+
     def updateRidLibraryUnit(){
-        adhocUpdateRidLibraryUnit()
         for (String i in lUnit.sort()) {
             if (!RidLibraryUnit.findByName(i)) {
                 def gt = new RidLibraryUnit(name: i)
@@ -191,7 +200,6 @@ class TestDataService {
                 if (gt.hasErrors()) println gt.errors
             }
         }
-        new RidLibraryUnit(name: "General").save()
     }
 
     def updateRidDepartment(){
@@ -225,6 +233,8 @@ class TestDataService {
             new RidSchool(name: outsidePleaseIndicate, inForm: 2).save()
         }
     }
+
+    //The helper functions eliminate repetitive code in some update functions
 
     def locationUpdateHelper(String lunit, List<String> loc){
         def libunit = RidLibraryUnit.findByName(lunit)
@@ -388,7 +398,7 @@ class TestDataService {
 
     def updateRidUserGoal(){
         // ---------------------------------------------------------------------------------------------
-        // for user goal -- Commons
+        // for user goal -- Canvas
         List<String> uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation",
                 "Independent Research", "Improvement in Teaching")
         uGoalUpdateHelper("Canvas",uGoal)
@@ -440,7 +450,7 @@ class TestDataService {
 
     def updateRidModeOfConsultation(){
         // ---------------------------------------------------------------------------------------------
-        // for mode of consultation -- Commons
+        // for mode of consultation -- Canvas
         List<String> cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "Video or web conference", "In person (in library)", "In person (outside library)")
         mcUpdateHelper("Canvas",cMode)
@@ -496,7 +506,7 @@ class TestDataService {
 
     def updateRidSessionType(){
         // ---------------------------------------------------------------------------------------------
-        // for session type -- Commons
+        // for session type -- Canvas
         List<String> cType = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
                 "Video or web conference", "In person (in library)", "In person (outside library)")
         stUpdateHelper("Canvas",cType)
@@ -554,7 +564,7 @@ class TestDataService {
 
     def updateRidServiceProvided(){
         // ---------------------------------------------------------------------------------------------
-        // for service provided -- Commons
+        // for service provided -- Canvas
         List<String> sProvided = Arrays.asList("Course design", "Research assistance",
                 "Instructional support (apart from course design)", "Tour",
                 "Tech/Software instruction", "Mobile technology", "Assistance to undergraduates")
@@ -620,7 +630,11 @@ class TestDataService {
         spUpdateHelper("KISLAK",sProvided)
     }
 
+
+    //This function runs on application startup. It will apply changes in the ad hoc update function 
+    //and make sure every domain list is up to date
     def initialization(){
+        adhocUpdate() // comment
         updateRidLibraryUnit()
         updateRidDepartment()
         updateRidSchool()
@@ -635,6 +649,9 @@ class TestDataService {
         updateRidServiceProvided()
     }
 
+
+    //This function runs after application startup. In case that if any domain is empty (probably won't happen unless 
+    //some really weird bug pops up during runtime), re-populate the domain.
     def populateTestFields() {
         log.info("Importing University of Pennsylvania default data")
         if (!RidLibraryUnit.first()) {
