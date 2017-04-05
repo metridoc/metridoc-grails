@@ -140,6 +140,8 @@ After the build file finished running with no error, you can start the applicati
 You should then be able to see the application here:
 http://localhost:8080/metridoc-reports/
 
+To test and sign into the application, the default username is "admin" and the password is "password".
+
 ### Other Potential Problems
 
 #### JAVA_HOME environment variable problem
