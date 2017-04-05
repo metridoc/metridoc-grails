@@ -19,7 +19,9 @@ Installation Guide:
 
 If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager by typing
 
-"curl -s "https://get.sdkman.io" | bash" 
+```sh
+curl -s "https://get.sdkman.io" | bash
+```
 
 in your terminal. 
 
@@ -38,17 +40,19 @@ sdk install grails 2.3.4
 
 You can check what version you are currently using by typing:
 
-```zsh
+```sh
 sdk current
 ```
 
 If you are using a version not specified above, please switch to the correct version by typing:
 
-```sdk use java 7u80
+```sh
+sdk use java 7u80
 
 sdk use groovy 2.4.10
 
-sdk use grails2.3.4```
+sdk use grails2.3.4
+```
 
 For more information about how to install and switch to the correct version, please refer to: http://sdkman.io/usage.html
 
@@ -56,24 +60,34 @@ For more information about how to install and switch to the correct version, ple
 
 Go to the directory where you wish to install and run metridoc, then type the following commands to clone metridoc-grails and metridoc-app:
 
-```git clone https://github.com/metridoc/metridoc-grails
+```sh
+git clone https://github.com/metridoc/metridoc-grails
 
-git clone https://github.com/metridoc/metridoc-app```
+git clone https://github.com/metridoc/metridoc-app
+```
 
 * BUILD and RUN:
 
 Go to metridoc-app
 
-```cd metridoc-app```
+```sh
+cd metridoc-app
+```
 
 And then run the build file:
 
-```./buildAll.sh```  
+```sh
+./buildAll.sh
+```  
 
 or
 
-```sh ./buildAll.sh```
+```sh
+sh ./buildAll.sh
+```
 
 After the build file finished running with no error, you can start the application in metridoc-app with the following command:
 
-```./grailsw run-app```
+```sh
+./grailsw run-app
+```
