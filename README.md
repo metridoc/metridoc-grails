@@ -52,6 +52,26 @@ sdk use grails2.3.4
 
 For more information about how to install and switch to the correct version, please refer to: http://sdkman.io/usage.html
 
+
+### MYSQL SETUP
+
+You will also need to connect to a MySQL database to run the application.
+
+If you already have a MySQL connection, you can edit your connection and login information in the DataSource files located at metridoc-grails/metridoc-grails-"plugin"/grails-app/conf/DataSource.groovy.
+
+If you do not have a MySQL connection, you can install and start a MySQL server locally. Here are the instructions:
+
+```sh
+sudo apt-get update sudo apt-get install mysql-server
+
+/usr/bin/mysql_secure_installation
+```
+
+The second command will let you set up root user, password, and other options. You should put your credentials in the corresponding fields in the DataSource files. For simplicity, I suggest you to use "root" as your username and "password" as your password, since they are the default values in the files. The default port for MySQL server in DataSource files is 3306 and the default name of the database is "metridoc". You should have your server running on port 3306 and create a database called "metridoc" unless you modify the connection in DataSource files.
+
+If later when you run the application, it gives you an error that database connection refused or failed, please check whether your MySQL server is running and whether you have your application connected to the right port with the right credentials.
+
+
 ### NECESSARY REPOSITORIES
 
 Go to the directory where you wish to install and run metridoc, then type the following commands to clone metridoc-grails and metridoc-app:
