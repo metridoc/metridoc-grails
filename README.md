@@ -28,16 +28,19 @@ http://sdkman.io/install.html
 
 After installing SDK, please install the right version of Java, Groovy, and Grils by typing:
 
-
-```sdk install java 7u80
+```bash
+sdk install java 7u80
 
 sdk install groovy 2.4.10
 
-sdk install grails 2.3.4```
+sdk install grails 2.3.4
+```
 
 You can check what version you are currently using by typing:
 
-```sdk current```
+```bash
+sdk current
+```
 
 If you are using a version not specified above, please switch to the correct version by typing:
 
