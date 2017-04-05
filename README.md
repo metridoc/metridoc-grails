@@ -21,10 +21,18 @@ If you do not yet have the right version of Java, Groovy, and Grails, please ins
 curl -s "https://get.sdkman.io" | bash
 ``` 
 
+After this command, the terminal will print a message asking you to finalize the installation of SDK with a command similar to this
+
+```sh
+source "~/.sdkman/bin/sdkman-init.sh"
+```
+
+PLease run this command and continue with the installation
+
 For more instruction on how to install the SDK, please refer to:
 http://sdkman.io/install.html
 
-After installing SDK, please install the right version of Java, Groovy, and Grails by typing:
+After installing SDK, please install the correct version of Java, Groovy, and Grails by typing:
 
 ```sh
 sdk install java 7u80
@@ -132,11 +140,16 @@ You should then be able to see the application here:
 http://localhost:8080/metridoc-reports/
 
 ### Other Potential Problems
+
+#### JAVA_HOME environment variable problem
+
 When running buildAll.sh, if it exits with an error "JAVA_HOME environment variable is not set", please refer to this page and set up your JAVA_HOME variable:
 https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/
+
+The commands specified in the above link might not work, please try the following commands after you downdloaded JDK if that happens
 
 ```sh
 export JAVA_HOME="directory where you installed JDK"
 
-export PATH=$JAVA_HOME
+export PATH="/bin:$PATH JAVA_HOME"
 ```
