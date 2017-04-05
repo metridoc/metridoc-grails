@@ -66,8 +66,13 @@ sudo apt-get update sudo apt-get install mysql-server
 
 /usr/bin/mysql_secure_installation
 ```
-
 The second command will let you set up root user, password, and other options. You should put your credentials in the corresponding fields in the DataSource files. For simplicity, I suggest you to use "root" as your username and "password" as your password, since they are the default values in the files. The default port for MySQL server in DataSource files is 3306 and the default name of the database is "metridoc". You should have your server running on port 3306 and create a database called "metridoc" unless you modify the connection in DataSource files.
+
+Then run this to start the server.
+
+```sh
+sudo service mysql start
+```
 
 If later when you run the application, it gives you an error that database connection refused or failed, please check whether your MySQL server is running and whether you have your application connected to the right port with the right credentials.
 
