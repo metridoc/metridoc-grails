@@ -11,7 +11,7 @@ App-specific README files:
 
 
 Installation Guide:
--------------------
+===================
 
 ### LANGUAGES and DEPENDENCIES
 
@@ -27,10 +27,11 @@ After this command, the terminal will print a message asking you to finalize the
 source "~/.sdkman/bin/sdkman-init.sh"
 ```
 
-PLease run this command and continue with the installation
+Please run that command and continue with the installation
 
 For more instruction on how to install the SDK, please refer to:
 http://sdkman.io/install.html
+
 
 After installing SDK, please install the correct version of Java, Groovy, and Grails by typing:
 
