@@ -15,11 +15,13 @@ queries{
       order by sumfund_name, alloc_name, repfund_name
 		'''
         expenditure = '''
-      select f.sumfund_id, f.sumfund_name, f.alloc_name,f.repfund_id, f.repfund_name, f.title, f.status, f.percent, f.po_no, f.quantity, f.cost, v.vendor_name as vendor,
-        f.publisher, f.bib_id
-        from funds_load f left join ( (SELECT v1.vendor_code, v1.vendor_name FROM vendor AS v1 WHERE v1.id=(SELECT MAX(v2.id) from vendor as v2 where v2.vendor_code = v1.vendor_code)) ) v ON f.vendor = v.vendor_code
-        where f.status between ? and ?
-        and {add_condition} order by sumfund_name, alloc_name, repfund_name
+		select
+      f.sumfund_id, f.sumfund_name, f.alloc_name,f.repfund_id, f.repfund_name, f.title, f.status, f.percent,
+      f.po_no, f.quantity, f.cost, v.vendor_name as vendor, f.publisher, f.bib_id
+    from funds_load f left join vendor v on f.vendor = v.vendor_code
+    where
+      f.status between ? and ?
+      and {add_condition} order by sumfund_name, alloc_name, repfund_name
 		'''
         vendorList = '''
 		 	select vendor_code, vendor_name from vendor

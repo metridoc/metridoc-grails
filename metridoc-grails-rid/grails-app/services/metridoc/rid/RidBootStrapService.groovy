@@ -76,11 +76,13 @@ class RidBootStrapService {
             ingestTestDataCheck(Environment.current)
 
         if(System.getProperty(TEST_DATA)=="true"){
-            testDataService.populateTestFields()
+            testDataService.initialization()
+            // testDataService.populateTestFields()
             testDataService.createTestTransactions()
         }
         else if(System.getProperty(UPENN_DATA)=="true"){
-            testDataService.populateTestFields()
+            // testDataService.populateTestFields()
+            testDataService.initialization()
         }
 
     }

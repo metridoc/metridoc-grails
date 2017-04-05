@@ -1,13 +1,34 @@
 environments {
+    // development {
+    //     dataSource {
+    //         pooled = true
+    //         dbCreate = "update"
+    //         url = "jdbc:mysql://localhost:3306/test"
+    //         driverClassName = "com.mysql.jdbc.Driver"
+    //         dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+    //         username = "root"
+    //         password = ""
+    //         properties {
+    //             maxActive = 50
+    //             maxIdle = 25
+    //             minIdle = 5
+    //             initialSize = 5
+    //             minEvictableIdleTimeMillis = 60000
+    //             timeBetweenEvictionRunsMillis = 60000
+    //             maxWait = 10000
+    //             validationQuery = "select 1"
+    //         }
+    //     }
+    // }
     development {
         dataSource {
             pooled = true
             dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/test"
+            url = "jdbc:mysql://localhost:3306/metridoc"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
             username = "root"
-            password = ""
+            password = "password"
             properties {
                 maxActive = 50
                 maxIdle = 25
