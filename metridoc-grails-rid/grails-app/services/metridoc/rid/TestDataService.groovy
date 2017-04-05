@@ -634,7 +634,7 @@ class TestDataService {
     //This function runs on application startup. It will apply changes in the ad hoc update function 
     //and make sure every domain list is up to date
     def initialization(){
-        adhocUpdate() // comment
+        adhocUpdate() //see comment of this function top
         updateRidLibraryUnit()
         updateRidDepartment()
         updateRidSchool()
