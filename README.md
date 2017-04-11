@@ -58,7 +58,7 @@ sdk use java 7u80
 
 sdk use groovy 2.4.10
 
-sdk use grails2.3.4
+sdk use grails 2.3.4
 ```
 
 For more information about how to install and switch to the correct version, please refer to: http://sdkman.io/usage.html
