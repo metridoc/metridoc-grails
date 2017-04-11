@@ -37,7 +37,6 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-      runtime ":database-migration:1.3.1"
     	runtime ":hibernate:3.6.10.6"
         compile(":calendar:1.2.1")
     }

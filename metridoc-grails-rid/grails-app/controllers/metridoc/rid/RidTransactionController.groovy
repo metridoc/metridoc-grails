@@ -44,7 +44,6 @@ class RidTransactionController {
     def spreadsheetService
     def ridManageLibraryUnitSpreadsheetsService
     def ridStatisticsService
-    def testDataService
 
     /**
      * This controller handles both consultation and instruction transactions
@@ -53,7 +52,6 @@ class RidTransactionController {
      */
     def index() {
         session.setAttribute("transType", new String("consultation"))//Sets default mode to consultation
-        testDataService.populateTestFields()
         redirect(action: "create")
     }
 

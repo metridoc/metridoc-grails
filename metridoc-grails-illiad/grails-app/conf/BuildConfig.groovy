@@ -86,7 +86,6 @@ grails.project.dependency.resolution = {
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
         }
-        runtime ":database-migration:1.3.1"
         runtime ":hibernate:3.6.10.6"
         build(":tomcat:7.0.47")
         build(":release:3.0.1", ":bintray-upload:0.2")

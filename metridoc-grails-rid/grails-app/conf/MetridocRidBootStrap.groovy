@@ -10,7 +10,7 @@ class MetridocRidBootStrap {
     def ridBootStrapService
     def ridManageLibraryUnitSpreadsheetsService
     def init = { servletContext ->
-    	ridBootStrapService.bootStrapContents()
+        ridBootStrapService.bootStrapContents()
         ridManageLibraryUnitSpreadsheetsService.transferSpreadsheets()
     }
 

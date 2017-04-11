@@ -228,7 +228,6 @@ class BorrowDirectService {
         else {
             def allQuery;
             sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], libId]
-            //what is the functionality of the two if statements below?
             if (notEZBorrow) { //***
                 allQuery = isBorrowing ? config.queries.borrowdirect.countsAllPerLenderToLib : config.queries.borrowdirect.countsAllPerBorrowerFromLib;
                 //Total number of items borrowed by selected lib (lended to particular one) or lended(touched) by  selected lib
@@ -404,7 +403,6 @@ class BorrowDirectService {
         }
         else {
             def allQuery;
-            //same here, what is the functionality of these two if statements, it seems repetitive to me
             if (notEZBorrow) {
                 //Summary page for selected library
                 allQuery = isBorrowing ? config.queries.borrowdirect.historicalCountsAllPerLenderToLib :
