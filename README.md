@@ -15,7 +15,7 @@ Installation Guide:
 
 ### LANGUAGES and DEPENDENCIES
 
-If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager by typing the following command in your terminal:
+If you do not yet have the right version of Java, Groovy, and Grails, please install The Software Development Kit Manager (if you do not already have it) by typing the following command in your terminal:
 
 ```sh
 curl -s "https://get.sdkman.io" | bash
@@ -74,8 +74,6 @@ If you do not have a MySQL connection, you can install and start a MySQL server 
 sudo apt-get update 
 
 sudo apt-get install mysql-server
-
-/usr/bin/mysql_secure_installation
 ```
 The second command will let you set up root user, password, and other options. You should put your credentials in the corresponding fields in the DataSource files. For simplicity, I suggest you to use "root" as your username and "password" as your password, since they are the default values in the files. The default port for MySQL server in DataSource files is 3306 and the default name of the database is "metridoc". You should have your server running on port 3306 and create a database called "metridoc" unless you modify the connection in DataSource files.
 
@@ -118,6 +116,8 @@ Go to metridoc-app
 ```sh
 cd metridoc-app
 ```
+(If you run into an error related to JAVA_HOME environment varialble not being set, please refer to the "Other Potential Problems section below")
+
 
 And then run the build file:
 
@@ -149,10 +149,10 @@ To test and sign into the application, the default username is "admin" and the p
 When running buildAll.sh, if it exits with an error "JAVA_HOME environment variable is not set", please refer to this page and set up your JAVA_HOME variable:
 https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/
 
-The commands specified in the above link might not work, please try the following commands after you downdloaded JDK if that happens
+or you can also simply type the following commands:
 
 ```sh
-export JAVA_HOME="directory where you installed JDK"
+export JAVA_HOME="~/.sdkman/candidates/java/current"
 
 export PATH="/bin:$PATH JAVA_HOME"
 ```
