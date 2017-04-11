@@ -158,4 +158,5 @@ export JAVA_HOME="~/.sdkman/candidates/java/current"
 
 export PATH="/bin:$PATH JAVA_HOME"
 ```
+
 If after these two commands, you still run into the same error when you try to build the app, please make sure you have closed the terminal where you applied the change and then opened a new terminal to build the app in the application folder.
