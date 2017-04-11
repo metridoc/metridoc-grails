@@ -229,6 +229,7 @@ class BorrowDirectService {
             def allQuery;
             sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], libId]
             //what is the functionality of the two if statements below?
+            //This part is the problem
             if (notEZBorrow) { //***
                 allQuery = isBorrowing ? config.queries.borrowdirect.countsAllPerLenderToLib : config.queries.borrowdirect.countsAllPerBorrowerFromLib;
                 //Total number of items borrowed by selected lib (lended to particular one) or lended(touched) by  selected lib
