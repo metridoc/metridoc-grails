@@ -107,9 +107,7 @@ Then run this to start the server.
 ```sh
 sudo service mysql start
 ```
-If you wish to create a table in the database, please refer to this page:https://dev.mysql.com/doc/refman/5.5/en/creating-tables.html
-
-Please note that you do not need to manually create any tables for the application, it will create them for you automatically when you run it.
+If you wish to create a table in the database, please refer to this page: https://dev.mysql.com/doc/refman/5.5/en/creating-tables.html. Please note that you do not need to manually create any tables for the application, it will create them for you automatically when you run it.
 
 If later when you run the application, it gives you an error that database connection refused or failed, please check whether your MySQL server is running and whether you have your application connected to the right port with the right credentials.
 
@@ -155,7 +153,7 @@ cd
 
 cd .metridoc 
 ```
-In this directory, please add a file called "MetridocConfig.groovy" and replace its content with the following code snipped:
+In this directory, please add a file called "MetridocConfig.groovy" if it does not exist already and replace its content with the following code:
 
 ```groovy
 environments {
