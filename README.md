@@ -130,6 +130,15 @@ Go to metridoc-app
 cd metridoc-app
 ```
 
+In order to connect your metridoc-app with your local instance of metridoc-grails, please navigate to /grails-app/conf/BuildConfig.groovy in metridoc-app and uncomment the following 5 lines:
+
+```groovy
+grails.plugin.location."metridoc-core" = "../metridoc-grails/metridoc-grails-core" 
+grails.plugin.location."metridoc-illiad" = "../metridoc-grails/metridoc-grails-illiad" 
+grails.plugin.location."metridoc-funds" = "../metridoc-grails/metridoc-grails-funds" 
+grails.plugin.location."metridoc-bd" = "../metridoc-grails/metridoc-grails-bd" 
+grails.plugin.location."metridoc-rid" = "../metridoc-grails/metridoc-grails-rid"
+```
 
 And then run the build file:
 
