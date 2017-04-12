@@ -90,6 +90,9 @@ In the Queries.groovy, we can find the 6 actual SQL queries needed for calculati
 		/**
 		* Fill rate in borrowing section for lib to lib
 		*/
+		//missing 10000009 and 10000014
+		// SELECT count(request_date),lender from bd_bibliography where lender = '10000009' and request_date between '2016-07-01 00:00:00' and '2017-04-12 00:00:00' group by lender
+		// SELECT count(print_date),library_id from bd_print_date where library_id = '10000009' and print_date between '2015-07-01 00:00:00' and '2017-04-12 00:00:00' group by library_id
 		countsAllPerLenderToLib = '''
 			select pd.library_id as lender, count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number

@@ -170,6 +170,7 @@ class BorrowDirectService {
 
         def query = getAdjustedQuery(config.queries.borrowdirect.countsPerLibraryMonthlyFilled, libRoleColumn, additionalCondition, tablePrefix)
 
+        //is -1l a typo here?
         def allLibDataSection = getLibDataMap(-1l, result).get(keyForSection)
         //currentFiscalYear
         def sqlParams = dates.currentFiscalYear
@@ -204,8 +205,8 @@ class BorrowDirectService {
         boolean notEZBorrow = !EZB_SERVICE_KEY.equals(tablePrefix)
         //fill rates
         if (libId == null) {
-            if (notEZBorrow || isBorrowing) { //***
-
+            // if (notEZBorrow || isBorrowing) { //***
+            if (notEZBorrow){
                 //additionalCondition != null if it is EZBorrow and subset of libraries has been selected
                 def allQuery = isBorrowing ? config.queries.borrowdirect.countsAllPerBorrower : config.queries.borrowdirect.countsAllPerLender;
                 //Total number of items borrowed by lib or lended(touched) by lib
@@ -216,8 +217,7 @@ class BorrowDirectService {
                         sqlParams, {
                     setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
                 })
-            }
-            else if (selectedLibIds == null) {
+            }else if (selectedLibIds == null) {
                 //*** remove whole else block
                 //leniding fill rate for All Libraries is equal to the borrowing fill rate
                 //if no subset has been selected, this value is already set, if calcFillRates is true
@@ -239,8 +239,6 @@ class BorrowDirectService {
                         sqlParams, {
                     setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
                 })
-            }
-            if (notEZBorrow || isBorrowing) { //***
                 //Calc for row All Library
                 allQuery = isBorrowing ? config.queries.borrowdirect.countsAllBorrowedByLib : config.queries.borrowdirect.countsAllTouchedByLib;
                 //Total number of items selected library borrowed (borrwing section) or have touched (for lending) section
@@ -276,6 +274,19 @@ class BorrowDirectService {
         if (currentMap.currentFiscalYear.get(-1) == null) {
             currentMap.currentFiscalYear.put(-1, 0);
         }
+        println("------------------------------------------------------------------");
+        println("CURRENT MODE IS "+keyForSection);
+        println("THIS IS THE CURRENT MAP");
+        println(currentMap);
+        println("THIS IS THE LIB ID");
+        println(libId);
+        println("This is the value of currentFiscalYear");
+        println(currentMap.currentFiscalYear.get(-1));
+        println("THIS IS THE VALUE OF requestsNum");
+        println(requestsNum);
+        println("THIS IS THE RATE");
+        println(currentMap.currentFiscalYear.get(-1)/requestsNum);
+        println("------------------------------------------------------------------");
         currentMap.yearFillRate = (requestsNum != 0 ?
                 currentMap.currentFiscalYear.get(-1) / (float) requestsNum : -1)
     }
