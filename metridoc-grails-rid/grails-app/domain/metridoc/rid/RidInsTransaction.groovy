@@ -18,17 +18,16 @@ package metridoc.rid
 class RidInsTransaction extends RidInsTransactionBase {
 
     static belongsTo = [
-            department: RidDepartment,
+            department            : RidDepartment,
 //            rank: RidRank,
-            school: RidSchool,
-            ridLibraryUnit: RidLibraryUnit,
-            location: RidLocation,
-            sessionType: RidSessionType,
-            expertise: RidExpertise,
+            school                : RidSchool,
+            ridLibraryUnit        : RidLibraryUnit,
+            location              : RidLocation,
+            sessionType           : RidSessionType,
             instructionalMaterials: RidInstructionalMaterials]
 
     static transients = ['otherSchool', 'otherLocation',
-            'otherSessionType', 'otherExpertise', 'otherInstructionalMaterials']
+                         'otherSessionType',  'otherInstructionalMaterials']
 
     String spreadsheetName
 
@@ -42,7 +41,8 @@ class RidInsTransaction extends RidInsTransactionBase {
         coInstructorPennkey(blank: true, nullable: true, maxSize: 100)
         sequenceName(blank: true, nullable: true, maxSize: 100)
         sequenceUnit(validator: { value ->
-            return ((!value) || (value > 0)) }, nullable: true)
+            return ((!value) || (value > 0))
+        }, nullable: true)
         location(blank: false, nullable: false)
         otherLocation(blank: true, nullable: true, maxSize: 50)
 
@@ -63,8 +63,6 @@ class RidInsTransaction extends RidInsTransactionBase {
         spreadsheetName(nullable: true, blank: true)
         sessionType(nullable: false, blank: false)
         otherSessionType(nullable: true, blank: true)
-        expertise(nullable: true, blank: true)
-        otherExpertise(nullable: true, blank: true)
         instructionalMaterials(blank: true, nullable: true, maxSize: 50)
         otherInstructionalMaterials(blank: true, nullable: true, maxSize: 50)
     }

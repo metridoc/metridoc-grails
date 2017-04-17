@@ -24,6 +24,8 @@ abstract class RidConsTransactionBase {
     Integer eventLength = 1
     String notes
     String staffPennkey
+    String otherExpertise
+//    String testField;
 
     // roles
     String userName

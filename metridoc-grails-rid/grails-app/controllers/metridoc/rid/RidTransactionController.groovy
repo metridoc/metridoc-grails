@@ -28,8 +28,8 @@ import java.text.SimpleDateFormat
 
 class RidTransactionController {
 
-    static homePage = [title: "Research Consultation & Instruction Database",
-            description: "Add/Update/Review data on consultation and instructional activity"]
+    static homePage = [title      : "Research Consultation & Instruction Database",
+                       description: "Add/Update/Review data on consultation and instructional activity"]
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -59,13 +59,13 @@ class RidTransactionController {
         params.max = Math.min(max ?: 10, 100)
 
         if (session.getAttribute("transType") == "consultation") {
-            [ridTransactionInstanceList: RidConsTransaction.list(params),
-                    ridTransactionInstanceTotal: RidConsTransaction.count(),
-                    ridTransactionAllList: RidConsTransaction.list()]
+            [ridTransactionInstanceList : RidConsTransaction.list(params),
+             ridTransactionInstanceTotal: RidConsTransaction.count(),
+             ridTransactionAllList      : RidConsTransaction.list()]
         } else {
-            [ridTransactionInstanceList: RidInsTransaction.list(params),
-                    ridTransactionInstanceTotal: RidInsTransaction.count(),
-                    ridTransactionAllList: RidInsTransaction.list()]
+            [ridTransactionInstanceList : RidInsTransaction.list(params),
+             ridTransactionInstanceTotal: RidInsTransaction.count(),
+             ridTransactionAllList      : RidInsTransaction.list()]
         }
     }
 
@@ -75,7 +75,7 @@ class RidTransactionController {
 
         //Generating a list of departments here, rather than using AJAX once the page is loaded
         def depts = RidDepartment.where { name != "" }.sort('name')
-        def ridDepartmentInstanceList= depts.list()
+        def ridDepartmentInstanceList = depts.list()
         def ridDepartmentInstanceTotal = RidDepartment.count()
 
         if (session?.getAttribute("transType") == null) {
@@ -89,16 +89,16 @@ class RidTransactionController {
                 if (params.tmp != null && RidConsTransactionTemplate.get(Long.valueOf(params.tmp))) {
                     ridTransactionInstance = RidConsTransactionTemplate.get(Long.valueOf(params.tmp))
                 }
-                [ridTransactionInstance: ridTransactionInstance,
-                 ridDepartmentInstanceList: ridDepartmentInstanceList,
+                [ridTransactionInstance    : ridTransactionInstance,
+                 ridDepartmentInstanceList : ridDepartmentInstanceList,
                  ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             } catch (Exception e) {
                 flash.alerts << e.message
                 if (params.tmp.equals("templateList"))
                     redirect(action: "templateList")
                 else
-                    [ridTransactionInstance: new RidConsTransaction(params),
-                     ridDepartmentInstanceList: ridDepartmentInstanceList,
+                    [ridTransactionInstance    : new RidConsTransaction(params),
+                     ridDepartmentInstanceList : ridDepartmentInstanceList,
                      ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             }
         } else {
@@ -107,16 +107,16 @@ class RidTransactionController {
                 if (params.tmp != null && RidInsTransactionTemplate.get(Long.valueOf(params.tmp))) {
                     ridTransactionInstance = RidInsTransactionTemplate.get(Long.valueOf(params.tmp))
                 }
-                [ridTransactionInstance: ridTransactionInstance,
-                 ridDepartmentInstanceList: ridDepartmentInstanceList,
+                [ridTransactionInstance    : ridTransactionInstance,
+                 ridDepartmentInstanceList : ridDepartmentInstanceList,
                  ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             } catch (Exception e) {
                 flash.alerts << e.message
                 if (params.tmp.equals("templateList"))
                     redirect(action: "templateList")
                 else
-                    [ridTransactionInstance: new RidInsTransaction(params),
-                     ridDepartmentInstanceList: ridDepartmentInstanceList,
+                    [ridTransactionInstance    : new RidInsTransaction(params),
+                     ridDepartmentInstanceList : ridDepartmentInstanceList,
                      ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
             }
         }
@@ -132,6 +132,7 @@ class RidTransactionController {
                 if (!params.dateOfConsultation.empty)
                     params.dateOfConsultation = new SimpleDateFormat("MM/dd/yyyy").parse(params.dateOfConsultation);
                 ridTransactionInstance = new RidConsTransaction(params)
+//                ridTransactionInstance.testField = params.testField;
                 ridTransactionService.createNewConsInstanceMethod(params, ridTransactionInstance)
                 if (!ridTransactionInstance.save(flush: true)) {
                     render(view: "create", model: [ridTransactionInstance: ridTransactionInstance])
@@ -258,7 +259,7 @@ class RidTransactionController {
     def edit(Long id) {
         //Generating a list of departments here, rather than using AJAX once the page is loaded
         def depts = RidDepartment.where { name != "" }.sort('name')
-        def ridDepartmentInstanceList= depts.list()
+        def ridDepartmentInstanceList = depts.list()
         def ridDepartmentInstanceTotal = RidDepartment.count()
 
 
@@ -283,8 +284,8 @@ class RidTransactionController {
                 return
             }
 
-            [ridTransactionInstance: ridTransactionInstance,
-             ridDepartmentInstanceList: ridDepartmentInstanceList,
+            [ridTransactionInstance    : ridTransactionInstance,
+             ridDepartmentInstanceList : ridDepartmentInstanceList,
              ridDepartmentInstanceTotal: ridDepartmentInstanceTotal]
         }
     }
@@ -383,13 +384,12 @@ class RidTransactionController {
         def queryResult = ridTransactionService.queryMethod(params, session.getAttribute("transType"))
 
         render(view: "list",
-                model: [ridTransactionInstanceList: queryResult.list(params),
+                model: [ridTransactionInstanceList : queryResult.list(params),
                         ridTransactionInstanceTotal: queryResult.count(),
-                        ridTransactionAllList: queryResult.list()])
+                        ridTransactionAllList      : queryResult.list()])
 
         return
     }
-
 
 
     def spreadsheetUpload() {
@@ -414,17 +414,17 @@ class RidTransactionController {
             }
 
             def valNameResponse = spreadsheetService.validateFilename(uploadedFile.originalFilename)
-            if (valNameResponse != "good"){
+            if (valNameResponse != "good") {
                 flash.alerts << valNameResponse
                 redirect(action: "spreadsheetUpload")
                 return
             }
 
 
-            try{
+            try {
                 wb = spreadsheetService.convertToWorkbook(uploadedFile)
-            }catch(InvalidFormatException e){
-                flash.message = message(code:"spreadsheet.illegal.argument")
+            } catch (InvalidFormatException e) {
+                flash.message = message(code: "spreadsheet.illegal.argument")
                 return
             }
 
@@ -445,7 +445,7 @@ class RidTransactionController {
                 skipIns = true
             }
 
-            TreeMap<String,ArrayList<ArrayList<String>>> allInstances = spreadsheetService.getAllInstances(wb, flash, skipCons, skipIns)
+            TreeMap<String, ArrayList<ArrayList<String>>> allInstances = spreadsheetService.getAllInstances(wb, flash, skipCons, skipIns)
             if (!allInstances?.size()) {
                 redirect(action: "spreadsheetUpload")
                 return
@@ -460,7 +460,7 @@ class RidTransactionController {
 
             if (spreadsheetService.saveToDatabase(allInstances, uploadedFile.originalFilename, flash)) {
                 flash.infos << "Spreadsheet successfully uploaded. " +
-                    String.valueOf(numCons) + " consultation instances and "+ String.valueOf(numIns)+" instructional instances uploaded."
+                        String.valueOf(numCons) + " consultation instances and " + String.valueOf(numIns) + " instructional instances uploaded."
                 redirect(action: "spreadsheetUpload")
             } else {
                 redirect(action: "spreadsheetUpload")
