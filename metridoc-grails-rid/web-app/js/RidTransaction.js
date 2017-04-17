@@ -108,11 +108,7 @@ $(function () {
         $("#otherInstructionalMaterialsDiv").show();
         $("#otherInstructionalMaterials").val("");
     }
-    var choiceExpertise = $("#expertise").find("option:selected").attr("inForm");
-    if (choiceExpertise == "2") {
-        $("#otherExpertiseDiv").show();
-        $("#otherExpertise").val("");
-    }
+
 
     var choiceLocation = $("#location").find("option:selected").attr("inForm");
     if (choiceLocation == "2") {
@@ -348,6 +344,15 @@ $(function () {
                     $("#otherInstructionalMaterials").val("");
                 }
 
+                var choiceExpertise = $("#expertise").find("option:selected").attr("inForm");
+                if (choiceExpertise == "2") {
+                    $("#otherExpertiseDiv").show();
+                    $("#otherExpertise").val("");
+                }else{
+                    $("#otherExpertiseDiv").hide();
+                    $("#otherExpertise").val("");
+                }
+
                 var choiceLocation = $("#location").children("option:first").attr("inForm");
                 if (choiceLocation == "2") {
                     $("#otherLocationDiv").show();
@@ -417,3 +422,32 @@ function isFull(obj) {
 
     }
 }
+
+// $(function () {
+//     $('#ridLibraryUnit').change(function () {
+//         var selectedItemStr = $('#ridLibraryUnit').find("option:selected").text();
+//         switch (selectedItemStr){
+//             case "RIS":
+//                 alert(1);
+//                 break;
+//             case "LIPPINCOTT":
+//                 alert(2);
+//                 break;
+//             case "CDM":
+//                 alert(3);
+//                 break;
+//             case "HSL":
+//                 alert(4);
+//                 break;
+//             case "Science Libraries":
+//                 alert(5);
+//                 break;
+//             case "Commons":
+//                 alert(6);
+//                 break;
+//             case "General":
+//                 alert(7);
+//                 break;
+//         }
+//     })
+// })

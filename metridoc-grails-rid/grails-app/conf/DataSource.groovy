@@ -4,10 +4,8 @@ dataSource {
 
     driverClassName = "org.h2.Driver"
 
-    username = "sa"
-    password = ""
-    username = "admin"
-    password = "password"
+    username = "root"
+    password = "root"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -19,9 +17,10 @@ environments {
     development {
         dataSource {
             driverClassName = "com.mysql.jdbc.Driver"
-            username = "admin"
-            password = "password"
-            dbCreate = "create-drop"
+            username = "root"
+            password = "root"
+//            dbCreate = "create-drop"
+            dbCreate = "update"
             //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             url = "jdbc:mysql://localhost:3306/metridoc"
         }
@@ -29,15 +28,20 @@ environments {
     test {
         dataSource {
             driverClassName = "org.h2.Driver"
-            dbCreate = "create-drop"
+//            dbCreate = "create-drop"
+            dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
     production {
         dataSource {
-            driverClassName = "org.h2.Driver"
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "root"
+            password = "root"
+            url = "jdbc:mysql://localhost:3306/metridoc"
+//            driverClassName = "org.h2.Driver"
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+//            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
             pooled = true
             properties {
                 maxActive = -1
