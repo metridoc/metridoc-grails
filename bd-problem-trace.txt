@@ -73,10 +73,17 @@ In the Queries.groovy, we can find the 6 actual SQL queries needed for calculati
 		   group by pd.library_id WITH ROLLUP
 		'''
 
-		
 		/**
+		* Fill rate in borrowing section for lib to lib
+		*/
+		//missing 10000009 and 10000014
+		// SELECT count(request_date),lender from bd_bibliography where lender = '10000009' and request_date between '2016-07-01 00:00:00' and '2017-04-12 00:00:00' group by lender
+		// SELECT count(print_date),library_id from bd_print_date where library_id = '10000009' and print_date between '2015-07-01 00:00:00' and '2017-04-12 00:00:00' group by library_id
+		//10000012 is missing from the institution table
+			/**
 		* Fill rate in lending section for lib to lib
 		*/
+		//old version
 		countsAllPerBorrowerFromLib = '''
 		   select borrower, count(distinct bl.request_number) as requestsNum 
 		   from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
@@ -86,21 +93,35 @@ In the Queries.groovy, we can find the 6 actual SQL queries needed for calculati
 		   and NOT (borrower <=> lender) 
 		   group by borrower
 		'''
+		// countsAllPerBorrowerFromLib = '''
+		//    select borrower, count(distinct request_number) as requestsNum 
+		//    from {table_prefix}_bibliography
+		//    where request_date between ? and ? 
+		//    and ((lender is null and pd.library_id = ?) or lender = ?)
+		//    and NOT (borrower <=> lender) 
+		//    group by borrower
+		// '''
 
 		/**
 		* Fill rate in borrowing section for lib to lib
 		*/
-		//missing 10000009 and 10000014
-		// SELECT count(request_date),lender from bd_bibliography where lender = '10000009' and request_date between '2016-07-01 00:00:00' and '2017-04-12 00:00:00' group by lender
-		// SELECT count(print_date),library_id from bd_print_date where library_id = '10000009' and print_date between '2015-07-01 00:00:00' and '2017-04-12 00:00:00' group by library_id
+		//old version
+		// countsAllPerLenderToLib = '''
+		// 	select pd.library_id as lender, count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		// 	where request_date between ? and ? 
+		// 	and borrower = ? 
+		// 	and borrower != pd.library_id 
+		// 	and NOT (borrower <=> lender) 
+		// 	group by pd.library_id
+		// '''
 		countsAllPerLenderToLib = '''
-			select pd.library_id as lender, count(distinct bl.request_number) as requestsNum 
-			from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+			select lender, count(distinct request_number) as requestsNum 
+			from {table_prefix}_bibliography
 			where request_date between ? and ? 
 			and borrower = ? 
-			and borrower != pd.library_id 
 			and NOT (borrower <=> lender) 
-			group by pd.library_id
+			group by lender
 		'''
 
 		/**

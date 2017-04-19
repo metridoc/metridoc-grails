@@ -70,9 +70,11 @@ queries{
 		///---If query has {add_condition}, it is used for EZBorrow where there is a possibility 
 		//to select subset of libraries for Summary report 
 		
-		
 		countsPerLibraryMonthlyFilled = '''
-			select IFNULL({lib_role},-1) as {lib_role}, month(request_date), count(*) as requestsNum from {table_prefix}_bibliography where request_date between ? and ? and NOT (supplier_code <=> 'List Exhausted') and NOT (borrower <=> lender) {add_condition} group by {lib_role}, month(request_date) WITH ROLLUP
+			select IFNULL({lib_role},-1) as {lib_role}, month(request_date), count(*) as requestsNum 
+			from {table_prefix}_bibliography where request_date between ? and ? 
+			and NOT (lender is null) 
+			and NOT (borrower <=> lender) {add_condition} group by {lib_role}, month(request_date) WITH ROLLUP
 		'''
 		
 		turnaroundPerLibrary = '''
@@ -89,7 +91,11 @@ queries{
 		* for fillRate in Borrowing
 		*/
 		countsAllPerBorrower = '''
-		   select IFNULL(borrower,-1) as borrower, count(distinct request_number) as requestsNum from {table_prefix}_bibliography where request_date between ? and ? and NOT (borrower <=> lender) {add_condition} group by borrower WITH ROLLUP
+		   select IFNULL(borrower,-1) as borrower, count(distinct request_number) as requestsNum 
+		   from {table_prefix}_bibliography 
+		   where request_date between ? and ? 
+		   and NOT (borrower <=> lender) {add_condition} 
+		   group by borrower WITH ROLLUP
 		'''
 
 		/**
@@ -107,32 +113,54 @@ queries{
 		* Fill rate in lending section for lib to lib
 		*/
 		countsAllPerBorrowerFromLib = '''
-		   select borrower, count(distinct bl.request_number) as requestsNum from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		   where request_date between ? and ? and pd.library_id = ? and borrower != pd.library_id and NOT (borrower <=> lender) group by borrower
-		'''
+		    select borrower, count(distinct bl.request_number) as requestsNum 
+			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+			where request_date between ? and ? 
+			and ((lender is null and pd.library_id = ?) or lender = {lender_id})
+			and NOT (borrower <=> lender) 
+			group by borrower
+		 '''
 
 		/**
 		* Fill rate in borrowing section for lib to lib
 		*/
+		// countsAllPerLenderToLib = '''
+		// 	select lender, count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		// 	where request_date between ? and ? 
+		// 	and borrower = ?
+		// 	and NOT (borrower <=> lender) or (lender is null and borrower != pd.library_id)
+		// 	group by lender
+		// '''
 		countsAllPerLenderToLib = '''
-			select pd.library_id as lender, count(distinct bl.request_number) as requestsNum from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-			where request_date between ? and ? and borrower = ? and borrower != pd.library_id and NOT (borrower <=> lender) group by pd.library_id
+			select library_id, count(bl.request_number) as unfilledNum
+			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+			where request_date between ? and ?
+			and borrower = ?
+			and lender is null
+			and NOT (borrower <=> lender)
+			group by library_id
 		'''
 
 		/**
 		* for fill rate in All Libraries row -Borrowing
 		*/
 		countsAllBorrowedByLib = '''
-			select count(distinct request_number) as requestsNum from {table_prefix}_bibliography where
-			request_date between ? and ? and borrower = ? and NOT (borrower <=> lender)
+			select count(distinct request_number) as requestsNum 
+			from {table_prefix}_bibliography where
+			request_date between ? and ? and borrower = ? 
+			and NOT (borrower <=> lender)
 		'''
 
 	   /**
 		* for fill rate in All Libraries row  - Lending
 		*/
 		countsAllTouchedByLib = '''
-			select count(distinct bl.request_number) as requestsNum from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-			where request_date between ? and ? and pd.library_id = ? and NOT (borrower <=> lender)
+			select count(distinct bl.request_number) as requestsNum 
+			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+			where request_date between ? and ? 
+			and ((lender is null and pd.library_id = ?) or lender = {lender_id})
+			and NOT (borrower <=> lender)
 		'''
 	   
 		countsPerPickupLocations = '''
@@ -173,10 +201,10 @@ queries{
 		CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
 		ELSE YEAR(request_date) END AS fiscal_year,
 		count(*) as requestsNum
-		from {table_prefix}_bibliography b where NOT (supplier_code <=> 'List Exhausted') and NOT (borrower <=> lender) 
+		from {table_prefix}_bibliography b where NOT (lender is null) and NOT (borrower <=> lender) 
 		{add_condition} group by fiscal_year, b.{lib_role} WITH ROLLUP
 		'''
-		
+
 		/**
 		* for fillRate in Borrowing
 		*/
@@ -207,25 +235,40 @@ queries{
 		* Total num of items borrowed (requested) by selected lib per each lender(toucher) lib for
 		* fill rate in borrowing section for lib to lib
 		*/
-	   historicalCountsAllPerLenderToLib = '''
-		   select IFNULL(pd.library_id,-1) as lender,
-		   CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
-		   ELSE YEAR(request_date) END AS fiscal_year,
-		   count(distinct bl.request_number) as requestsNum
-		   from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		   where borrower = ? and borrower != pd.library_id and NOT (borrower <=> lender) group by  fiscal_year, pd.library_id;
-	   '''
-		
+	   // historicalCountsAllPerLenderToLib = '''
+		  //  select IFNULL(pd.library_id,-1) as lender,
+		  //  CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
+		  //  ELSE YEAR(request_date) END AS fiscal_year,
+		  //  count(distinct bl.request_number) as requestsNum
+		  //  from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		  //  where borrower = ? and borrower != pd.library_id and NOT (borrower <=> lender) group by  fiscal_year, pd.library_id;
+	   // '''
+		historicalCountsAllPerLenderToLib = '''
+			select pd.library_id as lender,
+			CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
+			ELSE YEAR(request_date) END AS fiscal_year,
+			count(distinct bl.request_number) as unfilledNum
+			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+			where borrower = ? 
+			and lender is null
+			and NOT (borrower <=> lender) 
+			group by  fiscal_year, pd.library_id;
+		'''
+
+
 		/**
 		 * Total num of items lended (toched) by selected lib per each borrowing lib
 		 * for fill rate in lending section for lib to lib
 		 */
 		historicalCountsAllPerBorrowerFromLib = '''
-		   select IFNULL(borrower,-1) as borrower,
+		   select borrower as borrower,
 			CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
 			ELSE YEAR(request_date) END AS fiscal_year,
-			count(distinct bl.request_number) as requestsNum from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		   where pd.library_id = ? and borrower != pd.library_id and NOT (borrower <=> lender) group by fiscal_year, borrower;
+			count(distinct bl.request_number) as requestsNum 
+			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		   and (((lender is null and pd.library_id = ?) or lender = {lender_id})) 
+		   and NOT (borrower <=> lender) 
+		   group by fiscal_year, borrower;
 		'''
 		
 		/**
