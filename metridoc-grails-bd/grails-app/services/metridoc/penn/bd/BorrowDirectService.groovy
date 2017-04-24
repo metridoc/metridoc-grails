@@ -320,6 +320,8 @@ class BorrowDirectService {
         def query = prepareQuery(config.queries.borrowdirect.libraryUnfilledRequests, serviceKey) + orderBy
         def sqlParams = [dateFrom, dateTo, libId]
         log.debug("Runnig query for unfilled requests " + query + "\nparams = " + sqlParams)
+        println("THIS IS THE getUnfilledRequests QUERY")
+        println(query)
         return sql.rows(query, sqlParams)
     }
 
@@ -511,10 +513,6 @@ class BorrowDirectService {
             if (filledReqs == null) {
                 filledReqs = 0;
             }
-            println('------------------FilledReqs-------------------')
-            println(filledReqs)
-            println(requestsNum)
-            println('------------------requestsNum------------------')
             currentMap.fillRates.put(currentKey, (requestsNum != 0 ?
                     filledReqs / (float) requestsNum : -1))
         }

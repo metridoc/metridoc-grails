@@ -221,8 +221,7 @@ queries{
 		left join {table_prefix}_institution lr on pd.library_id = lr.library_id
 		where request_date
 			between ? and ? and bl.supplier_code = 'List Exhausted' and bl.borrower = ? and NOT (bl.borrower <=> bl.lender) 
-			group by bl.request_number order by 
-		''' /*and cn.holdings_seq=1*/
+			group by bl.request_number order by ''' /*and cn.holdings_seq=1*/
 
 		//----------------Historical Summary Dashboard------------------------
 		historicalCountsPerLibFilled = '''
