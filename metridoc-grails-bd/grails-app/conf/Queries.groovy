@@ -90,13 +90,7 @@ queries{
 		/**
 		* for fillRate in Borrowing
 		*/
-		// countsAllPerBorrower = '''
-		//    select IFNULL(borrower,-1) as borrower, count(distinct request_number) as requestsNum 
-		//    from {table_prefix}_bibliography 
-		//    where request_date between ? and ? 
-		//    and NOT (borrower <=> lender) {add_condition} 
-		//    group by borrower WITH ROLLUP
-		// '''
+		
 		countsAllPerBorrower = '''
 		select IFNULL(borrower,-1) as borrower, count(distinct request_number) as unfilledNum 
 		from bd_bibliography 
@@ -109,13 +103,7 @@ queries{
 		* for fillRate in Leniding, rollup here, does not double count
 		* in case of selected sublibs 'All Libraries' row is not the same as for borrowing
 		*/
-		// countsAllPerLender = '''
-		//    select IFNULL(pd.library_id,-1) as lender, count(distinct bl.request_number) as requestsNum 
-		//    from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		//    where request_date between ? and ? 
-		//    and borrower != pd.library_id {add_condition} 
-		//    group by pd.library_id WITH ROLLUP
-		// '''
+		
 		countsAllPerLender = '''
 		SELECT 
 		    fst.lender,
@@ -251,17 +239,6 @@ queries{
 		* for fillRate in Leniding,rollup here (does not double count),
 		* in case of selected sublibs 'All Libraries' row is not the same as for borrowing
 		*/
-		// historicalCountsAllPerLender = '''
-		//    select IFNULL(pd.library_id,-1) as lender, 
-		// 	CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
-		// 	ELSE YEAR(request_date) END AS fiscal_year,
-		// 	count(distinct bl.request_number) as requestsNum 
-		// 	from {table_prefix}_bibliography bl inner join {table_prefix}_print_date pd on bl.request_number = pd.request_number   
-		// 	where borrower != pd.library_id 
-		// 	and NOT (borrower <=> lender) 
-		// 	{add_condition} 
-		// 	group by fiscal_year, pd.library_id WITH ROLLUP
-		// '''
 		historicalCountsAllPerLender = '''
 		SELECT 
 		    fst.lender,

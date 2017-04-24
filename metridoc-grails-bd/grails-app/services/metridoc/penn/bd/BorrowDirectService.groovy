@@ -170,7 +170,6 @@ class BorrowDirectService {
 
         def query = getAdjustedQuery(config.queries.borrowdirect.countsPerLibraryMonthlyFilled, libRoleColumn, additionalCondition, tablePrefix)
 
-        //is -1l a typo here?
         def allLibDataSection = getLibDataMap(-1l, result).get(keyForSection)
         //currentFiscalYear
         def sqlParams = dates.currentFiscalYear
@@ -199,26 +198,19 @@ class BorrowDirectService {
             currentMap.turnaroundShpRec = it.turnaroundShpRec
         })
 
-        //Hide some incorrect rates for EZBorrow,
-        //because of incorrect library_id field in print_date table
-        //delete if statements marked with *** when data is corrected
         boolean notEZBorrow = !EZB_SERVICE_KEY.equals(tablePrefix)
         //fill rates
         if (libId == null) {
-            // if (notEZBorrow || isBorrowing) { //***
             if (notEZBorrow){
-                //additionalCondition != null if it is EZBorrow and subset of libraries has been selected
-                def allQuery = isBorrowing ? config.queries.borrowdirect.countsAllPerBorrower : config.queries.borrowdirect.countsAllPerLender;
-                //Total number of items borrowed by lib or lended(touched) by lib
-                allQuery = getAdjustedQuery(allQuery, "", additionalCondition, tablePrefix)
-
-                log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery + " params=" + sqlParams)
+                // log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery + " params=" + sqlParams)
                 if(isBorrowing){
+                    def allQuery = getAdjustedQuery(config.queries.borrowdirect.countsAllPerBorrower,"",additionalCondition,tablePrefix)
                     sql.eachRow(allQuery,
                         sqlParams, {
                         setFillRateBorrowing(it.getAt(0), it.unfilledNum, keyForSection, result)
                     })
                 }else{
+                    def allQuery = getAdjustedQuery(config.queries.borrowdirect.countsAllPerLender,"",additionalCondition,tablePrefix)
                     sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], dates.currentFiscalYear[0], dates.currentFiscalYear[1]]
                     sql.eachRow(allQuery,
                         sqlParams, {
@@ -475,14 +467,14 @@ class BorrowDirectService {
             int currentKey = year != null ? year : -1
             def log = LoggerFactory.getLogger(BorrowDirectService)
 
-            log.error("""
-                current key is $currentKey
-                current map is $currentMap
-                libId is $libId
-                requestNum is $unfilledNum
-                keyForSection is $keyForSection
-                result is $result
-            """)
+            // log.error("""
+            //     current key is $currentKey
+            //     current map is $currentMap
+            //     libId is $libId
+            //     requestNum is $unfilledNum
+            //     keyForSection is $keyForSection
+            //     result is $result
+            // """)
 
             Integer filledReqs = currentMap.items.get(currentKey);
             if (filledReqs == null) {
