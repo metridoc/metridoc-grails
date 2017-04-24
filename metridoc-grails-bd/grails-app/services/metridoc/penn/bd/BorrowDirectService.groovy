@@ -213,10 +213,19 @@ class BorrowDirectService {
                 allQuery = getAdjustedQuery(allQuery, "", additionalCondition, tablePrefix)
 
                 log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery + " params=" + sqlParams)
-                sql.eachRow(allQuery,
+                if(isBorrowing){
+                    sql.eachRow(allQuery,
                         sqlParams, {
-                    setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
-                })
+                        setFillRateBorrowing(it.getAt(0), it.unfilledNum, keyForSection, result)
+                    })
+                }else{
+                    sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], dates.currentFiscalYear[0], dates.currentFiscalYear[1]]
+                    sql.eachRow(allQuery,
+                        sqlParams, {
+                        setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
+                    })    
+                }
+                
             }else if (selectedLibIds == null) {
                 //*** remove whole else block
                 //leniding fill rate for All Libraries is equal to the borrowing fill rate
@@ -393,10 +402,17 @@ class BorrowDirectService {
                 //change from base 0 to base 1
 
                 log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery)
-                sql.eachRow(allQuery,
-                        [], {
-                    setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
-                })
+                if(isBorrowing){
+                    sql.eachRow(allQuery,
+                            [], {
+                        setFillRateHistoricalBorrowing(it.getAt(0), it.getAt(1), it.unfilledNum, keyForSection, result)
+                    })
+                }else{
+                    sql.eachRow(allQuery,
+                            [], {
+                        setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
+                    })
+                }
             }
             else if (selectedLibIds == null) {
                 //*** delete whole else block (with content)
@@ -434,6 +450,9 @@ class BorrowDirectService {
                 //Calc for row All Library
                 allQuery = isBorrowing ? config.queries.borrowdirect.historicalCountsAllBorrowedByLib :
                         config.queries.borrowdirect.historicalCountsAllTouchedByLib;
+                if(!isBorrowing){
+                    allQuery = allQuery.replaceAll("\\{lender_id\\}", libId+"")
+                }
                 //Total number of items selected library borrowed (borrwing section) or have touched (for lending) section
                 allQuery = prepareHistoricQuery(allQuery, tablePrefix)
 
@@ -494,8 +513,8 @@ class BorrowDirectService {
             }
             println('------------------FilledReqs-------------------')
             println(filledReqs)
-            println('------------------requestsNum------------------')
             println(requestsNum)
+            println('------------------requestsNum------------------')
             currentMap.fillRates.put(currentKey, (requestsNum != 0 ?
                     filledReqs / (float) requestsNum : -1))
         }
