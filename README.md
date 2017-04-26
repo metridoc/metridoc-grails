@@ -273,5 +273,6 @@ or
 
 ```sh
 sh ./buildApp.sh
+```
 
 To build the application twice, simply run the above command twice.
