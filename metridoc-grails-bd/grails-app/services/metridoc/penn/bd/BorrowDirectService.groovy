@@ -285,6 +285,12 @@ class BorrowDirectService {
             if (currentMap.currentFiscalYear.get(-1) == null) {
                 currentMap.currentFiscalYear.put(-1, 0);
             }
+            // if(libId==-1){
+            //     println("\nThis is lending total number")
+            //     println(requestsNum)
+            //     println("This is lending filled number")
+            //     println(currentMap.currentFiscalYear.get(-1))
+            // }
             currentMap.yearFillRate = (requestsNum != 0 ?
                     currentMap.currentFiscalYear.get(-1) / (float) requestsNum : -1)
         }
@@ -300,6 +306,15 @@ class BorrowDirectService {
             if(unfilledNum == 0){
                 currentMap.yearFillRate = 1
             }else{
+                // if(libId==-1){
+                //     println("\nTHIS is borrowing total number")
+                //     println(currentMap.currentFiscalYear.get(-1) + unfilledNum)
+                //     println("This is borrowing filled number")
+                //     println(currentMap.currentFiscalYear.get(-1))
+                //     println("This is borrowing unfilled number")
+                //     println(unfilledNum)
+                // }
+
                 def unfilledRate = (float) unfilledNum / (currentMap.currentFiscalYear.get(-1) + (float) unfilledNum)
                 currentMap.yearFillRate = 1 - unfilledRate
             }
@@ -480,6 +495,14 @@ class BorrowDirectService {
             if (filledReqs == null) {
                 filledReqs = 0;
             }
+
+            // if(libId==-1){
+            //     println("\nTHIS is borrowing total number")
+            //     println(filledReqs + unfilledNum)
+            //     println("This is borrowing filled number")
+            //     println(filledReqs)
+            // }
+
             currentMap.fillRates.put(currentKey, (unfilledNum != 0 ?
                     1 - (float) unfilledNum / (filledReqs + unfilledNum) : 1))
         }
@@ -505,6 +528,12 @@ class BorrowDirectService {
             if (filledReqs == null) {
                 filledReqs = 0;
             }
+            // if(libId==-1){
+            //     println("\nThis is lending total number")
+            //     println(requestsNum)
+            //     println("This is lending filled number")
+            //     println(filledReqs)
+            // }
             currentMap.fillRates.put(currentKey, (requestsNum != 0 ?
                     filledReqs / (float) requestsNum : -1))
         }

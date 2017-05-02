@@ -73,7 +73,7 @@ queries{
 		countsPerLibraryMonthlyFilled = '''
 			select IFNULL({lib_role},-1) as {lib_role}, month(request_date), count(*) as requestsNum 
 			from {table_prefix}_bibliography where request_date between ? and ? 
-			and NOT (supplier_code = 'List Exhausted' OR (lender is null AND supplier_code <> 'List Exhausted')) 
+			and NOT (supplier_code = 'List Exhausted' OR (lender is null AND supplier_code <> 'List Exhausted'))
 			and NOT (borrower <=> lender) {add_condition} group by {lib_role}, month(request_date) WITH ROLLUP
 		'''
 		
@@ -129,8 +129,8 @@ queries{
 		    WHERE
 		        request_date BETWEEN ? AND ?
 		            AND bl.supplier_code = 'List Exhausted'
-		            AND pd.library_id IS NOT NULL
 		    GROUP BY pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
+		    ORDER BY requestsNum
 		'''
 
 		
@@ -258,7 +258,8 @@ queries{
 		    FROM
 		        {table_prefix}_bibliography bl
 		    WHERE
-		        supplier_code <> 'List Exhausted' AND NOT (lender is null and supplier_code = 'List Exhausted')
+		        (bl.supplier_code <> 'List Exhausted' 
+		            		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
 		    GROUP BY fiscal_year , bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
@@ -271,11 +272,10 @@ queries{
 		    FROM
 		        {table_prefix}_bibliography bl
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
-		    WHERE
-		        pd.library_id IS NOT NULL
-		            AND supplier_code = 'List Exhausted'
+		    WHERE bl.supplier_code = 'List Exhausted'
 		    GROUP BY fiscal_year , pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
 		        AND fst.fiscal_year = snd.fiscal_year
+		        ORDER BY fst.fiscal_year,requestsNum 
 		'''
 		
 		/**
