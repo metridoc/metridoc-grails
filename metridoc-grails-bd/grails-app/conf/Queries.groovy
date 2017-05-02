@@ -73,7 +73,7 @@ queries{
 		countsPerLibraryMonthlyFilled = '''
 			select IFNULL({lib_role},-1) as {lib_role}, month(request_date), count(*) as requestsNum 
 			from {table_prefix}_bibliography where request_date between ? and ? 
-			and NOT (lender is null) 
+			and NOT (supplier_code = 'List Exhausted' OR (lender is null AND supplier_code <> 'List Exhausted')) 
 			and NOT (borrower <=> lender) {add_condition} group by {lib_role}, month(request_date) WITH ROLLUP
 		'''
 		
@@ -95,7 +95,7 @@ queries{
 		select IFNULL(borrower,-1) as borrower, count(distinct request_number) as unfilledNum 
 		from bd_bibliography 
 		where request_date between ? and ?
-		and lender is null
+		and supplier_code = 'List Exhausted'
 		group by borrower WITH ROLLUP
 		'''
 
@@ -116,7 +116,8 @@ queries{
 		        {table_prefix}_bibliography bl
 		    WHERE
 		        request_date BETWEEN ? AND ?
-		            AND bl.lender IS NOT NULL
+		            AND (bl.supplier_code <> 'List Exhausted' 
+		            		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
 		    GROUP BY bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
@@ -127,7 +128,7 @@ queries{
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
 		    WHERE
 		        request_date BETWEEN ? AND ?
-		            AND bl.lender IS NULL
+		            AND bl.supplier_code = 'List Exhausted'
 		            AND pd.library_id IS NOT NULL
 		    GROUP BY pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
 		'''
@@ -140,7 +141,7 @@ queries{
 		    select borrower, count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where request_date between ? and ? 
-			and ((lender is null and pd.library_id = ?) or lender = {lender_id})
+			and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
 			and NOT (borrower <=> lender) 
 			group by borrower
 		 '''
@@ -154,7 +155,7 @@ queries{
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where request_date between ? and ?
 			and borrower = ?
-			and lender is null
+			and bl.supplier_code = 'List Exhausted'
 			and NOT (borrower <=> lender)
 			group by library_id
 		'''
@@ -165,7 +166,9 @@ queries{
 		countsAllBorrowedByLib = '''
 			select count(distinct request_number) as requestsNum 
 			from {table_prefix}_bibliography where
-			request_date between ? and ? and borrower = ? 
+			request_date between ? and ? 
+			and borrower = ? 
+			and NOT (lender is null and supplier_code <> 'List Exhausted')
 			and NOT (borrower <=> lender)
 		'''
 
@@ -176,7 +179,7 @@ queries{
 			select count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where request_date between ? and ? 
-			and ((lender is null and pd.library_id = ?) or lender = {lender_id})
+			and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
 			and NOT (borrower <=> lender)
 		'''
 	   
@@ -218,7 +221,7 @@ queries{
 		ELSE YEAR(request_date) END AS fiscal_year,
 		count(*) as requestsNum
 		from {table_prefix}_bibliography b 
-		where NOT (lender is null) 
+		where NOT (supplier_code = 'List Exhausted' OR (lender is null AND supplier_code <> 'List Exhausted'))
 		and NOT (borrower <=> lender) {add_condition} group by fiscal_year, b.{lib_role} WITH ROLLUP
 		'''
 
@@ -231,7 +234,7 @@ queries{
 			ELSE YEAR(request_date) END AS fiscal_year,
 			count(distinct request_number) as unfilledNum
 			from {table_prefix}_bibliography where NOT (borrower <=> lender)
-			and lender is null
+			and supplier_code = 'List Exhausted'
 			{add_condition} group by fiscal_year, borrower WITH ROLLUP
 		'''
 		
@@ -255,7 +258,7 @@ queries{
 		    FROM
 		        {table_prefix}_bibliography bl
 		    WHERE
-		        bl.lender IS NOT NULL
+		        supplier_code <> 'List Exhausted' AND NOT (lender is null and supplier_code = 'List Exhausted')
 		    GROUP BY fiscal_year , bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
@@ -270,7 +273,7 @@ queries{
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
 		    WHERE
 		        pd.library_id IS NOT NULL
-		            AND bl.lender IS NULL
+		            AND supplier_code = 'List Exhausted'
 		    GROUP BY fiscal_year , pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
 		        AND fst.fiscal_year = snd.fiscal_year
 		'''
@@ -287,7 +290,7 @@ queries{
 			count(distinct bl.request_number) as unfilledNum
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where borrower = ? 
-			and lender is null
+			and supplier_code = 'List Exhausted'
 			and NOT (borrower <=> lender) 
 			group by  fiscal_year, pd.library_id;
 		'''
@@ -303,7 +306,7 @@ queries{
 			ELSE YEAR(request_date) END AS fiscal_year,
 			count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		   where (((lender is null and pd.library_id = ?) or lender = {lender_id})) 
+		   where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})) 
 		   and NOT (borrower <=> lender) 
 		   group by fiscal_year, borrower;
 		'''
@@ -315,8 +318,10 @@ queries{
 		historicalCountsAllBorrowedByLib = '''
 			select CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
 			ELSE YEAR(request_date) END AS fiscal_year,
-			count(distinct request_number) as requestsNum from {table_prefix}_bibliography where
-			borrower = ? and NOT (borrower <=> lender) group by fiscal_year
+			count(distinct request_number) as requestsNum from {table_prefix}_bibliography 
+			where borrower = ? 
+			and NOT (lender is null and supplier_code <> 'List Exhausted')
+			and NOT (borrower <=> lender) group by fiscal_year
 		'''
 
 	   /**
@@ -328,7 +333,7 @@ queries{
 			ELSE YEAR(request_date) END AS fiscal_year,
 			count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-			where (((lender is null and pd.library_id = ?) or lender = {lender_id}))
+			where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id}))
 			and NOT (borrower <=> lender) 
 			group by fiscal_year
 		'''
