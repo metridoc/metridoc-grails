@@ -140,6 +140,8 @@ grails.plugin.location."metridoc-bd" = "../metridoc-grails/metridoc-grails-bd"
 grails.plugin.location."metridoc-rid" = "../metridoc-grails/metridoc-grails-rid"
 ```
 
+(For more information regarding switching between the local instance of the plugins and the remote version, please refer to the Local vs Remote section in Other Potential Problems below)
+
 And then run the build file:
 
 ```sh
@@ -238,3 +240,39 @@ Then you can go to the sdk directory
 cd .sdkman
 ```
 Inside the .sdkman folder, there should be a "candidates" folder. And inside that folder, there should be folders of languages you installed through sdkman. In our case, there should be 3 folders each for Grails, Groovy, and Java. Inside the Java folder, you should be able to find the correct directory for JAVA_HOME.
+
+#### Local vs Remote
+When you want to switch between the local instance and the remote instance of the plugins, you can uncomment these lines or keep them in metridoc-app/grails-app/conf/BuildConfig.groovy:
+
+```groovy
+grails.plugin.location."metridoc-core" = "../metridoc-grails/metridoc-grails-core" 
+grails.plugin.location."metridoc-illiad" = "../metridoc-grails/metridoc-grails-illiad" 
+grails.plugin.location."metridoc-funds" = "../metridoc-grails/metridoc-grails-funds" 
+grails.plugin.location."metridoc-bd" = "../metridoc-grails/metridoc-grails-bd" 
+grails.plugin.location."metridoc-rid" = "../metridoc-grails/metridoc-grails-rid"
+```
+
+If you comment them out, that means you are using the remote version of the plugins. If you uncomment them, that means you are using the local version of the plugins. You will know that you are using the local instance of the plugins when you see the following lines in the terminal while building or running the application:
+
+```sh
+| Warning No plugin [metridoc-core-0.8.9] installed, cannot uninstall
+| Warning No plugin [metridoc-illiad-0.8.9] installed, cannot uninstall
+| Warning No plugin [metridoc-rid-0.8.9] installed, cannot uninstall
+| Warning No plugin [metridoc-bd-0.8.9] installed, cannot uninstall
+| Warning No plugin [metridoc-funds-0.8.9] installed, cannot uninstall
+```
+
+It is IMPORTANT to note that when you switch between the local and the remote version of the plugins, there will be some error when you rebuild the application, since the application would look for folders and files that previously did not exist or had a different name. Please simply build the application a second time and then it should be good to go.
+To build the application, in your terminal in the metridoc-app folder, type and run:
+
+```sh
+./buildApp.sh
+```  
+
+or
+
+```sh
+sh ./buildApp.sh
+```
+
+To build the application twice, simply run the above command twice.
