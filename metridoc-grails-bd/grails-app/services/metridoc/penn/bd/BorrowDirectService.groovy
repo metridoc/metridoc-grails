@@ -291,8 +291,16 @@ class BorrowDirectService {
             //     println("This is lending filled number")
             //     println(currentMap.currentFiscalYear.get(-1))
             // }
-            currentMap.yearFillRate = (requestsNum != 0 ?
-                    currentMap.currentFiscalYear.get(-1) / (float) requestsNum : -1)
+            if (requestsNum != 0) {
+                def fillrate = (currentMap.currentFiscalYear.get(-1) / (float) requestsNum).round(2)
+                if(fillrate > 0 && fillrate < 1){
+                    currentMap.yearFillRate = fillrate
+                }else{
+                    currentMap.yearFillRate = -1
+                }
+            }else{
+                currentMap.yearFillRate = -1
+            }
         }
     }
 
@@ -315,8 +323,13 @@ class BorrowDirectService {
                 //     println(unfilledNum)
                 // }
 
-                def unfilledRate = (float) unfilledNum / (currentMap.currentFiscalYear.get(-1) + (float) unfilledNum)
-                currentMap.yearFillRate = 1 - unfilledRate
+                def unfilledRate = ((float) unfilledNum / (currentMap.currentFiscalYear.get(-1) + (float) unfilledNum)).round(2)
+                def fillrate = 1 - unfilledRate
+                if(fillrate > 0 && fillrate < 1){
+                    currentMap.yearFillRate = fillrate
+                }else{
+                    currentMap.yearFillRate = -1
+                }
             }
         }
     }
@@ -503,8 +516,12 @@ class BorrowDirectService {
             //     println(filledReqs)
             // }
 
-            currentMap.fillRates.put(currentKey, (unfilledNum != 0 ?
-                    1 - (float) unfilledNum / (filledReqs + unfilledNum) : 1))
+            def fillrate = (1 - (float) unfilledNum / (filledReqs + unfilledNum)).round(2)
+            if(fillrate > 0 && fillrate < 1){
+                currentMap.fillRates.put(currentKey, fillrate)
+            }else{
+                currentMap.fillRates.put(currentKey, -1)
+            }
         }
     }
 
@@ -534,8 +551,16 @@ class BorrowDirectService {
             //     println("This is lending filled number")
             //     println(filledReqs)
             // }
-            currentMap.fillRates.put(currentKey, (requestsNum != 0 ?
-                    filledReqs / (float) requestsNum : -1))
+            if (requestsNum != 0) {
+                def fillrate = (filledReqs / (float) requestsNum).round(2)
+                if(fillrate > 0 && fillrate < 1){
+                    currentMap.fillRates.put(currentKey,fillrate)
+                }else{
+                    currentMap.fillRates.put(currentKey,-1)
+                }
+            }else{
+                currentMap.fillRates.put(currentKey,-1)
+            }
         }
     }
 
