@@ -33,7 +33,8 @@
     <tr>
       <th class="mainColHeader" rowspan="3">Borrowing</th>
       <th colspan="3" rowspan="2">Turnaround Time</th>
-      <th colspan="3" rowspan="2">Year</th>
+      <!-- change Year's colspan to 3 if including fill rate -->
+      <th colspan="2" rowspan="2">Year</th>
       <th colspan="${monthsOrder.size()*2 }">Filled Items Per Month</th>
     </tr>
     <tr>
@@ -46,7 +47,8 @@
       <th>Req - Shp</th>
       <th>Shp - Rec</th>
       <th>Items</th>
-      <th>Fill Rate</th>
+      <!-- uncomment the following lines if resurrecting fill rate feature -->
+      <!-- <th>Fill Rate</th> -->
       <th>Last Year</th>
      <% for(int i = 0; i < monthsOrder.size(); i++){ %>
     	<th>Items</th><th>Last Year</th>
@@ -106,7 +108,8 @@
     <tr>
       <th class="mainColHeader" rowspan="3">Lending</th>
       <th colspan="3" rowspan="2">Turnaround Time</th>
-      <th colspan="3" rowspan="2">Year</th>
+      <!-- change Year's colspan to 3 if including fill rate -->
+      <th colspan="2" rowspan="2">Year</th>
       <th colspan="${monthsOrder.size()*2 }">Filled Items Per Month</th>
     </tr>
     <tr>
@@ -119,7 +122,8 @@
       <th>Req - Shp</th>
       <th>Shp - Rec</th>
       <th>Items</th>
-      <th>Fill Rate</th>
+      <!-- uncomment the following lines if resurrecting fill rate feature -->
+      <!-- <th>Fill Rate</th> -->
       <th>Last Year</th>
      <% for(int i = 0; i < monthsOrder.size(); i++){ %>
     	<th>Items</th><th>Last Year</th>

@@ -146,7 +146,8 @@
 			<tr>
     <td>
     <div class="formRow">
-       1. Summary Dashboard [filled request, filled rate and turnaround times]:
+    	<!-- include fill rate in the brackets if resurrecting the feature -->
+       1. Summary Dashboard [filled request and turnaround times]:
         <div style="display:inline;float:right; text-align: left">
         <g:link action="summary">Current Year</g:link>&nbsp;|&nbsp;<g:link action="historical_summary">Historical</g:link> 
        </div>
@@ -199,7 +200,8 @@
 		<div class='formRow'>
               <input name="reportType" type="radio" class="radio" value="${LibReportCommand.SUMMARY}"     
 <%= libReportCommand.getReportType() == LibReportCommand.SUMMARY ? "checked=\"checked\"":"" %> onclick="selectionChanged(this.value)"/> 
-Summary Dashboard [filled request, filled rate and turnaround times]
+<!-- include fill rate in the brackets if resurrecting the feature -->
+Summary Dashboard [filled request and turnaround times]
       	</div>
         <hr/>       
 		<div class='formRow'>
