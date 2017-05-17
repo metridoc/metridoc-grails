@@ -284,8 +284,6 @@ class BorrowDirectService {
             libData = getLibDataMap(libId, result)
         }else{
             libData = getLibDataMap(-1, result)
-            println libId
-            println requestsNum
         }
         def currentMap = libData.get(keyForSection)
         if (currentMap.currentFiscalYear.get(-1) == null) {
@@ -536,8 +534,6 @@ class BorrowDirectService {
             libData = getLibDataMapHistorical(libId, result)
         }else{
             libData = getLibDataMapHistorical(-1, result)
-            println libId
-            println requestsNum
         }
         def currentMap = libData.get(keyForSection)
         int currentKey = year != null ? year : -1
@@ -567,7 +563,6 @@ class BorrowDirectService {
             if(fillrate > 0 && fillrate < 1){
                 currentMap.fillRates.put(currentKey,fillrate)
             }else{
-                println fillrate
                 currentMap.fillRates.put(currentKey,-1)
             }
         }else{
