@@ -24,10 +24,11 @@ class RidConsTransaction extends RidConsTransactionBase {
             rank: RidRank,
             serviceProvided: RidServiceProvided,
             school: RidSchool,
+            expertise: RidExpertise,
             ridLibraryUnit: RidLibraryUnit]
 
     static transients = ['otherRank', 'otherUserGoal', 'otherModeOfConsultation', 'otherSchool',
-            'otherCourseSponsor', 'otherService']
+            'otherCourseSponsor', 'otherService', 'otherExpertise']
 
     String spreadsheetName
 
@@ -61,5 +62,7 @@ class RidConsTransaction extends RidConsTransactionBase {
         userGoal(nullable: true)
         ridLibraryUnit(nullable: false)
         spreadsheetName(nullable: true, blank: true)
+        expertise(nullable: true, blank: true)
+        otherExpertise(nullable: true, blank: true)
     }
 }
