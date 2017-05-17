@@ -144,8 +144,7 @@ queries{
 		        {table_prefix}_bibliography bl
 		    WHERE
 		        request_date BETWEEN ? AND ?
-		            AND (bl.supplier_code <> 'List Exhausted' 
-		            		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
+		            AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted')
 		    GROUP BY bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
@@ -336,8 +335,7 @@ queries{
 		    FROM
 		        {table_prefix}_bibliography bl
 		    WHERE
-		        (bl.supplier_code <> 'List Exhausted' 
-		            		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
+		        NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted')
 		    GROUP BY fiscal_year , bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
