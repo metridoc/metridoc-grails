@@ -331,7 +331,7 @@ queries{
 		                WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
 		                ELSE YEAR(bl.request_date)
 		            END AS fiscal_year,
-		            COUNT(DISTINCT request_number) AS requestsNum
+		            COUNT(request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
 		    WHERE
@@ -344,7 +344,7 @@ queries{
 		                WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
 		                ELSE YEAR(bl.request_date)
 		            END AS fiscal_year,
-		            COUNT(DISTINCT bl.request_number) AS requestsNum
+		            COUNT(bl.request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
