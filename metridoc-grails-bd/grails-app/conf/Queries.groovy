@@ -139,7 +139,7 @@ queries{
 		FROM
 		    (SELECT 
 		        bl.lender AS lender,
-		            COUNT(DISTINCT request_number) AS requestsNum
+		            COUNT(request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
 		    WHERE
@@ -149,7 +149,7 @@ queries{
 		        LEFT JOIN
 		    (SELECT 
 		        pd.library_id AS lender,
-		            COUNT(DISTINCT bl.request_number) AS requestsNum
+		            COUNT(bl.request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
