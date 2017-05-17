@@ -104,13 +104,41 @@ queries{
 		* in case of selected sublibs 'All Libraries' row is not the same as for borrowing
 		*/
 		
+		// countsAllPerLender = '''
+		// SELECT 
+		//     fst.lender,
+		//     (fst.requestsNum + IFNULL(snd.requestsNum, 0)) AS requestsNum
+		// FROM
+		//     (SELECT 
+		//         IFNULL(bl.lender, - 1) AS lender,
+		//             COUNT(DISTINCT request_number) AS requestsNum
+		//     FROM
+		//         {table_prefix}_bibliography bl
+		//     WHERE
+		//         request_date BETWEEN ? AND ?
+		//             AND (bl.supplier_code <> 'List Exhausted' 
+		//             		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
+		//     GROUP BY bl.lender WITH ROLLUP) fst
+		//         LEFT JOIN
+		//     (SELECT 
+		//         IFNULL(pd.library_id, - 1) AS lender,
+		//             COUNT(DISTINCT bl.request_number) AS requestsNum
+		//     FROM
+		//         {table_prefix}_bibliography bl
+		//     LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
+		//     WHERE
+		//         request_date BETWEEN ? AND ?
+		//             AND bl.supplier_code = 'List Exhausted'
+		//     GROUP BY pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
+		//     ORDER BY requestsNum
+		// '''
 		countsAllPerLender = '''
 		SELECT 
 		    fst.lender,
 		    (fst.requestsNum + IFNULL(snd.requestsNum, 0)) AS requestsNum
 		FROM
 		    (SELECT 
-		        IFNULL(bl.lender, - 1) AS lender,
+		        bl.lender AS lender,
 		            COUNT(DISTINCT request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
@@ -121,14 +149,14 @@ queries{
 		    GROUP BY bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
-		        IFNULL(pd.library_id, - 1) AS lender,
+		        pd.library_id AS lender,
 		            COUNT(DISTINCT bl.request_number) AS requestsNum
 		    FROM
 		        {table_prefix}_bibliography bl
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
 		    WHERE
 		        request_date BETWEEN ? AND ?
-		            AND bl.supplier_code = 'List Exhausted'
+		        AND NOT (bl.lender <=> pd.library_id)
 		    GROUP BY pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
 		    ORDER BY requestsNum
 		'''
@@ -137,11 +165,19 @@ queries{
 		/**
 		* Fill rate in lending section for lib to lib
 		*/
+		// countsAllPerBorrowerFromLib = '''
+		//     select borrower, count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		// 	where request_date between ? and ? 
+		// 	and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
+		// 	and NOT (borrower <=> lender) 
+		// 	group by borrower
+		//  '''
 		countsAllPerBorrowerFromLib = '''
 		    select borrower, count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where request_date between ? and ? 
-			and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
+			and (pd.library_id = ? or lender = {lender_id})
 			and NOT (borrower <=> lender) 
 			group by borrower
 		 '''
@@ -175,11 +211,18 @@ queries{
 	   /**
 		* for fill rate in All Libraries row  - Lending
 		*/
+		// countsAllTouchedByLib = '''
+		// 	select count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		// 	where request_date between ? and ? 
+		// 	and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
+		// 	and NOT (borrower <=> lender)
+		// '''
 		countsAllTouchedByLib = '''
 			select count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
 			where request_date between ? and ? 
-			and ((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})
+			and (pd.library_id = ? or lender = {lender_id})
 			and NOT (borrower <=> lender)
 		'''
 	   
@@ -242,6 +285,41 @@ queries{
 		* for fillRate in Leniding,rollup here (does not double count),
 		* in case of selected sublibs 'All Libraries' row is not the same as for borrowing
 		*/
+		// historicalCountsAllPerLender = '''
+		// SELECT 
+		//     fst.lender,
+		//     fst.fiscal_year,
+		//     (fst.requestsNum + IFNULL(snd.requestsNum, 0)) AS requestsNum
+		// FROM
+		//     (SELECT 
+		//         IFNULL(bl.lender, - 1) AS lender,
+		//             CASE
+		//                 WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
+		//                 ELSE YEAR(bl.request_date)
+		//             END AS fiscal_year,
+		//             COUNT(DISTINCT request_number) AS requestsNum
+		//     FROM
+		//         {table_prefix}_bibliography bl
+		//     WHERE
+		//         (bl.supplier_code <> 'List Exhausted' 
+		//             		AND NOT (bl.lender is null AND bl.supplier_code <> 'List Exhausted'))
+		//     GROUP BY fiscal_year , bl.lender WITH ROLLUP) fst
+		//         LEFT JOIN
+		//     (SELECT 
+		//         IFNULL(pd.library_id, - 1) AS lender,
+		//             CASE
+		//                 WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
+		//                 ELSE YEAR(bl.request_date)
+		//             END AS fiscal_year,
+		//             COUNT(DISTINCT bl.request_number) AS requestsNum
+		//     FROM
+		//         {table_prefix}_bibliography bl
+		//     LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
+		//     WHERE bl.supplier_code = 'List Exhausted'
+		//     GROUP BY fiscal_year , pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
+		//         AND fst.fiscal_year = snd.fiscal_year
+		//         ORDER BY fst.fiscal_year,requestsNum 
+		// '''
 		historicalCountsAllPerLender = '''
 		SELECT 
 		    fst.lender,
@@ -249,7 +327,7 @@ queries{
 		    (fst.requestsNum + IFNULL(snd.requestsNum, 0)) AS requestsNum
 		FROM
 		    (SELECT 
-		        IFNULL(bl.lender, - 1) AS lender,
+		        bl.lender AS lender,
 		            CASE
 		                WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
 		                ELSE YEAR(bl.request_date)
@@ -263,7 +341,7 @@ queries{
 		    GROUP BY fiscal_year , bl.lender WITH ROLLUP) fst
 		        LEFT JOIN
 		    (SELECT 
-		        IFNULL(pd.library_id, - 1) AS lender,
+		        pd.library_id AS lender,
 		            CASE
 		                WHEN MONTH(bl.request_date) >= {fy_start_month} THEN YEAR(bl.request_date) + 1
 		                ELSE YEAR(bl.request_date)
@@ -272,7 +350,7 @@ queries{
 		    FROM
 		        {table_prefix}_bibliography bl
 		    LEFT JOIN {table_prefix}_print_date pd ON bl.request_number = pd.request_number
-		    WHERE bl.supplier_code = 'List Exhausted'
+		    AND NOT (bl.lender <=> pd.library_id)
 		    GROUP BY fiscal_year , pd.library_id WITH ROLLUP) snd ON fst.lender = snd.lender
 		        AND fst.fiscal_year = snd.fiscal_year
 		        ORDER BY fst.fiscal_year,requestsNum 
@@ -300,13 +378,23 @@ queries{
 		 * Total num of items lended (toched) by selected lib per each borrowing lib
 		 * for fill rate in lending section for lib to lib
 		 */
+		// historicalCountsAllPerBorrowerFromLib = '''
+		//    select borrower as borrower,
+		// 	CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
+		// 	ELSE YEAR(request_date) END AS fiscal_year,
+		// 	count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		//    where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})) 
+		//    and NOT (borrower <=> lender) 
+		//    group by fiscal_year, borrower;
+		// '''
 		historicalCountsAllPerBorrowerFromLib = '''
 		   select borrower as borrower,
 			CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
 			ELSE YEAR(request_date) END AS fiscal_year,
 			count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-		   where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id})) 
+		   where (((pd.library_id = ?) or lender = {lender_id})) 
 		   and NOT (borrower <=> lender) 
 		   group by fiscal_year, borrower;
 		'''
@@ -328,12 +416,21 @@ queries{
 	    * Total num of items touched by selected lib
 		* for fill rate in All Libraries row  - Lending
 		*/
+		// historicalCountsAllTouchedByLib = '''
+		// 	select CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
+		// 	ELSE YEAR(request_date) END AS fiscal_year,
+		// 	count(distinct bl.request_number) as requestsNum 
+		// 	from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
+		// 	where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id}))
+		// 	and NOT (borrower <=> lender) 
+		// 	group by fiscal_year
+		// '''
 		historicalCountsAllTouchedByLib = '''
 			select CASE WHEN MONTH(request_date)>={fy_start_month} THEN YEAR(request_date)+1
 			ELSE YEAR(request_date) END AS fiscal_year,
 			count(distinct bl.request_number) as requestsNum 
 			from {table_prefix}_bibliography bl left join {table_prefix}_print_date pd on bl.request_number = pd.request_number
-			where (((bl.supplier_code = 'List Exhausted' and pd.library_id = ?) or lender = {lender_id}))
+			where (((pd.library_id = ?) or lender = {lender_id}))
 			and NOT (borrower <=> lender) 
 			group by fiscal_year
 		'''

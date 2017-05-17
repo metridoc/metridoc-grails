@@ -211,7 +211,7 @@ class BorrowDirectService {
                     })
                 }else{
                     def allQuery = getAdjustedQuery(config.queries.borrowdirect.countsAllPerLender,"",additionalCondition,tablePrefix)
-                    sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], dates.currentFiscalYear[0], dates.currentFiscalYear[1]]
+                    sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1],dates.currentFiscalYear[0], dates.currentFiscalYear[1]]
                     sql.eachRow(allQuery,
                         sqlParams, {
                         setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
@@ -279,28 +279,33 @@ class BorrowDirectService {
     }
 
     private static setFillRate(libId, requestsNum, keyForSection, result) {
+        def libData
         if(libId){
-            def libData = getLibDataMap(libId, result)
-            def currentMap = libData.get(keyForSection)
-            if (currentMap.currentFiscalYear.get(-1) == null) {
-                currentMap.currentFiscalYear.put(-1, 0);
-            }
-            // if(libId==-1){
-            //     println("\nThis is lending total number")
-            //     println(requestsNum)
-            //     println("This is lending filled number")
-            //     println(currentMap.currentFiscalYear.get(-1))
-            // }
-            if (requestsNum != 0) {
-                def fillrate = (currentMap.currentFiscalYear.get(-1) / (float) requestsNum).round(2)
-                if(fillrate > 0 && fillrate < 1){
-                    currentMap.yearFillRate = fillrate
-                }else{
-                    currentMap.yearFillRate = -1
-                }
+            libData = getLibDataMap(libId, result)
+        }else{
+            libData = getLibDataMap(-1, result)
+            println libId
+            println requestsNum
+        }
+        def currentMap = libData.get(keyForSection)
+        if (currentMap.currentFiscalYear.get(-1) == null) {
+            currentMap.currentFiscalYear.put(-1, 0);
+        }
+        // if(libId==-1){
+        //     println("\nThis is lending total number")
+        //     println(requestsNum)
+        //     println("This is lending filled number")
+        //     println(currentMap.currentFiscalYear.get(-1))
+        // }
+        if (requestsNum != 0) {
+            def fillrate = (currentMap.currentFiscalYear.get(-1) / (float) requestsNum).round(2)
+            if(fillrate > 0 && fillrate < 1){
+                currentMap.yearFillRate = fillrate
             }else{
                 currentMap.yearFillRate = -1
             }
+        }else{
+            currentMap.yearFillRate = -1
         }
     }
 
@@ -526,41 +531,47 @@ class BorrowDirectService {
     }
 
     private static setFillRateHistorical(libId, year, requestsNum, keyForSection, result) {
+        def libData
         if(libId != null){
-            def libData = getLibDataMapHistorical(libId, result)
-            def currentMap = libData.get(keyForSection)
-            int currentKey = year != null ? year : -1
-            def log = LoggerFactory.getLogger(BorrowDirectService)
+            libData = getLibDataMapHistorical(libId, result)
+        }else{
+            libData = getLibDataMapHistorical(-1, result)
+            println libId
+            println requestsNum
+        }
+        def currentMap = libData.get(keyForSection)
+        int currentKey = year != null ? year : -1
+        def log = LoggerFactory.getLogger(BorrowDirectService)
 
-            // log.error("""
-            //     current key is $currentKey
-            //     current map is $currentMap
-            //     libId is $libId
-            //     requestNum is $requestsNum
-            //     keyForSection is $keyForSection
-            //     result is $result
-            // """)
+        // log.error("""
+        //     current key is $currentKey
+        //     current map is $currentMap
+        //     libId is $libId
+        //     requestNum is $requestsNum
+        //     keyForSection is $keyForSection
+        //     result is $result
+        // """)
 
-            Integer filledReqs = currentMap.items.get(currentKey);
-            if (filledReqs == null) {
-                filledReqs = 0;
-            }
-            // if(libId==-1){
-            //     println("\nThis is lending total number")
-            //     println(requestsNum)
-            //     println("This is lending filled number")
-            //     println(filledReqs)
-            // }
-            if (requestsNum != 0) {
-                def fillrate = (filledReqs / (float) requestsNum).round(2)
-                if(fillrate > 0 && fillrate < 1){
-                    currentMap.fillRates.put(currentKey,fillrate)
-                }else{
-                    currentMap.fillRates.put(currentKey,-1)
-                }
+        Integer filledReqs = currentMap.items.get(currentKey);
+        if (filledReqs == null) {
+            filledReqs = 0;
+        }
+        // if(libId==-1){
+        //     println("\nThis is lending total number")
+        //     println(requestsNum)
+        //     println("This is lending filled number")
+        //     println(filledReqs)
+        // }
+        if (requestsNum != 0) {
+            def fillrate = (filledReqs / (float) requestsNum).round(2)
+            if(fillrate > 0 && fillrate < 1){
+                currentMap.fillRates.put(currentKey,fillrate)
             }else{
+                println fillrate
                 currentMap.fillRates.put(currentKey,-1)
             }
+        }else{
+            currentMap.fillRates.put(currentKey,-1)
         }
     }
 
