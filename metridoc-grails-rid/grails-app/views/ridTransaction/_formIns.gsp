@@ -328,7 +328,7 @@
         </div>
     </div>
 
-    <div class="span2">
+    <!-- <div class="span2">
         <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'expertise', 'error')} required">
             <label for="expertise">
                 <g:message code="ridTransaction.expertise.label" default="Expertise"/>
@@ -362,7 +362,7 @@
             <g:textField class="trans-user-input input-create" name="otherExpertise" maxlength="50"
                          value="${ridTransactionInstance?.otherExpertise}"/>
         </div>
-    </div>
+    </div> -->
 
     <div class="span2">
         <div class="fieldcontain ${hasErrors(bean: ridTransactionInstance, field: 'requestor', 'error')} ">

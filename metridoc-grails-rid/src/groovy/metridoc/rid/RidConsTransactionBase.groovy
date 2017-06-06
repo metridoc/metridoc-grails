@@ -35,6 +35,7 @@ abstract class RidConsTransactionBase {
     String otherModeOfConsultation
     String otherSchool
     String otherCourseSponsor
+    String otherExpertise
 
     // description
     String otherService
