@@ -28,7 +28,7 @@ class TestDataService {
 
         if (!RidLibraryUnit.first()) {
             // for Library unit
-            List<String> lUnit = Arrays.asList("Commons", "HSL", "CDM", "LIPPINCOTT", "RIS",
+            List<String> lUnit = Arrays.asList("Commons", "HSL", "CDM", "LIPPINCOTT", "TRL",
                     "Science Libraries")
             for (String i in lUnit.sort()) {
                 if (!RidLibraryUnit.findByName(i)) {
@@ -174,7 +174,7 @@ class TestDataService {
 
         if (!RidLocation.first()) {
             // for location -- Commons
-            List<String> loc = Arrays.asList("Classroom",  "Lecture hall")
+            List<String> loc = Arrays.asList("Classroom", "Lecture hall")
 
             // since here the location is not required, this stands for null value
             new RidLocation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save(validate: false)
@@ -427,7 +427,9 @@ class TestDataService {
             }
             new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
             // for user goal -- CDM
-            uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
+            uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research", "Course Creation",
+                    "Course Project", "Data Management", "Teaching/Presentation", "Grant Proposal", "Monograph",
+                    "Research Article", "Research Paper")
             new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save(validate: false)
             for (String i in uGoal) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("CDM"))) {
@@ -438,7 +440,20 @@ class TestDataService {
             }
             new RidUserGoal(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("CDM")).save()
             // for user goal -- LIPPINCOTT
-            uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research")
+//            uGoal = Arrays.asList("Senior Thesis", "Master Thesis", "Dissertation", "Independent Research"ASP
+            uGoal = Arrays.asList("ASP",
+                    "BPC",
+                    "Case Competition",
+                    "Course Project",
+                    "FAP",
+                    "GCP",
+                    "GIP",
+                    "ISP",
+                    "SBDC",
+                    "Thesis",
+                    "WFC",
+                    "WIP"
+            )
             new RidUserGoal(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("LIPPINCOTT")).save(validate: false)
             for (String i in uGoal.sort()) {
                 if (!RidUserGoal.findByNameAndRidLibraryUnit(i, RidLibraryUnit.findByName("LIPPINCOTT"))) {
@@ -548,7 +563,7 @@ class TestDataService {
                 }
             }
             // for mode of consutlation -- Science Libraries
-            cMode = Arrays.asList("Email", "Phone", "Chat", "Conferencing software",
+            cMode = Arrays.asList("Email", "Phone", "Chat",
                     "In person (in library)", "In person (outside library)")
             new RidModeOfConsultation(name: "NA", inForm: 1, ridLibraryUnit: RidLibraryUnit.findByName("Science Libraries")).save(validate: false)
             for (String i in cMode) {
@@ -671,7 +686,7 @@ class TestDataService {
             new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("Commons")).save()
             // for service provided -- HSL
             sProvided = Arrays.asList("Research assistance", "Acquisitions/Collections",
-                    "Copyright assistance for author", "Copyright assistance for rank",
+                    "Copyright assistance for author", "Copyright assistance user",
                     "Correct an operational or service breakdown (incl. tech support)",
                     "Instructional support (apart from course design, including courseware)",
                     "Clinical decision making", "Tech/Software instruction", "Search instruction",
@@ -690,7 +705,7 @@ class TestDataService {
             new RidServiceProvided(name: "Other (please indicate)", inForm: 2, ridLibraryUnit: RidLibraryUnit.findByName("HSL")).save()
             // for service provided -- CDM
             sProvided = Arrays.asList("Course design", "Research assistance",
-                    "Acquisitions/Collections", "Copyright assistance for author", "Copyright assistance for rank",
+                    "Acquisitions/Collections", "Copyright assistance for author", "Copyright assistance for user",
                     "Correct an operational or service breakdown (incl. tech support)",
                     "Instructional support (apart from course design)", "Clinic", "Tour",
                     "Tech/Software instruction", "Search instruction",
@@ -771,77 +786,77 @@ class TestDataService {
         }
     }
 
-    def createTestTransactions(){
+    def createTestTransactions() {
         log.info("Importing University of Pennsylvania test transactions")
-        if (!RidLibraryUnit.first()){
-          populateTestFields()
+        if (!RidLibraryUnit.first()) {
+            populateTestFields()
         }
         if (!RidConsTransaction.first()) {
             println "Creating test data consultation for RID database"
             // ---------------------------------------------------------------------------------------------
-                // for ridTransaction (only for demo)
-                for (int i = 0; i < 50; i++) {
-                    def t = new RidConsTransaction(staffPennkey: "012345667",
-                            userQuestion: RandomStringUtils.randomAlphanumeric(i % 50 + 1),
-                            interactOccurrences: i % 50, prepTime: i % 40,
-                            eventLength: i % 50, notes: "Sample Notes",
-                            facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
-                            courseNumber: "LIB001", dateOfConsultation: new Date(),
-                            department: RidDepartment.get(i % 6 + 1),
-                            courseSponsor: RidCourseSponsor.get(1),
-                            userGoal: RidUserGoal.findByRidLibraryUnit(RidLibraryUnit.get(1)),
-                            modeOfConsultation: RidModeOfConsultation.findByRidLibraryUnit(RidLibraryUnit.get(1)),
-                            rank: RidRank.get(1),
-                            serviceProvided: RidServiceProvided.findByRidLibraryUnit(RidLibraryUnit.get(1)),
-                            school: RidSchool.get(1),
-                            ridLibraryUnit: RidLibraryUnit.get(1 % 6 + 1)
-                    )
+            // for ridTransaction (only for demo)
+            for (int i = 0; i < 50; i++) {
+                def t = new RidConsTransaction(staffPennkey: "012345667",
+                        userQuestion: RandomStringUtils.randomAlphanumeric(i % 50 + 1),
+                        interactOccurrences: i % 50, prepTime: i % 40,
+                        eventLength: i % 50, notes: "Sample Notes",
+                        facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
+                        courseNumber: "LIB001", dateOfConsultation: new Date(),
+                        department: RidDepartment.get(i % 6 + 1),
+                        courseSponsor: RidCourseSponsor.get(1),
+                        userGoal: RidUserGoal.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                        modeOfConsultation: RidModeOfConsultation.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                        rank: RidRank.get(1),
+                        serviceProvided: RidServiceProvided.findByRidLibraryUnit(RidLibraryUnit.get(1)),
+                        school: RidSchool.get(1),
+                        ridLibraryUnit: RidLibraryUnit.get(1 % 6 + 1)
+                )
 
-                    try {
-                        if (!t.save()) {
-                            if (t.hasErrors()) println t.errors
-                        }
-                    } catch (Exception e) {
-                        log.error("an error occurred during bootstrap that will crash the entire application")
-                        throw e
+                try {
+                    if (!t.save()) {
+                        if (t.hasErrors()) println t.errors
                     }
+                } catch (Exception e) {
+                    log.error("an error occurred during bootstrap that will crash the entire application")
+                    throw e
                 }
             }
+        }
 
 
         if (!RidInsTransaction.first()) {
 
             println "Creating test instructional data for RID database"
             for (int i = 0; i < 50; i++) {
-                    def rand = new Random()
-                    def t = new RidInsTransaction(instructorPennkey: "012345667",
-                            eventLength: i % 50, notes: "Sample Notes",
-                            sessionDescription: "Sample description",
-                            facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
-                            courseNumber: "LIB001", dateOfInstruction: new Date(),
-                            //department: RidDepartment.get(i % 6 + 1),
-                            sessionType: RidSessionType.get(1),
-                            instructionalMaterials: RidInstructionalMaterials.get(1),
-                            expertise: RidExpertise.get(1),
-                            school: RidSchool.get(1),
-                            location: RidLocation.get(1 % 3 + 1),
-                            attendanceTotal: 42,
-                            ridLibraryUnit: RidLibraryUnit.get(rand.nextInt(4) + 1)
+                def rand = new Random()
+                def t = new RidInsTransaction(instructorPennkey: "012345667",
+                        eventLength: i % 50, notes: "Sample Notes",
+                        sessionDescription: "Sample description",
+                        facultySponsor: "Sample Sponsor", courseName: "Sample Course Name",
+                        courseNumber: "LIB001", dateOfInstruction: new Date(),
+                        //department: RidDepartment.get(i % 6 + 1),
+                        sessionType: RidSessionType.get(1),
+                        instructionalMaterials: RidInstructionalMaterials.get(1),
+                        expertise: RidExpertise.get(1),
+                        school: RidSchool.get(1),
+                        location: RidLocation.get(1 % 3 + 1),
+                        attendanceTotal: 42,
+                        ridLibraryUnit: RidLibraryUnit.get(rand.nextInt(4) + 1)
 
-                    )
+                )
 
-                    try {
-                        if (!t.save()) {
-                            println "\n"
-                            if (t.hasErrors()) println t.errors
-                            println "\n"
-                        }
-                    } catch (Exception e) {
-                        log.error("an error occurred during bootstrap that will crash the entire application")
-                        throw e
+                try {
+                    if (!t.save()) {
+                        println "\n"
+                        if (t.hasErrors()) println t.errors
+                        println "\n"
                     }
+                } catch (Exception e) {
+                    log.error("an error occurred during bootstrap that will crash the entire application")
+                    throw e
                 }
             }
+        }
 
     }
 }

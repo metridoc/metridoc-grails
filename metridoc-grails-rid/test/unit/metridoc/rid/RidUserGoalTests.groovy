@@ -35,7 +35,6 @@ class RidUserGoalTests {
             p.save()
             if (p.hasErrors()) println p.errors
         }
-
         assert RidUserGoal.list().size() > 0
     }
 }

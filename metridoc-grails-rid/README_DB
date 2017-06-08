@@ -1,0 +1,35 @@
+Required changes to the Database:
+
+1. Add a new column to the rid_cons_transaction tables named expertise_id.
+
+2. Delete the column named expertise_id in the table rid_ins_transaction.
+
+3. Change RIS to TRL in the table rid_library_unit.
+
+4. Add:
+
+   Course Creation
+   Course Project
+   Data Management
+   Teaching/Presentation
+   Grant Proposal
+   Monograph
+   Research Article
+   Research Paper
+
+into the rid_user_goal table with rid_library_unit_id 1 and cahnge the 4 with :
+
+    ASP
+    BPC
+    Case Competition
+    Course Project
+    FAP
+    GCP
+    GIP
+    ISP
+    SBDC
+    Thesis
+    WFC
+    WIP
+
+There maybe some other changes needed to the user_goal table. I cannot remember them clearly. Just check with the specification is fine

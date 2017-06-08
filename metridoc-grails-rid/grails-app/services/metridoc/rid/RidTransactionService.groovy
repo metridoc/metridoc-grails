@@ -390,6 +390,16 @@ class RidTransactionService {
                 ridTransactionInstance.userGoal = RidUserGoal.findByNameAndRidLibraryUnit(otherUserGoal,
                         RidLibraryUnit.get(Long.valueOf(params.ridLibraryUnit.id)))
         }
+        String otherExpertise = params.otherExpertise
+        if (otherExpertise != null && !otherExpertise.isEmpty()) {
+            if (RidExpertise.findAllByName(otherExpertise).size() == 0) {
+                def e = new RidExpertise(name: otherExpertise, inForm: 0)
+                e.save()
+                if (e.hasErrors()) println e.errors
+            }
+            if (RidExpertise.findAllByName(otherExpertise).size() > 0)
+                ridTransactionInstance.expertise = RidExpertise.findByName(otherExpertise)
+        }
     }
 
     def createNewInsInstanceMethod(Map params, RidInsTransactionBase ridTransactionInstance) {
@@ -414,16 +424,7 @@ class RidTransactionService {
             if (RidInstructionalMaterials.findAllByName(otherInstructionalMaterials).size() > 0)
                 ridTransactionInstance.instructionalMaterials = RidInstructionalMaterials.findByName(otherInstructionalMaterials)
         }
-        String otherExpertise = params.otherExpertise
-        if (otherExpertise != null && !otherExpertise.isEmpty()) {
-            if (RidExpertise.findAllByName(otherExpertise).size() == 0) {
-                def e = new RidExpertise(name: otherExpertise, inForm: 0)
-                e.save()
-                if (e.hasErrors()) println e.errors
-            }
-            if (RidExpertise.findAllByName(otherExpertise).size() > 0)
-                ridTransactionInstance.expertise = RidExpertise.findByName(otherExpertise)
-        }
+
         String otherSessionType = params.otherSessionType
         if (otherSessionType != null && !otherSessionType.isEmpty()) {
             if (RidSessionType.findAllByNameAndRidLibraryUnit(otherSessionType,
