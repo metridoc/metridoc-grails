@@ -169,6 +169,14 @@
                     <span class="property-value" aria-labelledby="facultySponsor-label"><g:fieldValue
                             bean="${ridTransactionInstance}" field="facultySponsor"/></span>
                 </td>
+
+                <td>
+                    <span id="expertise-label" class="property-label"><g:message
+                            code="ridTransaction.expertise.label" default="Expertise"/></span>
+                    :<br/>
+                    <span class="property-value" aria-labelledby="expertise-label"><g:fieldValue
+                            bean="${ridTransactionInstance}" field="expertise"/></span>
+                </td>
             </tr>
             <tr align="center">
                 <td colspan="2">
@@ -375,13 +383,6 @@
                 bean="${ridTransactionInstance}" field="instructionalMaterials"/></span>
     </td>
 
-    <td>
-        <span id="expertise-label" class="property-label"><g:message
-                code="ridTransaction.expertise.label" default="Expertise"/></span>
-        :<br/>
-        <span class="property-value" aria-labelledby="expertise-label"><g:fieldValue
-                bean="${ridTransactionInstance}" field="expertise"/></span>
-    </td>
 
     <td>
         <span id="requestor-label" class="property-label"><g:message

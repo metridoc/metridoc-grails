@@ -3,11 +3,11 @@ environments {
         dataSource {
             pooled = true
             dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/test"
+            url = "jdbc:mysql://localhost:3306/metridoc"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
             username = "root"
-            password = ""
+            password = "password"
             properties {
                 maxActive = 50
                 maxIdle = 25
