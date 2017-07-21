@@ -17,7 +17,8 @@ package metridoc.rid
 
 class RidExpertise {
 
-    static hasMany = [ridInsTransaction: RidInsTransaction]
+    static hasMany = [ridInsTransaction: RidInsTransaction,
+                      ridConsTransaction: RidConsTransaction]
 
     String name
     Integer inForm = 0
@@ -30,5 +31,6 @@ class RidExpertise {
         name(blank: false, nullable: false, unique: true, maxSize: 150)
         inForm(nullable: false, inList: [0, 1, 2])
         ridInsTransaction(nullable: true)
+        ridConsTransaction(nullable: true)
     }
 }
