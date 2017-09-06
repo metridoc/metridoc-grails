@@ -449,7 +449,6 @@ class BorrowDirectService {
         }
         else {
             def allQuery;
-            //same here, what is the functionality of these two if statements, it seems repetitive to me
             if (notEZBorrow) {
                 //Summary page for selected library
                 allQuery = isBorrowing ? config.queries.borrowdirect.historicalCountsAllPerLenderToLib :

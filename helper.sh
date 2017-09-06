@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 systemCall() {
     echo "running $1"
@@ -10,7 +10,7 @@ systemCall() {
 	fi
 }
 
-DIRECTORIES=`find ./metridoc-grails* -maxdepth 0 -mindepth 0 -type d`
+DIRECTORIES=`find ./metridoc-grails* -type d -maxdepth 0 -mindepth 0`
 
 VERSION=`cat VERSION`
 

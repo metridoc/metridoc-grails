@@ -34,10 +34,14 @@ grails.project.dependency.resolution = {
     }
     dependencies {
 		 compile 'org.apache.poi:poi-ooxml:3.8-beta3'
+     test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+
     }
 
     plugins {
-      runtime ":database-migration:1.3.1"
+      test(":spock:0.7") {
+        exclude "spock-grails-support"
+      }
     	runtime ":hibernate:3.6.10.6"
         compile(":calendar:1.2.1")
     }
