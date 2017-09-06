@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.grails.plugins</groupId>
+  <artifactId>metridoc-gate</artifactId>
+  <packaging>zip</packaging>
+  <version>0.9.0</version>
+  <name>Metridoc Gate Plugin</name>
+  <description>        Plugin to help collect data of time and location of people entering libraries
+        </description>
+  <url>http://grails.org/metridoc/metridoc-grails</url>
+  <developers>
+    <developer>
+      <name>Gavin Young</name>
+      <email>zhenghao@seas.upenn.edu</email>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.grails.plugins</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.6.10.6</version>
+      <type>zip</type>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.8-beta3</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.8-beta3</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>poi</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>dom4j</groupId>
+          <artifactId>dom4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.grails.plugins</groupId>
+      <artifactId>google-visualization</artifactId>
+      <version>0.6.2</version>
+      <type>zip</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.grails.plugins</groupId>
+      <artifactId>metridoc-core</artifactId>
+      <version>0.9.0</version>
+      <type>zip</type>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
