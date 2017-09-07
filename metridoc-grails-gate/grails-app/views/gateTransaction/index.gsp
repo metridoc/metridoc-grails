@@ -1,5 +1,13 @@
 <md:report>
     <div class="md-application-content">
-        <h1>HELLO WORLD</h1>
+        <div id="search-gateRecord" class="content scaffold-search" role="main">
+        	
+        	<md:form class="form-horizontal" action="query" method="GET">
+        		<fieldset>
+        			
+        		</fieldset>
+        	</md:form>
+
+        </div>
     </div>
 </md:report>
