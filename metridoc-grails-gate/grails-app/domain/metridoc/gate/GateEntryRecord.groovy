@@ -10,8 +10,7 @@ class GateEntryRecord {
     	gateUSC: GateUSC
     ]
 
-    Date date;
-    String time;
+    Date datetime
     Integer door;
     Integer affiliation;
     Integer center;
@@ -19,8 +18,7 @@ class GateEntryRecord {
     Integer usc;
 
     static constraints = {
-        date(blank: false, nullable: false)
-        time(blank: false, nullable: false)
+        datetime(blank: false, nullable: false)
         door(blank: false, nullable: false)
         affiliation(blank: false, nullable: false)
         usc(blank: false, nullable: false)
