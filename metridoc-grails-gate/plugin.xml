@@ -1,4 +1,4 @@
-<plugin name='metridoc-gate' version='0.9.0' grailsVersion='2.3.4 &gt; *'>
+<plugin name='metridoc-gate' version='0.9.0' grailsVersion='2.1 &gt; *'>
   <author>Gavin Young</author>
   <authorEmail>zhenghao@seas.upenn.edu</authorEmail>
   <title>Metridoc Gate Plugin</title>
@@ -7,14 +7,10 @@
   <documentation>http://grails.org/metridoc/metridoc-grails</documentation>
   <type>MetridocGateGrailsPlugin</type>
   <resources>
-    <resource>gateSQLQueries</resource>
+    <resource>GateSQLQueries</resource>
+    <resource>MetridocGateResources</resource>
     <resource>metridoc.gate.GateTransactionController</resource>
-    <resource>metridoc.gate.GateAffiliation</resource>
-    <resource>metridoc.gate.GateCenter</resource>
-    <resource>metridoc.gate.GateDepartment</resource>
     <resource>metridoc.gate.GateDoor</resource>
-    <resource>metridoc.gate.GateEntryRecord</resource>
-    <resource>metridoc.gate.GateUSC</resource>
-    <resource>metridoc.gate.gateSearchService</resource>
+    <resource>metridoc.gate.gateService</resource>
   </resources>
 </plugin>

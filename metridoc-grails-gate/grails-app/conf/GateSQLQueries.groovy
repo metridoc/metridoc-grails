@@ -59,31 +59,13 @@ gateSQLQueries{
 		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime};
 	'''
 
-	getAllDoors = '''SELECT * FROM gate_door;'''
+	getAllDoors = '''SELECT door_id AS id, door_name AS name FROM gate_door;'''
 
-	getAllAffiliations = '''SELECT * FROM gate_affiliation;'''
+	getAllAffiliations = '''SELECT affiliation_id AS id, affiliation_name AS name FROM gate_affiliation;'''
 
-	getAllCenters = '''SELECT * FROM gate_center;'''
+	getAllCenters = '''SELECT center_id AS id, center_name AS name FROM gate_center;'''
 
-	getAllDepartments = '''SELECT * FROM gate_department;'''
+	getAllDepartments = '''SELECT department_id AS id, department_name AS name FROM gate_department;'''
 
-	getAllUSCs = '''SELECT * FROM gate_USC;'''
-
-	insertNewDoor = '''INSERT INTO gate_door (door_id, door_name)
-                     VALUES ({door_id}, {door_name});'''
-
-    insertNewAffiliation = '''INSERT INTO gate_affiliation (affiliation_id, affiliation_name)
-    						VALUES ({affiliation_id}, {affiliation_name});'''
-
-    insertNewCenter = '''INSERT INTO gate_center (center_id, center_name)
-                       VALUES ({center_id}, {center_name});'''
-
-    insertNewDepartment = '''INSERT INTO gate_department (department_id, department_name)
-                           VALUES ({department_id}, {department_name});'''
-
-    insertNewUSCs = '''INSERT INTO gate_USC (USC_id, USC_name)
-                     VALUES ({USC_id}, {USC_name});'''
-
-    insertNewEntry = '''INSERT INTO gate_entry_record (entry_datetime, door, affiliation, center, USC, department)
-    				  VALUES ({entry_datetime}, {door}, {affiliation}, {center}, {USC}, {department});'''
+	getAllUSCs = '''SELECT USC_id AS id, USC_name AS name FROM gate_USC;'''
 }

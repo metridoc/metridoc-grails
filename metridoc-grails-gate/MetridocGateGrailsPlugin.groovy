@@ -14,4 +14,19 @@ class MetridocGateGrailsPlugin {
         '''
 
     def documentation = "http://grails.org/metridoc/metridoc-grails"
+    def doWithSpring = {
+        def baseConfig = new ConfigObject()
+        def slurper = new ConfigSlurper()
+        baseConfig.merge(slurper.parse(GateSQLQueries))
+        baseConfig.merge(application.config)
+        //by doing this, we make sure the main config is overwritten by the application config
+        application.config = baseConfig
+
+        // if(baseConfig.grails.validateable.packages) {
+        //     baseConfig.grails.validateable.packages.add 'metridoc.penn.gate'
+        // }
+        // else {
+        //     baseConfig.grails.validateable.packages = ["metridoc.penn.gate"]
+        // }
+    }
 }

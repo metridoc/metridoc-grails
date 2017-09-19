@@ -14,13 +14,35 @@ import java.text.SimpleDateFormat
 
 class GateTransactionController {
 	static homePage = [title: "Library Gate Traffic Information",
-                       description: "Import/Export and look up data of number and time of people entering libraries"]
+                       description: "Look up data of number and time of people entering libraries"]
 
-    static boolean isProtected = true
+    static boolean isProtected = true;
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST"];
+
+    def gateService;
 
     def index() {
-	    render(view:'/gateTransaction/index')
+    	def allDoorNames = createNameArray(gateService.getAllDoors());
+    	def allAffiliationNames = createNameArray(gateService.getAllAffiliations());
+    	def allCenterNames = createNameArray(gateService.getAllCenters());
+    	def allDepartmentNames = createNameArray(gateService.getAllDepartments());
+    	def allUSCNames = createNameArray(gateService.getAllUSCs());
+    	render(view: "index", 
+    		   model: [
+    		     allDoorNames: allDoorNames, 
+    		     allAffiliationNames: allAffiliationNames,
+    		     allCenterNames: allCenterNames,
+    		     allDepartmentNames: allDepartmentNames,
+    		     allUSCNames: allUSCNames]);
+	    session.setAttribute("prev", new String("index"));
+	}
+
+	def createNameArray(objArray){
+		def nameArray = [];
+		objArray.each{obj->
+			nameArray.push(obj.name);
+		}
+		return nameArray.sort();
 	}
 }
