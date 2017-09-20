@@ -57,16 +57,31 @@ class gateService {
     	sqlParams.push(endDatetime);
 
     	Map clauses = prepareQueryClauses(params, sqlParams);
-    	String sqlQuery = config.gateSQLQueries.getAllRecords;
+    	String sqlQueryBody = config.gateSQLQueries.getCountBody;
     	clauses.each{ k, v -> 
     		if(k != 'sqlParams'){
-    			sqlQuery += v 
+    			sqlQueryBody += v 
     		}
     	};
 
     	Sql sql = getSql();
-    	return sql.rows(sqlQuery, sqlParams);
+    	Map completeQueries = completeQueryBody(sqlQueryBody);
+    	return [
+    		startDatetime: startDatetime,
+    		endDatetime: endDatetime,
+    		countByAffiliation: sql.rows(completeQueries.affiliationQuery, sqlParams),
+    		countByCenter: sql.rows(completeQueries.centerQuery, sqlParams),
+    		countByUSC: sql.rows(completeQueries.uscQuery, sqlParams)
+    	];
+    }
 
+    def completeQueryBody(sqlQueryBody){
+    	return [
+    		affiliationQuery: config.gateSQLQueries.selectByAffiliation + sqlQueryBody + config.gateSQLQueries.groupByAffiliation,
+    		centerQuery: config.gateSQLQueries.selectByCenter + sqlQueryBody + config.gateSQLQueries.groupByCenter,
+    		uscQuery: config.gateSQLQueries.selectByUSC + sqlQueryBody + config.gateSQLQueries.groupByUSC,
+    		departmentQuery: config.gateSQLQueries.selectByDepartment + sqlQueryBody + config.gateSQLQueries.groupByDepartment
+    	]
     }
 
     def prepareQueryClauses(Map params, sqlParams){

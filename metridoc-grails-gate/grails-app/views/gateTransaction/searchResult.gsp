@@ -4,25 +4,17 @@
         	<table class="list summary" cellspacing="0">
         		<thead>
 				    <tr>
-				      <th class="mainColHeader" rowspan="2">Date Time</th>
-				      <th colspan="3" rowspan="2">Entry Point</th>
-				      <th colspan="2" rowspan="2">Affiliation</th>
-				      <th colspan="2" rowspan="2">Center</th>
-				      <th colspan="2" rowspan="2">USC</th>
-				      <th colspan="2" rowspan="2">Department</th>
+				      <g:each in="${allDoorNames}" var="door">
+				      	<th colspan="1" rowspan="1">${door.name.substring(16)}</th>
+				      </g:each>
+				      <th colspan="1" rowspan="1">Total</th>
 				    </tr>
 			    </thead>
 			    <tbody>
-			    	<g:each in="${result}" var="row">
+			    	<!-- <g:each in="${countByAffiliation}" var="row">
 			    	  <tr>
-			    	  	<td colspan="2">${row.entry_datetime}</td>
-			    	  	<td colspan="2">${row.door_name}</td>
-			    	  	<td colspan="2">${row.affiliation_name}</td>
-			    	  	<td colspan="2">${row.center_name}</td>
-			    	  	<td colspan="2">${row.USC_name}</td>
-			    	  	<td colspan="2">${row.department_name}</td>
 			    	  </tr>
-			    	</g:each>
+			    	</g:each> -->
 			    </tbody>
         	</table>
         </div>

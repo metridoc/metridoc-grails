@@ -40,8 +40,36 @@ class GateTransactionController {
 
 	def query() {
 		def result = gateService.query(params);
+		def allDoorNames = gateService.getAllDoors();
+		Map allAffiliationData = [:];
+		result.countByAffiliation.each{ it->
+			if(!allAffiliationData.containsKey(it.affiliation_name)){
+				allAffiliationData.put(it.affiliation_name, [0] * allDoorNames.size()+1);
+			}
+			
+			allDoorNames.each{ door ->
+				if(door.name == it.door_name){
+					def pos = door.id;
+					(allAffiliationData.get(it.affiliation_name))[pos] = it.count;
+				}
+			}
+		}
+		
+		allAffiliationData.each{ k, v -> 
+    		v[allDoorNames.size()] = v.sum() - 1;
+    	};
+
+		print(result.countByAffiliation);
+		print("111111111111111111111111111111111111111111111111111111111111111111111111111");
+		print(allAffiliationData);
 		render(view: "searchResult",
-			   model: [result: result]);
+			   model: [
+			   	 allDoorNames : allDoorNames,
+			     startDatetime: result.startDatetime,
+			   	 endDatetime: result.endDatetime,
+			     countByAffiliation: result.countByAffiliation,
+			     countByCenter: result.countByCenter,
+			     countByUSC: result.countByUSC]);
 	}
 
 	def createNameArray(objArray){

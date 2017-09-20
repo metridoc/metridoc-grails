@@ -1,49 +1,5 @@
 gateSQLQueries{
-	getRecordsByAffiliation = '''
-		SELECT gd.door_name, ga.affiliation_name, COUNT(*)
-		FROM gate_entry_record ger
-		LEFT JOIN gate_door gd
-		ON gd.door_id = ger.door
-		LEFT JOIN gate_affiliation ga
-		ON ga.affiliation_id = ger.affiliation
-		WHERE ger.entry_datetime BETWEEN ? AND ?
-		GROUP BY gd.door_name, ga.affiliation_name;
-	'''
-
-	getRecordsByCenter = '''
-		SELECT gd.door_name, gc.center_name, COUNT(*)
-		FROM gate_entry_record ger
-		LEFT JOIN gate_door gd
-		ON gd.door_id = ger.door
-		LEFT JOIN gate_center gc
-		ON gc.center_id = ger.center
-		WHERE ger.entry_datetime BETWEEN ? AND ?
-		GROUP BY gd.door_name, gc.center_name;
-	'''
-
-	getRecordsByDepartment = '''
-		SELECT gd.door_name, gde.department_name, COUNT(*)
-		FROM gate_entry_record ger
-		LEFT JOIN gate_door gd
-		ON gd.door_id = ger.door
-		LEFT JOIN gate_department gde
-		ON gde.department_id = ger.department
-		WHERE ger.entry_datetime BETWEEN ? AND ?
-		GROUP BY gd.door_name, gde.department_name'''
-
-	getRecordsByUSC = '''
-		SELECT gd.door_name, gu.USC_name, COUNT(*)
-		FROM gate_entry_record ger
-		LEFT JOIN gate_door gd
-		ON gd.door_id = ger.door
-		LEFT JOIN gate_USC gu
-		ON gu.USC_id = ger.USC
-		WHERE ger.entry_datetime BETWEEN ? AND ?
-		GROUP BY gd.door_name, gu.USC_name'''
-
-	getAllRecords = '''
-		SELECT gate_entry_record.entry_datetime, gate_door.door_name, gate_affiliation.affiliation_name, gate_center.center_name, gate_USC.USC_name, gate_department.department_name
-		FROM gate_entry_record
+	getCountBody = ''' FROM gate_entry_record
 		LEFT JOIN gate_door
 		ON gate_door.door_id = gate_entry_record.door
 		LEFT JOIN gate_affiliation
@@ -55,6 +11,24 @@ gateSQLQueries{
 		LEFT JOIN gate_department
 		ON gate_department.department_id = gate_entry_record.department
 		WHERE gate_entry_record.entry_datetime BETWEEN ? AND ?'''
+
+	selectByAffiliation = '''SELECT gate_door.door_name, gate_affiliation.affiliation_name, COUNT(*) AS count'''
+
+	groupByAffiliation = ''' GROUP BY gate_door.door_name, gate_affiliation.affiliation_name WITH ROLLUP'''
+
+	selectByCenter = '''SELECT gate_door.door_name, gate_center.center_name, COUNT(*) AS count'''
+
+	groupByCenter = ''' GROUP BY gate_door.door_name, gate_center.center_name WITH ROLLUP'''
+
+	selectByDepartment = '''SELECT gate_door.door_name, gate_department.department_name, COUNT(*) AS count'''
+
+	groupByDepartment = ''' GROUP BY gate_door.door_name, gate_department.department_name WITH ROLLUP'''
+
+	selectByUSC = '''SELECT gate_door.door_name, gate_USC.USC_name, COUNT(*) AS count'''
+
+	groupByUSC = ''' GROUP BY gate_door.door_name, gate_USC.USC_name WITH ROLLUP'''
+
+	selectAll = '''SELECT gate_entry_record.entry_datetime, gate_door.door_name, gate_affiliation.affiliation_name, gate_center.center_name, gate_USC.USC_name, gate_department.department_name'''
 
 	getAllDoors = '''SELECT door_id AS id, door_name AS name FROM gate_door;'''
 
