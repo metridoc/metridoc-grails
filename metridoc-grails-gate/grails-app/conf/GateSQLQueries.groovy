@@ -6,7 +6,7 @@ gateSQLQueries{
 		ON gd.door_id = ger.door
 		LEFT JOIN gate_affiliation ga
 		ON ga.affiliation_id = ger.affiliation
-		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime}
+		WHERE ger.entry_datetime BETWEEN ? AND ?
 		GROUP BY gd.door_name, ga.affiliation_name;
 	'''
 
@@ -17,7 +17,7 @@ gateSQLQueries{
 		ON gd.door_id = ger.door
 		LEFT JOIN gate_center gc
 		ON gc.center_id = ger.center
-		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime}
+		WHERE ger.entry_datetime BETWEEN ? AND ?
 		GROUP BY gd.door_name, gc.center_name;
 	'''
 
@@ -28,9 +28,8 @@ gateSQLQueries{
 		ON gd.door_id = ger.door
 		LEFT JOIN gate_department gde
 		ON gde.department_id = ger.department
-		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime}
-		GROUP BY gd.door_name, gde.department_name;
-	'''
+		WHERE ger.entry_datetime BETWEEN ? AND ?
+		GROUP BY gd.door_name, gde.department_name'''
 
 	getRecordsByUSC = '''
 		SELECT gd.door_name, gu.USC_name, COUNT(*)
@@ -39,25 +38,23 @@ gateSQLQueries{
 		ON gd.door_id = ger.door
 		LEFT JOIN gate_USC gu
 		ON gu.USC_id = ger.USC
-		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime}
-		GROUP BY gd.door_name, gu.USC_name;
-	'''
+		WHERE ger.entry_datetime BETWEEN ? AND ?
+		GROUP BY gd.door_name, gu.USC_name'''
 
 	getAllRecords = '''
-		SELECT ger.entry_datetime, gd.door_name, ga.affiliation_name, gc.center_name, gu.USC_name, gde.department_name
-		FROM gate_entry_record ger
-		LEFT JOIN gate_door gd
-		ON gd.door_id = ger.door
-		LEFT JOIN gate_affiliation ga
-		ON ga.affiliation_id = ger.affiliation
-		LEFT JOIN gate_center gc
-		ON gc.center_id = ger.center
-		LEFT JOIN gate_USC gu
-		ON gu.USC_id = ger.USC
-		LEFT JOIN gate_department gde
-		ON gde.department_id = ger.department
-		WHERE ger.entry_datetime BETWEEN {start_datetime} AND {end_datetime};
-	'''
+		SELECT gate_entry_record.entry_datetime, gate_door.door_name, gate_affiliation.affiliation_name, gate_center.center_name, gate_USC.USC_name, gate_department.department_name
+		FROM gate_entry_record
+		LEFT JOIN gate_door
+		ON gate_door.door_id = gate_entry_record.door
+		LEFT JOIN gate_affiliation
+		ON gate_affiliation.affiliation_id = gate_entry_record.affiliation
+		LEFT JOIN gate_center
+		ON gate_center.center_id = gate_entry_record.center
+		LEFT JOIN gate_USC
+		ON gate_USC.USC_id = gate_entry_record.USC
+		LEFT JOIN gate_department
+		ON gate_department.department_id = gate_entry_record.department
+		WHERE gate_entry_record.entry_datetime BETWEEN ? AND ?'''
 
 	getAllDoors = '''SELECT door_id AS id, door_name AS name FROM gate_door;'''
 

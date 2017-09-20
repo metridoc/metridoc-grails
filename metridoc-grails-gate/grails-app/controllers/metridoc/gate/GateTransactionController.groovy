@@ -38,6 +38,12 @@ class GateTransactionController {
 	    session.setAttribute("prev", new String("index"));
 	}
 
+	def query() {
+		def result = gateService.query(params);
+		render(view: "searchResult",
+			   model: [result: result]);
+	}
+
 	def createNameArray(objArray){
 		def nameArray = [];
 		objArray.each{obj->
