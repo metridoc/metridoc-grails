@@ -1,13 +1,18 @@
 <md:report>
     <div class="md-application-content">
         <div id="result-gateRecord" class="content scaffold-search" role="main" style="overflow-x:auto;">
+        	<a name="top"></a>
         	<fieldset class="buttons">
                 <g:link action="back"> 
 				   <input type="button" class="btn btn-danger" value="Back" class="button"/> 
 				</g:link>
+				<a href="#AffiliationSummary">Affiliation Summary</a>
+				<a href="#CenterSummary">Center Summary</a>
+				<a href="#USCSummary">USC Summary</a>
             </fieldset>
 
         	<!-- Affiliation Table -->
+        	<a name="AffiliationSummary"></a>
         	<h3>Affiliation Summary From ${startDatetime} to ${endDatetime}</h3>
         	<table style="width: 100%" class="list summary" cellspacing="0">
         		<thead>
@@ -41,7 +46,8 @@
 
 
         	<!-- Center Table -->
-        	<h3>Center Summary From ${startDatetime} to ${endDatetime}</h3>
+        	<a name="CenterSummary"></a>
+    		<h3>Center Summary From ${startDatetime} to ${endDatetime}</h3>
         	<table class="list summary" cellspacing="0">
         		<thead>
 				    <tr>
@@ -74,6 +80,7 @@
 
 
         	<!-- USC Table -->
+        	<a name="USCSummary"></a>
         	<h3>USC Summary From ${startDatetime} to ${endDatetime}</h3>
         	<table class="list summary" cellspacing="0">
         		<thead>
@@ -104,6 +111,7 @@
 			    		</tr>
 			    </tbody>
         	</table>
+        	<a href="#Top">Back to Top</a>
         </div>
     </div>
 </md:report>
