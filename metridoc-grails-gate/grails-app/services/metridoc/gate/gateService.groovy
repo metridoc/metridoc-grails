@@ -85,11 +85,13 @@ class gateService {
     }
 
     def prepareQueryClauses(Map params, sqlParams){
-        String doorClause = andClause('gate_door', params.gateDoorSearch, sqlParams);
-        String centerClause = andClause('gate_center', params.gateCenterSearch, sqlParams);
-        String affiliationClause = andClause('gate_affiliation', params.gateAffiliationSearch, sqlParams);
-        String departmentClause = andClause('gate_department', params.gateDepartmentSearch, sqlParams);
-        String uscClause = andClause('gate_USC', params.gateUSCSearch, sqlParams);
+
+
+        String doorClause = andClause('gate_door', checkAndConvertToList(params.gateDoorSearch), sqlParams);
+        String centerClause = andClause('gate_center', checkAndConvertToList(params.gateCenterSearch), sqlParams);
+        String affiliationClause = andClause('gate_affiliation', checkAndConvertToList(params.gateAffiliationSearch), sqlParams);
+        String departmentClause = andClause('gate_department', checkAndConvertToList(params.gateDepartmentSearch), sqlParams);
+        String uscClause = andClause('gate_USC', checkAndConvertToList(params.gateUSCSearch), sqlParams);
 
         return [
         	doorClause: doorClause,
@@ -101,10 +103,29 @@ class gateService {
         ];
     }
 
+    def checkAndConvertToList(val){
+    	if (!val.class.isArray()){
+    		return [val];
+    	}
+    	return val;
+    }
+
     def andClause(tableName, value, sqlParams){
-    	if(value != '0'){
-    		sqlParams.push(value);
-    		return " AND " + tableName + "." + tableName.substring(5) + "_name = ?";
+    	if(value[0] != '0'){
+    		if(value.size() > 1){
+    			def clause = " AND (";
+    			for(def i = 0; i < value.size(); i++){
+    				sqlParams.push(value[i]);
+    				clause += tableName + "." + tableName.substring(5) + "_name = ?";
+    				if(i != value.size()-1){
+    					clause += " OR ";
+					}
+    			}
+    			return clause + ")";
+			}else{
+	    		sqlParams.push(value[0]);
+	    		return " AND " + tableName + "." + tableName.substring(5) + "_name = ?";
+			}
     	}else{
     		return "";
     	}
