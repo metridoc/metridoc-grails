@@ -38,38 +38,22 @@ class GateTransactionController {
 	    session.setAttribute("prev", new String("index"));
 	}
 
+	def back() {
+		redirect(action: 'index');
+	}
+
 	def query() {
 		def result = gateService.query(params);
 		def allDoorNames = gateService.getAllDoors();
-		Map allAffiliationData = [:];
-		result.countByAffiliation.each{ it->
-			if(!allAffiliationData.containsKey(it.affiliation_name)){
-				allAffiliationData.put(it.affiliation_name, [0] * allDoorNames.size()+1);
-			}
-			
-			allDoorNames.each{ door ->
-				if(door.name == it.door_name){
-					def pos = door.id;
-					(allAffiliationData.get(it.affiliation_name))[pos] = it.count;
-				}
-			}
-		}
-		
-		allAffiliationData.each{ k, v -> 
-    		v[allDoorNames.size()] = v.sum() - 1;
-    	};
 
-		print(result.countByAffiliation);
-		print("111111111111111111111111111111111111111111111111111111111111111111111111111");
-		print(allAffiliationData);
 		render(view: "searchResult",
 			   model: [
 			   	 allDoorNames : allDoorNames,
 			     startDatetime: result.startDatetime,
 			   	 endDatetime: result.endDatetime,
-			     countByAffiliation: result.countByAffiliation,
-			     countByCenter: result.countByCenter,
-			     countByUSC: result.countByUSC]);
+			     allAffiliationData: processTableData(result.countByAffiliation, allDoorNames, 'affiliation_name'),
+			     allCenterData: processTableData(result.countByCenter, allDoorNames, 'center_name'),
+			     allUSCData: processTableData(result.countByUSC, allDoorNames, 'usc_name')]);
 	}
 
 	def createNameArray(objArray){
@@ -78,5 +62,32 @@ class GateTransactionController {
 			nameArray.push(obj.name);
 		}
 		return nameArray.sort();
+	}
+
+
+
+	def processTableData(rawData, allDoorNames, key) {
+		Map returnMap = [:];
+    	if(rawData.size() == 0){
+			returnMap.put("Total", [0] * (allDoorNames.size()+1));
+		}else{
+	    	rawData.each{ it->
+				if(!returnMap.containsKey(it[key])){
+					returnMap.put(it[key], [0] * (allDoorNames.size()+1));
+				}
+				
+				allDoorNames.each{ door ->
+					if(door.name == it.door_name){
+						def pos = door.id;
+						(returnMap.get(it[key]))[pos] = it.count;
+					}
+				}
+			}
+			returnMap.each{ k, v -> 
+	    		v[allDoorNames.size()] = v.sum();
+	    	};
+		}
+
+		return returnMap;
 	}
 }
