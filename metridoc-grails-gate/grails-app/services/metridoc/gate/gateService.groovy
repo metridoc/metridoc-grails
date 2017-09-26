@@ -2,6 +2,11 @@ package metridoc.gate
 
 import groovy.sql.Sql
 import org.slf4j.LoggerFactory
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.util.CellReference
+import org.codehaus.groovy.grails.io.support.ClassPathResource
+import org.codehaus.groovy.grails.web.servlet.FlashScope
+import org.springframework.web.multipart.MultipartFile
 
 import javax.sql.DataSource
 import java.sql.ResultSet
@@ -159,6 +164,80 @@ class gateService {
         String endDatetime = formattedEndDate + " " + formattedEndTime;
 
         return [startDatetime:startDatetime, endDatetime:endDatetime];
+    }
+
+    def exportAsFile(data){
+    	ClassPathResource resource = new ClassPathResource('spreadsheet/Transaction_List.xlsx')
+        Workbook wb = WorkbookFactory.create(resource.getFile().newInputStream())
+        Sheet sheet = wb.getSheetAt(0)
+        wb.removeSheetAt(1)
+        wb.removeSheetAt(1)
+
+        CellStyle red_bold = wb.createCellStyle()
+        Font ft = wb.createFont()
+        ft.boldweight = Font.BOLDWEIGHT_BOLD
+        ft.color = Font.COLOR_RED
+        red_bold.font = ft
+
+        int rowNum = 0
+       
+       	def doorHeaders = [];
+       	data.allDoorNames.each{
+       		doorHeaders.push(it.name);
+       	}
+        def consHeaders = [""] + doorHeaders + ["Total"];
+        def headerLength = data.allDoorNames.size() + 1;
+        Row row = sheet.createRow(rowNum++)
+        def cellnum = 0
+        for (h in consHeaders){
+            row.createCell(cellnum).setCellValue(h)
+            cellnum++
+        }
+
+        row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue("Affiliation Summary");
+        rowNum = populateCells(data.allAffiliationData, row, rowNum, sheet, headerLength);
+
+        rowNum ++;
+        row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue("Center Summary");
+        rowNum = populateCells(data.allCenterData, row, rowNum, sheet, headerLength);
+
+        rowNum ++;
+        row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue("USC Summary");
+        row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+        populateCells(data.allUSCData, row, rowNum, sheet, headerLength);
+
+        return wb;
+    }
+
+    def populateCells(data, row, rowNum, sheet, headerLength) {
+		for (item in data) {
+            if (item.key != "Total"){
+            	row = sheet.createRow(rowNum++)
+            	row.createCell(0).setCellValue(item.key);
+            }else{
+            	continue;
+            }
+
+            for (int i = 0; i<headerLength; i++){
+            	row.createCell(i+1).setCellValue(item.value[i]);
+            }
+            row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+            for (int c = 1; c < headerLength + 1; c++)
+                row.getCell(c).setCellType(Cell.CELL_TYPE_NUMERIC);
+        }
+        row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue("Total");
+        for (int i = 0; i<headerLength; i++){
+        	row.createCell(i+1).setCellValue(data["Total"].value[i]);
+        }
+        row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+        for (int c = 1; c < headerLength + 1; c++)
+            row.getCell(c).setCellType(Cell.CELL_TYPE_NUMERIC);
+
+        return rowNum;
     }
 
 }

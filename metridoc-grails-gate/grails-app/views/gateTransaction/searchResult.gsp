@@ -3,25 +3,28 @@
         <div id="result-gateRecord" class="content scaffold-search" role="main" style="overflow-x:auto;">
         	<a name="top"></a>
         	<fieldset class="buttons">
-                <g:link action="back"> 
+				<a href="#AffiliationSummary">Affiliation Summary</a><br>
+				<a href="#CenterSummary">Center Summary</a><br>
+				<a href="#USCSummary">USC Summary</a>
+                <g:link action="back" style="float: right;"> 
 				   <input type="button" class="btn btn-danger" value="Back" class="button"/> 
 				</g:link>
-				<a href="#AffiliationSummary">Affiliation Summary</a>
-				<a href="#CenterSummary">Center Summary</a>
-				<a href="#USCSummary">USC Summary</a>
+				<g:link action="export" style="float: right;"> 
+				   <input type="button" class="btn btn-success" value="Download Data" class="button"/> 
+				</g:link>
             </fieldset>
 
         	<!-- Affiliation Table -->
         	<a name="AffiliationSummary"></a>
         	<h3>Affiliation Summary From ${startDatetime} to ${endDatetime}</h3>
-        	<table style="width: 100%" class="list summary" cellspacing="0">
+        	<table class="list summary" cellspacing="0">
         		<thead>
 				    <tr>
-				      <th colspan="1" rowspan="1">Affiliation</th>
+				      <th>Affiliation</th>
 				      <g:each in="${allDoorNames}" var="door">
-				      	<th colspan="1" rowspan="1">${door.name[-11..-1]}</th>
+				      	<th class="gate_summary_header">${door.name}</th>
 				      </g:each>
-				      <th colspan="1" rowspan="1">Total</th>
+				      <th>Total</th>
 				    </tr>
 			    </thead>
 			    <tbody>
@@ -43,7 +46,7 @@
 			    		</tr>
 			    </tbody>
         	</table>
-
+        	<a href="#Top">Back to Top</a>
 
         	<!-- Center Table -->
         	<a name="CenterSummary"></a>
@@ -51,11 +54,11 @@
         	<table class="list summary" cellspacing="0">
         		<thead>
 				    <tr>
-				      <th colspan="1" rowspan="1">Center</th>
+				      <th>Center</th>
 				      <g:each in="${allDoorNames}" var="door">
-				      	<th colspan="1" rowspan="1">${door.name[-11..-1]}</th>
+				      	<th class="gate_summary_header">${door.name}</th>
 				      </g:each>
-				      <th colspan="1" rowspan="1">Total</th>
+				      <th>Total</th>
 				    </tr>
 			    </thead>
 			    <tbody>
@@ -77,7 +80,7 @@
 			    		</tr>
 			    </tbody>
         	</table>
-
+        	<a href="#Top">Back to Top</a>
 
         	<!-- USC Table -->
         	<a name="USCSummary"></a>
@@ -85,11 +88,11 @@
         	<table class="list summary" cellspacing="0">
         		<thead>
 				    <tr>
-				      <th colspan="1" rowspan="1">USC</th>
+				      <th>USC</th>
 				      <g:each in="${allDoorNames}" var="door">
-				      	<th colspan="1" rowspan="1">${door.name[-11..-1]}</th>
+				      	<th class="gate_summary_header">${door.name}</th>
 				      </g:each>
-				      <th colspan="1" rowspan="1">Total</th>
+				      <th>Total</th>
 				    </tr>
 			    </thead>
 			    <tbody>

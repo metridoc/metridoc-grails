@@ -12,25 +12,25 @@ gateSQLQueries{
 		ON gate_department.department_id = gate_entry_record.department
 		WHERE gate_entry_record.entry_datetime BETWEEN ? AND ?'''
 
-	selectByAffiliation = '''SELECT gate_door.door_name, IFNULL(gate_affiliation.affiliation_name, "Total") AS affiliation_name, COUNT(*) AS count'''
+	selectByAffiliation = '''SELECT gate_door.short_name AS door_name, IFNULL(gate_affiliation.affiliation_name, "Total") AS affiliation_name, COUNT(*) AS count'''
 
-	groupByAffiliation = ''' GROUP BY gate_door.door_name, gate_affiliation.affiliation_name WITH ROLLUP'''
+	groupByAffiliation = ''' GROUP BY gate_door.short_name, gate_affiliation.affiliation_name WITH ROLLUP'''
 
-	selectByCenter = '''SELECT gate_door.door_name, IFNULL(gate_center.center_name, "Total") AS center_name, COUNT(*) AS count'''
+	selectByCenter = '''SELECT gate_door.short_name AS door_name, IFNULL(gate_center.center_name, "Total") AS center_name, COUNT(*) AS count'''
 
-	groupByCenter = ''' GROUP BY gate_door.door_name, gate_center.center_name WITH ROLLUP'''
+	groupByCenter = ''' GROUP BY gate_door.short_name, gate_center.center_name WITH ROLLUP'''
 
-	selectByDepartment = '''SELECT gate_door.door_name, IFNULL(gate_department.department_name, "Total") AS department_name, COUNT(*) AS count'''
+	selectByDepartment = '''SELECT gate_door.short_name AS door_name, IFNULL(gate_department.department_name, "Total") AS department_name, COUNT(*) AS count'''
 
-	groupByDepartment = ''' GROUP BY gate_door.door_name, gate_department.department_name WITH ROLLUP'''
+	groupByDepartment = ''' GROUP BY gate_door.short_name, gate_department.department_name WITH ROLLUP'''
 
-	selectByUSC = '''SELECT gate_door.door_name, IFNULL(gate_USC.usc_name, "Total") AS usc_name, COUNT(*) AS count'''
+	selectByUSC = '''SELECT gate_door.short_name AS door_name, IFNULL(gate_USC.usc_name, "Total") AS usc_name, COUNT(*) AS count'''
 
-	groupByUSC = ''' GROUP BY gate_door.door_name, gate_USC.USC_name WITH ROLLUP'''
+	groupByUSC = ''' GROUP BY gate_door.short_name, gate_USC.USC_name WITH ROLLUP'''
 
-	selectAll = '''SELECT gate_entry_record.entry_datetime, gate_door.door_name, gate_affiliation.affiliation_name, gate_center.center_name, gate_USC.USC_name, gate_department.department_name'''
+	selectAll = '''SELECT gate_entry_record.entry_datetime, gate_door.short_name AS door_name, gate_affiliation.affiliation_name, gate_center.center_name, gate_USC.USC_name, gate_department.department_name'''
 
-	getAllDoors = '''SELECT door_id AS id, door_name AS name FROM gate_door;'''
+	getAllDoors = '''SELECT door_id AS id, short_name AS name FROM gate_door;'''
 
 	getAllAffiliations = '''SELECT affiliation_id AS id, affiliation_name AS name FROM gate_affiliation;'''
 

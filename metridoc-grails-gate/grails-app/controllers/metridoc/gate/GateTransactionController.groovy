@@ -2,6 +2,7 @@ package metridoc.gate
 
 import grails.converters.JSON
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException
+import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.shiro.SecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
@@ -21,6 +22,8 @@ class GateTransactionController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"];
 
     def gateService;
+
+    private static downloadableData = [:];
 
     def index() {
     	def allDoorNames = createNameArray(gateService.getAllDoors());
@@ -46,14 +49,16 @@ class GateTransactionController {
 		def result = gateService.query(params);
 		def allDoorNames = gateService.getAllDoors();
 
-		render(view: "searchResult",
-			   model: [
+		downloadableData = [
 			   	 allDoorNames : allDoorNames,
 			     startDatetime: result.startDatetime,
 			   	 endDatetime: result.endDatetime,
 			     allAffiliationData: processTableData(result.countByAffiliation, allDoorNames, 'affiliation_name'),
 			     allCenterData: processTableData(result.countByCenter, allDoorNames, 'center_name'),
-			     allUSCData: processTableData(result.countByUSC, allDoorNames, 'usc_name')]);
+			     allUSCData: processTableData(result.countByUSC, allDoorNames, 'usc_name')];
+
+		render(view: "searchResult",
+			   model: downloadableData);
 	}
 
 	def createNameArray(objArray){
@@ -90,4 +95,26 @@ class GateTransactionController {
 
 		return returnMap;
 	}
+
+	def export() {
+        Workbook wb = gateService.exportAsFile(downloadableData);
+        wb.setActiveSheet(0);
+        Sheet sheet = wb.getSheetAt(0);
+        short initR = 1;
+        short initC = 1;
+        sheet.setActiveCell("A1");
+        sheet.showInPane(initR, initC);
+
+        try {
+            response.setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response.setHeader("Content-disposition",
+                    "filename=metridocGateSearchResult" + new Date().format("MMddyyyy-HHmmss") + ".xlsx")
+            wb.write(response.outputStream) // Performing a binary stream copy
+        } catch (Exception e) {
+            flash.alerts << e.message
+        }
+		render(view: "searchResult",
+			   model: downloadableData);
+        
+    }
 }
