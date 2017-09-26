@@ -116,12 +116,17 @@ class gateService {
     }
 
     def andClause(tableName, value, sqlParams){
+    	def propertyName = tableName.substring(5);
+    	if(tableName == "gate_door"){
+    		propertyName = "short";
+    	}
+
     	if(value[0] != '0'){
     		if(value.size() > 1){
     			def clause = " AND (";
     			for(def i = 0; i < value.size(); i++){
     				sqlParams.push(value[i]);
-    				clause += tableName + "." + tableName.substring(5) + "_name = ?";
+    				clause += tableName + "." + propertyName + "_name = ?";
     				if(i != value.size()-1){
     					clause += " OR ";
 					}
@@ -129,7 +134,7 @@ class gateService {
     			return clause + ")";
 			}else{
 	    		sqlParams.push(value[0]);
-	    		return " AND " + tableName + "." + tableName.substring(5) + "_name = ?";
+	    		return " AND " + tableName + "." + propertyName + "_name = ?";
 			}
     	}else{
     		return "";
