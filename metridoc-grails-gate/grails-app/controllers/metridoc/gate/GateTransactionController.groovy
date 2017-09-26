@@ -100,10 +100,12 @@ class GateTransactionController {
         Workbook wb = gateService.exportAsFile(downloadableData);
         wb.setActiveSheet(0);
         Sheet sheet = wb.getSheetAt(0);
-        short initR = 1;
-        short initC = 1;
         sheet.setActiveCell("A1");
-        sheet.showInPane(initR, initC);
+        sheet.createFreezePane(1, 1, 0, 0);
+        short r = 0;
+        short c = 0;
+        sheet.setColumnHidden(13, true);
+        sheet.showInPane(r, c);
 
         try {
             response.setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')

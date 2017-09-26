@@ -4,7 +4,6 @@ table, th, td {
 }
 
 table {
-	width: 100%;
 	table-layout: fixed;
 }
 
@@ -15,4 +14,8 @@ th, td {
 
 .gate_summary_header {
 	white-space: normal;
+}
+
+.datepicker {
+	width: 30%;
 }
