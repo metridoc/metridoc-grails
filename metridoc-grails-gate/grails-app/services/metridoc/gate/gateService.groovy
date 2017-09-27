@@ -174,47 +174,47 @@ class gateService {
     def exportAsFile(data){
     	ClassPathResource resource = new ClassPathResource('spreadsheet/Transaction_List.xlsx')
         Workbook wb = WorkbookFactory.create(resource.getFile().newInputStream())
-        Sheet sheet = wb.getSheetAt(0)
-        wb.removeSheetAt(1)
-        wb.removeSheetAt(1)
 
         CellStyle red_bold = wb.createCellStyle()
         Font ft = wb.createFont()
         ft.boldweight = Font.BOLDWEIGHT_BOLD
         ft.color = Font.COLOR_RED
         red_bold.font = ft
-
-        int rowNum = 0
        
        	def doorHeaders = [];
        	data.allDoorNames.each{
        		doorHeaders.push(it.name);
        	}
-        def consHeaders = [""] + doorHeaders + ["Total"];
-        def headerLength = data.allDoorNames.size() + 1;
+
+       	wb.setSheetName(1, "Affiliation Summary");
+       	wb.setSheetName(2, "Center Summary");
+       	wb.createSheet("USC Summary");
+
+        Sheet sheet1 = wb.getSheetAt(1);
+        populateSheet(data.allAffiliationData, sheet1, doorHeaders, "Affiliation");
+
+        Sheet sheet2 = wb.getSheetAt(2);
+        populateSheet(data.allCenterData, sheet2, doorHeaders, "Center");
+
+        Sheet sheet3 = wb.getSheetAt(3);
+        populateSheet(data.allUSCData, sheet3, doorHeaders, "USC");
+
+        wb.removeSheetAt(0);
+
+        return wb;
+    }
+
+    def populateSheet(data, sheet, doorHeaders, category) {
+    	int rowNum = 0
+    	def consHeaders = [category] + doorHeaders + ["Total"];
+        def headerLength = doorHeaders.size() + 1;
         Row row = sheet.createRow(rowNum++)
         def cellnum = 0
         for (h in consHeaders){
             row.createCell(cellnum).setCellValue(h)
             cellnum++
         }
-
-        row = sheet.createRow(rowNum++);
-        row.createCell(0).setCellValue("Affiliation Summary");
-        rowNum = populateCells(data.allAffiliationData, row, rowNum, sheet, headerLength);
-
-        rowNum ++;
-        row = sheet.createRow(rowNum++);
-        row.createCell(0).setCellValue("Center Summary");
-        rowNum = populateCells(data.allCenterData, row, rowNum, sheet, headerLength);
-
-        rowNum ++;
-        row = sheet.createRow(rowNum++);
-        row.createCell(0).setCellValue("USC Summary");
-        row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-        populateCells(data.allUSCData, row, rowNum, sheet, headerLength);
-
-        return wb;
+        populateCells(data, row, rowNum, sheet, headerLength);
     }
 
     def populateCells(data, row, rowNum, sheet, headerLength) {
