@@ -175,12 +175,6 @@ class gateService {
     	ClassPathResource resource = new ClassPathResource('spreadsheet/Transaction_List.xlsx')
         Workbook wb = WorkbookFactory.create(resource.getFile().newInputStream())
 
-        CellStyle red_bold = wb.createCellStyle()
-        Font ft = wb.createFont()
-        ft.boldweight = Font.BOLDWEIGHT_BOLD
-        ft.color = Font.COLOR_RED
-        red_bold.font = ft
-       
        	def doorHeaders = [];
        	data.allDoorNames.each{
        		doorHeaders.push(it.name);
@@ -191,25 +185,31 @@ class gateService {
        	wb.createSheet("USC Summary");
 
         Sheet sheet1 = wb.getSheetAt(1);
-        populateSheet(data.allAffiliationData, sheet1, doorHeaders, "Affiliation");
+        populateSheet(data.allAffiliationData, sheet1, doorHeaders, "Affiliation", data.startDatetime, data.endDatetime);
 
         Sheet sheet2 = wb.getSheetAt(2);
-        populateSheet(data.allCenterData, sheet2, doorHeaders, "Center");
+        populateSheet(data.allCenterData, sheet2, doorHeaders, "Center", data.startDatetime, data.endDatetime);
 
         Sheet sheet3 = wb.getSheetAt(3);
-        populateSheet(data.allUSCData, sheet3, doorHeaders, "USC");
+        populateSheet(data.allUSCData, sheet3, doorHeaders, "USC", data.startDatetime, data.endDatetime);
 
         wb.removeSheetAt(0);
 
         return wb;
     }
 
-    def populateSheet(data, sheet, doorHeaders, category) {
+    def populateSheet(data, sheet, doorHeaders, category, startDatetime, endDatetime) {
     	int rowNum = 0
     	def consHeaders = [category] + doorHeaders + ["Total"];
         def headerLength = doorHeaders.size() + 1;
         Row row = sheet.createRow(rowNum++)
         def cellnum = 0
+
+
+        Cell title = row.createCell(cellnum)
+        title.setCellValue(category + " Summary from " + startDatetime + " to " + endDatetime);
+
+        row = sheet.createRow(rowNum++)
         for (h in consHeaders){
             row.createCell(cellnum).setCellValue(h)
             cellnum++
