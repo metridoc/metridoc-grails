@@ -1,16 +1,16 @@
 /*
   *Copyright 2013 Trustees of the University of Pennsylvania. Licensed under the
-  *	Educational Community License, Version 2.0 (the "License"); you may
-  *	not use this file except in compliance with the License. You may
-  *	obtain a copy of the License at
+  * Educational Community License, Version 2.0 (the "License"); you may
+  * not use this file except in compliance with the License. You may
+  * obtain a copy of the License at
   *
   *http://www.osedu.org/licenses/ECL-2.0
   *
-  *	Unless required by applicable law or agreed to in writing,
-  *	software distributed under the License is distributed on an "AS IS"
-  *	BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-  *	or implied. See the License for the specific language governing
-  *	permissions and limitations under the License.  */
+  * Unless required by applicable law or agreed to in writing,
+  * software distributed under the License is distributed on an "AS IS"
+  * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+  * or implied. See the License for the specific language governing
+  * permissions and limitations under the License.  */
 
 package metridoc.penn.bd
 
@@ -198,27 +198,26 @@ class BorrowDirectService {
             currentMap.turnaroundShpRec = it.turnaroundShpRec
         })
 
+        //Hide some incorrect rates for EZBorrow,
+        //because of incorrect library_id field in print_date table
+        //delete if statements marked with *** when data is corrected
         boolean notEZBorrow = !EZB_SERVICE_KEY.equals(tablePrefix)
         //fill rates
         if (libId == null) {
-            if (notEZBorrow){
-                // log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery + " params=" + sqlParams)
-                if(isBorrowing){
-                    def allQuery = getAdjustedQuery(config.queries.borrowdirect.countsAllPerBorrower,"",additionalCondition,tablePrefix)
-                    sql.eachRow(allQuery,
+            if (notEZBorrow || isBorrowing) { //***
+
+                //additionalCondition != null if it is EZBorrow and subset of libraries has been selected
+                def allQuery = isBorrowing ? config.queries.borrowdirect.countsAllPerBorrower : config.queries.borrowdirect.countsAllPerLender;
+                //Total number of items borrowed by lib or lended(touched) by lib
+                allQuery = getAdjustedQuery(allQuery, "", additionalCondition, tablePrefix)
+
+                log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery + " params=" + sqlParams)
+                sql.eachRow(allQuery,
                         sqlParams, {
-                        setFillRateBorrowing(it.getAt(0), it.unfilledNum, keyForSection, result)
-                    })
-                }else{
-                    def allQuery = getAdjustedQuery(config.queries.borrowdirect.countsAllPerLender,"",additionalCondition,tablePrefix)
-                    sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1],dates.currentFiscalYear[0], dates.currentFiscalYear[1]]
-                    sql.eachRow(allQuery,
-                        sqlParams, {
-                        setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
-                    })    
-                }
-                
-            }else if (selectedLibIds == null) {
+                    setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
+                })
+            }
+            else if (selectedLibIds == null) {
                 //*** remove whole else block
                 //leniding fill rate for All Libraries is equal to the borrowing fill rate
                 //if no subset has been selected, this value is already set, if calcFillRates is true
@@ -234,25 +233,16 @@ class BorrowDirectService {
                 //Total number of items borrowed by selected lib (lended to particular one) or lended(touched) by  selected lib
                 allQuery = prepareQuery(allQuery, tablePrefix)
                 log.debug("Runnig query for fillRate for ${libRoleColumn} and ${libId}: " + allQuery + " params=" + sqlParams)
-                if(isBorrowing){
-                    sql.eachRow(allQuery,
-                            sqlParams, {
-                        setFillRateBorrowing(it.getAt(0), it.unfilledNum, keyForSection, result)
-                    })
-                }else{
-                    allQuery = allQuery.replaceAll("\\{lender_id\\}", libId+"")
-                    sql.eachRow(allQuery,
-                            sqlParams, {
-                        setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
-                    })
-                }
+                sql.eachRow(allQuery,
+                        sqlParams, {
+                    setFillRate(it.getAt(0), it.requestsNum, keyForSection, result)
+                })
+            }
+            if (notEZBorrow || isBorrowing) { //***
                 //Calc for row All Library
                 allQuery = isBorrowing ? config.queries.borrowdirect.countsAllBorrowedByLib : config.queries.borrowdirect.countsAllTouchedByLib;
                 //Total number of items selected library borrowed (borrwing section) or have touched (for lending) section
                 allQuery = prepareQuery(allQuery, tablePrefix)
-                if(!isBorrowing){
-                    allQuery = allQuery.replaceAll("\\{lender_id\\}", libId+"")
-                }
                 log.debug("Runnig query for fillRate for ${libRoleColumn} and ${libId} - All Libraries row: " + allQuery + " params=" + sqlParams)
                 def row = sql.firstRow(allQuery, sqlParams)
                 setFillRate(-1, row != null ? row.requestsNum : 0, keyForSection, result)
@@ -279,72 +269,43 @@ class BorrowDirectService {
     }
 
     private static setFillRate(libId, requestsNum, keyForSection, result) {
-        def libData
-        if(libId){
-            libData = getLibDataMap(libId, result)
-        }else{
-            libData = getLibDataMap(-1, result)
-        }
+        def libData = getLibDataMap(libId, result)
         def currentMap = libData.get(keyForSection)
         if (currentMap.currentFiscalYear.get(-1) == null) {
             currentMap.currentFiscalYear.put(-1, 0);
         }
-        // if(libId==-1){
-        //     println("\nThis is lending total number")
-        //     println(requestsNum)
-        //     println("This is lending filled number")
-        //     println(currentMap.currentFiscalYear.get(-1))
-        // }
-        if (requestsNum != 0) {
-            def fillrate = (currentMap.currentFiscalYear.get(-1) / (float) requestsNum).round(2)
-            if(fillrate > 0 && fillrate < 1){
-                currentMap.yearFillRate = fillrate
-            }else{
-                currentMap.yearFillRate = -1
-            }
-        }else{
-            currentMap.yearFillRate = -1
-        }
+        currentMap.yearFillRate = (requestsNum != 0 ?
+                currentMap.currentFiscalYear.get(-1) / (float) requestsNum : -1)
     }
 
-    private static setFillRateBorrowing(libId, unfilledNum, keyForSection, result){
-        if(libId){
-            def libData = getLibDataMap(libId, result)
-            def currentMap = libData.get(keyForSection)
-            if (currentMap.currentFiscalYear.get(-1) == null) {
-                currentMap.currentFiscalYear.put(-1, 0);
-            }
-            if(unfilledNum == 0){
-                currentMap.yearFillRate = 1
-            }else{
-                // if(libId==-1){
-                //     println("\nTHIS is borrowing total number")
-                //     println(currentMap.currentFiscalYear.get(-1) + unfilledNum)
-                //     println("This is borrowing filled number")
-                //     println(currentMap.currentFiscalYear.get(-1))
-                //     println("This is borrowing unfilled number")
-                //     println(unfilledNum)
-                // }
+    private static setFillRateHistorical(libId, year, requestsNum, keyForSection, result) {
+        def libData = getLibDataMapHistorical(libId, result)
+        def currentMap = libData.get(keyForSection)
+        int currentKey = year != null ? year : -1
+        def log = LoggerFactory.getLogger(BorrowDirectService)
 
-                def unfilledRate = ((float) unfilledNum / (currentMap.currentFiscalYear.get(-1) + (float) unfilledNum)).round(2)
-                def fillrate = 1 - unfilledRate
-                if(fillrate > 0 && fillrate < 1){
-                    currentMap.yearFillRate = fillrate
-                }else{
-                    currentMap.yearFillRate = -1
-                }
-            }
+        log.error("""
+            current key is $currentKey
+            current map is $currentMap
+            libId is $libId
+            requestNum is $requestsNum
+            keyForSection is $keyForSection
+            result is $result
+        """)
+
+        Integer filledReqs = currentMap.items.get(currentKey);
+        if (filledReqs == null) {
+            filledReqs = 0;
         }
+        currentMap.fillRates.put(currentKey, (requestsNum != 0 ?
+                filledReqs / (float) requestsNum : -1))
     }
-
 
     def getUnfilledRequests(dateFrom, dateTo, libId, orderBy, serviceKey) {
         Sql sql = getSql();
         def query = prepareQuery(config.queries.borrowdirect.libraryUnfilledRequests, serviceKey) + orderBy
         def sqlParams = [dateFrom, dateTo, libId]
         log.debug("Runnig query for unfilled requests " + query + "\nparams = " + sqlParams)
-        println("THIS IS THE getUnfilledRequests QUERY")
-        println(query)
         return sql.rows(query, sqlParams)
     }
 
@@ -427,17 +388,10 @@ class BorrowDirectService {
                 //change from base 0 to base 1
 
                 log.debug("Runnig query for fillRate for ${libRoleColumn}: " + allQuery)
-                if(isBorrowing){
-                    sql.eachRow(allQuery,
-                            [], {
-                        setFillRateHistoricalBorrowing(it.getAt(0), it.getAt(1), it.unfilledNum, keyForSection, result)
-                    })
-                }else{
-                    sql.eachRow(allQuery,
-                            [], {
-                        setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
-                    })
-                }
+                sql.eachRow(allQuery,
+                        [], {
+                    setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
+                })
             }
             else if (selectedLibIds == null) {
                 //*** delete whole else block (with content)
@@ -459,24 +413,15 @@ class BorrowDirectService {
 
                 //sqlParams = [dates.currentFiscalYear[0], dates.currentFiscalYear[1], libId]
                 log.debug("Runnig query for fillRate for ${libRoleColumn} and ${libId}: " + allQuery)
-                if(isBorrowing){
-                    sql.eachRow(allQuery,
-                            [libId], {
-                        setFillRateHistoricalBorrowing(it.getAt(0), it.getAt(1), it.unfilledNum, keyForSection, result)
-                    })
-                }else{
-                    allQuery = allQuery.replaceAll("\\{lender_id\\}", libId+"")
-                    sql.eachRow(allQuery,
-                            [libId], {
-                        setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
-                    })
-                }
+                sql.eachRow(allQuery,
+                        [libId], {
+                    setFillRateHistorical(it.getAt(0), it.getAt(1), it.requestsNum, keyForSection, result)
+                })
+            }
+            if (notEZBorrow || isBorrowing) {
                 //Calc for row All Library
                 allQuery = isBorrowing ? config.queries.borrowdirect.historicalCountsAllBorrowedByLib :
                         config.queries.borrowdirect.historicalCountsAllTouchedByLib;
-                if(!isBorrowing){
-                    allQuery = allQuery.replaceAll("\\{lender_id\\}", libId+"")
-                }
                 //Total number of items selected library borrowed (borrwing section) or have touched (for lending) section
                 allQuery = prepareHistoricQuery(allQuery, tablePrefix)
 
@@ -486,86 +431,6 @@ class BorrowDirectService {
                     setFillRateHistorical(-1, it.getAt(0), it.requestsNum, keyForSection, result)
                 })
             }
-
-        }
-    }
-
-    private static setFillRateHistoricalBorrowing(libId, year, unfilledNum, keyForSection, result){
-        if(libId != null){
-            def libData = getLibDataMapHistorical(libId, result)
-            def currentMap = libData.get(keyForSection)
-            int currentKey = year != null ? year : -1
-            def log = LoggerFactory.getLogger(BorrowDirectService)
-
-            // log.error("""
-            //     current key is $currentKey
-            //     current map is $currentMap
-            //     libId is $libId
-            //     requestNum is $unfilledNum
-            //     keyForSection is $keyForSection
-            //     result is $result
-            // """)
-
-            Integer filledReqs = currentMap.items.get(currentKey);
-            if (filledReqs == null) {
-                filledReqs = 0;
-            }
-
-            // if(libId==-1){
-            //     println("\nTHIS is borrowing total number")
-            //     println(filledReqs + unfilledNum)
-            //     println("This is borrowing filled number")
-            //     println(filledReqs)
-            // }
-
-            def fillrate = (1 - (float) unfilledNum / (filledReqs + unfilledNum)).round(2)
-            if(fillrate > 0 && fillrate < 1){
-                currentMap.fillRates.put(currentKey, fillrate)
-            }else{
-                currentMap.fillRates.put(currentKey, -1)
-            }
-        }
-    }
-
-    private static setFillRateHistorical(libId, year, requestsNum, keyForSection, result) {
-        def libData
-        if(libId != null){
-            libData = getLibDataMapHistorical(libId, result)
-        }else{
-            libData = getLibDataMapHistorical(-1, result)
-        }
-        def currentMap = libData.get(keyForSection)
-        int currentKey = year != null ? year : -1
-        def log = LoggerFactory.getLogger(BorrowDirectService)
-
-        // log.error("""
-        //     current key is $currentKey
-        //     current map is $currentMap
-        //     libId is $libId
-        //     requestNum is $requestsNum
-        //     keyForSection is $keyForSection
-        //     result is $result
-        // """)
-
-        Integer filledReqs = currentMap.items.get(currentKey);
-        if (filledReqs == null) {
-            filledReqs = 0;
-        }
-        // if(libId==-1){
-        //     println("\nThis is lending total number")
-        //     println(requestsNum)
-        //     println("This is lending filled number")
-        //     println(filledReqs)
-        // }
-        if (requestsNum != 0) {
-            def fillrate = (filledReqs / (float) requestsNum).round(2)
-            if(fillrate > 0 && fillrate < 1){
-                currentMap.fillRates.put(currentKey,fillrate)
-            }else{
-                currentMap.fillRates.put(currentKey,-1)
-            }
-        }else{
-            currentMap.fillRates.put(currentKey,-1)
         }
     }
 
