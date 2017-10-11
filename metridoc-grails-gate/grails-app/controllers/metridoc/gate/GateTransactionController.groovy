@@ -14,6 +14,7 @@ import java.util.regex.Pattern
 import java.text.SimpleDateFormat
 
 class GateTransactionController {
+	//This application's title and description on front page
 	static homePage = [title: "Library Gate Traffic Information",
                        description: "Look up data of number and time of people entering libraries"]
 
@@ -62,6 +63,7 @@ class GateTransactionController {
 	}
 
 	def createNameArray(objArray){
+		//extract names from [id, name] array
 		def nameArray = [];
 		objArray.each{obj->
 			nameArray.push(obj.name);
