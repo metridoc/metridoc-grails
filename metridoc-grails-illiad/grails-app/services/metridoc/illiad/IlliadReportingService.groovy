@@ -29,8 +29,10 @@ class IlliadReportingService {
      * doing this instead of using gorm to deal with possible memory issues
      */
     def dataSourceUnproxied
-    def selectAllFromIllTransaction = { String type, boolean isBorrowing ->
+    def selectAllFromIllTransaction = { String type, boolean isBorrowing, String year ->
+        def nextYear = Integer.parseInt(year) + 1;
         def processType = isBorrowing ? "Borrowing" : "Lending"
+        def fiscalYear = " and transaction_date BETWEEN '" + year + "-07-01' AND '" + nextYear + "-6-31'"
         """
             select t.*, u.nvtgc
             from ill_transaction t
@@ -38,13 +40,14 @@ class IlliadReportingService {
             on t.user_id = u.user_id
             where process_type = ${processType}
                 and request_type= ${type}
-        """
+        """ + fiscalYear
     }
 
-    def streamIlliadDataAsCsv(String type, boolean borrowing, OutputStream outputStream) {
+    def streamIlliadDataAsCsv(String type, String borrowing, String year, OutputStream outputStream) {
         def sql = new Sql(dataSourceUnproxied as DataSource)
         def resultSetHelperService = new ResultSetHelperService()
-        sql.query(selectAllFromIllTransaction(type, borrowing)) { ResultSet resultSet ->
+        boolean isBorrowing = borrowing == "true" ? true : false;
+        sql.query(selectAllFromIllTransaction(type, isBorrowing, year)) { ResultSet resultSet ->
             def columns = resultSetHelperService.getColumnNames(resultSet)
             def columnsWithShortTrans = addShortTransDateColumn(columns)
             def writer = new OutputStreamWriter(outputStream, ENCODING as String)
