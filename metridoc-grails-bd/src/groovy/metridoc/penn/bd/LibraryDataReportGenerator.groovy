@@ -26,6 +26,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
+
 /**
  * 
  * @author Narine Ghochikyan
@@ -53,73 +54,88 @@ class LibraryDataReportGenerator {
 		"LCCN",
 		"CALL NUMBER",
         "LOCAL_ITEM_FOUND"];
-	
-	private Workbook workbook;
-	private Sheet sheet;
-	private int currentRowIndex;
-	private int currentCellIndex;
+
+    StringBuilder sb = new StringBuilder();
 	
 	public LibraryDataReportGenerator(){
-		workbook = new SXSSFWorkbook();
-		sheet = workbook.createSheet();
-		ReportGeneratorHelper.createBibliographyDumpHeader(BIBLIOGRAPHY_DUMP_FIELD_HEADERS, sheet, 0, 0);
-		currentRowIndex = 1;
+		for(int i=0; i<BIBLIOGRAPHY_DUMP_FIELD_HEADERS.length; i++){
+			sb.append(BIBLIOGRAPHY_DUMP_FIELD_HEADERS[i]);
+			sb.append(",");
+		}
+		sb.append("\n");
 	}
 	
 	def write(OutputStream out) throws IOException{
-		workbook.write(out);
+		out.write(sb.toString().getBytes());
 		out.flush();
 		out.close();
 	}
-	def addCell(row, cellData){
-		Cell cell = row.createCell(currentCellIndex);
-		cell.setCellValue(ReportGeneratorHelper.getStringValue(cellData));
-		currentCellIndex++;
-		
+	def addCell(cellData){
+		return ReportGeneratorHelper.getStringValue(cellData).replaceAll('"', '""');
 	}
+
 	def addRowData(currentRowData){
-		Row row = sheet.createRow(currentRowIndex);
-		currentCellIndex = 0;
 		//borrower
-		addCell(row, currentRowData.borrower);	
+		sb.append("\"");
+		sb.append(addCell(currentRowData.borrower));
+		sb.append("\", \"");	
 		//lender
-		addCell(row, currentRowData.lender);	
+		sb.append(addCell(currentRowData.lender));
+		sb.append("\", \"");		
 		//request number
-		addCell(row, currentRowData.requestNumber);
+		sb.append(addCell(currentRowData.requestNumber));
+		sb.append("\", \"");	
 		//pickup location
-		addCell(row, currentRowData.pickupLocation);
+		sb.append(addCell(currentRowData.pickupLocation));
+		sb.append("\", \"");	
 		//request date
-		addCell(row, currentRowData.requestDate);
+		sb.append(addCell(currentRowData.requestDate));
+		sb.append("\", \"");	
 		//ship date
-		addCell(row,currentRowData.shipDate);
+		sb.append(addCell(currentRowData.shipDate));
+		sb.append("\", \"");	
 		//received date
-		addCell(row, currentRowData.processDate);
+		sb.append(addCell(currentRowData.processDate));
+		sb.append("\", \"");	
 		//status
-		addCell(row, ReportGeneratorHelper.getStatus(currentRowData.isUnfilled));//currentRowData.supplierCode));
+		sb.append(addCell(ReportGeneratorHelper.getStatus(currentRowData.isUnfilled)));
+		sb.append("\", \"");	//currentRowData.supplierCode)));
+
 		//supplier code - do not include List exhausted
-		addCell(row, currentRowData.isUnfilled?"":currentRowData.supplierCode);
+		sb.append(addCell(currentRowData.isUnfilled?"":currentRowData.supplierCode));
+		sb.append("\", \"");	
 		//patron type
-		addCell(row, currentRowData.patronType);
+		sb.append(addCell(currentRowData.patronType));
+		sb.append("\", \"");	
 		//author
-		addCell(row, currentRowData.author);
+		sb.append(addCell(currentRowData.author));
+		sb.append("\", \"");	
 		//title
-		addCell(row, currentRowData.title);
+		sb.append(addCell(currentRowData.title));
+		sb.append("\", \"");	
 		//publisher
-		addCell(row, currentRowData.publisher);
+		sb.append(addCell(currentRowData.publisher));
+		sb.append("\", \"");	
 		//publication place
-		addCell(row, currentRowData.publicationPlace);
+		sb.append(addCell(currentRowData.publicationPlace));
+		sb.append("\", \"");	
 		//publication year
-		addCell(row, currentRowData.publicationYear);
+		sb.append(addCell(currentRowData.publicationYear));
+		sb.append("\", \"");	
 		//isbn
-		addCell(row, currentRowData.isbn);
+		sb.append(addCell(currentRowData.isbn));
+		sb.append("\", \"");	
 		//oclc
-		addCell(row, currentRowData.oclc);
+		sb.append(addCell(currentRowData.oclc));
+		sb.append("\", \"");	
 		//lccn
-		addCell(row, currentRowData.lccn);
+		sb.append(addCell(currentRowData.lccn));
+		sb.append("\", \"");	
 		//call number
-		addCell(row, currentRowData.isUnfilled == 0 ? currentRowData.callNumber:currentRowData.callNumberUnf);
+		sb.append(addCell(currentRowData.isUnfilled == 0 ? currentRowData.callNumber:currentRowData.callNumberUnf));
+		sb.append("\", \"");	
         //local item found
-        addCell(row, currentRowData.localItemFound)
-		currentRowIndex++;
+        sb.append(addCell(currentRowData.localItemFound));
+        sb.append("\"\n");
 	}
 }
