@@ -8,12 +8,12 @@ Search, view, and download the number of library entries by category during a sp
 Installation:
 -------------
 In order to use this plugin, 6 extra MySQL tables are needed in the database:
-    metridoc_gate_affiliation
-    metridoc_gate_center
-    metridoc_gate_department
-    metridoc_gate_door
-    metridoc_gate_USC
-    metridoc_gate_entry_record
+1. metridoc_gate_affiliation
+2. metridoc_gate_center
+3. metridoc_gate_department
+4. metridoc_gate_door
+5. metridoc_gate_USC
+6. metridoc_gate_entry_record
 To create and populate these tables, run the queries in the 6 sql files with their corresponding table names under the directory **sql_table_init**.
 
 Then, Metridoc-app also needs to know the existence of a new plugin. Therefore, under the line 
