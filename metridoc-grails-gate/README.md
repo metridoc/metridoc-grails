@@ -53,6 +53,8 @@ This page shows the search result according to the filters specified by users. T
 1. Entry by different affiliations. 
 2. Entry by different centers. 
 3. Entry by different USCs. 
+
+
 Entry by departments is omitted for now since there are over 600 departments in the database. 
 When a link at the top of the page is clicked, the page will job to its corresponding result table. For example, clicking **Center Summary** will jump to the beginning of the result table by different centers. Clicking **back to top** link will take the user back to the top of the page.
 When the **Download Data** button is clicked, the application will convert the 3 tables into 3 sheets and put them in 1 csv file and start the download process of the csv file for the user.
