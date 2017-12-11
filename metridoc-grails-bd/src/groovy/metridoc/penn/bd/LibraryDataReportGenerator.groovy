@@ -80,7 +80,7 @@ class LibraryDataReportGenerator {
 		out.close();
 	}
 	def addCell(cellData){
-		return ReportGeneratorHelper.getStringValue(cellData);
+		return ReportGeneratorHelper.getStringValue(cellData).replaceAll('"', '""');
 	}
 
 	def addRowData(currentRowData){
