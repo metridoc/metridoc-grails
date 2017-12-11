@@ -77,6 +77,6 @@ This directory contains gsp files, which control what the application looks like
 **web-app/css/GateTransaction.css**:
 This css file contains style for the result tables that display library entry records.
 
-**web-app/js/GateTransaction.**js:
+**web-app/js/GateTransaction.js**:
 The content of this js file controls the date picker on the search page of this application.
 
