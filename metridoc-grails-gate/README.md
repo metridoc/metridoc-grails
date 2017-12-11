@@ -14,6 +14,8 @@ In order to use this plugin, 6 extra MySQL tables are needed in the database:
 4. metridoc_gate_door
 5. metridoc_gate_USC
 6. metridoc_gate_entry_record
+
+
 To create and populate these tables, run the queries in the 6 sql files with their corresponding table names under the directory **sql_table_init**.
 
 Then, Metridoc-app also needs to know the existence of a new plugin. Therefore, under the line 
