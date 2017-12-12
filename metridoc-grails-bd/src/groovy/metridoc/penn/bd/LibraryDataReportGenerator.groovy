@@ -19,12 +19,10 @@ import groovy.sql.GroovyResultSetExtension;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
+import java.io.File;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.grails.plugins.csv.CSVWriter;
+import org.apache.commons.io.FileUtils;
 
 /**
  * 
@@ -54,72 +52,95 @@ class LibraryDataReportGenerator {
 		"CALL NUMBER",
         "LOCAL_ITEM_FOUND"];
 	
-	private Workbook workbook;
-	private Sheet sheet;
-	private int currentRowIndex;
-	private int currentCellIndex;
+    def sw;
+    def b;
 	
 	public LibraryDataReportGenerator(){
-		workbook = new SXSSFWorkbook();
-		sheet = workbook.createSheet();
-		ReportGeneratorHelper.createBibliographyDumpHeader(BIBLIOGRAPHY_DUMP_FIELD_HEADERS, sheet, 0, 0);
-		currentRowIndex = 1;
+		sw = new StringWriter();
+		b = new CSVWriter(sw, {
+			col1:"BORROWER" {it.val1}
+			col2:"LENDER" {it.val2}
+			col3:"REQUEST NUMBER" {it.val3}
+			col4:"PICK UP LOCATION" {it.val4}
+			col5:"REQUEST DATE" {it.val5}
+			col6:"SHIP DATE" {it.val6}
+			col7:"RECEIVED DATE" {it.val7}
+			col8:"STATUS" {it.val8}
+			col9:"SHELVING LOCATION" {it.val9}
+			col10:"PATRON TYPE" {it.val10}
+			col11:"AUTHOR" {it.val11}
+			col12:"TITLE" {it.val12}
+			col13:"PUBLISHER" {it.val13}
+			col14:"PUBLICATION PLACE" {it.val14}
+			col15:"PUBLICATION YEAR" {it.val15}
+			col16:"ISBN" {it.val16}
+			col17:"OCLC" {it.val17}
+			col18:"LCCN" {it.val18}
+			col19:"CALL NUMBER" {it.val19}
+			col20:"LOCAL_ITEM_FOUND" {it.val20}
+			})
 	}
 	
 	def write(OutputStream out) throws IOException{
-		workbook.write(out);
+		out << b.writer.toString();
 		out.flush();
 		out.close();
 	}
-	def addCell(row, cellData){
-		Cell cell = row.createCell(currentCellIndex);
-		cell.setCellValue(ReportGeneratorHelper.getStringValue(cellData));
-		currentCellIndex++;
+	def processCellData(cellData){
+		return ReportGeneratorHelper.getStringValue(cellData);
 		
 	}
 	def addRowData(currentRowData){
-		Row row = sheet.createRow(currentRowIndex);
-		currentCellIndex = 0;
+		def rowMap = [:];
 		//borrower
-		addCell(row, currentRowData.borrower);	
+		rowMap.put('val1', processCellData(currentRowData.borrower));
 		//lender
-		addCell(row, currentRowData.lender);	
+		rowMap.put('val2', processCellData(currentRowData.lender));
 		//request number
-		addCell(row, currentRowData.requestNumber);
+		rowMap.put('val3', processCellData(currentRowData.requestNumber));
 		//pickup location
-		addCell(row, currentRowData.pickupLocation);
+		rowMap.put('val4', processCellData(currentRowData.pickupLocation));
 		//request date
-		addCell(row, currentRowData.requestDate);
+		rowMap.put('val5', processCellData(currentRowData.requestDate));
 		//ship date
-		addCell(row,currentRowData.shipDate);
+		rowMap.put('val6', processCellData(currentRowData.shipDate));
 		//received date
-		addCell(row, currentRowData.processDate);
+		rowMap.put('val7', processCellData(currentRowData.processDate));
 		//status
-		addCell(row, ReportGeneratorHelper.getStatus(currentRowData.isUnfilled));//currentRowData.supplierCode));
+		rowMap.put('val8', ReportGeneratorHelper.getStatus(processCellData(currentRowData.isUnfilled)));
 		//supplier code - do not include List exhausted
-		addCell(row, currentRowData.isUnfilled?"":currentRowData.supplierCode);
+		if(currentRowData.isUnfilled){
+			rowMap.put('val9', processCellData(""));
+		}else{
+			rowMap.put('val9', processCellData(currentRowData.supplierCode));
+		}
 		//patron type
-		addCell(row, currentRowData.patronType);
+		rowMap.put('val10', processCellData(currentRowData.patronType));
 		//author
-		addCell(row, currentRowData.author);
+		rowMap.put('val11', processCellData(currentRowData.author));
 		//title
-		addCell(row, currentRowData.title);
+		rowMap.put('val12', processCellData(currentRowData.title));
 		//publisher
-		addCell(row, currentRowData.publisher);
+		rowMap.put('val13', processCellData(currentRowData.publisher));
 		//publication place
-		addCell(row, currentRowData.publicationPlace);
+		rowMap.put('val14', processCellData(currentRowData.publicationPlace));
 		//publication year
-		addCell(row, currentRowData.publicationYear);
+		rowMap.put('val15', processCellData(currentRowData.publicationYear));
 		//isbn
-		addCell(row, currentRowData.isbn);
+		rowMap.put('val16', processCellData(currentRowData.isbn));
 		//oclc
-		addCell(row, currentRowData.oclc);
+		rowMap.put('val17', processCellData(currentRowData.oclc));
 		//lccn
-		addCell(row, currentRowData.lccn);
+		rowMap.put('val18', processCellData(currentRowData.lccn));
 		//call number
-		addCell(row, currentRowData.isUnfilled == 0 ? currentRowData.callNumber:currentRowData.callNumberUnf);
+		if(currentRowData.isUnfilled == 0){
+			rowMap.put('val19', processCellData(currentRowData.callNumber));
+		}else{
+			rowMap.put('val19', processCellData(currentRowData.callNumberUnf));
+		}
         //local item found
-        addCell(row, currentRowData.localItemFound)
-		currentRowIndex++;
+        rowMap.put('val20', processCellData(currentRowData.localItemFound));
+		
+		b << rowMap;
 	}
 }
