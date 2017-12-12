@@ -107,7 +107,7 @@ class LibraryDataReportGenerator {
 		//received date
 		rowMap.put('val7', processCellData(currentRowData.processDate));
 		//status
-		rowMap.put('val8', ReportGeneratorHelper.getStatus(processCellData(currentRowData.isUnfilled)));
+		rowMap.put('val8', ReportGeneratorHelper.getStatus(currentRowData.isUnfilled));
 		//supplier code - do not include List exhausted
 		if(currentRowData.isUnfilled){
 			rowMap.put('val9', processCellData(""));
