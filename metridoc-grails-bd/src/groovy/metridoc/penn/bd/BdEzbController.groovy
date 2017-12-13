@@ -52,8 +52,8 @@ class BdEzbController {
 			def library_id = cmd.library				
 			def dateFrom = DateUtil.getDateStartOfDay(cmd.dd_from_year, cmd.dd_from_month-1, cmd.dd_from_day)
 			def dateTo = DateUtil.getDateEndOfDay(cmd.dd_to_year, cmd.dd_to_month-1, cmd.dd_to_day)
-			response.setHeader("Content-Disposition", "attachment;filename=\"my_library_dump.xlsx\"");
-			response.setContentType("application/vnd.ms-excel")
+			response.setHeader("Content-Disposition", "attachment;filename=\"my_library_dump.csv\"");
+			response.setContentType("text/csv")
 			borrowDirectService.dumpDataLibrary(library_id, dateFrom, dateTo, response.outputStream, serviceKey)	
 			return null
 		}else{
