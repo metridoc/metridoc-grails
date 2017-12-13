@@ -1,5 +1,5 @@
 class MetridocRidGrailsPlugin {
-    def version = "0.9.0"
+    def version = "0.9.1"
     def grailsVersion = "2.1 > *"
     def loadAfter = ['metridocCore']
     def pluginExcludes = [
