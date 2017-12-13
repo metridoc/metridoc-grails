@@ -44,6 +44,7 @@ grails.project.dependency.resolution = {
       }
     	runtime ":hibernate:3.6.10.6"
         compile(":calendar:1.2.1")
+        compile(":csv:0.3.1")
     }
 }
 
