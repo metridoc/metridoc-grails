@@ -18,6 +18,19 @@ In order to use this plugin, 6 extra MySQL tables are needed in the database:
 
 To create and populate these tables, run the queries in the 6 sql files with their corresponding table names under the directory **sql_table_init**.
 
+You can use the following commands on the command line to create these tables and import basic data into your database in the **sql_table_init directory**, replace **"root"** with your own username:
+
+```bash
+mysql -u root -p metridoc < metridoc_gate_USC.sql
+mysql -u root -p metridoc < metridoc_gate_affiliation.sql
+mysql -u root -p metridoc < metridoc_gate_center.sql
+mysql -u root -p metridoc < metridoc_gate_department.sql
+mysql -u root -p metridoc < metridoc_gate_door.sql
+mysql -u root -p metridoc < metridoc_gate_entry_record.sql
+```
+
+Please make sure to import **metridoc_gate_entry_record** last since it depends on the other 5 tables.
+
 Then, Metridoc-app also needs to know the existence of a new plugin. Therefore, under the line 
 ```groovy
 grails.plugin.location."metridoc-rid" = "../metridoc-grails/metridoc-grails-rid"
