@@ -61,10 +61,10 @@
 	                </div>
 	                <div class="span2 offset2">
 	                	<label class="control-label" for="gateUSC">
-                        <g:message code="gateTransaction.gateUSC.label" default="USC"/>
+                        <g:message code="gateTransaction.gateUSC.label" default="Other Affiliations"/>
 	                    </label>
 	                	<g:select id="gateUSCSearch" class="input-search" name="gateUSCSearch"
-		                          noSelection="${['0': 'All USCs']}" multiple="true" value="0"
+		                          noSelection="${['0': 'All Other Affiliations']}" multiple="true" value="0"
 		                          from="${allUSCNames}"/>
 	                </div>
                 </div>
