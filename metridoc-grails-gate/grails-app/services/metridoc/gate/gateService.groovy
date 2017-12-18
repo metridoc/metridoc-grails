@@ -162,7 +162,7 @@ class gateService {
 	        Date endTime = new SimpleDateFormat('HH:mm').parse(params.timeOfEntryRecord_end);
 	        formattedEndTime = targetTimeFormat.format(endTime);
         }else{
-        	formattedEndTime = "00:00";
+        	formattedEndTime = "23:59";
         }
 
         String startDatetime = formattedStartDate + " " + formattedStartTime;
@@ -182,7 +182,7 @@ class gateService {
 
        	wb.setSheetName(1, "Affiliation Summary");
        	wb.setSheetName(2, "Center Summary");
-       	wb.createSheet("USC Summary");
+       	wb.createSheet("Other Affiliations Summary");
 
         Sheet sheet1 = wb.getSheetAt(1);
         populateSheet(data.allAffiliationData, sheet1, doorHeaders, "Affiliation", data.startDatetime, data.endDatetime);
@@ -191,7 +191,7 @@ class gateService {
         populateSheet(data.allCenterData, sheet2, doorHeaders, "Center", data.startDatetime, data.endDatetime);
 
         Sheet sheet3 = wb.getSheetAt(3);
-        populateSheet(data.allUSCData, sheet3, doorHeaders, "USC", data.startDatetime, data.endDatetime);
+        populateSheet(data.allUSCData, sheet3, doorHeaders, "Other Affiliations", data.startDatetime, data.endDatetime);
 
         wb.removeSheetAt(0);
 

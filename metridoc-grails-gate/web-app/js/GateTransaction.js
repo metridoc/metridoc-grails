@@ -1,17 +1,23 @@
 $(function () {
     var nowTemp = new Date();
-    var begin = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-    var end = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+    var minDate = new Date("April 01, 2017 00:00:00");
+    var maxDate = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), 0);
 
     var $startDate = $('#entry-record-start-date');
     var $endDate = $('#entry-record-end-date');
 
-    $startDate.datepicker('setValue', begin);
-    $endDate.datepicker('setValue', end);
+    $startDate.datepicker('setValue', minDate);
+    $endDate.datepicker('setValue', maxDate);
     var checkin = $startDate.datepicker().on('changeDate',function (ev) {
-        if (ev.date.valueOf() > end) {
-            checkin.setValue(end);
-            alert("Cannot select a date in the future!");
+        if(ev.date.valueOf() < minDate){
+            alert("Data starts on 2017/04");
+            checkin.setValue(minDate);
+            return
+        }
+
+        if(ev.date.valueOf() > maxDate){
+            alert("Our database refreshes monthly. We only have data up to the last month");
+            checkin.setValue(maxDate);
             return
         }
 
@@ -25,11 +31,18 @@ $(function () {
     }).data('datepicker');
     var checkout = $endDate.datepicker()
         .on('changeDate',function (ev) {
-            if (ev.date.valueOf() > end) {
-                checkout.setValue(end);
-                alert("Cannot select a date in the future!");
+            if(ev.date.valueOf() < minDate){
+                alert("Data starts on 2017/04");
+                checkout.setValue(minDate);
                 return
             }
+
+            if(ev.date.valueOf() > maxDate){
+                alert("Our database refreshes monthly. We only have data up to the last month");
+                checkout.setValue(maxDate);
+                return
+            }
+
             if (ev.date.valueOf() < checkin.date.valueOf()) {
                 var newDate = new Date(ev.date);
                 newDate.setDate(newDate.getDate());

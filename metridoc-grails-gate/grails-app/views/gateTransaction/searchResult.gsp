@@ -1,6 +1,7 @@
 <md:report>
     <div class="md-application-content">
         <div id="result-gateRecord" class="content scaffold-search" role="main" style="overflow-x:auto;">
+        	<h2 style="color:red">Note: The database refreshes on a monthly basis!</h2>
         	<a name="top"></a>
         	<fieldset class="buttons">
 				<a href="#AffiliationSummary">Affiliation Summary</a><br>

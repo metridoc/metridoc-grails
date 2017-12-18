@@ -1,6 +1,8 @@
 <md:report>
     <div class="md-application-content">
         <div id="search-gateRecord" class="content scaffold-search" role="main">
+
+        <h2 style="color:red; margin-left: 50px">Note: The database refreshes on a monthly basis!</h2>
         	
     	<md:form class="form-horizontal" action="query" method="GET">
             <fieldset class="form">
