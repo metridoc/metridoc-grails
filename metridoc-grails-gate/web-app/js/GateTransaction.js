@@ -16,7 +16,7 @@ $(function () {
         }
 
         if(ev.date.valueOf() > maxDate){
-            alert("Our database refreshes monthly. We only have data up to the last month");
+            alert("This database refreshes on a monthly basis. Information is available up through the end of last month");
             checkin.setValue(maxDate);
             return
         }
@@ -38,7 +38,7 @@ $(function () {
             }
 
             if(ev.date.valueOf() > maxDate){
-                alert("Our database refreshes monthly. We only have data up to the last month");
+                alert("This database refreshes on a monthly basis. Information is available up through the end of last month");
                 checkout.setValue(maxDate);
                 return
             }
