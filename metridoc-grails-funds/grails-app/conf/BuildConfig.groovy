@@ -89,11 +89,15 @@ grails.project.dependency.resolution = {
             excludes 'poi'
             excludes 'dom4j'
         }
+    	test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 
     plugins {
         if (!useInlinePlugin) {
             compile ":metridoc-core:${coreVersion}"
+        }
+        test(":spock:0.7") {
+          exclude "spock-grails-support"
         }
         runtime ":hibernate:3.6.10.6"
         build(":tomcat:7.0.47")
