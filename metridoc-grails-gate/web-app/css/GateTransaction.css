@@ -1,0 +1,21 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+	table-layout: fixed;
+}
+
+th, td {
+	width: 80px;
+	word-break: break-word;
+}
+
+.gate_summary_header {
+	white-space: normal;
+}
+
+.datepicker {
+	width: 30%;
+}
