@@ -1,6 +1,6 @@
 $(function () {
     var nowTemp = new Date();
-    var minDate = new Date("April 01, 2017 00:00:00");
+    var minDate = new Date("January 01, 2017 00:00:00");
     var maxDate = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), 0);
 
     var $startDate = $('#entry-record-start-date');
