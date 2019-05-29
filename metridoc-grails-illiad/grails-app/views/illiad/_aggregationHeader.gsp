@@ -13,8 +13,22 @@
   - 	permissions and limitations under the License.  --}%
 
 <div class='subHeadRow'>
-    <a href="${createLink(action: "download", params: [borrowing: borrowing, type: type])}">
-        <icon class="icon-download-alt" data-toggle="tooltip" data-original-title="Download all available illiad data for this table"></icon></a>
+
+    
+    <div id="download_modal" class="modal">
+
+      <div class="modal-content">
+      Select the fiscal year of data you wish to download
+        <g:set var="currentYear" value="${Calendar.getInstance().get(Calendar.YEAR)}"/>
+        <g:form name="myForm" action="myaction" params="[borrowing: borrowing, type: type]">
+          <g:select id="download_year" name="download_year" from="${2013..currentYear}"/>
+          <g:actionSubmit type="button" value="Download" onclick="download_year.value" action="download"/>
+        </g:form>
+      </div>
+
+    </div> 
+
+    <button id=${borrowing}${type}btn class="open_download_modal">Export</button>
     <span class="aggregation-header" data-toggle="tooltip"
           data-original-title="Items below may not sum to the aggregates since transactions can be in mulltiple groups">${body()}*</span>
 </div>

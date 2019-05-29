@@ -40,7 +40,10 @@ class IlliadController {
         }
     }
 
-    def download(String type, Boolean borrowing) {
+    def download() {
+        def type = params.type;
+        def borrowing = params.borrowing;
+        def year = params.download_year;
         if (!type) {
             flash.alerts << "[type] was not specified for file download"
             redirect(action: "index")
@@ -49,7 +52,7 @@ class IlliadController {
             response.setContentType("text/csv")
             def fileName = borrowing ? "${type.toLowerCase()}_borrowing.csv" : "${type.toLowerCase()}_lending.csv"
             response.setHeader("Content-Disposition", "attachment;filename=${fileName}")
-            illiadReportingService.streamIlliadDataAsCsv(type, borrowing, response.outputStream)
+            illiadReportingService.streamIlliadDataAsCsv(type, borrowing, year, response.outputStream)
         }
     }
 }

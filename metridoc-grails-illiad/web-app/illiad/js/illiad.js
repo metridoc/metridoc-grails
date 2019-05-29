@@ -25,3 +25,25 @@ function addToolTips() {
     $('.aggregation-header').tooltip();
     $('.icon-download-alt').tooltip();
 }
+
+var modal = document.getElementById('download_modal');
+
+var span = document.getElementsByClassName("close")[0];
+
+function toggleModal(){
+  modal.style.display = "block";
+}
+
+$(document).on('click', '.open_download_modal', toggleModal);
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+} 
