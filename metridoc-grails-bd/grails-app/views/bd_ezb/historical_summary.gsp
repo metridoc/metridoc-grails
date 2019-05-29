@@ -62,7 +62,8 @@
         <tr>
             <th class="mainColHeader" rowspan="2">Borrowing</th>
             <g:each var="i" in="${(reportData.currentFiscalYear..reportData.minFiscalYear)}">
-                <th colspan="2">
+                <!-- change colspan to 2 if including fill rate feature -->
+                <th colspan="1">
                     <a href="javascript:getSummary(${i != reportData.currentFiscalYear ? i : ""})">${i}</a>
                     <%--
                    <g:if test="${i == reportData.currentFiscalYear}">
@@ -77,7 +78,9 @@
         </tr>
         <tr>
             <g:each var="i" in="${(reportData.currentFiscalYear..reportData.minFiscalYear)}">
-                <th>Items</th> <th>Fill Rate</th>
+                <th>Items</th> 
+                <!-- uncomment the following lines if resurrecting fill rate feature -->
+                <!-- <th>Fill Rate</th> -->
             </g:each>
         </tr>
         </thead>
@@ -114,7 +117,8 @@
         <tr>
             <th class="mainColHeader" rowspan="2">Lending</th>
             <g:each var="i" in="${(reportData.currentFiscalYear..reportData.minFiscalYear)}">
-                <th colspan="2">
+                <!-- change colspan to 2 if including fill rate feature -->
+                <th colspan="1">
                     <a href="javascript:getSummary(${i != reportData.currentFiscalYear ? i : ""})">${i}</a>
                     <%--
                    <g:if test="${i == reportData.currentFiscalYear}">
@@ -128,7 +132,9 @@
         </tr>
         <tr>
             <g:each var="i" in="${(reportData.currentFiscalYear..reportData.minFiscalYear)}">
-                <th>Items</th> <th>Fill Rate</th>
+                <th>Items</th> 
+                <!-- uncomment the following lines if resurrecting fill rate feature -->
+                <!-- <th>Fill Rate</th> -->
             </g:each>
         </tr>
         </thead>
